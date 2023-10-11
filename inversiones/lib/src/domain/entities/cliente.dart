@@ -1,3 +1,5 @@
+import 'package:inversiones/src/domain/entities/credito.dart';
+
 class Cliente {
   const Cliente({
     this.id,
@@ -7,6 +9,7 @@ class Cliente {
     required this.celular,
     required this.pais,
     required this.cedula,
+    required this.listaCreditos,
   });
 
   final int? id;
@@ -16,7 +19,7 @@ class Cliente {
   final String celular;
   final String pais;
   final String cedula;
-  // final List<Credito> listaCreditos;
+  final List<Credito> listaCreditos;
 
   factory Cliente.fromJson(Map<String, dynamic> json) {
     return Cliente(
@@ -27,6 +30,11 @@ class Cliente {
       celular: json['celular'] as String,
       pais: json['pais'] as String,
       cedula: json['cedula'] as String,
+      listaCreditos: List<Credito>.from(
+        (json['listaCreditos'] as List<dynamic>).map((element) {
+          return Credito.fromJson(element as Map<String, dynamic>);
+        }),
+      ),
     );
   }
 
