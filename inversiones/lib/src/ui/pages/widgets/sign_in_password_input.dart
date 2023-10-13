@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/sign_in/sign_in_controller.dart';
 
 class SignInPasswordInput extends StatelessWidget {
-  const SignInPasswordInput({Key? key}) : super(key: key);
+  const SignInPasswordInput({super.key});
 
   @override
   Widget build(BuildContext context) {

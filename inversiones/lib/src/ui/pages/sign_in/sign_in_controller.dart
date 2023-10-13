@@ -29,6 +29,8 @@ class SignInController extends GetxController {
       Get.showOverlay(
         asyncFunction: () async {
           try {
+            print(usernameController.text);
+            print(passwordController.text);
             final SignInResponse res =
                 await const SignInHttp().signInWithUsernameAndPassword(
               usernameController.text.trim(),
