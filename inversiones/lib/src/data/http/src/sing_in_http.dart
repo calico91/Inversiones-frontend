@@ -25,6 +25,8 @@ class SignInHttp implements SignInRepository {
           'password': password,
         },
       );
+
+      print(response.body);
       return compute(signInResponseFromJson, response.body);
     } catch (e) {
       rethrow;

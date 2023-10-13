@@ -51,6 +51,7 @@ class BaseHttpClient {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
         : Uri.http('10.102.1.13:8091', path, parameters);
+        print(uri);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final http.Response response = await http
