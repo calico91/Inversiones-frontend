@@ -44,6 +44,10 @@ class SignInController extends GetxController {
             appController.manageError(e.message);
           }
         },
+        loadingWidget: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 180, vertical: 410),
+          child: const CircularProgressIndicator.adaptive(),
+        ),
       );
     }
   }
@@ -55,7 +59,6 @@ class SignInController extends GetxController {
     return null;
   }
 
-  /// Validate secure password [value].
   String? validatePassword(String? value) {
     if (value == null) {
       return 'Invalid password';
