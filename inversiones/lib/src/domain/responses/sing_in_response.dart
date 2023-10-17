@@ -24,7 +24,7 @@ class SignInResponse {
       status: status,
       message: json['message'] as String,
       userDetails: status == 200
-          ? UserDetails.fromJson(json['user'] as Map<String, dynamic>)
+          ? UserDetails.fromJson(json['userDetails'] as Map<String, dynamic>)
           : null,
       token: status == 200 ? json['token'] as String : null,
     );

@@ -14,13 +14,13 @@ class SignInController extends GetxController {
   final AppController appController;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void onClose() {
-    usernameController.dispose();
-    passwordController.dispose();
+    //usernameController.dispose();
+    //passwordController.dispose();
     super.onClose();
   }
 

@@ -1,3 +1,5 @@
+import 'package:inversiones/src/domain/entities/Authority.dart';
+
 class UserDetails {
   const UserDetails({
     this.password,
@@ -11,16 +13,20 @@ class UserDetails {
 
   final String? password;
   final String username;
-  final List<String> authorities;
+  final List<Authority> authorities;
   final bool accountNonExpired;
   final bool accountNonLocked;
   final bool credentialsNonExpired;
   final bool enabled;
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
-        password: json["password"] as String,
+        password: json["password"] == null ? "" : json["password"] as String,
         username: json["username"] as String,
-        authorities: List<String>.from(json['authorities'] as List<String>),
+        authorities: List<Authority>.from(
+          (json["authorities"] as List<dynamic>).map((element) {
+            return Authority.fromJson(element as Map<String, dynamic>);
+          }),
+        ),
         accountNonExpired: json["accountNonExpired"] as bool,
         accountNonLocked: json["accountNonLocked"] as bool,
         credentialsNonExpired: json["credentialsNonExpired"] as bool,
