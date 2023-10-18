@@ -10,7 +10,13 @@ class HomePage extends StatelessWidget {
     final HomeController controller = Get.find<HomeController>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.userDetails.username),
+        title: Center(child: Text(controller.userDetails.username)),
+        actions: [
+          IconButton(
+            onPressed: controller.logout,
+            icon: const Icon(Icons.logout_outlined),
+          ),
+        ],
       ),
     );
   }

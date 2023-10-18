@@ -7,6 +7,7 @@ import 'package:inversiones/src/data/http/src/sing_in_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/responses/sing_in_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
+import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class SignInController extends GetxController {
   SignInController(this.appController);
@@ -45,10 +46,7 @@ class SignInController extends GetxController {
             appController.manageError(e.message);
           }
         },
-        loadingWidget: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 180, vertical: 410),
-          child: const CircularProgressIndicator.adaptive(),
-        ),
+        loadingWidget: Loading(),
       );
     }
   }
