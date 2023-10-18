@@ -26,12 +26,11 @@ class ClientHttp implements ClientRepository {
   } */
 
   @override
-  Future<AllClientsResponse> get allClients async {
+  Future<AllClientsResponse> allClients(String clientesCreditosActivos) async {
     try {
       final http.Response response = await baseHttpClient.get(
-        UrlPaths.allClients,
+        "${UrlPaths.allClients}/$clientesCreditosActivos",
       );
-      print("---------${response.body}");
       return compute(allClientsResponseFromJson, response.body);
     } catch (e) {
       rethrow;

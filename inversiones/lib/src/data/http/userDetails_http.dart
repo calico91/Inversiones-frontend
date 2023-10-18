@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:inversiones/src/data/http/base_http_client.dart';
 import 'package:inversiones/src/data/http/url_paths.dart';
-import 'package:inversiones/src/domain/repositories/userDetails_repository.dart';
+import 'package:inversiones/src/domain/repositories/userdetails_repository.dart';
 import 'package:inversiones/src/domain/responses/user_response.dart';
 
 class UserDetailsHttp implements UserDetailsRepository {
@@ -18,7 +18,7 @@ class UserDetailsHttp implements UserDetailsRepository {
       final http.Response response = await baseHttpClient.get(
         UrlPaths.getUser,
       );
-      return compute(userDetailsResponseFromJson, response.body);
+      return compute(userdetailsResponseFromJson, response.body);
     } catch (e) {
       rethrow;
     }

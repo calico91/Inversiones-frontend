@@ -27,7 +27,7 @@ class HomeController extends GetxController {
   Future<void> _load() async {
     try {
       final AllClientsResponse allClientsResponse =
-          await const ClientHttp().allClients;
+          await const ClientHttp().allClients("T");
       if (allClientsResponse.status == 200) {
         _clients(allClientsResponse.clients);
       } else {
@@ -42,7 +42,7 @@ class HomeController extends GetxController {
 
   void logout() {
     Get.showOverlay(
-      loadingWidget: Loading(),
+      loadingWidget: const Loading(horizontal: 180, vertical: 410),
       asyncFunction: () async {
         await const SecureStorageLocal().saveToken(null);
         Get.offAllNamed(RouteNames.signIn);

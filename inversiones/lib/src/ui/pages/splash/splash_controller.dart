@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
-import 'package:inversiones/src/data/http/userDetails_http.dart';
+import 'package:inversiones/src/data/http/userdetails_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/error_snackbar.dart';

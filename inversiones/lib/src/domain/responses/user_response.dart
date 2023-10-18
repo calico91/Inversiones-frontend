@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:inversiones/src/domain/entities/user_details.dart';
 
-UserDetailsResponse userDetailsResponseFromJson(String str) {
+UserDetailsResponse userdetailsResponseFromJson(String str) {
   return UserDetailsResponse.fromJson(json.decode(str) as Map<String, dynamic>);
 }
 

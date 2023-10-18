@@ -46,7 +46,7 @@ class SignInController extends GetxController {
             appController.manageError(e.message);
           }
         },
-        loadingWidget: Loading(),
+        loadingWidget: const Loading(horizontal: 180, vertical: 410),
       );
     }
   }

@@ -25,7 +25,9 @@ class SecureStorageLocal implements SecureStorageRepository {
   @override
   Future<void> saveUserDetails(UserDetails? userDetails) {
     return secureStorage.write(
-        key: 'userDetails', value: _userDetails.toString());
+      key: 'userDetails',
+      value: _userDetails.toString(),
+    );
   }
 
   @override

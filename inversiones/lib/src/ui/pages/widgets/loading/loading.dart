@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Loading extends StatelessWidget {
+  const Loading({required this.vertical, required this.horizontal});
+
+  final double vertical;
+  final double horizontal;
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 180, vertical: 410),
+      padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
       child: const CircularProgressIndicator.adaptive(),
     );
   }

@@ -6,6 +6,7 @@ import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 class AllClientsMolecule extends StatelessWidget {
   const AllClientsMolecule({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -13,8 +14,11 @@ class AllClientsMolecule extends StatelessWidget {
 
     return Obx(
       () {
-        if (controller.loading) {
-          return Loading();
+        if (controller.clients.isEmpty) {
+          return const Loading(
+            horizontal: 180,
+            vertical: 110,
+          );
         }
         return ListView.builder(
           itemCount: controller.clients.length,
