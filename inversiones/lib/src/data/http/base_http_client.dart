@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';

@@ -25,16 +25,22 @@ class SplashController extends GetxController {
       if (token == null) {
         return Get.offNamed(RouteNames.signIn);
       }
-      return await const UserHttp().user.then((value) {
+      return await const UserDetailsHttp().userDetails.then((value) {
         if (value.status == 200) {
-          Get.offNamed(RouteNames.home, arguments: value.user);
+          Get.offNamed(RouteNames.home, arguments: value.userDetails);
         } else {
+          print("else");
           appController.manageError(value.message);
+          Get.offNamed(RouteNames.signIn);
         }
       });
     } on HttpException catch (e) {
+      print("HttpException");
+      Get.offNamed(RouteNames.signIn);
       appController.manageError(e.message);
-    } catch (e) {
+    } catch (e,t) {
+      print(e);
+      print(t);
       Get.showSnackbar(ErrorSnackbar(e.toString()));
     } finally {
       _loading(false);

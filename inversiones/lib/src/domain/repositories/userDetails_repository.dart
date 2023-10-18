@@ -2,7 +2,7 @@
 import 'package:inversiones/src/domain/responses/user_response.dart';
 
 abstract class UserDetailsRepository {
-  const UserRepository();
+  const UserDetailsRepository();
 
-  Future<UserResponse> get user;
+  Future<UserDetailsResponse> get userDetails;
 }

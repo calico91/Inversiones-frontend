@@ -8,6 +8,6 @@ class UrlPaths {
   static const String addTask = '/add-task';
   static const String getMytasks = '/tasks';
   static const String taskDone = '/task-done';
-  static const String getUser = '/user';
+  static const String getUser = '/user/getUser';
   static const String tasksByEmployee = '/tasks-employee';
 }

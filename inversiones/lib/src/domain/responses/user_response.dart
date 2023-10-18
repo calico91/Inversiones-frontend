@@ -1,29 +1,29 @@
 import 'dart:convert';
 
-import 'package:inversiones/src/domain/entities/user.dart';
+import 'package:inversiones/src/domain/entities/user_details.dart';
 
-UserResponse userResponseFromJson(String str) {
-  return UserResponse.fromJson(json.decode(str) as Map<String, dynamic>);
+UserDetailsResponse userDetailsResponseFromJson(String str) {
+  return UserDetailsResponse.fromJson(json.decode(str) as Map<String, dynamic>);
 }
 
-class UserResponse {
-  const UserResponse({
+class UserDetailsResponse {
+  const UserDetailsResponse({
     required this.status,
     required this.message,
-    this.user,
+    this.userDetails,
   });
 
   final int status;
   final String message;
-  final User? user;
+  final UserDetails? userDetails;
 
-  factory UserResponse.fromJson(Map<String, dynamic> json) {
+  factory UserDetailsResponse.fromJson(Map<String, dynamic> json) {
     final int status = json['status'] as int;
-    return UserResponse(
+    return UserDetailsResponse(
       status: status,
       message: json['message'] as String,
-      user: status == 200
-          ? User.fromJson(json['user'] as Map<String, dynamic>)
+      userDetails: status == 200
+          ? UserDetails.fromJson(json['data'] as Map<String, dynamic>)
           : null,
     );
   }

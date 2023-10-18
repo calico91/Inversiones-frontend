@@ -5,20 +5,20 @@ import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/domain/repositories/userDetails_repository.dart';
 import 'package:inversiones/src/domain/responses/user_response.dart';
 
-class UserDetailsHttp implements UserRepository {
-  const UserHttp({
+class UserDetailsHttp implements UserDetailsRepository {
+  const UserDetailsHttp({
     this.baseHttpClient = const BaseHttpClient(),
   });
 
   final BaseHttpClient baseHttpClient;
 
   @override
-  Future<UserResponse> get user async {
+  Future<UserDetailsResponse> get userDetails async {
     try {
       final http.Response response = await baseHttpClient.get(
         UrlPaths.getUser,
       );
-      return compute(userResponseFromJson, response.body);
+      return compute(userDetailsResponseFromJson, response.body);
     } catch (e) {
       rethrow;
     }
