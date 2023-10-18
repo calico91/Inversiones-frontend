@@ -1,4 +1,4 @@
-import 'package:inversiones/src/domain/entities/cliente.dart';
+import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/entities/cuota_credito.dart';
 
 class Credito {
@@ -13,7 +13,7 @@ class Credito {
   final int? id;
   final String estadoCredito;
   final String fechaCredito;
-  final Cliente cliente;
+  final Client cliente;
   final List<CuotaCredito> listaCuotasCredito;
 
   factory Credito.fromJson(Map<String, dynamic> json) {
@@ -21,7 +21,7 @@ class Credito {
       id: json['id'] as int,
       estadoCredito: json['estadoCredito'] as String,
       fechaCredito: json['fechaCredito'] as String,
-      cliente: Cliente.fromJson(json['cliente'] as Map<String, dynamic>),
+      cliente: Client.fromJson(json['cliente'] as Map<String, dynamic>),
       listaCuotasCredito: List<CuotaCredito>.from(
         (json['listaCuotasCredito'] as List<dynamic>).map((element) {
           return CuotaCredito.fromJson(element as Map<String, dynamic>);

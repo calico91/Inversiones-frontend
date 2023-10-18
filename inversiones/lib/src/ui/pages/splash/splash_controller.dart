@@ -29,18 +29,14 @@ class SplashController extends GetxController {
         if (value.status == 200) {
           Get.offNamed(RouteNames.home, arguments: value.userDetails);
         } else {
-          print("else");
           appController.manageError(value.message);
           Get.offNamed(RouteNames.signIn);
         }
       });
     } on HttpException catch (e) {
-      print("HttpException");
       Get.offNamed(RouteNames.signIn);
       appController.manageError(e.message);
-    } catch (e,t) {
-      print(e);
-      print(t);
+    } catch (e) {
       Get.showSnackbar(ErrorSnackbar(e.toString()));
     } finally {
       _loading(false);
