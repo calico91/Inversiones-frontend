@@ -21,34 +21,70 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
+      body: ListView(
         children: [
-          SizedBox(
-            height: size.height * 0.3,
-            child: const AllClientsMolecule(),
-          ),
-          SizedBox(
-            height: size.height * 0.05,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Column(
             children: [
-              FilledButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.person),
-                label: const Text("Clientes"),
+              SizedBox(
+                height: size.height * 0.3,
+                child: const AllClientsMolecule(),
               ),
-              FilledButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.monetization_on_outlined),
-                label: const Text("Creditos"),
+              SizedBox(
+                height: size.height * 0.05,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FilledButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.person),
+                    label: const Text("Clientes"),
+                  ),
+                  FilledButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.monetization_on_outlined),
+                    label: const Text("Creditos"),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: size.height * 0.05,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  children: [
+                    const Text("Simular credito"),
+                    Form(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Cantidad',
+                            ),
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Cuotas',
+                            ),
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Interes',
+                            ),
+                          ),
+                          FilledButton(
+                            onPressed: () {},
+                            child: const Text('Calcular'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          SizedBox(
-            height: size.height * 0.05,
-          ),
-          
         ],
       ),
     );

@@ -33,11 +33,10 @@ class SignInController extends GetxController {
             final SignInResponse res =
                 await const SignInHttp().signInWithUsernameAndPassword(
               usernameController.text.trim(),
-              passwordController.text,
+              passwordController.value.text,
             );
             if (res.status == 200) {
               await const SecureStorageLocal().saveToken(res.token);
-              await const SecureStorageLocal().saveUserDetails(res.userDetails);
               Get.offNamed(RouteNames.home, arguments: res.userDetails);
             } else {
               appController.manageError(res.message);
