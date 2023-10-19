@@ -37,6 +37,8 @@ class SplashController extends GetxController {
       Get.offNamed(RouteNames.signIn);
       appController.manageError(e.message);
     } catch (e) {
+      Get.offNamed(RouteNames.signIn);
+
       Get.showSnackbar(ErrorSnackbar(e.toString()));
     } finally {
       _loading(false);

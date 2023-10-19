@@ -12,7 +12,8 @@ class HomePage extends StatelessWidget {
     final HomeController controller = Get.find<HomeController>();
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text(controller.userDetails.username)),
+        title:
+            Center(child: Text(controller.userDetails.username.toUpperCase())),
         actions: [
           IconButton(
             onPressed: controller.logout,
@@ -20,9 +21,35 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: SizedBox(
-        height: size.height * 0.3,
-        child: const AllClientsMolecule(),
+      body: Column(
+        children: [
+          SizedBox(
+            height: size.height * 0.3,
+            child: const AllClientsMolecule(),
+          ),
+          SizedBox(
+            height: size.height * 0.05,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              FilledButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.person),
+                label: const Text("Clientes"),
+              ),
+              FilledButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.monetization_on_outlined),
+                label: const Text("Creditos"),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: size.height * 0.05,
+          ),
+          
+        ],
       ),
     );
   }
