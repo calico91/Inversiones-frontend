@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/client_http.dart';
@@ -17,6 +18,11 @@ class HomeController extends GetxController {
   final UserDetails userDetails = Get.arguments as UserDetails;
   final RxBool _loading = RxBool(false);
   final Rx<List<Client>> _clients = Rx<List<Client>>([]);
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController amount = TextEditingController();
+  final TextEditingController dues = TextEditingController();
+  final TextEditingController interestPercentage = TextEditingController();
 
   @override
   void onInit() {

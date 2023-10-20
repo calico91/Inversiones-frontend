@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/all_clients_molecule.dart';
+import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -52,36 +53,7 @@ class HomePage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  children: [
-                    const Text("Simular credito"),
-                    Form(
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Cantidad',
-                            ),
-                          ),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Cuotas',
-                            ),
-                          ),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Interes',
-                            ),
-                          ),
-                          FilledButton(
-                            onPressed: () {},
-                            child: const Text('Calcular'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                child: SimulateCreditMolecule(),
               ),
             ],
           ),
