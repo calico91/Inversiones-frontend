@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/enums.dart';
+import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
 class SimulateCreditMolecule extends StatelessWidget {
   @override
@@ -21,21 +23,14 @@ class SimulateCreditMolecule extends StatelessWidget {
           key: controller.formKey,
           child: Column(
             children: [
-              TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                },
-                maxLength: 7,
-                controller: controller.amount,
-                decoration: const InputDecoration(
-                  hintText: 'Cantidad',
-                ),
+              TextFielBase(
+                validateText: ValidateText.creditValue,
+                hintText: "Valor credito",
+                controller: controller.creditValue,
               ),
               TextFormField(
                 maxLength: 2,
-                controller: controller.dues,
+                controller: controller.installmentAmount,
                 decoration: const InputDecoration(
                   hintText: 'Cuotas',
                 ),

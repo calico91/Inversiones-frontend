@@ -20,8 +20,8 @@ class HomeController extends GetxController {
   final Rx<List<Client>> _clients = Rx<List<Client>>([]);
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController amount = TextEditingController();
-  final TextEditingController dues = TextEditingController();
+  final TextEditingController creditValue = TextEditingController();
+  final TextEditingController installmentAmount = TextEditingController();
   final TextEditingController interestPercentage = TextEditingController();
 
   @override
