@@ -5,15 +5,16 @@ import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
 class SimulateCreditMolecule extends StatelessWidget {
+  final HomeController controller = Get.find<HomeController>();
+
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.find<HomeController>();
     return Column(
       children: [
         const Text(
-          "Simular credito",
+          "SIMULAR CREDITO",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 20,
           ),
         ),
         const SizedBox(
@@ -23,31 +24,31 @@ class SimulateCreditMolecule extends StatelessWidget {
           key: controller.formKey,
           child: Column(
             children: [
-              TextFielBase(
+              TextFieldBase(
+                title: 'Valor credito',
+                textInputType: TextInputType.number,
                 validateText: ValidateText.creditValue,
-                hintText: "Valor credito",
                 controller: controller.creditValue,
               ),
-              TextFormField(
-                maxLength: 2,
+              TextFieldBase(
+                title: 'Cantidad cuotas',
+                textInputType: TextInputType.number,
+                validateText: ValidateText.installmentAmount,
                 controller: controller.installmentAmount,
-                decoration: const InputDecoration(
-                  hintText: 'Cuotas',
-                ),
               ),
-              TextFormField(
-                maxLength: 1,
+              TextFieldBase(
+                title: 'Interes',
+                textInputType: TextInputType.number,
+                validateText: ValidateText.interestPercentage,
                 controller: controller.interestPercentage,
-                decoration: const InputDecoration(
-                  hintText: 'Porcentaje interes',
-                ),
               ),
               const SizedBox(
                 height: 20,
               ),
               FilledButton(
                 onPressed: () {
-                  _showCreditInstallments(context);
+                  guardar();
+                  //_showCreditInstallments(context);
                 },
                 child: const Text('Calcular'),
               ),
@@ -70,5 +71,9 @@ class SimulateCreditMolecule extends StatelessWidget {
                     onPressed: () => Navigator.pop(context), child: Text('ok'))
               ],
             ));
+  }
+
+  void guardar() {
+    if (controller.formKey.currentState!.validate()) {}
   }
 }

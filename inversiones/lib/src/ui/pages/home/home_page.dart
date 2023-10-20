@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                 child: const AllClientsMolecule(),
               ),
               SizedBox(
-                height: size.height * 0.05,
+                height: size.height * 0.02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: size.height * 0.05,
+                height: size.height * 0.02,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
