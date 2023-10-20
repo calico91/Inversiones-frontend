@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/validate_exp_reg.dart';
+import 'package:pattern_formatter/pattern_formatter.dart';
 
 class TextFieldBase extends StatelessWidget {
   const TextFieldBase({
@@ -39,7 +40,7 @@ class TextFieldBase extends StatelessWidget {
           ),
           TextFormField(
             validator: (String? value) => _validateStructure(value),
-            inputFormatters: [_validateInputFormatters()],
+            inputFormatters: [_validateInputFormatters(), ThousandsFormatter()],
             keyboardType: textInputType,
             textAlign: TextAlign.right,
             maxLength: _validateMaxLength(),
@@ -69,7 +70,7 @@ class TextFieldBase extends StatelessWidget {
       case ValidateText.email:
         return 64;
       case ValidateText.creditValue:
-        return 7;
+        return 8;
       case ValidateText.installmentAmount:
         return 2;
       case ValidateText.interestPercentage:

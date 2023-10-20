@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/client_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
@@ -54,6 +55,19 @@ class HomeController extends GetxController {
         Get.offAllNamed(RouteNames.signIn);
       },
     );
+  }
+
+  /// calcula el valor de la cuota a pagar
+  String calculateCreditFee() {
+    final double interest = double.parse(creditValue.text) *
+        (double.parse(interestPercentage.text) / 100);
+
+    final double creditFee =
+        double.parse(creditValue.text) / double.parse(installmentAmount.text) +
+            interest;
+    final NumberFormat response = NumberFormat("#,##0.00", "es_CO");
+
+    return response.format(creditFee);
   }
 
   bool get loading => _loading.value;

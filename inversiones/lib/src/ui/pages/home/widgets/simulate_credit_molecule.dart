@@ -6,7 +6,6 @@ import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
 class SimulateCreditMolecule extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,8 +46,9 @@ class SimulateCreditMolecule extends StatelessWidget {
               ),
               FilledButton(
                 onPressed: () {
-                  guardar();
-                  //_showCreditInstallments(context);
+                  if (controller.formKey.currentState!.validate()) {
+                    _showCreditInstallments(context);
+                  }
                 },
                 child: const Text('Calcular'),
               ),
@@ -64,16 +64,19 @@ class SimulateCreditMolecule extends StatelessWidget {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text('Credito simulado'),
-              content: Text("la cantidad de cuotas que debe pagar son lleve"),
+              title: const Text(
+                'Credito simulado',
+                textAlign: TextAlign.center,
+              ),
+              content: Text(
+                '${controller.installmentAmount.text} cuotas de \$${controller.calculateCreditFee()}',
+              ),
               actions: [
                 TextButton(
-                    onPressed: () => Navigator.pop(context), child: Text('ok'))
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Aceptar'),
+                )
               ],
             ));
-  }
-
-  void guardar() {
-    if (controller.formKey.currentState!.validate()) {}
   }
 }
