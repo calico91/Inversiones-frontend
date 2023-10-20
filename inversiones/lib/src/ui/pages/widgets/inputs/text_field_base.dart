@@ -18,7 +18,10 @@ class TextFielBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: EdgeInsets.symmetric(
+        horizontal: paddingHorizontal!,
+        vertical: paddingVertical!,
+      ),
       child: Column(
         children: [
           TextFormField(
