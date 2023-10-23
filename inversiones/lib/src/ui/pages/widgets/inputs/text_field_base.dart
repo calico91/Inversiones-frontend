@@ -5,9 +5,10 @@ import 'package:inversiones/src/ui/pages/utils/validate_exp_reg.dart';
 
 class TextFieldBase extends StatelessWidget {
   const TextFieldBase({
+    super.key,
     this.hintText = '',
     required this.title,
-    required this.controller,
+    this.controller,
     required this.textInputType,
     this.validateText,
     this.paddingVertical = 0,
@@ -19,7 +20,7 @@ class TextFieldBase extends StatelessWidget {
 
   final String? hintText;
   final String title;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final ValidateText? validateText;
   final double? paddingVertical;
   final double? paddingHorizontal;
@@ -46,6 +47,7 @@ class TextFieldBase extends StatelessWidget {
             height: size.height * heightTextField!,
             width: size.width * widthTextField!,
             child: TextFormField(
+              key: key,
               expands: true,
               maxLines: null,
               validator: (String? value) => _validateStructure(value),
