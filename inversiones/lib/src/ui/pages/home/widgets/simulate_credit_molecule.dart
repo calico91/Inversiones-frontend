@@ -44,13 +44,14 @@ class SimulateCreditMolecule extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              FilledButton(
+              FilledButton.icon(
+                icon: const Icon(Icons.calculate),
+                label: const Text('Calcular'),
                 onPressed: () {
                   if (controller.formKey.currentState!.validate()) {
                     _showCreditInstallments(context);
                   }
                 },
-                child: const Text('Calcular'),
               ),
             ],
           ),

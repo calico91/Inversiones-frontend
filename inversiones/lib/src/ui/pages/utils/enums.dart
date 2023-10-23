@@ -4,6 +4,9 @@ enum ValidateText {
   interestPercentage,
   installmentAmount,
   creditValue,
+  onlyNumbers,
   password,
   username,
+  name,
+  observations,
 }

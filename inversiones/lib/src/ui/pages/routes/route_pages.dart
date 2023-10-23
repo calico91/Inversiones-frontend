@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:inversiones/src/ui/pages/clients/clients_binding.dart';
+import 'package:inversiones/src/ui/pages/clients/clients_page.dart';
 import 'package:inversiones/src/ui/pages/home/home_binding.dart';
 import 'package:inversiones/src/ui/pages/home/home_page.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
@@ -26,12 +28,12 @@ class RoutePages {
         page: () => const SplashPage(),
         binding: const SplashBinding(),
       ),
-      /* GetPage(
-        name: RouteNames.addEmployee,
-        page: () => const AddEmployeePage(),
-        binding: const AddEmployeeBinding(),
-      ),
       GetPage(
+        name: RouteNames.clients,
+        page: () => const Clients(),
+        binding: const ClientsBinding(),
+      ),
+      /*GetPage(
         name: RouteNames.employeeTask,
         page: () => const EmployeeTaskPage(),
         binding: const EmployeeTaskBinding(),

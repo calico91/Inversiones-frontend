@@ -23,7 +23,7 @@ class AllClientsMolecule extends StatelessWidget {
           itemCount: controller.clients.length,
           itemBuilder: (_, index) {
             return ListTile(
-              title: _mostrarDatosCliente(controller, index, size),
+              title: _showClientTitle(controller, index, size),
             );
           },
         );
@@ -31,7 +31,8 @@ class AllClientsMolecule extends StatelessWidget {
     );
   }
 
-  Widget _mostrarDatosCliente(HomeController controller, int index, Size size) {
+  ///titulo que se muestra informacion clientes
+  Widget _showClientTitle(HomeController controller, int index, Size size) {
     return Row(
       children: [
         SizedBox(
