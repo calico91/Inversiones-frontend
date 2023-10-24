@@ -4,7 +4,7 @@ class UrlPaths {
   static const String url = 'http://10.102.1.13:8091';
   static const String signIn = '/login';
   static const String allClients = '/cliente/consultarClientes';
-  static const String addEmployee = '/add-employee';
+  static const String addClient = '/cliente';
   static const String addTask = '/add-task';
   static const String getMytasks = '/tasks';
   static const String taskDone = '/task-done';

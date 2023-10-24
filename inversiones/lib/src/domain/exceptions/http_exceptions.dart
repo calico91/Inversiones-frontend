@@ -13,7 +13,7 @@ class HttpException implements Exception {
 class BadRequestException extends HttpException {
   BadRequestException([String? message, String? url])
       : super(
-          message: message ?? '',
+          message: message ?? 'Valide los datos enviados',
           prefix: 'Bad Request',
           url: url ?? '',
         );

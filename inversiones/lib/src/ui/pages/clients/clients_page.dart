@@ -87,7 +87,9 @@ class Clients extends StatelessWidget {
               FilledButton.icon(
                 onPressed: () {
                   if (controller.formKeyDocument.currentState!.validate() &&
-                      controller.formKey.currentState!.validate()) {}
+                      controller.formKey.currentState!.validate()) {
+                    controller.save();
+                  }
                 },
                 icon: const Icon(Icons.person_add),
                 label: const Text("Registrar"),

@@ -5,19 +5,23 @@ class Client {
     this.id,
     required this.nombres,
     required this.apellidos,
-    required this.email,
+    this.email,
     required this.celular,
-    required this.pais,
+    this.pais,
     required this.cedula,
+    required this.direccion,
+    required this.observaciones,
     this.listaCreditos,
   });
 
   final int? id;
   final String nombres;
   final String apellidos;
-  final String email;
+  final String? email;
   final String celular;
-  final String pais;
+  final String? pais;
+  final String direccion;
+  final String? observaciones;
   final String cedula;
   final List<Credito>? listaCreditos;
 
@@ -38,6 +42,8 @@ class Client {
       celular: json['celular'] as String,
       pais: json['pais'] as String,
       cedula: json['cedula'] as String,
+      direccion: json['direccion'] as String,
+      observaciones: json['observaciones'] as String,
       listaCreditos: listaCreditos,
     );
   }
@@ -51,6 +57,8 @@ class Client {
       'celular': celular,
       'pais': pais,
       'cedula': cedula,
+      'direccion': direccion,
+      'observaciones': observaciones,
     };
   }
 }

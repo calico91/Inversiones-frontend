@@ -15,7 +15,6 @@ class AllClientsMolecule extends StatelessWidget {
       () {
         if (controller.clients.isEmpty) {
           return const Loading(
-            horizontal: 180,
             vertical: 110,
           );
         }

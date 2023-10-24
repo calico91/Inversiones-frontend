@@ -63,21 +63,22 @@ class SimulateCreditMolecule extends StatelessWidget {
   ///modal que muestra la simulacion del credito
   Future _showCreditInstallments(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: const Text(
-                'Credito simulado',
-                textAlign: TextAlign.center,
-              ),
-              content: Text(
-                '${controller.installmentAmount.text} cuotas de \$${controller.calculateCreditFee()}',
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Aceptar'),
-                )
-              ],
-            ));
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          'Credito simulado',
+          textAlign: TextAlign.center,
+        ),
+        content: Text(
+          '${controller.installmentAmount.text} cuotas de \$${controller.calculateCreditFee()}',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Aceptar'),
+          ),
+        ],
+      ),
+    );
   }
 }

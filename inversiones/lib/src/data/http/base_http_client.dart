@@ -32,9 +32,11 @@ class BaseHttpClient {
       if (response.statusCode == 200) {
         return Future.value(response);
       }
+      final message = jsonDecode(response.body);
       throw _processResponse(
         response.statusCode,
         response.request?.url.toString() ?? uri.toString(),
+        message['message'].toString(),
       );
     } on SocketException {
       throw FetchDataException('No internet connection', uri.toString());
@@ -53,7 +55,7 @@ class BaseHttpClient {
         : Uri.http('10.102.1.13:8091', path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
-      final http.Response response = await http
+      final response = await http
           .post(
             uri,
             headers: path == UrlPaths.signIn
@@ -68,10 +70,11 @@ class BaseHttpClient {
       if (response.statusCode == 200) {
         return Future.value(response);
       }
+      final message = jsonDecode(response.body);
       throw _processResponse(
         response.statusCode,
         response.request?.url.toString() ?? uri.toString(),
-        response.reasonPhrase,
+        message['message'].toString(),
       );
     } on SocketException {
       throw FetchDataException('No internet connection', uri.toString());
@@ -81,7 +84,6 @@ class BaseHttpClient {
   }
 
   Exception _processResponse(int statusCode, String url, [String? message]) {
-    print(statusCode);
     switch (statusCode) {
       case 400:
         return BadRequestException(
