@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_binding.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_page.dart';
+import 'package:inversiones/src/ui/pages/credits/credits_binding.dart';
+import 'package:inversiones/src/ui/pages/credits/credits_page.dart';
 import 'package:inversiones/src/ui/pages/home/home_binding.dart';
 import 'package:inversiones/src/ui/pages/home/home_page.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
@@ -33,12 +35,12 @@ class RoutePages {
         page: () => const Clients(),
         binding: const ClientsBinding(),
       ),
-      /*GetPage(
-        name: RouteNames.employeeTask,
-        page: () => const EmployeeTaskPage(),
-        binding: const EmployeeTaskBinding(),
-      ),
       GetPage(
+        name: RouteNames.credits,
+        page: () => const Credits(),
+        binding: const CreditsBinding(),
+      ),
+      /*GetPage(
         name: RouteNames.employeeAddTask,
         page: () => const EmployeeAddTaskPage(),
         binding: const EmployeeAddTaskBinding(),

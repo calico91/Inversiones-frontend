@@ -9,4 +9,5 @@ enum ValidateText {
   username,
   name,
   observations,
+  date,
 }

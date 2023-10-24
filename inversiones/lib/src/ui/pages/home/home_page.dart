@@ -40,14 +40,12 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   FilledButton.icon(
-                    onPressed: () {
-                      Get.toNamed(RouteNames.clients);
-                    },
+                    onPressed: () => Get.toNamed(RouteNames.clients),
                     icon: const Icon(Icons.person),
                     label: const Text("Clientes"),
                   ),
                   FilledButton.icon(
-                    onPressed: () {},
+                    onPressed: () => Get.toNamed(RouteNames.credits),
                     icon: const Icon(Icons.monetization_on_outlined),
                     label: const Text("Creditos"),
                   ),

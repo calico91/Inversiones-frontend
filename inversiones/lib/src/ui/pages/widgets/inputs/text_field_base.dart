@@ -98,6 +98,8 @@ class TextFieldBase extends StatelessWidget {
         return 10;
       case ValidateText.observations:
         return 250;
+      case ValidateText.date:
+        return 10;
       default:
         return 64;
     }
