@@ -16,6 +16,7 @@ class TextFieldBase extends StatelessWidget {
     this.widthTextField = 0.39,
     this.heightTextField = 0.09,
     this.required = true,
+    this.textAlign = TextAlign.right,
   });
 
   final String? hintText;
@@ -26,6 +27,7 @@ class TextFieldBase extends StatelessWidget {
   final double? paddingHorizontal;
   final double? widthTextField;
   final double? heightTextField;
+  final TextAlign? textAlign;
   final TextInputType textInputType;
   final bool? required;
   @override
@@ -47,13 +49,14 @@ class TextFieldBase extends StatelessWidget {
             height: size.height * heightTextField!,
             width: size.width * widthTextField!,
             child: TextFormField(
+              textDirection: TextDirection.ltr,
               key: key,
               expands: true,
               maxLines: null,
               validator: (String? value) => _validateStructure(value),
               inputFormatters: [_validateInputFormatters()],
               keyboardType: textInputType,
-              textAlign: TextAlign.right,
+              textAlign: textAlign!,
               maxLength: _validateMaxLength(),
               controller: controller,
               decoration: InputDecoration(

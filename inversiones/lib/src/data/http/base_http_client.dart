@@ -9,7 +9,7 @@ import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 
 class BaseHttpClient {
   const BaseHttpClient({
-    this.timeout = const Duration(seconds: 10),
+    this.timeout = const Duration(seconds: 15),
     this.secureStorageLocal = const SecureStorageLocal(),
   });
 
@@ -57,6 +57,44 @@ class BaseHttpClient {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
           .post(
+            uri,
+            headers: path == UrlPaths.signIn
+                ? null
+                : {
+                    HttpHeaders.authorizationHeader: token ?? '',
+                    'Content-Type': 'application/json',
+                  },
+            body: request != null ? json.encode(request) : null,
+          )
+          .timeout(timeout);
+      if (response.statusCode == 200) {
+        return Future.value(response);
+      }
+      final message = jsonDecode(response.body);
+      throw _processResponse(
+        response.statusCode,
+        response.request?.url.toString() ?? uri.toString(),
+        message['message'].toString(),
+      );
+    } on SocketException {
+      throw FetchDataException('No internet connection', uri.toString());
+    } on TimeoutException {
+      throw ApiNotRespondingException('Timeout', uri.toString());
+    }
+  }
+
+  Future<http.Response> put(
+    String path, {
+    Map<String, dynamic>? request,
+    Map<String, String>? parameters,
+  }) async {
+    final Uri uri = parameters == null
+        ? Uri.parse('${UrlPaths.url}$path')
+        : Uri.http('10.102.1.13:8091', path, parameters);
+    try {
+      final String? token = await secureStorageLocal.jwtToken;
+      final response = await http
+          .put(
             uri,
             headers: path == UrlPaths.signIn
                 ? null

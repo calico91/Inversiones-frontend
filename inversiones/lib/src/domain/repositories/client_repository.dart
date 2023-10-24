@@ -6,5 +6,7 @@ abstract class ClientRepository {
   const ClientRepository();
 
   Future<AllClientsResponse> allClients(String clientesCreditosActivos);
+  Future<AddClientResponse> loadClient(String document);
+  Future<AddClientResponse> updateClient(int id, Client client);
   Future<AddClientResponse> addClient(Client client);
 }

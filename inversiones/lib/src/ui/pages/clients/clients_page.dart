@@ -45,6 +45,7 @@ class Clients extends StatelessWidget {
                   Row(
                     children: [
                       TextFieldBase(
+                        textAlign: TextAlign.left,
                         paddingHorizontal: 20,
                         title: 'Nombres',
                         controller: controller.name,
@@ -52,6 +53,7 @@ class Clients extends StatelessWidget {
                         validateText: ValidateText.name,
                       ),
                       TextFieldBase(
+                        textAlign: TextAlign.left,
                         title: 'Apellidos',
                         controller: controller.lastname,
                         textInputType: TextInputType.multiline,
@@ -60,6 +62,7 @@ class Clients extends StatelessWidget {
                     ],
                   ),
                   TextFieldBase(
+                    textAlign: TextAlign.left,
                     paddingHorizontal: 20,
                     title: 'Direccion',
                     controller: controller.address,
@@ -68,6 +71,7 @@ class Clients extends StatelessWidget {
                     widthTextField: 0.83,
                   ),
                   TextFieldBase(
+                    textAlign: TextAlign.left,
                     paddingHorizontal: 20,
                     required: false,
                     title: 'Observaciones',
@@ -86,20 +90,35 @@ class Clients extends StatelessWidget {
             children: [
               FilledButton.icon(
                 onPressed: () {
-                  if (controller.formKeyDocument.currentState!.validate() &&
-                      controller.formKey.currentState!.validate()) {
+                  if (controller.validateForm()) {
+                    controller.unfocus(context);
                     controller.save();
                   }
                 },
                 icon: const Icon(Icons.person_add),
                 label: const Text("Registrar"),
               ),
-              FilledButton.icon(
-                onPressed: () {
-                  if (controller.formKeyDocument.currentState!.validate()) {}
-                },
-                icon: const Icon(Icons.find_in_page_rounded),
-                label: const Text("Consultar"),
+              Obx(
+                () => FilledButton.icon(
+                  onPressed: () {
+                    if (controller.idClient == 0) {
+                      if (controller.validateFormDocument()) {
+                        controller.loadClient();
+                      }
+                    } else {
+                      if (controller.validateForm()) {
+                        controller.unfocus(context);
+                        controller.updateClient();
+                      }
+                    }
+                  },
+                  icon: controller.idClient == 0
+                      ? const Icon(Icons.find_in_page_rounded)
+                      : const Icon(Icons.mode_edit_outline),
+                  label: controller.idClient == 0
+                      ? const Text("Consultar")
+                      : const Text("Actualizar"),
+                ),
               ),
             ],
           ),

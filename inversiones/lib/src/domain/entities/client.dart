@@ -26,6 +26,8 @@ class Client {
   final List<Credito>? listaCreditos;
 
   factory Client.fromJson(Map<String, dynamic> json) {
+    final String email = (json['email']) == null ? '' : json['email'] as String;
+    final String pais = (json['pais']) == null ? '' : json['pais'] as String;
     final List<Credito> listaCreditos = (json['listaCreditos']) == null
         ? List.empty()
         : List<Credito>.from(
@@ -38,9 +40,9 @@ class Client {
       id: json['id'] as int,
       nombres: json['nombres'] as String,
       apellidos: json['apellidos'] as String,
-      email: json['email'] as String,
+      email: email,
       celular: json['celular'] as String,
-      pais: json['pais'] as String,
+      pais: pais,
       cedula: json['cedula'] as String,
       direccion: json['direccion'] as String,
       observaciones: json['observaciones'] as String,

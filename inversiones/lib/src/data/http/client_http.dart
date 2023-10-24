@@ -25,6 +25,8 @@ class ClientHttp implements ClientRepository {
     }
   }
 
+  /// consulta los clientes que tienen creditos activos, se envia parametro T de true
+  /// para consultarlos todos se envia F
   @override
   Future<AllClientsResponse> allClients(String clientesCreditosActivos) async {
     try {
@@ -33,6 +35,32 @@ class ClientHttp implements ClientRepository {
       );
 
       return compute(allClientsResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<AddClientResponse> loadClient(String document) async {
+    try {
+      final http.Response response = await baseHttpClient.get(
+        "${UrlPaths.loadClient}/$document",
+      );
+
+      return compute(addClientResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<AddClientResponse> updateClient(int id, Client client) async {
+    try {
+      print(id);
+      final http.Response response = await baseHttpClient
+          .put("${UrlPaths.updateClient}/$id", request: client.toJson());
+
+      return compute(addClientResponseFromJson, response.body);
     } catch (e) {
       rethrow;
     }
