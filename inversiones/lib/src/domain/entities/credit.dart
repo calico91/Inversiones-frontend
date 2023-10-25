@@ -1,8 +1,8 @@
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/entities/cuota_credito.dart';
 
-class Credito {
-  const Credito({
+class Credit {
+  const Credit({
     this.id,
     required this.estadoCredito,
     required this.fechaCredito,
@@ -16,8 +16,8 @@ class Credito {
   final Client cliente;
   final List<CuotaCredito> listaCuotasCredito;
 
-  factory Credito.fromJson(Map<String, dynamic> json) {
-    return Credito(
+  factory Credit.fromJson(Map<String, dynamic> json) {
+    return Credit(
       id: json['id'] as int,
       estadoCredito: json['estadoCredito'] as String,
       fechaCredito: json['fechaCredito'] as String,

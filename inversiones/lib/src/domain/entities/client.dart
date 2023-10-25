@@ -1,4 +1,4 @@
-import 'package:inversiones/src/domain/entities/credito.dart';
+import 'package:inversiones/src/domain/entities/credit.dart';
 
 class Client {
   const Client({
@@ -23,16 +23,16 @@ class Client {
   final String direccion;
   final String? observaciones;
   final String cedula;
-  final List<Credito>? listaCreditos;
+  final List<Credit>? listaCreditos;
 
   factory Client.fromJson(Map<String, dynamic> json) {
     final String email = (json['email']) == null ? '' : json['email'] as String;
     final String pais = (json['pais']) == null ? '' : json['pais'] as String;
-    final List<Credito> listaCreditos = (json['listaCreditos']) == null
+    final List<Credit> listaCreditos = (json['listaCreditos']) == null
         ? List.empty()
-        : List<Credito>.from(
+        : List<Credit>.from(
             (json['listaCreditos'] as List<dynamic>).map((element) {
-              return Credito.fromJson(element as Map<String, dynamic>);
+              return Credit.fromJson(element as Map<String, dynamic>);
             }),
           );
 

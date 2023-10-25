@@ -56,7 +56,6 @@ class ClientHttp implements ClientRepository {
   @override
   Future<AddClientResponse> updateClient(int id, Client client) async {
     try {
-      print(id);
       final http.Response response = await baseHttpClient
           .put("${UrlPaths.updateClient}/$id", request: client.toJson());
 

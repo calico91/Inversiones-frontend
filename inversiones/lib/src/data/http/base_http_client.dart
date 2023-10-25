@@ -122,6 +122,7 @@ class BaseHttpClient {
   }
 
   Exception _processResponse(int statusCode, String url, [String? message]) {
+    print('---$message');
     switch (statusCode) {
       case 400:
         return BadRequestException(

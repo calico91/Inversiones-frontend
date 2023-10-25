@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:inversiones/src/app_controller.dart';
-import 'package:inversiones/src/data/http/client_http.dart';
+import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';

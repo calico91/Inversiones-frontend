@@ -7,6 +7,7 @@ class TextFieldCalendar extends StatelessWidget {
     required this.title,
     this.paddingVertical = 0,
     this.paddingHorizontal = 0,
+    this.required = true,
   });
 
   final TextEditingController controller;
@@ -14,6 +15,7 @@ class TextFieldCalendar extends StatelessWidget {
   final String title;
   final double? paddingVertical;
   final double? paddingHorizontal;
+  final bool? required;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,8 @@ class TextFieldCalendar extends StatelessWidget {
           Text(title),
           SizedBox(
             width: size.width * 0.39,
-            child: TextField(
+            child: TextFormField(
+              validator: (value) => _validateStructure(value),
               controller: controller,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -54,5 +57,13 @@ class TextFieldCalendar extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  ///valida estructuras
+  String? _validateStructure(String? value) {
+    if (required! && value!.isEmpty) {
+      return 'El campo requerido';
+    }
+    return null;
   }
 }

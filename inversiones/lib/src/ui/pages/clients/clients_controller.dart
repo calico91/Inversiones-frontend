@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
-import 'package:inversiones/src/data/http/client_http.dart';
+import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/add_client_response.dart';
@@ -69,8 +69,11 @@ class ClientsController extends GetxController {
             appController.manageError(res.message);
           }
         } on HttpException catch (e) {
+          print('+++');
           appController.manageError(e.message);
         } catch (e) {
+          print('5555');
+
           appController.manageError(e.toString());
         }
       },
@@ -137,7 +140,7 @@ class ClientsController extends GetxController {
     return formKeyDocument.currentState!.validate();
   }
 
-  void unfocus(BuildContext context){
+  void unfocus(BuildContext context) {
     FocusScope.of(context).unfocus();
   }
 

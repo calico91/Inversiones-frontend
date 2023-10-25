@@ -1,4 +1,4 @@
-import 'package:inversiones/src/domain/entities/credito.dart';
+import 'package:inversiones/src/domain/entities/credit.dart';
 
 class CuotaCredito {
   const CuotaCredito({
@@ -27,7 +27,7 @@ class CuotaCredito {
   final double valorCredito;
   final double interesPorcentaje;
   final String? fechaAbono;
-  final Credito credito;
+  final Credit credito;
 
   factory CuotaCredito.fromJson(Map<String, dynamic> json) {
     return CuotaCredito(
@@ -42,7 +42,7 @@ class CuotaCredito {
       valorCredito: json['valorCredito'] as double,
       interesPorcentaje: json['interesPorcentaje'] as double,
       fechaAbono: json['fechaAbono'] as String,
-      credito: Credito.fromJson(json['credito'] as Map<String, dynamic>),
+      credito: Credit.fromJson(json['credito'] as Map<String, dynamic>),
     );
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
@@ -11,6 +10,7 @@ class Credits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CreditsController controller = Get.find<CreditsController>();
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -32,13 +32,13 @@ class Credits extends StatelessWidget {
                         title: 'Valor credito',
                         controller: controller.creditValue,
                         textInputType: TextInputType.number,
-                        validateText: ValidateText.onlyNumbers,
+                        validateText: ValidateText.creditValue,
                       ),
                       TextFieldBase(
                         title: 'Interes',
                         controller: controller.interestPercentage,
                         textInputType: TextInputType.number,
-                        validateText: ValidateText.onlyNumbers,
+                        validateText: ValidateText.interestPercentage,
                       ),
                     ],
                   ),
@@ -49,7 +49,7 @@ class Credits extends StatelessWidget {
                         title: 'Cantidad cuotas',
                         controller: controller.installmentAmount,
                         textInputType: TextInputType.number,
-                        validateText: ValidateText.onlyNumbers,
+                        validateText: ValidateText.installmentAmount,
                       ),
                       TextFieldBase(
                         textAlign: TextAlign.left,
@@ -65,18 +65,34 @@ class Credits extends StatelessWidget {
                       TextFieldCalendar(
                         paddingHorizontal: 20,
                         controller: controller.creditDate,
-                        onTap: () async =>
-                            showCalendar(context, controller.creditDate),
+                        onTap: () async => controller.showCalendar(
+                            context, controller.creditDate,),
                         title: 'Fecha credito',
                       ),
                       TextFieldCalendar(
                         controller: controller.installmentDate,
-                        onTap: () async =>
-                            showCalendar(context, controller.installmentDate),
+                        onTap: () async => controller.showCalendar(
+                          context,
+                          controller.installmentDate,
+                        ),
                         title: 'Couta credito',
                       ),
                     ],
-                  )
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: size.height * 0.04,
+                        horizontal: size.width * 0.3,),
+                    child: FilledButton.icon(
+                      onPressed: () {
+                        if (controller.validateForm()) {
+                          controller.save();
+                        }
+                      },
+                      icon: const Icon(Icons.monetization_on),
+                      label: const Text("Registrar"),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -85,40 +101,4 @@ class Credits extends StatelessWidget {
       ),
     );
   }
-
-  Future<void> showCalendar(
-    BuildContext context,
-    TextEditingController controllerField,
-  ) async {
-    final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2023),
-        lastDate: DateTime(2050));
-
-    if (pickedDate != null) {
-      final String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
-      controllerField.text = formattedDate;
-    } else {
-      print("Date is not selected");
-    }
-  }
 }
-
-
-  /*    DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2023),
-                            lastDate: DateTime(2050));
-
-                        if (pickedDate != null) {
-                          print(pickedDate);
-                          String formattedDate =
-                              DateFormat('dd-MM-yyyy').format(pickedDate);
-                          print(formattedDate);
-                          controller.creditDate.text = formattedDate;
-                        } else {
-                          print("Date is not selected");
-                        }
-} */
