@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
+import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/responses/add_credit_response.dart';
 import 'package:inversiones/src/ui/pages/home/dialog/dialog_info.dart';
@@ -45,28 +44,35 @@ class CreditsController extends GetxController {
             ),
           );
           if (res.status == 200) {
-            prueba(res.data!);
+            _showInfoDialog(res.data!);
+            _cleanForm();
           } else {
-            appController.manageError(res.message!);
+            appController.manageError(res.message);
           }
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
-          print('***');
-          print(e.toString());
           appController.manageError(e.toString());
         }
       },
     );
   }
 
-  void prueba(DataCreditResponse info) {
+  void _showInfoDialog(DataCreditResponse info) {
     Get.dialog(
       DialogInfo(
         title: 'Informacion credito',
         info: info,
       ),
     );
+  }
+
+  void _cleanForm() {
+    document.clear();
+    creditValue.clear();
+    installmentAmount.clear();
+    interestPercentage.clear();
+    installmentDate.clear();
   }
 
   bool validateForm() {

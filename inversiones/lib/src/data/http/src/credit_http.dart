@@ -23,4 +23,5 @@ class CreditHttp implements CreditRepository {
       rethrow;
     }
   }
+
 }
