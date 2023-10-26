@@ -57,7 +57,7 @@ class Credits extends StatelessWidget {
                         textInputType: TextInputType.number,
                         validateText: ValidateText.onlyNumbers,
                       ),
-                    ],
+                    ],  
                   ),
                   Row(
                     children: [
