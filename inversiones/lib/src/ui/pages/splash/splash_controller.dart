@@ -1,9 +1,9 @@
-import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/userdetails_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
+import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/error_snackbar.dart';
 
@@ -34,7 +34,6 @@ class SplashController extends GetxController {
         }
       });
     } on HttpException catch (e) {
-      Get.offNamed(RouteNames.signIn);
       appController.manageError(e.message);
     } catch (e) {
       Get.offNamed(RouteNames.signIn);

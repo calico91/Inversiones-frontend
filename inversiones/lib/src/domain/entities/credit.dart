@@ -4,29 +4,35 @@ import 'package:inversiones/src/domain/entities/cuota_credito.dart';
 class Credit {
   const Credit({
     this.id,
-    required this.estadoCredito,
+    this.estadoCredito,
     required this.fechaCredito,
-    required this.cliente,
-    required this.listaCuotasCredito,
+    this.cliente,
+    this.listaCuotasCredito,
   });
 
   final int? id;
-  final String estadoCredito;
+  final String? estadoCredito;
   final String fechaCredito;
-  final Client cliente;
-  final List<CuotaCredito> listaCuotasCredito;
+  final Client? cliente;
+  final List<CuotaCredito>? listaCuotasCredito;
 
   factory Credit.fromJson(Map<String, dynamic> json) {
     return Credit(
       id: json['id'] as int,
-      estadoCredito: json['estadoCredito'] as String,
+      estadoCredito: json['estadoCredito'] != null
+          ? json['estadoCredito'] as String
+          : null,
       fechaCredito: json['fechaCredito'] as String,
-      cliente: Client.fromJson(json['cliente'] as Map<String, dynamic>),
-      listaCuotasCredito: List<CuotaCredito>.from(
-        (json['listaCuotasCredito'] as List<dynamic>).map((element) {
-          return CuotaCredito.fromJson(element as Map<String, dynamic>);
-        }),
-      ),
+      cliente: json['cliente'] != null
+          ? Client.fromJson(json['cliente'] as Map<String, dynamic>)
+          : null,
+      listaCuotasCredito: json['listaCuotasCredito'] != null
+          ? List<CuotaCredito>.from(
+              (json['listaCuotasCredito'] as List<dynamic>).map((element) {
+                return CuotaCredito.fromJson(element as Map<String, dynamic>);
+              }),
+            )
+          : null,
     );
   }
 

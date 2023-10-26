@@ -52,7 +52,6 @@ class Credits extends StatelessWidget {
                         validateText: ValidateText.installmentAmount,
                       ),
                       TextFieldBase(
-                        textAlign: TextAlign.left,
                         title: 'Documento cliente',
                         controller: controller.document,
                         textInputType: TextInputType.number,
