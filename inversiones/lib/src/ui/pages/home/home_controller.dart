@@ -6,9 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
-import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
-import 'package:inversiones/src/domain/responses/all_clients_response.dart';
+import 'package:inversiones/src/domain/responses/clients_pending_installments_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -18,8 +17,9 @@ class HomeController extends GetxController {
   final AppController appController;
   final UserDetails userDetails = Get.arguments as UserDetails;
   final RxBool _loading = RxBool(false);
-  final Rx<List<Client>> _clients = Rx<List<Client>>([]);
-
+  final Rx<List<ClientsPendingInstallment>> _clients =
+      Rx<List<ClientsPendingInstallment>>([]);
+  final Rx<int> _status = Rx<int>(0);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController creditValue = TextEditingController();
   final TextEditingController installmentAmount = TextEditingController();
@@ -27,18 +27,19 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    _load();
+    loadClientsPendingInstallments();
     super.onInit();
   }
 
-  Future<void> _load() async {
+  Future<void> loadClientsPendingInstallments() async {
     try {
-      final AllClientsResponse allClientsResponse =
-          await const ClientHttp().allClients("T");
-      if (allClientsResponse.status == 200) {
-        _clients(allClientsResponse.clients);
+      final ClientsPendingInstallmentsResponse clientsPendingInstallments =
+          await const ClientHttp().clientsPendingInstallments();
+      if (clientsPendingInstallments.status == 200) {
+        _status(clientsPendingInstallments.status);
+        _clients(clientsPendingInstallments.clientsPendingInstallments);
       } else {
-        appController.manageError(allClientsResponse.message);
+        appController.manageError(clientsPendingInstallments.message);
       }
     } on HttpException catch (e) {
       appController.manageError(e.message);
@@ -71,5 +72,6 @@ class HomeController extends GetxController {
   }
 
   bool get loading => _loading.value;
-  List<Client> get clients => _clients.value;
+  int get status => _status.value;
+  List<ClientsPendingInstallment> get clients => _clients.value;
 }

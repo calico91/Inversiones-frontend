@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
-import 'package:inversiones/src/ui/pages/home/widgets/all_clients_molecule.dart';
+import 'package:inversiones/src/ui/pages/home/widgets/clients_pending_installments_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                 height: size.height * 0.3,
 
                 /// clientes con creditos activos
-                child: const AllClientsMolecule(),
+                child: const ClientsPendingInstallmentsMolecule(),
               ),
               SizedBox(
                 height: size.height * 0.02,
