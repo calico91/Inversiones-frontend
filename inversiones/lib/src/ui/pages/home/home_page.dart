@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.3,
 
-                /// lista creditos pendientes
+                /// lista cuotas pendientes anteriores a la fecha de hoy
                 child: const ClientsPendingInstallmentsMolecule(),
               ),
               SizedBox(

@@ -6,5 +6,5 @@ class RouteNames {
   static const String splash = '/splash';
   static const String clients = '/clients';
   static const String credits = '/credits';
-  static const String employeeAddTask = '/employee-add-task';
+  static const String payFee = '/payFee';
 }

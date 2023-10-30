@@ -5,6 +5,7 @@ import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/domain/repositories/credit_repository.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/responses/add_credit_response.dart';
+import 'package:inversiones/src/domain/responses/pay_fee_response.dart';
 
 class CreditHttp implements CreditRepository {
   const CreditHttp({
@@ -24,4 +25,14 @@ class CreditHttp implements CreditRepository {
     }
   }
 
+  @override
+  Future<PayFeeResponse> infoPayFee(int idCliente) async {
+    try {
+      final http.Response response =
+          await baseHttpClient.post('${UrlPaths.addCredit}/$idCliente');
+      return compute(payFeeResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -7,6 +7,7 @@ ClientsPendingInstallmentsResponse clientsPendingInstallmentsResponseFromJson(
       json.decode(str) as Map<String, dynamic>,
     );
 
+/// lista de clientes con cuotas pendientes por pagar
 class ClientsPendingInstallmentsResponse {
   List<ClientsPendingInstallment>? clientsPendingInstallments;
   String message;

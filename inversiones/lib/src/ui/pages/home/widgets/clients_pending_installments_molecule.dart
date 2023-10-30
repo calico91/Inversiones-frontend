@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
+import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class ClientsPendingInstallmentsMolecule extends StatelessWidget {
@@ -42,6 +43,10 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
             itemCount: controller.clients.length,
             itemBuilder: (_, index) {
               return ListTile(
+                onTap: () {
+                  Get.toNamed(RouteNames.payFee);
+                  controller.idCliente(controller.clients[index].idCliente);
+                },
                 title: _showClientTitle(controller, index, size),
                 subtitle: _showClientSubtitle(controller, index, size),
               );
