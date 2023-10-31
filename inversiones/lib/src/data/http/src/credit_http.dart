@@ -4,7 +4,9 @@ import 'package:inversiones/src/data/http/base_http_client.dart';
 import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/domain/repositories/credit_repository.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
+import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
 import 'package:inversiones/src/domain/responses/add_credit_response.dart';
+import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/domain/responses/pay_fee_response.dart';
 
 class CreditHttp implements CreditRepository {
@@ -31,6 +33,22 @@ class CreditHttp implements CreditRepository {
       final http.Response response =
           await baseHttpClient.get('${UrlPaths.infoPayFee}/$idCliente');
       return compute(payFeeResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<GenericoResponse> pagarCuota(
+    PagarCuotaRequest pagarCuotaRequest,
+  ) async {
+    try {
+      final http.Response response = await baseHttpClient.post(
+        '${UrlPaths.pagarCuota}/${pagarCuotaRequest.idCuotaCredito}',
+        request: pagarCuotaRequest.toJson(),
+        parameters: {'soloInteres': '${pagarCuotaRequest.soloInteres}'},
+      );
+      return compute(genericoResponseFromJson, response.body);
     } catch (e) {
       rethrow;
     }

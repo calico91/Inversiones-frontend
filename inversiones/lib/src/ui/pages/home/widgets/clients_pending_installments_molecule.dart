@@ -18,7 +18,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
         if (controller.status != 200) {
           return const Loading(
             vertical: 110,
-          );
+          ).circularLoading();
         } else if (controller.status == 200 && controller.clients.isEmpty) {
           return Center(
             child: RefreshIndicator(

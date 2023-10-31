@@ -15,16 +15,6 @@ class AddCreditRequest {
   final String? fechaCuota;
   final String? fechaCredito;
 
-  factory AddCreditRequest.fromJson(Map<String, dynamic> json) {
-    return AddCreditRequest(
-      cantidadPrestada: json['cantidadPrestada'] as double,
-      interesPorcentaje: json['interesPorcentaje'] as double,
-      cantidadCuotas: json['cantidadCuotas'] as int,
-      cedulaTitularCredito: json['cedulaTitularCredito'] as String,
-      fechaCuota: json['fechaCuota'] as String,
-      fechaCredito: json['fechaCredito'] as String,
-    );
-  }
 
   Map<String, dynamic> toJson() {
     return {

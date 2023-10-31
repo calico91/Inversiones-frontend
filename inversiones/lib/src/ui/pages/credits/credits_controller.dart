@@ -30,7 +30,7 @@ class CreditsController extends GetxController {
 
   void save() {
     Get.showOverlay(
-      loadingWidget: const Loading(),
+      loadingWidget: const Loading().circularLoading(),
       asyncFunction: () async {
         try {
           final AddCreditResponse res = await const CreditHttp().addCredit(

@@ -25,7 +25,7 @@ class ClientsController extends GetxController {
 
   void save() {
     Get.showOverlay(
-      loadingWidget: const Loading(),
+      loadingWidget: const Loading().circularLoading(),
       asyncFunction: () async {
         try {
           final AddClientResponse res = await const ClientHttp().addClient(
@@ -57,7 +57,7 @@ class ClientsController extends GetxController {
 
   void loadClient() {
     Get.showOverlay(
-      loadingWidget: const Loading(),
+      loadingWidget: const Loading().circularLoading(),
       asyncFunction: () async {
         try {
           final AddClientResponse res =
@@ -71,7 +71,6 @@ class ClientsController extends GetxController {
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
-
           appController.manageError(e.toString());
         }
       },
@@ -80,7 +79,7 @@ class ClientsController extends GetxController {
 
   void updateClient() {
     Get.showOverlay(
-      loadingWidget: const Loading(),
+      loadingWidget: const Loading().circularLoading(),
       asyncFunction: () async {
         try {
           final AddClientResponse res = await const ClientHttp().updateClient(

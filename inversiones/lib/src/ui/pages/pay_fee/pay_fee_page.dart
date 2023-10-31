@@ -48,9 +48,9 @@ class PayFeePage extends StatelessWidget {
                 child: Obx(() {
                   if (controller.loading) {
                     return Loading(
-                      horizontal: size.width * 0.35,
-                      vertical: size.height * 0.15,
-                    );
+                      horizontal: size.width * 0.00008,
+                      vertical: size.height * 0.165,
+                    ).linearLoading();
                   }
                   return Column(
                     children: [
@@ -93,7 +93,9 @@ class PayFeePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 FilledButton.icon(
-                  onPressed: () {},
+                  onPressed: () => _mostrarConfirmacionPagoCuota(
+                    context,
+                  ),
                   icon: const Icon(Icons.money),
                   label: const Text("Pagar cuota"),
                 ),
@@ -135,4 +137,30 @@ class PayFeePage extends StatelessWidget {
       ),
     );
   }
+
+  Future _mostrarConfirmacionPagoCuota(
+    BuildContext context,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: const Text(
+          textAlign: TextAlign.center,
+          'Desea pagar la cuota?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Si'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('No'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  
 }

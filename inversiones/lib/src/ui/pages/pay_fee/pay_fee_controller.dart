@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
+import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
+import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/domain/responses/pay_fee_response.dart';
 
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
@@ -30,6 +32,27 @@ class PayFeeController extends GetxController {
         _loading(false);
       } else {
         appController.manageError(clientsPendingInstallments.message);
+      }
+    } on HttpException catch (e) {
+      appController.manageError(e.message);
+    } catch (e) {
+      appController.manageError(e.toString());
+    }
+  }
+
+  Future<void> pagarCuota() async {
+    try {
+      final GenericoResponse pagarCuota = await const CreditHttp().pagarCuota(
+        PagarCuotaRequest(
+          fechaAbono: DateTime.now().toString(),
+          valorAbono: payFee.valorCuota!,
+          soloInteres: false,
+          idCuotaCredito: payFee.id!,
+        ),
+      );
+      if (pagarCuota.status == 200) {
+      } else {
+        appController.manageError(pagarCuota.message);
       }
     } on HttpException catch (e) {
       appController.manageError(e.message);
