@@ -17,13 +17,8 @@ class PayFeeController extends GetxController {
 
   @override
   void onInit() {
-    imprimir();
     _loadPayFee();
     super.onInit();
-  }
-
-  void imprimir() {
-    print(homeController.idCliente);
   }
 
   Future<void> _loadPayFee() async {
@@ -47,4 +42,5 @@ class PayFeeController extends GetxController {
 
   PayFee get payFee => _payFee.value;
   bool get loading => _loading.value;
+  String get nombreCliente => homeController.nombreClienteSeleccionado;
 }

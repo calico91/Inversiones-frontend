@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -47,6 +46,9 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
                 onTap: () {
                   Get.toNamed(RouteNames.payFee);
                   controller.idCliente(controller.clients[index].idCliente);
+                  controller.nombreCliente(
+                    '${controller.clients[index].nombres} ${controller.clients[index].apellidos}',
+                  );
                 },
                 title: _showClientTitle(controller, index, size),
                 subtitle: _showClientSubtitle(controller, index, size),

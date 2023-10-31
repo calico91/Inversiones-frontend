@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
@@ -21,6 +20,7 @@ class HomeController extends GetxController {
       Rx<List<ClientsPendingInstallment>>([]);
   final Rx<int> _status = Rx<int>(0);
   final Rx<int> idCliente = Rx<int>(0);
+  final Rx<String> nombreCliente = Rx<String>('');
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController creditValue = TextEditingController();
   final TextEditingController installmentAmount = TextEditingController();
@@ -76,6 +76,7 @@ class HomeController extends GetxController {
   int get status => _status.value;
 
   int get idClienteSeleccionado => idCliente.value;
+  String get nombreClienteSeleccionado => nombreCliente.value;
 
   List<ClientsPendingInstallment> get clients => _clients.value;
 }

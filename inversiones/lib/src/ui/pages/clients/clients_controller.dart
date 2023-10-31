@@ -69,10 +69,8 @@ class ClientsController extends GetxController {
             appController.manageError(res.message);
           }
         } on HttpException catch (e) {
-          print('+++');
           appController.manageError(e.message);
         } catch (e) {
-          print('5555');
 
           appController.manageError(e.toString());
         }
