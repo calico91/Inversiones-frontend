@@ -8,6 +8,7 @@ import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/clients_pending_installments_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class HomeController extends GetxController {
@@ -66,9 +67,8 @@ class HomeController extends GetxController {
     final double creditFee =
         double.parse(creditValue.text) / double.parse(installmentAmount.text) +
             interest;
-    final NumberFormat response = NumberFormat("#,##0.00", "es_CO");
 
-    return response.format(creditFee);
+    return General.formatoMoneda(creditFee);
   }
 
   bool get loading => _loading.value;

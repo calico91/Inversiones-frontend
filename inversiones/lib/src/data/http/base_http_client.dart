@@ -33,6 +33,7 @@ class BaseHttpClient {
         return Future.value(response);
       }
       final message = jsonDecode(response.body);
+      print(message);
       throw _processResponse(
         response.statusCode,
         response.request?.url.toString() ?? uri.toString(),
@@ -50,6 +51,7 @@ class BaseHttpClient {
     Map<String, dynamic>? request,
     Map<String, String>? parameters,
   }) async {
+    print(path);
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
         : Uri.http('10.102.1.13:8091', path, parameters);

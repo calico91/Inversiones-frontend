@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class ClientsPendingInstallmentsMolecule extends StatelessWidget {
@@ -80,10 +81,8 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
   }
 
   Widget _showClientSubtitle(HomeController controller, int index, Size size) {
-    final NumberFormat response = NumberFormat("#,##0.00", "es_CO");
-
     final String valorCuota =
-        response.format(controller.clients[index].valorCuota);
+        General.formatoMoneda(controller.clients[index].valorCuota);
     return Row(
       children: [
         SizedBox(
@@ -99,7 +98,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
           child: Text(
             textAlign: TextAlign.right,
             overflow: TextOverflow.ellipsis,
-            "Valor cuota: \$$valorCuota",
+            "Valor cuota: $valorCuota",
           ),
         ),
       ],

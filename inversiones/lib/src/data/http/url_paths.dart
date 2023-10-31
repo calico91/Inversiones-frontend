@@ -10,6 +10,6 @@ class UrlPaths {
   static const String updateClient = '/cliente/actualizarCliente';
   static const String infoClientesCuotaCredito =
       '/cliente/infoClientesCuotaCredito';
-  static const String infoPayFee = '/credito/infoCuotaCreditoCliente';
+  static const String infoPayFee = '/cuotaCredito/infoCuotaCreditoCliente';
   static const String getUser = '/user/getUser';
 }

@@ -3,11 +3,13 @@ import 'dart:convert';
 PayFeeResponse payFeeResponseFromJson(String str) => PayFeeResponse.fromJson(
       json.decode(str) as Map<String, dynamic>,
     );
+    
 
 class PayFeeResponse {
   PayFee? payFee;
   String message;
   int status;
+
 
   PayFeeResponse({
     this.payFee,
@@ -18,7 +20,7 @@ class PayFeeResponse {
   factory PayFeeResponse.fromJson(Map<String, dynamic> json) => PayFeeResponse(
         payFee: json["data"] == null
             ? null
-            : PayFee.fromJson(json["PayFee"] as Map<String, dynamic>),
+            : PayFee.fromJson(json["data"] as Map<String, dynamic>),
         message: json["message"] as String,
         status: json["status"] as int,
       );

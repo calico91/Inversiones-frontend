@@ -29,7 +29,7 @@ class CreditHttp implements CreditRepository {
   Future<PayFeeResponse> infoPayFee(int idCliente) async {
     try {
       final http.Response response =
-          await baseHttpClient.post('${UrlPaths.addCredit}/$idCliente');
+          await baseHttpClient.get('${UrlPaths.infoPayFee}/$idCliente');
       return compute(payFeeResponseFromJson, response.body);
     } catch (e) {
       rethrow;

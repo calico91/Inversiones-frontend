@@ -70,7 +70,7 @@ class SimulateCreditMolecule extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         content: Text(
-          '${controller.installmentAmount.text} cuotas de \$${controller.calculateCreditFee()}',
+          '${controller.installmentAmount.text} cuotas de ${controller.calculateCreditFee()}',
         ),
         actions: [
           TextButton(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/add_credit_response.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class DialogInfo extends StatelessWidget {
   final String title;
@@ -22,30 +23,19 @@ class DialogInfo extends StatelessWidget {
         height: size.height * 0.11,
         child: Column(
           children: [
-            _showInfoCredito(
-              'Fecha pago',
-              info.fechaPago!,
-              false,
-            ),
+            _showInfoCredito('Fecha pago', info.fechaPago!),
             _showInfoCredito(
               'Valor credito',
-              info.valorCredito!,
-              true,
+              General.formatoMoneda(double.parse(info.valorCredito!)),
             ),
             _showInfoCredito(
               'Valor cuotas',
-              info.valorCuotas!,
-              true,
+              General.formatoMoneda(double.parse(info.valorCuotas!)),
             ),
-            _showInfoCredito(
-              'Cantidad cuotas',
-              info.cantidadCuotas!,
-              false,
-            ),
+            _showInfoCredito('Cantidad cuotas', info.cantidadCuotas!),
             _showInfoCredito(
               'Valor primer cuota',
-              info.valorPrimerCuota!,
-              true,
+              General.formatoMoneda(double.parse(info.valorPrimerCuota!)),
             ),
           ],
         ),
@@ -59,21 +49,18 @@ class DialogInfo extends StatelessWidget {
     );
   }
 
-  Widget _showInfoCredito(String title, String info, bool money) {
+  Widget _showInfoCredito(
+    String title,
+    String info,
+  ) {
     return Row(
       children: [
         Text('$title:', textAlign: TextAlign.left),
         Expanded(child: Container()),
-        // ignore: prefer_if_elements_to_conditional_expressions
-        money
-            ? Text(
-                '\$$info',
-                textAlign: TextAlign.right,
-              )
-            : Text(
-                info,
-                textAlign: TextAlign.right,
-              ),
+        Text(
+          info,
+          textAlign: TextAlign.right,
+        ),
       ],
     );
   }
