@@ -54,34 +54,37 @@ class PayFeePage extends StatelessWidget {
                       vertical: size.height * 0.165,
                     ).linearLoading();
                   }
-                  return Column(
-                    children: [
-                      _infoValorCuota(
-                        size,
-                        'Cantidad cuotas',
-                        controller.payFee.numeroCuotas!.toString(),
-                      ),
-                      _infoValorCuota(
-                        size,
-                        'Numero cuota',
-                        controller.payFee.cuotaNumero!.toString(),
-                      ),
-                      _infoValorCuota(
-                        size,
-                        'Fecha cuota',
-                        controller.payFee.fechaCuota!,
-                      ),
-                      _infoValorCuota(
-                        size,
-                        'Valor cuota',
-                        General.formatoMoneda(controller.payFee.valorCuota),
-                      ),
-                      _infoValorCuota(
-                        size,
-                        'Valor credito',
-                        General.formatoMoneda(controller.payFee.valorCredito),
-                      ),
-                    ],
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
+                    child: Column(
+                      children: [
+                        _infoValorCuota(
+                          size,
+                          'Cantidad cuotas',
+                          controller.payFee.numeroCuotas!.toString(),
+                        ),
+                        _infoValorCuota(
+                          size,
+                          'Numero cuota',
+                          controller.payFee.cuotaNumero!.toString(),
+                        ),
+                        _infoValorCuota(
+                          size,
+                          'Fecha cuota',
+                          controller.payFee.fechaCuota!,
+                        ),
+                        _infoValorCuota(
+                          size,
+                          'Valor cuota',
+                          General.formatoMoneda(controller.payFee.valorCuota),
+                        ),
+                        _infoValorCuota(
+                          size,
+                          'Valor credito',
+                          General.formatoMoneda(controller.payFee.valorCredito),
+                        ),
+                      ],
+                    ),
                   );
                 }),
               ),
@@ -97,7 +100,7 @@ class PayFeePage extends StatelessWidget {
                 FilledButton.icon(
                   onPressed: () => _mostrarConfirmacionPagoCuota(
                     size,
-                    'Desea cancelar la cuota?',
+                    'Desea pagar la cuota?',
                     context,
                     controller,
                     false,

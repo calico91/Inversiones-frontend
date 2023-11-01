@@ -1,3 +1,4 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
@@ -17,6 +18,7 @@ class TextFieldBase extends StatelessWidget {
     this.heightTextField = 0.09,
     this.required = true,
     this.textAlign = TextAlign.right,
+    this.moneyCamp = false,
   });
 
   final String? hintText;
@@ -30,6 +32,7 @@ class TextFieldBase extends StatelessWidget {
   final TextAlign? textAlign;
   final TextInputType textInputType;
   final bool? required;
+  final bool? moneyCamp;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -54,7 +57,7 @@ class TextFieldBase extends StatelessWidget {
               expands: true,
               maxLines: null,
               validator: (String? value) => _validateStructure(value),
-              inputFormatters: [_validateInputFormatters()],
+              inputFormatters: _validateInputFormatters(),
               keyboardType: textInputType,
               textAlign: textAlign!,
               maxLength: _validateMaxLength(),
@@ -85,7 +88,7 @@ class TextFieldBase extends StatelessWidget {
       case ValidateText.email:
         return 64;
       case ValidateText.creditValue:
-        return 7;
+        return 9;
       case ValidateText.installmentAmount:
         return 2;
       case ValidateText.interestPercentage:
@@ -106,20 +109,26 @@ class TextFieldBase extends StatelessWidget {
   }
 
   /// valida tipo de datos que se ingresan
-  TextInputFormatter _validateInputFormatters() {
+  List<TextInputFormatter> _validateInputFormatters() {
     switch (validateText) {
       case ValidateText.creditValue:
-        return FilteringTextInputFormatter.digitsOnly;
+        return [
+          FilteringTextInputFormatter.digitsOnly,
+          CurrencyTextInputFormatter(
+            symbol: '',
+            decimalDigits: 0,
+          ),
+        ];
       case ValidateText.installmentAmount:
-        return FilteringTextInputFormatter.digitsOnly;
+        return [FilteringTextInputFormatter.digitsOnly];
       case ValidateText.interestPercentage:
-        return FilteringTextInputFormatter.digitsOnly;
+        return [FilteringTextInputFormatter.digitsOnly];
       case ValidateText.onlyNumbers:
-        return FilteringTextInputFormatter.digitsOnly;
+        return [FilteringTextInputFormatter.digitsOnly];
       case ValidateText.phoneNumber:
-        return FilteringTextInputFormatter.digitsOnly;
+        return [FilteringTextInputFormatter.digitsOnly];
       default:
-        return FilteringTextInputFormatter.singleLineFormatter;
+        return [FilteringTextInputFormatter.singleLineFormatter];
     }
   }
 

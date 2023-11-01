@@ -10,4 +10,8 @@ class General {
 
   static String formatoFecha(DateTime date) =>
       DateFormat('yyyy-MM-dd').format(date);
+
+  ///quita las comas del string que viene del input
+  static double stringToDouble(String value) =>
+      double.parse(value.replaceAll(',', '').trim());
 }

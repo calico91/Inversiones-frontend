@@ -61,12 +61,12 @@ class HomeController extends GetxController {
 
   /// calcula el valor de la cuota a pagar
   String calculateCreditFee() {
-    final double interest = double.parse(creditValue.text) *
+    final double interest = General.stringToDouble(creditValue.text) *
         (double.parse(interestPercentage.text) / 100);
 
-    final double creditFee =
-        double.parse(creditValue.text) / double.parse(installmentAmount.text) +
-            interest;
+    final double creditFee = General.stringToDouble(creditValue.text) /
+            double.parse(installmentAmount.text) +
+        interest;
 
     return General.formatoMoneda(creditFee);
   }

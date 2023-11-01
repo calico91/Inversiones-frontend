@@ -7,6 +7,7 @@ import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/responses/add_credit_response.dart';
 import 'package:inversiones/src/ui/pages/home/dialog/dialog_info.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class CreditsController extends GetxController {
@@ -36,7 +37,7 @@ class CreditsController extends GetxController {
           final AddCreditResponse res = await const CreditHttp().addCredit(
             AddCreditRequest(
               cantidadCuotas: int.parse(installmentAmount.text.trim()),
-              cantidadPrestada: double.parse(creditValue.text.trim()),
+              cantidadPrestada: General.stringToDouble(creditValue.text),
               cedulaTitularCredito: document.text.trim(),
               interesPorcentaje: double.parse(interestPercentage.text.trim()),
               fechaCredito: creditDate.text.trim(),
