@@ -5,10 +5,12 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 class DialogInfo extends StatelessWidget {
   final String title;
   final DataCreditResponse? info;
+  final VoidCallback? accion;
 
   const DialogInfo({
     required this.title,
     this.info,
+    this.accion,
   });
 
   @override
@@ -22,7 +24,11 @@ class DialogInfo extends StatelessWidget {
       content: SizedBox(
         height: size.height * 0.11,
         child: info == null
-            ? Container()
+            // ignore: sized_box_shrink_expand
+            ? const SizedBox(
+                height: 0,
+                width: 0,
+              )
             : Column(
                 children: [
                   _showInfoCredito('Fecha pago', info!.fechaPago!),
@@ -46,7 +52,9 @@ class DialogInfo extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            return accion ?? Navigator.pop(context);
+          },
           child: const Text('Aceptar'),
         ),
       ],

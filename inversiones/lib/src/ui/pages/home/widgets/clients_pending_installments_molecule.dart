@@ -68,7 +68,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
           width: size.width * 0.5,
           child: Text(
             overflow: TextOverflow.ellipsis,
-            "${controller.clients[index].nombres} ${controller.clients[index].apellidos}",
+            "${controller.clients[index].idCredito}.${controller.clients[index].nombres} ${controller.clients[index].apellidos}",
           ),
         ),
         SizedBox(

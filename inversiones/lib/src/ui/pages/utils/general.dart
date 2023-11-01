@@ -7,4 +7,7 @@ class General {
     final NumberFormat response = NumberFormat("\$#,##0", "es_CO");
     return response.format(value);
   }
+
+  static String formatoFecha(DateTime date) =>
+      DateFormat('yyyy-MM-dd').format(date);
 }

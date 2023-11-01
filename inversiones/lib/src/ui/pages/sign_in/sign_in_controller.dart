@@ -37,6 +37,7 @@ class SignInController extends GetxController {
             );
             if (res.status == 200) {
               await const SecureStorageLocal().saveToken(res.token);
+              await const SecureStorageLocal().saveUserDetails(res.userDetails);
               Get.offNamed(RouteNames.home, arguments: res.userDetails);
             } else {
               appController.manageError(res.message);

@@ -26,13 +26,13 @@ class SecureStorageLocal implements SecureStorageRepository {
   Future<void> saveUserDetails(UserDetails? userDetails) {
     return secureStorage.write(
       key: 'userDetails',
-      value: _userDetails.toString(),
+      value: _userDetails?.serialize(userDetails!),
     );
   }
 
   @override
   Future<UserDetails?> get userDetails async {
-    return _userDetails ??=
-        (await secureStorage.read(key: 'userDetails')) as UserDetails?;
+    return _userDetails ??= _userDetails!
+        .deserialize(await secureStorage.read(key: 'userDetails') ?? '');
   }
 }

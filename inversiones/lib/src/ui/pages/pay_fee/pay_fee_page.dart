@@ -61,7 +61,7 @@ class PayFeePage extends StatelessWidget {
                       ),
                       _infoValorCuota(
                         size,
-                        'Cuotas pagadas',
+                        'Numero cuota',
                         controller.payFee.cuotaNumero!.toString(),
                       ),
                       _infoValorCuota(
@@ -95,6 +95,7 @@ class PayFeePage extends StatelessWidget {
                 FilledButton.icon(
                   onPressed: () => _mostrarConfirmacionPagoCuota(
                     context,
+                    controller,
                   ),
                   icon: const Icon(Icons.money),
                   label: const Text("Pagar cuota"),
@@ -140,6 +141,7 @@ class PayFeePage extends StatelessWidget {
 
   Future _mostrarConfirmacionPagoCuota(
     BuildContext context,
+    PayFeeController controller,
   ) {
     return showDialog(
       context: context,
@@ -150,7 +152,10 @@ class PayFeePage extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+              controller.pagarCuota();
+            } ,
             child: const Text('Si'),
           ),
           TextButton(
@@ -161,6 +166,4 @@ class PayFeePage extends StatelessWidget {
       ),
     );
   }
-
-  
 }
