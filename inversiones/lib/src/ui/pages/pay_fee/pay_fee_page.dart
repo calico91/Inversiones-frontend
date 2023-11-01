@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class PayFeePage extends StatelessWidget {
@@ -94,14 +96,23 @@ class PayFeePage extends StatelessWidget {
               children: [
                 FilledButton.icon(
                   onPressed: () => _mostrarConfirmacionPagoCuota(
+                    size,
+                    'Desea cancelar la cuota?',
                     context,
                     controller,
+                    false,
                   ),
                   icon: const Icon(Icons.money),
                   label: const Text("Pagar cuota"),
                 ),
                 FilledButton.icon(
-                  onPressed: () {},
+                  onPressed: () => _mostrarConfirmacionPagoCuota(
+                    size,
+                    'Desea cancelar solo interes?',
+                    context,
+                    controller,
+                    true,
+                  ),
                   icon: const Icon(Icons.monetization_on_outlined),
                   label: const Text("Pagar interes"),
                 ),
@@ -140,22 +151,56 @@ class PayFeePage extends StatelessWidget {
   }
 
   Future _mostrarConfirmacionPagoCuota(
+    Size size,
+    String mensaje,
     BuildContext context,
     PayFeeController controller,
+    bool soloInteres,
   ) {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        content: const Text(
-          textAlign: TextAlign.center,
-          'Desea pagar la cuota?',
-        ),
+        content: soloInteres
+            ? SizedBox(
+                height: size.height * 0.17,
+                child: Column(
+                  children: [
+                    Text(
+                      textAlign: TextAlign.center,
+                      mensaje,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Form(
+                      key: controller.formKey,
+                      child: TextFieldBase(
+                        title: 'valor Interes',
+                        controller: controller.interestPercentage,
+                        textInputType: TextInputType.number,
+                        validateText: ValidateText.creditValue,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Text(
+                textAlign: TextAlign.center,
+                mensaje,
+              ),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
-              controller.pagarCuota();
-            } ,
+              if (!soloInteres) {
+                controller.pagarCuota(false);
+                Navigator.pop(context);
+              } else {
+                if (controller.validateForm()) {
+                  controller.pagarCuota(true);
+                  Navigator.pop(context);
+                }
+              }
+            },
             child: const Text('Si'),
           ),
           TextButton(

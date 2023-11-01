@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
@@ -19,6 +20,8 @@ class PayFeeController extends GetxController {
   final Rx<PayFee> _payFee = Rx<PayFee>(PayFee());
   final Rx<int> _status = Rx<int>(0);
   final Rx<bool> _loading = Rx<bool>(true);
+  final TextEditingController interestPercentage = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void onInit() {
@@ -43,7 +46,7 @@ class PayFeeController extends GetxController {
     }
   }
 
-  Future<void> pagarCuota() async {
+  Future<void> pagarCuota(bool soloInteres) async {
     Get.showOverlay(
       loadingWidget: const Loading().circularLoading(),
       asyncFunction: () async {
@@ -52,8 +55,10 @@ class PayFeeController extends GetxController {
               await const CreditHttp().pagarCuota(
             PagarCuotaRequest(
               fechaAbono: General.formatoFecha(DateTime.now()),
-              valorAbonado: payFee.valorCuota!,
-              soloInteres: false,
+              valorAbonado: soloInteres
+                  ? double.parse(interestPercentage.text.trim())
+                  : payFee.valorCuota!,
+              soloInteres: soloInteres,
               idCuotaCredito: payFee.id!,
             ),
           );
@@ -77,6 +82,10 @@ class PayFeeController extends GetxController {
     Get.dialog(
       const DialogCuotaPagada(),
     );
+  }
+
+  bool validateForm() {
+    return formKey.currentState!.validate();
   }
 
   int get status => _status.value;
