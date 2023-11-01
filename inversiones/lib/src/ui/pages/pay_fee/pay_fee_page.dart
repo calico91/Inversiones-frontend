@@ -111,7 +111,7 @@ class PayFeePage extends StatelessWidget {
                 FilledButton.icon(
                   onPressed: () => _mostrarConfirmacionPagoCuota(
                     size,
-                    'Desea cancelar solo interes?',
+                    'Desea pagar solo interes?',
                     context,
                     controller,
                     true,

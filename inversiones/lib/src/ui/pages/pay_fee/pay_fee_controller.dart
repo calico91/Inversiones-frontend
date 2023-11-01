@@ -56,7 +56,7 @@ class PayFeeController extends GetxController {
             PagarCuotaRequest(
               fechaAbono: General.formatoFecha(DateTime.now()),
               valorAbonado: soloInteres
-                  ? double.parse(interestPercentage.text.trim())
+                  ? General.stringToDouble(interestPercentage.text)
                   : payFee.valorCuota!,
               soloInteres: soloInteres,
               idCuotaCredito: payFee.id!,
