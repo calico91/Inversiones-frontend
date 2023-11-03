@@ -57,7 +57,7 @@ class Credits extends StatelessWidget {
                         textInputType: TextInputType.number,
                         validateText: ValidateText.onlyNumbers,
                       ),
-                    ],  
+                    ],
                   ),
                   Row(
                     children: [
@@ -65,7 +65,9 @@ class Credits extends StatelessWidget {
                         paddingHorizontal: 20,
                         controller: controller.creditDate,
                         onTap: () async => controller.showCalendar(
-                            context, controller.creditDate,),
+                          context,
+                          controller.creditDate,
+                        ),
                         title: 'Fecha credito',
                       ),
                       TextFieldCalendar(
@@ -78,10 +80,13 @@ class Credits extends StatelessWidget {
                       ),
                     ],
                   ),
+
+                  /// boton registrar
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: size.height * 0.04,
-                        horizontal: size.width * 0.3,),
+                      vertical: size.height * 0.015,
+                      horizontal: size.width * 0.3,
+                    ),
                     child: FilledButton.icon(
                       onPressed: () {
                         if (controller.validateForm()) {
@@ -91,6 +96,13 @@ class Credits extends StatelessWidget {
                       icon: const Icon(Icons.monetization_on),
                       label: const Text("Registrar"),
                     ),
+                  ),
+
+                  /// botones clientes y credito
+                  SizedBox(
+                    height: size.height * 0.44,
+                    width: size.width * 0.92,
+                    child: ListTile(),
                   ),
                 ],
               ),

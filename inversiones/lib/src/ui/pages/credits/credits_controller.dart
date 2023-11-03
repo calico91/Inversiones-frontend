@@ -37,7 +37,7 @@ class CreditsController extends GetxController {
           final AddCreditResponse res = await const CreditHttp().addCredit(
             AddCreditRequest(
               cantidadCuotas: int.parse(installmentAmount.text.trim()),
-              cantidadPrestada: General.stringToDouble(creditValue.text),
+              valorCredito: General.stringToDouble(creditValue.text),
               cedulaTitularCredito: document.text.trim(),
               interesPorcentaje: double.parse(interestPercentage.text.trim()),
               fechaCredito: creditDate.text.trim(),
