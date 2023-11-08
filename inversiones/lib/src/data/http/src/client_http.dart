@@ -32,7 +32,7 @@ class ClientHttp implements ClientRepository {
   Future<AllClientsResponse> allClients( ) async {
     try {
       final http.Response response = await baseHttpClient.get(
-        "$UrlPaths.allClients",
+        UrlPaths.allClients,
       );
 
       return compute(allClientsResponseFromJson, response.body);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
+import 'package:inversiones/src/ui/pages/clients/widgets/lista_clientes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
@@ -13,26 +14,23 @@ class Clients extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Clientes'),
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Form(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: ListView(
+          children: [
+            Form(
               key: controller.formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      Form(
-                        key: controller.formKeyDocument,
-                        child: TextFieldBase(
-                          paddingHorizontal: 20,
-                          title: 'Cedula',
-                          controller: controller.document,
-                          textInputType: TextInputType.number,
-                          validateText: ValidateText.onlyNumbers,
-                        ),
+                      TextFieldBase(
+                        paddingHorizontal: 20,
+                        title: 'Cedula',
+                        controller: controller.document,
+                        textInputType: TextInputType.number,
+                        validateText: ValidateText.onlyNumbers,
                       ),
                       TextFieldBase(
                         title: 'Celular',
@@ -84,45 +82,30 @@ class Clients extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              FilledButton.icon(
+            Obx(
+              () => FilledButton.icon(
                 onPressed: () {
                   if (controller.validateForm()) {
-                    controller.unfocus(context);
-                    controller.save();
+                    if (controller.idClient == 0) {
+                      controller.unfocus(context);
+                      controller.save();
+                    } else {
+                      controller.unfocus(context);
+                      controller.updateClient();
+                    }
                   }
                 },
-                icon: const Icon(Icons.person_add),
-                label: const Text("Registrar"),
+                icon: controller.idClient == 0
+                    ? const Icon(Icons.person_add)
+                    : const Icon(Icons.mode_edit_outline),
+                label: controller.idClient == 0
+                    ? const Text("Registrar")
+                    : const Text("Actualizar"),
               ),
-              Obx(
-                () => FilledButton.icon(
-                  onPressed: () {
-                    if (controller.idClient == 0) {
-                      if (controller.validateFormDocument()) {
-                        controller.loadClient();
-                      }
-                    } else {
-                      if (controller.validateForm()) {
-                        controller.unfocus(context);
-                        controller.updateClient();
-                      }
-                    }
-                  },
-                  icon: controller.idClient == 0
-                      ? const Icon(Icons.find_in_page_rounded)
-                      : const Icon(Icons.mode_edit_outline),
-                  label: controller.idClient == 0
-                      ? const Text("Consultar")
-                      : const Text("Actualizar"),
-                ),
-              ),
-            ],
-          ),
-        ],
+            ),
+            const ListaClientes(),
+          ],
+        ),
       ),
     );
   }

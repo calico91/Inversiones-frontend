@@ -5,6 +5,7 @@ import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 
@@ -20,8 +21,31 @@ class ClientsController extends GetxController {
   final TextEditingController address = TextEditingController();
   final TextEditingController observations = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> formKeyDocument = GlobalKey<FormState>();
   final Rx<int> _idClient = RxInt(0);
+  final Rx<List<Client>> _clients = Rx<List<Client>>([]);
+  final Rx<int> _status = Rx<int>(0);
+
+  @override
+  void onInit() {
+    _allClients();
+    super.onInit();
+  }
+
+  Future<void> _allClients() async {
+    try {
+      final AllClientsResponse res = await const ClientHttp().allClients();
+      if (res.status == 200) {
+        _clients(res.clients);
+        _status(res.status);
+      } else {
+        appController.manageError(res.message);
+      }
+    } on HttpException catch (e) {
+      appController.manageError(e.message);
+    } catch (e) {
+      appController.manageError(e.toString());
+    }
+  }
 
   void save() {
     Get.showOverlay(
@@ -55,13 +79,13 @@ class ClientsController extends GetxController {
     );
   }
 
-  void loadClient() {
+  void loadClient(String document) {
     Get.showOverlay(
       loadingWidget: const Loading().circularLoading(),
       asyncFunction: () async {
         try {
           final AddClientResponse res =
-              await const ClientHttp().loadClient(document.text.trim());
+              await const ClientHttp().loadClient(document);
           if (res.status == 200) {
             _loadClientForm(res.client!);
             _idClient(res.client!.id);
@@ -121,6 +145,7 @@ class ClientsController extends GetxController {
   }
 
   void _loadClientForm(Client client) {
+    document.text = client.cedula;
     lastname.text = client.apellidos;
     name.text = client.nombres;
     address.text = client.direccion;
@@ -129,12 +154,7 @@ class ClientsController extends GetxController {
   }
 
   bool validateForm() {
-    return formKeyDocument.currentState!.validate() &&
-        formKey.currentState!.validate();
-  }
-
-  bool validateFormDocument() {
-    return formKeyDocument.currentState!.validate();
+    return formKey.currentState!.validate();
   }
 
   void unfocus(BuildContext context) {
@@ -142,4 +162,6 @@ class ClientsController extends GetxController {
   }
 
   int get idClient => _idClient.value;
+  List<Client> get clients => _clients.value;
+  int get status => _status.value;
 }
