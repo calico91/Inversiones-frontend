@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inversiones/src/domain/responses/add_credit_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class DialogInfo extends StatelessWidget {

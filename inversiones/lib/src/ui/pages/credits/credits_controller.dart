@@ -5,7 +5,7 @@ import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
-import 'package:inversiones/src/domain/responses/add_credit_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/ui/pages/home/dialog/dialog_info.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';

@@ -4,7 +4,7 @@ import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
-import 'package:inversiones/src/domain/responses/add_client_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 

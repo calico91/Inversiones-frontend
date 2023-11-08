@@ -5,7 +5,7 @@ import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
-import 'package:inversiones/src/domain/responses/clients_pending_installments_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';

@@ -16,7 +16,7 @@ class Clients extends StatelessWidget {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Form(
               key: controller.formKey,
               child: Column(
@@ -79,7 +79,7 @@ class Clients extends StatelessWidget {
                     textInputType: TextInputType.multiline,
                     validateText: ValidateText.observations,
                     widthTextField: 0.83,
-                    heightTextField: 0.2,
+                    heightTextField: 0.13,
                   ),
                 ],
               ),

@@ -4,9 +4,9 @@ import 'package:inversiones/src/data/http/base_http_client.dart';
 import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/repositories/client_repository.dart';
-import 'package:inversiones/src/domain/responses/add_client_response.dart';
-import 'package:inversiones/src/domain/responses/all_clients_response.dart';
-import 'package:inversiones/src/domain/responses/clients_pending_installments_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
 
 class ClientHttp implements ClientRepository {
   const ClientHttp({
@@ -26,13 +26,13 @@ class ClientHttp implements ClientRepository {
     }
   }
 
-  /// consulta los clientes que tienen creditos activos, se envia parametro T de true
-  /// para consultarlos todos se envia F
+  /// consulta los clientes que tienen creditos activos o todos los clientes.
+  /// T creditos activos F todos los clientes.
   @override
-  Future<AllClientsResponse> allClients(String clientesCreditosActivos) async {
+  Future<AllClientsResponse> allClients( ) async {
     try {
       final http.Response response = await baseHttpClient.get(
-        "${UrlPaths.allClients}/$clientesCreditosActivos",
+        "$UrlPaths.allClients",
       );
 
       return compute(allClientsResponseFromJson, response.body);
