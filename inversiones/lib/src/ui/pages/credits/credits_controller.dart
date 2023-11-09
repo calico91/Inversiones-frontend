@@ -83,7 +83,7 @@ class CreditsController extends GetxController {
 
   ///inicializa fecha credito
   void _creditDateInit() {
-    creditDate.text = formattedDate(DateTime.now());
+    creditDate.text = _formattedDate(DateTime.now());
   }
 
   ///muestra modal de calentario
@@ -99,7 +99,7 @@ class CreditsController extends GetxController {
     );
 
     if (pickedDate != null) {
-      controllerField.text = formattedDate(pickedDate);
+      controllerField.text = _formattedDate(pickedDate);
     }
   }
 
@@ -109,5 +109,5 @@ class CreditsController extends GetxController {
   }
 
   ///formatea fecha
-  String formattedDate(DateTime date) => DateFormat('yyyy-MM-dd').format(date);
+  String _formattedDate(DateTime date) => DateFormat('yyyy-MM-dd').format(date);
 }

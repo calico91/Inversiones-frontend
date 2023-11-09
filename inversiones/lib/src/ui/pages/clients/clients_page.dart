@@ -9,6 +9,7 @@ class Clients extends StatelessWidget {
   const Clients({super.key});
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     final ClientsController controller = Get.find<ClientsController>();
     return Scaffold(
       appBar: AppBar(
@@ -83,24 +84,27 @@ class Clients extends StatelessWidget {
               ),
             ),
             Obx(
-              () => FilledButton.icon(
-                onPressed: () {
-                  if (controller.validateForm()) {
-                    if (controller.idClient.value == 0) {
-                      controller.unfocus(context);
-                      controller.save();
-                    } else {
-                      controller.unfocus(context);
-                      controller.updateClient();
+              () => Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.32),
+                child: FilledButton.icon(
+                  onPressed: () {
+                    if (controller.validateForm()) {
+                      if (controller.idClient.value == 0) {
+                        controller.unfocus(context);
+                        controller.save();
+                      } else {
+                        controller.unfocus(context);
+                        controller.updateClient();
+                      }
                     }
-                  }
-                },
-                icon: controller.idClient.value == 0
-                    ? const Icon(Icons.person_add)
-                    : const Icon(Icons.mode_edit_outline),
-                label: controller.idClient.value == 0
-                    ? const Text("Registrar")
-                    : const Text("Actualizar"),
+                  },
+                  icon: controller.idClient.value == 0
+                      ? const Icon(Icons.person_add)
+                      : const Icon(Icons.mode_edit_outline),
+                  label: controller.idClient.value == 0
+                      ? const Text("Registrar")
+                      : const Text("Actualizar"),
+                ),
               ),
             ),
             const ListaClientes(),

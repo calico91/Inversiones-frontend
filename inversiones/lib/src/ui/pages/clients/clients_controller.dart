@@ -65,7 +65,7 @@ class ClientsController extends GetxController {
             ),
           );
           if (res.status == 200) {
-            filtroClientes.value.add(res.client!);
+            filtroClientes.value.insert(0,res.client!);
             Get.showSnackbar(
               const InfoSnackbar('cliente creado correctamente'),
             );

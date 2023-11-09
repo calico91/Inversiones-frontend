@@ -102,7 +102,7 @@ class Credits extends StatelessWidget {
                   SizedBox(
                     height: size.height * 0.44,
                     width: size.width * 0.92,
-                    child: ListTile(),
+                    child: const ListTile(),
                   ),
                 ],
               ),
