@@ -26,6 +26,7 @@ class CreditsController extends GetxController {
   @override
   void onInit() {
     _creditDateInit();
+    _cedulaCliente();
     super.onInit();
   }
 
@@ -100,6 +101,11 @@ class CreditsController extends GetxController {
     if (pickedDate != null) {
       controllerField.text = formattedDate(pickedDate);
     }
+  }
+
+  ///carga la cedula de cliente cuando viene desde el modulo de clientes
+  void _cedulaCliente() {
+    document.text = Get.parameters['cedula'] ?? '';
   }
 
   ///formatea fecha

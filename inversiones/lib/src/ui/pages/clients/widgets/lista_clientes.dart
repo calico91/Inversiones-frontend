@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
+import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -76,7 +77,14 @@ class ListaClientes extends StatelessWidget {
               ),
               IconButton(
                 tooltip: 'Crear credito',
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(
+                    RouteNames.credits,
+                    parameters: {
+                      'cedula': controller.filtroClientes.value[index].cedula,
+                    },
+                  );
+                },
                 icon: const Icon(color: Colors.blue, Icons.monetization_on),
               ),
             ],

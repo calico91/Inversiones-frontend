@@ -86,7 +86,7 @@ class Clients extends StatelessWidget {
               () => FilledButton.icon(
                 onPressed: () {
                   if (controller.validateForm()) {
-                    if (controller.idClient == 0) {
+                    if (controller.idClient.value == 0) {
                       controller.unfocus(context);
                       controller.save();
                     } else {
@@ -95,10 +95,10 @@ class Clients extends StatelessWidget {
                     }
                   }
                 },
-                icon: controller.idClient == 0
+                icon: controller.idClient.value == 0
                     ? const Icon(Icons.person_add)
                     : const Icon(Icons.mode_edit_outline),
-                label: controller.idClient == 0
+                label: controller.idClient.value == 0
                     ? const Text("Registrar")
                     : const Text("Actualizar"),
               ),
