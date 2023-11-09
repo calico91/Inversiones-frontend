@@ -9,7 +9,6 @@ class ListaCreditosActivos extends StatelessWidget {
   const ListaCreditosActivos({super.key});
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     final CreditsController controller = Get.find<CreditsController>();
     return Obx(() {
       if (controller.status.value != 200) {
@@ -22,15 +21,15 @@ class ListaCreditosActivos extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
-              height: size.height * 0.48,
-              width: size.width * 0.82,
+              height: General.mediaQuery(context).height * 0.48,
+              width: General.mediaQuery(context).width * 0.82,
               child: Column(
                 children: [
                   TextFieldSearch(
                     labelText: 'Buscar credito',
                     onChanged: (value) => controller.buscarCredito(value),
                   ),
-                  _listaClientes(controller, size),
+                  _listaClientes(controller, General.mediaQuery(context)),
                 ],
               ),
             ),

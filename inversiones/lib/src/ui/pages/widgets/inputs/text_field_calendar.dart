@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class TextFieldCalendar extends StatelessWidget {
   const TextFieldCalendar({
@@ -19,7 +20,6 @@ class TextFieldCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: paddingHorizontal!,
@@ -30,7 +30,10 @@ class TextFieldCalendar extends StatelessWidget {
         children: [
           Text(title),
           SizedBox(
-            width: size.width * 0.39,
+            height: General.mediaQuery(context).height * 0.005,
+          ),
+          SizedBox(
+            width: General.mediaQuery(context).width * 0.39,
             child: TextFormField(
               validator: (value) => _validateStructure(value),
               controller: controller,

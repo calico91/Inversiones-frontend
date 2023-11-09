@@ -15,8 +15,6 @@ class PayFeePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final PayFeeController controller = Get.find<PayFeeController>();
 
-    final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -24,8 +22,8 @@ class PayFeePage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: size.height * 0.05,
-          horizontal: size.width * 0.1,
+          vertical: General.mediaQuery(context).height * 0.05,
+          horizontal: General.mediaQuery(context).width * 0.1,
         ),
         child: Column(
           children: [
@@ -45,41 +43,48 @@ class PayFeePage extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
               child: SizedBox(
-                width: size.width * 0.8,
-                height: size.height * 0.335,
+                width: General.mediaQuery(context).width * 0.8,
+                height: General.mediaQuery(context).height * 0.4,
                 child: Obx(() {
                   if (controller.loading) {
                     return Loading(
-                      horizontal: size.width * 0.00008,
-                      vertical: size.height * 0.165,
+                      horizontal: General.mediaQuery(context).width * 0.00008,
+                      vertical: General.mediaQuery(context).height * 0.165,
                     ).linearLoading();
                   }
                   return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: General.mediaQuery(context).width * 0.06,
+                    ),
                     child: Column(
                       children: [
                         _infoValorCuota(
-                          size,
+                          General.mediaQuery(context),
                           'Cantidad cuotas',
                           controller.payFee.numeroCuotas!.toString(),
                         ),
                         _infoValorCuota(
-                          size,
+                          General.mediaQuery(context),
                           'Numero cuota',
                           controller.payFee.cuotaNumero!.toString(),
                         ),
                         _infoValorCuota(
-                          size,
+                          General.mediaQuery(context),
                           'Fecha cuota',
                           controller.payFee.fechaCuota!,
                         ),
                         _infoValorCuota(
-                          size,
+                          General.mediaQuery(context),
+                          'Valor interes',
+                          General.formatoMoneda(controller.payFee.valorInteres),
+                        ),
+                        _infoValorCuota(
+                          General.mediaQuery(context),
                           'Valor cuota',
                           General.formatoMoneda(controller.payFee.valorCuota),
                         ),
                         _infoValorCuota(
-                          size,
+                          General.mediaQuery(context),
                           'Valor credito',
                           General.formatoMoneda(controller.payFee.valorCredito),
                         ),
@@ -99,7 +104,7 @@ class PayFeePage extends StatelessWidget {
               children: [
                 FilledButton.icon(
                   onPressed: () => _mostrarConfirmacionPagoCuota(
-                    size,
+                    General.mediaQuery(context),
                     'Desea pagar la cuota?',
                     context,
                     controller,
@@ -110,7 +115,7 @@ class PayFeePage extends StatelessWidget {
                 ),
                 FilledButton.icon(
                   onPressed: () => _mostrarConfirmacionPagoCuota(
-                    size,
+                    General.mediaQuery(context),
                     'Desea pagar solo interes?',
                     context,
                     controller,

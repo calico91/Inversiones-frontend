@@ -55,6 +55,7 @@ class ClientsPendingInstallment {
   String? fechaCredito;
   double? valorCredito;
   double? valorCuota;
+  double? valorInteres;
   String? fechaAbono;
   String? fechaCuota;
   int? idCredito;
@@ -66,6 +67,7 @@ class ClientsPendingInstallment {
     this.cedula,
     this.valorCuota,
     this.fechaCredito,
+    this.valorInteres,
     this.valorCredito,
     this.fechaAbono,
     this.fechaCuota,
@@ -80,6 +82,7 @@ class ClientsPendingInstallment {
         cedula: json["cedula"] as String,
         fechaCredito: json["fechaCredito"] as String,
         valorCredito: json["valorCredito"] as double,
+        valorInteres: json["valorInteres"] as double,
         valorCuota: json["valorCuota"] as double,
         fechaAbono:
             json["fechaAbono"] == null ? null : json["fechaAbono"] as String,
@@ -94,6 +97,7 @@ class ClientsPendingInstallment {
         "cedula": cedula,
         "fechaCredito": fechaCredito,
         "valorCredito": valorCredito,
+        "valorInteres": valorInteres,
         "valorCuota": valorCuota,
         "fechaAbono": fechaAbono,
         "fechaCuota": fechaCuota,

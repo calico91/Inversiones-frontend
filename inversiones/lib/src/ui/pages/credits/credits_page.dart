@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/lista_creditos_activos.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 
@@ -11,11 +12,9 @@ class Credits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CreditsController controller = Get.find<CreditsController>();
-    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
-        
         title: const Text('Creditos'),
       ),
       body: ListView(
@@ -86,8 +85,8 @@ class Credits extends StatelessWidget {
                   /// boton registrar
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: size.height * 0.015,
-                      horizontal: size.width * 0.3,
+                      vertical: General.mediaQuery(context).height * 0.015,
+                      horizontal: General.mediaQuery(context).width * 0.3,
                     ),
                     child: FilledButton.icon(
                       onPressed: () {

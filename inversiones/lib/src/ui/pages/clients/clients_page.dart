@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
 import 'package:inversiones/src/ui/pages/clients/widgets/lista_clientes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
 class Clients extends StatelessWidget {
   const Clients({super.key});
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     final ClientsController controller = Get.find<ClientsController>();
     return Scaffold(
       appBar: AppBar(
@@ -85,7 +85,9 @@ class Clients extends StatelessWidget {
             ),
             Obx(
               () => Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.32),
+                padding: EdgeInsets.symmetric(
+                  horizontal: General.mediaQuery(context).width * 0.32,
+                ),
                 child: FilledButton.icon(
                   onPressed: () {
                     if (controller.validateForm()) {

@@ -4,13 +4,13 @@ import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/clients_pending_installments_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     final HomeController controller = Get.find<HomeController>();
     return Scaffold(
       appBar: AppBar(
@@ -28,13 +28,13 @@ class HomePage extends StatelessWidget {
           Column(
             children: [
               SizedBox(
-                height: size.height * 0.3,
+                height: General.mediaQuery(context).height * 0.3,
 
                 /// lista cuotas pendientes anteriores a la fecha de hoy
                 child: const ClientsPendingInstallmentsMolecule(),
               ),
               SizedBox(
-                height: size.height * 0.02,
+                height: General.mediaQuery(context).height * 0.02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: size.height * 0.02,
+                height: General.mediaQuery(context).height * 0.02,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -10,7 +10,6 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     final HomeController controller = Get.find<HomeController>();
 
     return Obx(
@@ -27,8 +26,9 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
                 children: [
                   Center(
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: size.height * 0.1),
+                      padding: EdgeInsets.symmetric(
+                        vertical: General.mediaQuery(context).height * 0.1,
+                      ),
                       child: const Text('No hay creditos pendientes'),
                     ),
                   ),
@@ -51,8 +51,16 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
                       '${controller.clients[index].nombres} ${controller.clients[index].apellidos}',
                     );
                   },
-                  title: _showClientTitle(controller, index, size),
-                  subtitle: _showClientSubtitle(controller, index, size),
+                  title: _showClientTitle(
+                    controller,
+                    index,
+                    General.mediaQuery(context),
+                  ),
+                  subtitle: _showClientSubtitle(
+                    controller,
+                    index,
+                    General.mediaQuery(context),
+                  ),
                 ),
               );
             },

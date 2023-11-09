@@ -15,14 +15,13 @@ class DialogInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return AlertDialog(
       title: Text(
         title,
         textAlign: TextAlign.center,
       ),
       content: SizedBox(
-        height: size.height * 0.11,
+        height: General.mediaQuery(context).height * 0.11,
         child: info == null
             // ignore: sized_box_shrink_expand
             ? const SizedBox(

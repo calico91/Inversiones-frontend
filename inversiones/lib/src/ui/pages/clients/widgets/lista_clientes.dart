@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -9,7 +10,6 @@ class ListaClientes extends StatelessWidget {
   const ListaClientes({super.key});
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     final ClientsController controller = Get.find<ClientsController>();
     return Obx(() {
       if (controller.status.value != 200) {
@@ -20,15 +20,15 @@ class ListaClientes extends StatelessWidget {
       return Column(
         children: [
           SizedBox(
-            height: size.height * 0.32,
-            width: size.width * 0.87,
+            height: General.mediaQuery(context).height * 0.32,
+            width: General.mediaQuery(context).width * 0.87,
             child: Column(
               children: [
                 TextFieldSearch(
                   labelText: 'Buscar cliente',
                   onChanged: (value) => controller.buscarCliente(value),
                 ),
-                _listaClientes(controller, size),
+                _listaClientes(controller, General.mediaQuery(context)),
               ],
             ),
           ),
@@ -78,7 +78,6 @@ class ListaClientes extends StatelessWidget {
               IconButton(
                 tooltip: 'Crear credito',
                 onPressed: () {
-                  
                   Get.toNamed(
                     RouteNames.credits,
                     parameters: {

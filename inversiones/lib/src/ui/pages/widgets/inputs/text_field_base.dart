@@ -2,6 +2,7 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/utils/validate_exp_reg.dart';
 
 class TextFieldBase extends StatelessWidget {
@@ -35,7 +36,6 @@ class TextFieldBase extends StatelessWidget {
   final bool? moneyCamp;
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: paddingHorizontal!,
@@ -49,8 +49,8 @@ class TextFieldBase extends StatelessWidget {
             height: 5,
           ),
           SizedBox(
-            height: size.height * heightTextField!,
-            width: size.width * widthTextField!,
+            height: General.mediaQuery(context).height * heightTextField!,
+            width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
               textDirection: TextDirection.ltr,
               key: key,
