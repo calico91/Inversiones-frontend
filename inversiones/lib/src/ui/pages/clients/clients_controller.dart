@@ -6,6 +6,7 @@ import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
+import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 
@@ -65,7 +66,7 @@ class ClientsController extends GetxController {
             ),
           );
           if (res.status == 200) {
-            filtroClientes.value.insert(0,res.client!);
+            filtroClientes.value.insert(0, res.client!);
             Get.showSnackbar(
               const InfoSnackbar('cliente creado correctamente'),
             );

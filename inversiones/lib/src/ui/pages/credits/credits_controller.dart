@@ -6,6 +6,7 @@ import 'package:inversiones/src/data/http/src/credit_http.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.dart';
 import 'package:inversiones/src/ui/pages/home/dialog/dialog_info.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
@@ -22,12 +23,38 @@ class CreditsController extends GetxController {
   final TextEditingController document = TextEditingController();
   final TextEditingController installmentDate = TextEditingController();
   final TextEditingController creditDate = TextEditingController();
+  final Rx<int> status = Rx(0);
+  final Rx<List<InfoCreditosActivos>> creditosActivos =
+      Rx<List<InfoCreditosActivos>>([]);
+
+  Rx<List<InfoCreditosActivos>> filtroCreditos =
+      Rx<List<InfoCreditosActivos>>([]);
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     _creditDateInit();
     _cedulaCliente();
+    await _infoCreditosActivos();
+    filtroCreditos(creditosActivos.value);
+
     super.onInit();
+  }
+
+  Future<void> _infoCreditosActivos() async {
+    try {
+      final InfoCreditosActivosResponse res =
+          await const CreditHttp().infoCreditosActivos();
+      if (res.status == 200) {
+        creditosActivos(res.infoCreditosActivos);
+        status(res.status);
+      } else {
+        appController.manageError(res.message!);
+      }
+    } on HttpException catch (e) {
+      appController.manageError(e.message);
+    } catch (e) {
+      appController.manageError(e.toString());
+    }
   }
 
   void save() {
@@ -101,6 +128,22 @@ class CreditsController extends GetxController {
     if (pickedDate != null) {
       controllerField.text = _formattedDate(pickedDate);
     }
+  }
+
+  void buscarCredito(String value) {
+    List<InfoCreditosActivos> results = [];
+    if (value.isEmpty) {
+      results = creditosActivos.value;
+    } else {
+      results = creditosActivos.value
+          .where(
+            (element) =>
+                element.nombres!.toLowerCase().contains(value.toLowerCase()) ||
+                element.apellidos!.toLowerCase().contains(value.toLowerCase()),
+          )
+          .toList();
+    }
+    filtroCreditos.value = results;
   }
 
   ///carga la cedula de cliente cuando viene desde el modulo de clientes

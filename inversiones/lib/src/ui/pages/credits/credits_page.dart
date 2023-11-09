@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/lista_creditos_activos.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
@@ -14,6 +15,7 @@ class Credits extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        
         title: const Text('Creditos'),
       ),
       body: ListView(
@@ -97,13 +99,7 @@ class Credits extends StatelessWidget {
                       label: const Text("Registrar"),
                     ),
                   ),
-
-                  /// botones clientes y credito
-                  SizedBox(
-                    height: size.height * 0.44,
-                    width: size.width * 0.92,
-                    child: const ListTile(),
-                  ),
+                  const ListaCreditosActivos(),
                 ],
               ),
             ),
