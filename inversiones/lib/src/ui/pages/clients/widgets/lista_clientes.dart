@@ -10,33 +10,57 @@ class ListaClientes extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final ClientsController controller = Get.find<ClientsController>();
     return Obx(() {
-      if (controller.status != 200) {
+      if (controller.status.value != 200) {
         return const Loading(
           vertical: 110,
         ).circularLoading();
       }
-      return SizedBox(
-          height: size.height * 0.32,
-          width: size.width * 0.87,
-          child: ListView.builder(
-            itemCount: controller.clients.length,
-            itemBuilder: (_, index) {
-              return ListTile(
-                title: _showClientTitle(controller, index, size),
-              );
-            },
-          ));
+      return Column(
+        children: [
+          SizedBox(
+            height: size.height * 0.32,
+            width: size.width * 0.87,
+            child: Column(
+              children: [
+                TextField(
+                  onChanged: (value) => controller.buscarCliente(value),
+                  decoration: const InputDecoration(
+                    labelText: 'Buscar',
+                    suffixIcon: Icon(Icons.search),
+                  ),
+                ),
+                _listaClientes(controller, size),
+              ],
+            ),
+          ),
+        ],
+      );
     });
+  }
+
+  Widget _listaClientes(ClientsController controller, Size size) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: controller.filtroClientes.value.length,
+        itemBuilder: (_, index) {
+          return Card(
+            child: ListTile(
+              title: _showClientTitle(controller, index, size),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget _showClientTitle(ClientsController controller, int index, Size size) {
     return Row(
       children: [
         SizedBox(
-          width: size.width * 0.6,
+          width: size.width * 0.52,
           child: Text(
             overflow: TextOverflow.ellipsis,
-            "${controller.clients[index].nombres} ${controller.clients[index].apellidos}",
+            "${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}",
           ),
         ),
         SizedBox(
@@ -46,7 +70,9 @@ class ListaClientes extends StatelessWidget {
               IconButton(
                 tooltip: 'editar',
                 onPressed: () {
-                  controller.loadClient(controller.clients[index].cedula);
+                  controller.loadClient(
+                    controller.filtroClientes.value[index].cedula,
+                  );
                 },
                 icon: const Icon(color: Colors.blue, Icons.edit),
               ),

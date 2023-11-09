@@ -21,13 +21,15 @@ class ClientsController extends GetxController {
   final TextEditingController address = TextEditingController();
   final TextEditingController observations = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final Rx<int> _idClient = RxInt(0);
-  final Rx<List<Client>> _clients = Rx<List<Client>>([]);
-  final Rx<int> _status = Rx<int>(0);
+  final Rx<int> idClient = RxInt(0);
+  final Rx<List<Client>> clients = Rx<List<Client>>([]);
+  Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
+  final Rx<int> status = Rx<int>(0);
 
   @override
-  void onInit() {
-    _allClients();
+  Future<void> onInit() async {
+    await _allClients();
+    filtroClientes(clients.value);
     super.onInit();
   }
 
@@ -35,8 +37,8 @@ class ClientsController extends GetxController {
     try {
       final AllClientsResponse res = await const ClientHttp().allClients();
       if (res.status == 200) {
-        _clients(res.clients);
-        _status(res.status);
+        clients(res.clients);
+        status(res.status);
       } else {
         appController.manageError(res.message);
       }
@@ -63,6 +65,7 @@ class ClientsController extends GetxController {
             ),
           );
           if (res.status == 200) {
+            filtroClientes.value.add(res.client!);
             Get.showSnackbar(
               const InfoSnackbar('cliente creado correctamente'),
             );
@@ -88,7 +91,7 @@ class ClientsController extends GetxController {
               await const ClientHttp().loadClient(document);
           if (res.status == 200) {
             _loadClientForm(res.client!);
-            _idClient(res.client!.id);
+            idClient(res.client!.id);
           } else {
             appController.manageError(res.message);
           }
@@ -107,7 +110,7 @@ class ClientsController extends GetxController {
       asyncFunction: () async {
         try {
           final AddClientResponse res = await const ClientHttp().updateClient(
-            idClient,
+            idClient.value,
             Client(
               nombres: name.text,
               apellidos: lastname.text,
@@ -122,7 +125,7 @@ class ClientsController extends GetxController {
               const InfoSnackbar('cliente actualizado correctamente'),
             );
             _cleanForm();
-            _idClient(0);
+            idClient(0);
           } else {
             appController.manageError(res.message);
           }
@@ -157,11 +160,23 @@ class ClientsController extends GetxController {
     return formKey.currentState!.validate();
   }
 
+  void buscarCliente(String value) {
+    List<Client> results = [];
+    if (value.isEmpty) {
+      results = clients.value;
+    } else {
+      results = clients.value
+          .where(
+            (element) =>
+                element.nombres.toLowerCase().contains(value.toLowerCase()) ||
+                element.apellidos.toLowerCase().contains(value.toLowerCase()),
+          )
+          .toList();
+    }
+    filtroClientes.value = results;
+  }
+
   void unfocus(BuildContext context) {
     FocusScope.of(context).unfocus();
   }
-
-  int get idClient => _idClient.value;
-  List<Client> get clients => _clients.value;
-  int get status => _status.value;
 }

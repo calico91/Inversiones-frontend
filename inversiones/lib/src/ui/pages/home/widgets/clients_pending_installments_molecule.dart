@@ -42,16 +42,18 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
           child: ListView.builder(
             itemCount: controller.clients.length,
             itemBuilder: (_, index) {
-              return ListTile(
-                onTap: () {
-                  Get.toNamed(RouteNames.payFee);
-                  controller.idCliente(controller.clients[index].idCliente);
-                  controller.nombreCliente(
-                    '${controller.clients[index].nombres} ${controller.clients[index].apellidos}',
-                  );
-                },
-                title: _showClientTitle(controller, index, size),
-                subtitle: _showClientSubtitle(controller, index, size),
+              return Card(
+                child: ListTile(
+                  onTap: () {
+                    Get.toNamed(RouteNames.payFee);
+                    controller.idCliente(controller.clients[index].idCliente);
+                    controller.nombreCliente(
+                      '${controller.clients[index].nombres} ${controller.clients[index].apellidos}',
+                    );
+                  },
+                  title: _showClientTitle(controller, index, size),
+                  subtitle: _showClientSubtitle(controller, index, size),
+                ),
               );
             },
           ),
