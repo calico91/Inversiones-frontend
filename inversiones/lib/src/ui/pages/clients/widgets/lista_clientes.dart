@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
+import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class ListaClientes extends StatelessWidget {
@@ -22,12 +23,9 @@ class ListaClientes extends StatelessWidget {
             width: size.width * 0.87,
             child: Column(
               children: [
-                TextField(
+                TextFieldSearch(
+                  labelText: 'Buscar cliente',
                   onChanged: (value) => controller.buscarCliente(value),
-                  decoration: const InputDecoration(
-                    labelText: 'Buscar',
-                    suffixIcon: Icon(Icons.search),
-                  ),
                 ),
                 _listaClientes(controller, size),
               ],
