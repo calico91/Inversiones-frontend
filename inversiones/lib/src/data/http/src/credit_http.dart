@@ -29,10 +29,10 @@ class CreditHttp implements CreditRepository {
   }
 
   @override
-  Future<PayFeeResponse> infoPayFee(int idCliente) async {
+  Future<PayFeeResponse> infoPayFee(int idCliente, int idCredito) async {
     try {
-      final http.Response response =
-          await baseHttpClient.get('${UrlPaths.infoPayFee}/$idCliente');
+      final http.Response response = await baseHttpClient
+          .get('${UrlPaths.infoPayFee}/$idCliente/$idCredito');
       return compute(payFeeResponseFromJson, response.body);
     } catch (e) {
       rethrow;

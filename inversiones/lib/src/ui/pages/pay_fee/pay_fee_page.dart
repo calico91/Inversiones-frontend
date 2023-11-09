@@ -49,7 +49,7 @@ class PayFeePage extends StatelessWidget {
                   if (controller.loading) {
                     return Loading(
                       horizontal: General.mediaQuery(context).width * 0.00008,
-                      vertical: General.mediaQuery(context).height * 0.165,
+                      vertical: General.mediaQuery(context).height * 0.198,
                     ).linearLoading();
                   }
                   return Padding(

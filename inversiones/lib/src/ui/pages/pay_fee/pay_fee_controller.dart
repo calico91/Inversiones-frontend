@@ -30,8 +30,11 @@ class PayFeeController extends GetxController {
 
   Future<void> _loadPayFee() async {
     try {
-      final PayFeeResponse clientsPendingInstallments = await const CreditHttp()
-          .infoPayFee(homeController.idClienteSeleccionado);
+      final PayFeeResponse clientsPendingInstallments =
+          await const CreditHttp().infoPayFee(
+        homeController.idClienteSeleccionado,
+        homeController.idCredito.value,
+      );
       if (clientsPendingInstallments.status == 200) {
         _payFee(clientsPendingInstallments.payFee);
         _loading(false);

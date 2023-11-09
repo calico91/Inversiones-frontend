@@ -9,8 +9,7 @@ abstract class CreditRepository {
   const CreditRepository();
 
   Future<AddCreditResponse> addCredit(AddCreditRequest addCreditRequest);
-  Future<PayFeeResponse> infoPayFee(int idCliente);
+  Future<PayFeeResponse> infoPayFee(int idCliente, int idCredito);
   Future<GenericoResponse> pagarCuota(PagarCuotaRequest pagarCuotaRequest);
-  Future<InfoCreditosActivosResponse>
-      infoCreditosActivos();
+  Future<InfoCreditosActivosResponse> infoCreditosActivos();
 }

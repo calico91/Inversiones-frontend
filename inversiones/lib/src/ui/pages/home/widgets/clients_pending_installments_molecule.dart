@@ -47,6 +47,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(RouteNames.payFee);
                     controller.idCliente(controller.clients[index].idCliente);
+                    controller.idCredito(controller.clients[index].idCredito);
                     controller.nombreCliente(
                       '${controller.clients[index].nombres} ${controller.clients[index].apellidos}',
                     );

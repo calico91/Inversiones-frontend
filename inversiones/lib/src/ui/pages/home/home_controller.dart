@@ -20,6 +20,7 @@ class HomeController extends GetxController {
       Rx<List<ClientsPendingInstallment>>([]);
   final Rx<int> _status = Rx<int>(0);
   final Rx<int> idCliente = Rx<int>(0);
+  final Rx<int> idCredito = Rx<int>(0);
   final Rx<String> nombreCliente = Rx<String>('');
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController creditValue = TextEditingController();
