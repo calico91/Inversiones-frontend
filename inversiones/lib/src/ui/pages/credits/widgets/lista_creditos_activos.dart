@@ -61,9 +61,12 @@ class ListaCreditosActivos extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            overflow: TextOverflow.ellipsis,
-            "${controller.filtroCreditos.value[index].nombres} ${controller.filtroCreditos.value[index].apellidos}",
+          SizedBox(
+            width: size.width * 0.5,
+            child: Text(
+              overflow: TextOverflow.ellipsis,
+              "${controller.filtroCreditos.value[index].idCredito}.${controller.filtroCreditos.value[index].nombres} ${controller.filtroCreditos.value[index].apellidos}",
+            ),
           ),
           Text(
             "${General.formatoMoneda(controller.filtroCreditos.value[index].valorCredito)} ",
