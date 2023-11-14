@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
@@ -200,11 +201,11 @@ class PayFeePage extends StatelessWidget {
           TextButton(
             onPressed: () {
               if (!soloInteres) {
-                controller.pagarCuota(false);
+                controller.pagarCuota(Constantes.CUOTA_NORMAL);
                 Navigator.pop(context);
               } else {
                 if (controller.validateForm()) {
-                  controller.pagarCuota(true);
+                  controller.pagarCuota(Constantes.SOLO_INTERES);
                   Navigator.pop(context);
                 }
               }

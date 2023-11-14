@@ -47,7 +47,6 @@ class CreditHttp implements CreditRepository {
       final http.Response response = await baseHttpClient.put(
         '${UrlPaths.pagarCuota}/${pagarCuotaRequest.idCuotaCredito}',
         request: pagarCuotaRequest.toJson(),
-        parameters: {'soloInteres': '${pagarCuotaRequest.soloInteres}'},
       );
       return compute(genericoResponseFromJson, response.body);
     } catch (e) {

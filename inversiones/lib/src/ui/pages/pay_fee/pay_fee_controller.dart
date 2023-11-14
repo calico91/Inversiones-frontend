@@ -8,6 +8,7 @@ import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -48,7 +49,7 @@ class PayFeeController extends GetxController {
     }
   }
 
-  Future<void> pagarCuota(bool soloInteres) async {
+  Future<void> pagarCuota(String tipoAbono) async {
     Get.showOverlay(
       loadingWidget: const Loading().circularLoading(),
       asyncFunction: () async {
@@ -56,12 +57,11 @@ class PayFeeController extends GetxController {
           final GenericoResponse respuestaHttp =
               await const CreditHttp().pagarCuota(
             PagarCuotaRequest(
-              tipoAbono: soloInteres ? 'SI' : 'CN',
+              tipoAbono: tipoAbono,
               fechaAbono: General.formatoFecha(DateTime.now()),
-              valorAbonado: soloInteres
+              valorAbonado: tipoAbono == Constantes.SOLO_INTERES
                   ? General.stringToDouble(interestPercentage.text)
                   : payFee.valorCuota!,
-              soloInteres: soloInteres,
               idCuotaCredito: payFee.id!,
             ),
           );
@@ -92,7 +92,6 @@ class PayFeeController extends GetxController {
   }
 
   int get status => _status.value;
-
   PayFee get payFee => _payFee.value;
   bool get loading => _loading.value;
   String get nombreCliente => homeController.nombreClienteSeleccionado;
