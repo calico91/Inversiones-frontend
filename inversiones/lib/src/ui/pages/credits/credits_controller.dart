@@ -6,7 +6,9 @@ import 'package:inversiones/src/data/http/src/credit_http.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/home/dialog/dialog_info.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
@@ -29,6 +31,9 @@ class CreditsController extends GetxController {
 
   Rx<List<InfoCreditosActivos>> filtroCreditos =
       Rx<List<InfoCreditosActivos>>([]);
+
+  final TextEditingController abonarCapital = TextEditingController();
+  final GlobalKey<FormState> formKeyAbonarCapital = GlobalKey<FormState>();
 
   @override
   Future<void> onInit() async {
@@ -87,11 +92,43 @@ class CreditsController extends GetxController {
     );
   }
 
+  Future<void> infoCreditoySaldo(int idCredito) async {
+    Get.showOverlay(
+        loadingWidget: const Loading().circularLoading(),
+        asyncFunction: () async {
+          try {
+            final InfoCreditoySaldoResponse res =
+                await const CreditHttp().infoCreditoySaldo(idCredito);
+            if (res.status == 200) {
+              _infoCreditoSaldo(res.infoCreditoySaldo!);
+            } else {
+              appController.manageError(res.message!);
+            }
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
+  }
+
+  ///modal que muestra informacion del credito cuando se crea
   void _showInfoDialog(DataCreditResponse info) {
     Get.dialog(
       DialogInfo(
         title: 'Informacion credito',
         info: info,
+      ),
+    );
+  }
+
+  /// modal que muestra la informacion del credito, saldo y si quiere abonar a capital
+  void _infoCreditoSaldo(InfoCreditoySaldo info) {
+    Get.dialog(
+      InfoCreditoSaldoModal(
+        title: 'Informacion credito',
+        info: info,
+        accion: () {},
       ),
     );
   }

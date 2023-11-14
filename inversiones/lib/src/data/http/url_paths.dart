@@ -14,4 +14,5 @@ class UrlPaths {
   static const String getUser = '/user/getUser';
   static const String pagarCuota = '/cuotaCredito/pagarCuota';
   static const String infoCreditosActivos = '/credito/infoCreditosActivos';
+  static const String infoCreditoySaldo = '/cuotaCredito/infoCreditoySaldo';
 }

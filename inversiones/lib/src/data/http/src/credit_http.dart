@@ -6,6 +6,7 @@ import 'package:inversiones/src/domain/repositories/credit_repository.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
@@ -60,6 +61,18 @@ class CreditHttp implements CreditRepository {
       final http.Response response =
           await baseHttpClient.get(UrlPaths.infoCreditosActivos);
       return compute(infoCreditosActivosResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<InfoCreditoySaldoResponse> infoCreditoySaldo(int idCredito) async {
+    try {
+      final http.Response response =
+          await baseHttpClient.get('${UrlPaths.infoCreditoySaldo}/$idCredito');
+
+      return compute(infoCreditoySaldoResponseFromJson, response.body);
     } catch (e) {
       rethrow;
     }
