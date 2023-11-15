@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/userdetails_http.dart';
@@ -15,11 +14,11 @@ class SplashController extends GetxController {
 
   @override
   void onInit() {
-    _load();
+    load();
     super.onInit();
   }
 
-  Future<void> _load() async {
+  Future<void> load() async {
     try {
       final String? token = await const SecureStorageLocal().jwtToken;
       if (token == null) {

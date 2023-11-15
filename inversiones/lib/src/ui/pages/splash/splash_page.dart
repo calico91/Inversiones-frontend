@@ -13,8 +13,12 @@ class SplashPage extends StatelessWidget {
         child: Obx(() {
           if (controller.loading) {
             return const CircularProgressIndicator.adaptive();
+          } else {
+            return IconButton(
+              onPressed: () => controller.load(),
+              icon: const Icon(Icons.refresh),
+            );
           }
-          return const Text('Error');
         }),
       ),
     );

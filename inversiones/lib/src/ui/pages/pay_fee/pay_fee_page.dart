@@ -67,7 +67,7 @@ class PayFeePage extends StatelessWidget {
                         ),
                         _infoValorCuota(
                           General.mediaQuery(context),
-                          'Numero cuota',
+                          'Cuota numero',
                           controller.payFee.cuotaNumero!.toString(),
                         ),
                         _infoValorCuota(

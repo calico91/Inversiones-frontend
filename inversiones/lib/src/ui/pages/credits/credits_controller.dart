@@ -17,11 +17,12 @@ class CreditsController extends GetxController {
   CreditsController(this.appController);
 
   final AppController appController;
-
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyAbonoCapital = GlobalKey<FormState>();
   final TextEditingController creditValue = TextEditingController();
   final TextEditingController installmentAmount = TextEditingController();
   final TextEditingController interestPercentage = TextEditingController();
+  final TextEditingController abonoCapital = TextEditingController();
   final TextEditingController document = TextEditingController();
   final TextEditingController installmentDate = TextEditingController();
   final TextEditingController creditDate = TextEditingController();
@@ -31,14 +32,14 @@ class CreditsController extends GetxController {
 
   Rx<List<InfoCreditosActivos>> filtroCreditos =
       Rx<List<InfoCreditosActivos>>([]);
-
-  final TextEditingController abonarCapital = TextEditingController();
-  final GlobalKey<FormState> formKeyAbonarCapital = GlobalKey<FormState>();
+  Rx<InfoCreditoySaldo> infoCreditoSaldo =
+      Rx<InfoCreditoySaldo>(InfoCreditoySaldo());
 
   @override
   Future<void> onInit() async {
     _creditDateInit();
     _cedulaCliente();
+
     await _infoCreditosActivos();
     filtroCreditos(creditosActivos.value);
 
@@ -94,22 +95,24 @@ class CreditsController extends GetxController {
 
   Future<void> infoCreditoySaldo(int idCredito) async {
     Get.showOverlay(
-        loadingWidget: const Loading().circularLoading(),
-        asyncFunction: () async {
-          try {
-            final InfoCreditoySaldoResponse res =
-                await const CreditHttp().infoCreditoySaldo(idCredito);
-            if (res.status == 200) {
-              _infoCreditoSaldo(res.infoCreditoySaldo!);
-            } else {
-              appController.manageError(res.message!);
-            }
-          } on HttpException catch (e) {
-            appController.manageError(e.message);
-          } catch (e) {
-            appController.manageError(e.toString());
+      loadingWidget: const Loading().circularLoading(),
+      asyncFunction: () async {
+        try {
+          final InfoCreditoySaldoResponse res =
+              await const CreditHttp().infoCreditoySaldo(idCredito);
+          if (res.status == 200) {
+            infoCreditoSaldo(res.infoCreditoySaldo);
+            _infoCreditoSaldoModal(res.infoCreditoySaldo!);
+          } else {
+            appController.manageError(res.message!);
           }
-        });
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
   }
 
   ///modal que muestra informacion del credito cuando se crea
@@ -123,7 +126,7 @@ class CreditsController extends GetxController {
   }
 
   /// modal que muestra la informacion del credito, saldo y si quiere abonar a capital
-  void _infoCreditoSaldo(InfoCreditoySaldo info) {
+  void _infoCreditoSaldoModal(InfoCreditoySaldo info) {
     Get.dialog(
       InfoCreditoSaldoModal(
         title: 'Informacion credito',
@@ -141,8 +144,17 @@ class CreditsController extends GetxController {
     installmentDate.clear();
   }
 
-  bool validateForm() {
-    return formKey.currentState!.validate();
+  bool validateForm() => formKey.currentState!.validate();
+
+  bool validarFormAbonoCapital() =>
+      formKeyAbonoCapital.currentState!.validate();
+
+  String validarEstadoCredito() {
+    if (infoCreditoSaldo.value.saldoCredito == abonoCapital.value) {
+      return 'C';
+    } else {
+      return 'A';
+    }
   }
 
   ///inicializa fecha credito

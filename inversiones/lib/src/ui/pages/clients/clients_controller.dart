@@ -33,6 +33,13 @@ class ClientsController extends GetxController {
     super.onInit();
   }
 
+  @override
+  Future<void> onClose() async {
+    await _allClients();
+    filtroClientes(clients.value);
+    super.onInit();
+  }
+
   Future<void> _allClients() async {
     try {
       final AllClientsResponse res = await const ClientHttp().allClients();
