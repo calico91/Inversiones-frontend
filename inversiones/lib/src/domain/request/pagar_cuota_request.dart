@@ -4,14 +4,16 @@ class PagarCuotaRequest {
     required this.valorAbonado,
     required this.tipoAbono,
     required this.idCuotaCredito,
-    this.estadoCredito,
+    required this.estadoCredito,
+    required this.abonoExtra,
   });
 
   final String fechaAbono;
   final String tipoAbono;
   final double valorAbonado;
   final int idCuotaCredito;
-  final String? estadoCredito;
+  final String estadoCredito;
+  final bool abonoExtra;
 
   Map<String, dynamic> toJson() {
     return {
@@ -20,6 +22,7 @@ class PagarCuotaRequest {
       'valorAbonado': valorAbonado,
       'idCuotaCredito': idCuotaCredito,
       'estadoCredito': estadoCredito,
+      'abonoExtra': abonoExtra,
     };
   }
 }

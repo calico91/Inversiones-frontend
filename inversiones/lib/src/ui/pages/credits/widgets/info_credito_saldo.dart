@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
-import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
@@ -11,11 +11,13 @@ class InfoCreditoSaldoModal extends StatelessWidget {
   final String title;
   final InfoCreditoySaldo info;
   final VoidCallback? accion;
+  final int idCredito;
 
   const InfoCreditoSaldoModal({
     required this.title,
     required this.info,
     this.accion,
+    required this.idCredito,
   });
 
   @override
@@ -28,9 +30,10 @@ class InfoCreditoSaldoModal extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.43,
+        height: General.mediaQuery(context).height * 0.46,
         child: Column(
           children: [
+            _showInfoCredito('Id credito', idCredito.toString()),
             _showInfoCredito('Numero cuotas', info.numeroCuotas!.toString()),
             _showInfoCredito(
               'Cuotas pagadas',
@@ -69,13 +72,13 @@ class InfoCreditoSaldoModal extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(
-                top: General.mediaQuery(context).height * 0.02,
+                top: General.mediaQuery(context).height * 0.01,
               ),
               child: Form(
                 key: controllerCredits.formKeyAbonoCapital,
                 child: TextFieldBase(
-                  title: 'Abono capital',
-                  controller: controllerCredits.abonoCapital,
+                  title: 'Abonar',
+                  controller: controllerCredits.abonar,
                   textInputType: TextInputType.number,
                   validateText: ValidateText.creditValue,
                 ),
@@ -86,13 +89,12 @@ class InfoCreditoSaldoModal extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () {
-            if (controllerCredits.validarFormAbonoCapital()) {
-              print(controllerCredits.validarEstadoCredito());
-             // controllerPayFee.pagarCuota()
-            }
-          },
+          onPressed: () => _abonar(controllerCredits, context, true, info.id!),
           child: const Text('Abonar capital'),
+        ),
+        TextButton(
+          onPressed: () => _abonar(controllerCredits, context, false, info.id!),
+          child: const Text('Abonar interes'),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
@@ -101,26 +103,77 @@ class InfoCreditoSaldoModal extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _showInfoCredito(
-    String title,
-    String info,
-  ) =>
-      Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 1),
-            child: Text(
-              '$title:',
-              textAlign: TextAlign.left,
-              overflow: TextOverflow.ellipsis,
-            ),
+Widget _showInfoCredito(
+  String title,
+  String info,
+) =>
+    Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 1),
+          child: Text(
+            '$title:',
+            textAlign: TextAlign.left,
+            overflow: TextOverflow.ellipsis,
           ),
-          Expanded(child: Container()),
-          Text(
-            info,
-            textAlign: TextAlign.right,
+        ),
+        Expanded(child: Container()),
+        Text(
+          info,
+          textAlign: TextAlign.right,
+        ),
+      ],
+    );
+
+Object _abonar(
+  CreditsController controllerCredits,
+  BuildContext context,
+  bool abonoCapital,
+  int idCuotaCredito,
+) {
+  final String titulo =
+      abonoCapital ? 'Desea abonar capital?' : 'Desea abonar interes?';
+
+  final String estadoCredito = abonoCapital
+      ? controllerCredits.validarEstadoCredito()
+      : Constantes.CREDITO_ACTIVO;
+
+  final String tipoAbono =
+      abonoCapital ? Constantes.ABONO_CAPITAL : Constantes.SOLO_INTERES;
+  if (controllerCredits.validarFormAbonoCapital()) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          titulo,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: General.mediaQuery(context).height * 0.02,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+              controllerCredits.pagarInteresOCapital(
+                tipoAbono,
+                estadoCredito,
+                idCuotaCredito,
+              );
+            },
+            child: const Text('Si'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('No'),
           ),
         ],
-      );
+      ),
+    );
+  } else {
+    return Container();
+  }
 }

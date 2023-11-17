@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 
-class DialogInfo extends StatelessWidget {
+class DialogInfoCredito extends StatelessWidget {
   final String title;
   final DataCreditResponse? info;
   final VoidCallback? accion;
 
-  const DialogInfo({
+  const DialogInfoCredito({
     required this.title,
     this.info,
     this.accion,

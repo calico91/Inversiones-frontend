@@ -27,6 +27,7 @@ class InfoCreditoySaldoResponse {
 }
 
 class InfoCreditoySaldo {
+  int? idCredito;
   int? id;
   double? valorCuota;
   String? fechaCuota;
@@ -42,6 +43,7 @@ class InfoCreditoySaldo {
   String? ultimaCuotaPagada;
 
   InfoCreditoySaldo({
+    this.idCredito,
     this.id,
     this.valorCuota,
     this.fechaCuota,

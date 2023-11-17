@@ -53,6 +53,7 @@ class ListaCreditosActivos extends StatelessWidget {
             child: ListTile(
               onTap: () => controller.infoCreditoySaldo(
                 controller.filtroCreditos.value[index].idCredito!,
+                
               ),
               title: _showClientTitle(controller, index, size),
               subtitle: _informacionSubtitulo(controller, index),
