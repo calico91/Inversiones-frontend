@@ -121,7 +121,8 @@ class CreditsController extends GetxController {
   }
 
   Future<void> pagarInteresOCapital(
-      String tipoAbono, String estadoCredito, int idCuota) async {
+      String tipoAbono, String estadoCredito, int idCuota,
+      [double? valorInteres]) async {
     Get.showOverlay(
       loadingWidget: const Loading().circularLoading(),
       asyncFunction: () async {
@@ -129,11 +130,12 @@ class CreditsController extends GetxController {
           final GenericoResponse respuestaHttp =
               await const CreditHttp().pagarCuota(
             PagarCuotaRequest(
+              valorInteres: valorInteres,
               abonoExtra: true,
               estadoCredito: estadoCredito,
               tipoAbono: tipoAbono,
               fechaAbono: General.formatoFecha(DateTime.now()),
-              valorAbonado: General.stringToDouble(abonar.text),
+              valorAbonado: valorAbonar-valorInteres!,
               idCuotaCredito: idCuota,
             ),
           );

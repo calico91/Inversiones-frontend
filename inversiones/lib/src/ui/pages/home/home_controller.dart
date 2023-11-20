@@ -10,7 +10,7 @@ import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxService {
   HomeController(this.appController);
 
   final AppController appController;

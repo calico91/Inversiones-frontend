@@ -89,11 +89,12 @@ class InfoCreditoSaldoModal extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () => _abonar(controllerCredits, context, true, info.id!),
+          onPressed: () => _abonar(
+              controllerCredits, context, true, info.id!, info.interesHoy!),
           child: const Text('Abonar capital'),
         ),
         TextButton(
-          onPressed: () => _abonar(controllerCredits, context, false, info.id!),
+          onPressed: () {},
           child: const Text('Abonar interes'),
         ),
         TextButton(
@@ -132,16 +133,19 @@ Object _abonar(
   BuildContext context,
   bool abonoCapital,
   int idCuotaCredito,
+  double valorInteres,
 ) {
   final String titulo =
       abonoCapital ? 'Desea abonar capital?' : 'Desea abonar interes?';
 
-  final String estadoCredito = abonoCapital
-      ? controllerCredits.validarEstadoCredito()
-      : Constantes.CREDITO_ACTIVO;
+  final String estadoCredito = controllerCredits.validarEstadoCredito();
+
+  final double interes =
+      estadoCredito == Constantes.CREDITO_PAGADO ? valorInteres : 0;
 
   final String tipoAbono =
       abonoCapital ? Constantes.ABONO_CAPITAL : Constantes.SOLO_INTERES;
+      
   if (controllerCredits.validarFormAbonoCapital()) {
     return showDialog(
       context: context,
@@ -162,6 +166,7 @@ Object _abonar(
                 tipoAbono,
                 estadoCredito,
                 idCuotaCredito,
+                interes,
               );
             },
             child: const Text('Si'),

@@ -58,7 +58,7 @@ class PayFeeController extends GetxController {
               await const CreditHttp().pagarCuota(
             PagarCuotaRequest(
               abonoExtra: false,
-              estadoCredito: 'A',
+              estadoCredito: Constantes.CREDITO_ACTIVO,
               tipoAbono: tipoAbono,
               fechaAbono: General.formatoFecha(DateTime.now()),
               valorAbonado: tipoAbono == Constantes.SOLO_INTERES
