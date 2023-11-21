@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
+import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class DialogInfoCredito extends StatelessWidget {
   final String title;
   final DataCreditResponse? info;
-  final VoidCallback? accion;
+  final VoidCallback accion;
 
   const DialogInfoCredito({
     required this.title,
     this.info,
-    this.accion,
+    required this.accion,
   });
 
   @override
@@ -51,9 +53,7 @@ class DialogInfoCredito extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () {
-            return accion ?? Navigator.pop(context);
-          },
+          onPressed: () => accion(),
           child: const Text('Aceptar'),
         ),
       ],
@@ -74,5 +74,9 @@ class DialogInfoCredito extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void irAlHome() {
+    Get.offAllNamed(RouteNames.home);
   }
 }

@@ -90,7 +90,12 @@ class InfoCreditoSaldoModal extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => _abonar(
-              controllerCredits, context, true, info.id!, info.interesHoy!),
+            controllerCredits,
+            context,
+            true,
+            info.id!,
+            info.interesHoy!,
+          ),
           child: const Text('Abonar capital'),
         ),
         TextButton(
@@ -145,7 +150,7 @@ Object _abonar(
 
   final String tipoAbono =
       abonoCapital ? Constantes.ABONO_CAPITAL : Constantes.SOLO_INTERES;
-      
+
   if (controllerCredits.validarFormAbonoCapital()) {
     return showDialog(
       context: context,

@@ -14,7 +14,6 @@ class HomeController extends GetxService {
   HomeController(this.appController);
 
   final AppController appController;
-  final UserDetails userDetails = Get.arguments as UserDetails;
   final RxBool _loading = RxBool(false);
   final Rx<List<ClientsPendingInstallment>> _clients =
       Rx<List<ClientsPendingInstallment>>([]);
@@ -26,9 +25,11 @@ class HomeController extends GetxService {
   final TextEditingController creditValue = TextEditingController();
   final TextEditingController installmentAmount = TextEditingController();
   final TextEditingController interestPercentage = TextEditingController();
+  final Rx<UserDetails> userDetails = Rx<UserDetails>(const UserDetails());
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    userDetails(await const SecureStorageLocal().userDetails);
     loadClientsPendingInstallments();
     super.onInit();
   }

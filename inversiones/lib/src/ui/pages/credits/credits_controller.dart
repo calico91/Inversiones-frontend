@@ -12,7 +12,9 @@ import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/home/dialog/dialog_info.dart';
+import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
+import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -20,6 +22,7 @@ class CreditsController extends GetxController {
   CreditsController(this.appController);
 
   final AppController appController;
+  final HomeController homeController = Get.find<HomeController>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formKeyAbonoCapital = GlobalKey<FormState>();
   final TextEditingController creditValue = TextEditingController();
@@ -84,6 +87,7 @@ class CreditsController extends GetxController {
             ),
           );
           if (res.status == 200) {
+            homeController.loadClientsPendingInstallments();
             _mostrarInfoCredito(res.data!);
             _cleanForm();
           } else {
@@ -121,8 +125,11 @@ class CreditsController extends GetxController {
   }
 
   Future<void> pagarInteresOCapital(
-      String tipoAbono, String estadoCredito, int idCuota,
-      [double? valorInteres]) async {
+    String tipoAbono,
+    String estadoCredito,
+    int idCuota, [
+    double? valorInteres,
+  ]) async {
     Get.showOverlay(
       loadingWidget: const Loading().circularLoading(),
       asyncFunction: () async {
@@ -135,11 +142,12 @@ class CreditsController extends GetxController {
               estadoCredito: estadoCredito,
               tipoAbono: tipoAbono,
               fechaAbono: General.formatoFecha(DateTime.now()),
-              valorAbonado: valorAbonar-valorInteres!,
+              valorAbonado: valorAbonar - valorInteres!,
               idCuotaCredito: idCuota,
             ),
           );
           if (respuestaHttp.status == 200) {
+            homeController.loadClientsPendingInstallments();
             await Future.delayed(const Duration(seconds: 5));
             _showInfoDialog();
           } else {
@@ -166,8 +174,13 @@ class CreditsController extends GetxController {
       DialogInfoCredito(
         title: 'Informacion credito',
         info: info,
+        accion: irAlHome,
       ),
     );
+  }
+
+  void irAlHome() {
+    Get.offAllNamed(RouteNames.home);
   }
 
   /// modal que muestra la informacion del credito, saldo y si quiere abonar a capital

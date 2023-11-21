@@ -14,8 +14,13 @@ class HomePage extends StatelessWidget {
     final HomeController controller = Get.find<HomeController>();
     return Scaffold(
       appBar: AppBar(
-        title:
-            Center(child: Text(controller.userDetails.username.toUpperCase())),
+        title: Center(
+          child: Obx(
+            () => controller.userDetails.value.username != null
+                ? Text(controller.userDetails.value.username!.toUpperCase())
+                : Container(),
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: controller.logout,

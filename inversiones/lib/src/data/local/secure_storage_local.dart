@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/repositories/secure_storage_repository.dart';
@@ -8,8 +10,6 @@ class SecureStorageLocal implements SecureStorageRepository {
   final FlutterSecureStorage secureStorage;
 
   static String? _jwtToken;
-
-  static UserDetails? _userDetails;
 
   @override
   Future<String?> get jwtToken async {
@@ -23,16 +23,22 @@ class SecureStorageLocal implements SecureStorageRepository {
   }
 
   @override
-  Future<void> saveUserDetails(UserDetails? userDetails) {
+  Future<void> saveUserDetails(UserDetails? userDetails) async {
     return secureStorage.write(
       key: 'userDetails',
-      value: _userDetails?.serialize(userDetails!),
+      value: jsonEncode(userDetails!.toJson()),
     );
   }
 
   @override
   Future<UserDetails?> get userDetails async {
-    return _userDetails ??= _userDetails!
-        .deserialize(await secureStorage.read(key: 'userDetails') ?? '');
+    final user = await secureStorage.read(key: 'userDetails');
+    if (user?.isNotEmpty ?? false) {
+      return UserDetails.fromJson(jsonDecode(user!) as Map<String, dynamic>);
+    }
+    return null;
+
+    /* return _userDetails ??= _userDetails!
+        .deserialize(await secureStorage.read(key: 'userDetails') ?? ''); */
   }
 }
