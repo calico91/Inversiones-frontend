@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DialogCuotaPagada extends StatelessWidget {
-  const DialogCuotaPagada();
+  const DialogCuotaPagada({required this.accion});
+  final VoidCallback accion;
 
   @override
   Widget build(BuildContext context) {
@@ -12,15 +13,10 @@ class DialogCuotaPagada extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-            Navigator.pop(context);
-          },
+          onPressed: () => accion(),
           child: const Text('Aceptar'),
         ),
       ],
     );
   }
-
-  
 }

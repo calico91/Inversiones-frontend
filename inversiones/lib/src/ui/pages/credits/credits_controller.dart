@@ -87,7 +87,6 @@ class CreditsController extends GetxController {
             ),
           );
           if (res.status == 200) {
-            homeController.loadClientsPendingInstallments();
             _mostrarInfoCredito(res.data!);
             _cleanForm();
           } else {
@@ -147,7 +146,6 @@ class CreditsController extends GetxController {
             ),
           );
           if (respuestaHttp.status == 200) {
-            homeController.loadClientsPendingInstallments();
             await Future.delayed(const Duration(seconds: 5));
             _showInfoDialog();
           } else {
@@ -164,7 +162,9 @@ class CreditsController extends GetxController {
 
   void _showInfoDialog() {
     Get.dialog(
-      const DialogCuotaPagada(),
+      DialogCuotaPagada(
+        accion: irAlHome,
+      ),
     );
   }
 

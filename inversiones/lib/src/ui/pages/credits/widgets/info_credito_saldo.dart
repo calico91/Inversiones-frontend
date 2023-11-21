@@ -89,17 +89,31 @@ class InfoCreditoSaldoModal extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () => _abonar(
-            controllerCredits,
-            context,
-            true,
-            info.id!,
-            info.interesHoy!,
-          ),
+          onPressed: () {
+            if (controllerCredits.validarFormAbonoCapital()) {
+              _abonar(
+                controllerCredits,
+                context,
+                true,
+                info.id!,
+                info.interesHoy!,
+              );
+            }
+          },
           child: const Text('Abonar capital'),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            if (controllerCredits.validarFormAbonoCapital()) {
+              _abonar(
+                controllerCredits,
+                context,
+                false,
+                info.id!,
+                info.interesHoy!,
+              );
+            }
+          },
           child: const Text('Abonar interes'),
         ),
         TextButton(
@@ -151,39 +165,33 @@ Object _abonar(
   final String tipoAbono =
       abonoCapital ? Constantes.ABONO_CAPITAL : Constantes.SOLO_INTERES;
 
-  if (controllerCredits.validarFormAbonoCapital()) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          titulo,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: General.mediaQuery(context).height * 0.02,
-          ),
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(
+        titulo,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: General.mediaQuery(context).height * 0.02,
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
-              controllerCredits.pagarInteresOCapital(
-                tipoAbono,
-                estadoCredito,
-                idCuotaCredito,
-                interes,
-              );
-            },
-            child: const Text('Si'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('No'),
-          ),
-        ],
       ),
-    );
-  } else {
-    return Container();
-  }
+      actions: [
+        TextButton(
+          onPressed: () {
+            controllerCredits.pagarInteresOCapital(
+              tipoAbono,
+              estadoCredito,
+              idCuotaCredito,
+              interes,
+            );
+          },
+          child: const Text('Si'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('No'),
+        ),
+      ],
+    ),
+  );
 }

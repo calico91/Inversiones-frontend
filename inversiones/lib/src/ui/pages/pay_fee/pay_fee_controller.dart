@@ -8,6 +8,7 @@ import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
+import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
@@ -70,7 +71,6 @@ class PayFeeController extends GetxController {
           if (respuestaHttp.status == 200) {
             await Future.delayed(const Duration(seconds: 5));
             _showInfoDialog();
-            homeController.loadClientsPendingInstallments();
           } else {
             appController.manageError(respuestaHttp.message);
           }
@@ -85,8 +85,14 @@ class PayFeeController extends GetxController {
 
   void _showInfoDialog() {
     Get.dialog(
-      const DialogCuotaPagada(),
+      DialogCuotaPagada(
+        accion: irAlHome,
+      ),
     );
+  }
+
+  void irAlHome() {
+    Get.offAllNamed(RouteNames.home);
   }
 
   bool validateForm() {
