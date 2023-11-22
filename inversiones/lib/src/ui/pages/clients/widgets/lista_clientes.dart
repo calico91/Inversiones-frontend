@@ -13,9 +13,9 @@ class ListaClientes extends StatelessWidget {
     final ClientsController controller = Get.find<ClientsController>();
     return Obx(() {
       if (controller.status.value != 200) {
-        return const Loading(
-          vertical: 110,
-        ).circularLoading();
+        return Loading(
+          vertical: General.mediaQuery(context).height * 0.1,
+        );
       }
       return Column(
         children: [
@@ -56,7 +56,7 @@ class ListaClientes extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: size.width * 0.52,
+          width: size.width * 0.51,
           child: Text(
             overflow: TextOverflow.ellipsis,
             "${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}",
@@ -70,7 +70,7 @@ class ListaClientes extends StatelessWidget {
                 tooltip: 'editar',
                 onPressed: () {
                   controller.loadClient(
-                    controller.filtroClientes.value[index].cedula,
+                    controller.filtroClientes.value[index].cedula,size,
                   );
                 },
                 icon: const Icon(color: Colors.blue, Icons.edit),

@@ -46,13 +46,14 @@ class PayFeePage extends StatelessWidget {
               ),
               child: SizedBox(
                 width: General.mediaQuery(context).width * 0.8,
-                height: General.mediaQuery(context).height * 0.4,
+                height: General.mediaQuery(context).height * 0.41,
                 child: Obx(() {
                   if (controller.loading) {
                     return Loading(
+                      circularLoading: false,
                       horizontal: General.mediaQuery(context).width * 0.00008,
-                      vertical: General.mediaQuery(context).height * 0.198,
-                    ).linearLoading();
+                      vertical: General.mediaQuery(context).height * 0.2,
+                    );
                   }
                   return Padding(
                     padding: EdgeInsets.symmetric(

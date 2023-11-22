@@ -12,9 +12,9 @@ class ListaCreditosActivos extends StatelessWidget {
     final CreditsController controller = Get.find<CreditsController>();
     return Obx(() {
       if (controller.status.value != 200) {
-        return const Loading(
-          vertical: 110,
-        ).circularLoading();
+        return  Loading(
+          vertical: General.mediaQuery(context).height * 0.1,
+        );
       }
       return Column(
         children: [

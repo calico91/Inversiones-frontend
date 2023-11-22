@@ -15,9 +15,10 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Obx(
       () {
         if (controller.status != 200) {
-          return const Loading(
-            vertical: 110,
-          ).circularLoading();
+          return  Loading(
+            vertical: General.mediaQuery(context).height * 0.13,
+
+          );
         } else if (controller.status == 200 && controller.clients.isEmpty) {
           return Center(
             child: RefreshIndicator(
@@ -76,7 +77,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: size.width * 0.5,
+          width: size.width * 0.49,
           child: Text(
             overflow: TextOverflow.ellipsis,
             "${controller.clients[index].idCredito}.${controller.clients[index].nombres} ${controller.clients[index].apellidos}",
@@ -99,7 +100,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: size.width * 0.4,
+          width: size.width * 0.39,
           child: Text(
             overflow: TextOverflow.ellipsis,
             "Fecha cuota:${controller.clients[index].fechaCuota}",

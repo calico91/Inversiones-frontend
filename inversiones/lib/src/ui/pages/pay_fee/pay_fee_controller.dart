@@ -52,7 +52,7 @@ class PayFeeController extends GetxController {
 
   Future<void> pagarCuota(String tipoAbono) async {
     Get.showOverlay(
-      loadingWidget: const Loading().circularLoading(),
+      loadingWidget: const Loading(),
       asyncFunction: () async {
         try {
           final GenericoResponse respuestaHttp =

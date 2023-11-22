@@ -73,7 +73,7 @@ class CreditsController extends GetxController {
 
   void save() {
     Get.showOverlay(
-      loadingWidget: const Loading().circularLoading(),
+      loadingWidget: const Loading(),
       asyncFunction: () async {
         try {
           final AddCreditResponse res = await const CreditHttp().addCredit(
@@ -103,7 +103,7 @@ class CreditsController extends GetxController {
 
   Future<void> infoCreditoySaldo(int idCredito) async {
     Get.showOverlay(
-      loadingWidget: const Loading().circularLoading(),
+      loadingWidget: const Loading(),
       asyncFunction: () async {
         try {
           final InfoCreditoySaldoResponse res =
@@ -130,7 +130,7 @@ class CreditsController extends GetxController {
     double? valorInteres,
   ]) async {
     Get.showOverlay(
-      loadingWidget: const Loading().circularLoading(),
+      loadingWidget: const Loading(),
       asyncFunction: () async {
         try {
           final GenericoResponse respuestaHttp =

@@ -53,7 +53,7 @@ class HomeController extends GetxService {
 
   void logout() {
     Get.showOverlay(
-      loadingWidget: const Loading().circularLoading(),
+      loadingWidget: const Loading(),
       asyncFunction: () async {
         await const SecureStorageLocal().saveToken(null);
         Get.offAllNamed(RouteNames.signIn);

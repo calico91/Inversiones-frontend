@@ -86,7 +86,7 @@ class Clients extends StatelessWidget {
             Obx(
               () => Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: General.mediaQuery(context).width * 0.32,
+                  horizontal: General.mediaQuery(context).width * 0.31,
                 ),
                 child: FilledButton.icon(
                   onPressed: () {
