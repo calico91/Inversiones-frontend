@@ -16,23 +16,19 @@ class SignInController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  Rx<bool> obscureText = Rx<bool>(true);
 
-  @override
-  void onClose() {
-    //usernameController.dispose();
-    //passwordController.dispose();
-    super.onClose();
-  }
 
-  void signIn() {
+
+  void signIn(Size size) {
     if (formKey.currentState!.validate()) {
       Get.showOverlay(
         asyncFunction: () async {
           try {
             final SignInResponse res =
                 await const SignInHttp().signInWithUsernameAndPassword(
-              usernameController.text.trim(),
-              passwordController.value.text,
+              usernameController.value.text.trim(),
+              passwordController.value.text.trim(),
             );
             if (res.status == 200) {
               await const SecureStorageLocal().saveToken(res.token);
@@ -45,24 +41,8 @@ class SignInController extends GetxController {
             appController.manageError(e.message);
           }
         },
-        loadingWidget: const Loading(),
+        loadingWidget: Loading(vertical: size.height * 0.46),
       );
     }
-  }
-
-  String? validateUsername(String? value) {
-    if (value == null || value.trim().length < 5) {
-      return 'Wrong username';
-    }
-    return null;
-  }
-
-  String? validatePassword(String? value) {
-    if (value == null) {
-      return 'Invalid password';
-    } else if (value.length < 6) {
-      return 'Password min length 6';
-    }
-    return null;
   }
 }

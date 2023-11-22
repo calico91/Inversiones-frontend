@@ -1,9 +1,7 @@
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/utils/validate_exp_reg.dart';
+import 'package:inversiones/src/ui/pages/utils/validate_form.dart';
 
 class TextFieldBase extends StatelessWidget {
   const TextFieldBase({
@@ -53,14 +51,15 @@ class TextFieldBase extends StatelessWidget {
             width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
               textDirection: TextDirection.ltr,
-              key: key,
               expands: true,
               maxLines: null,
-              validator: (String? value) => _validateStructure(value),
-              inputFormatters: _validateInputFormatters(),
+              validator: (String? value) => ValidateForm()
+                  .validateStructure(value, required!, validateText!),
+              inputFormatters:
+                  ValidateForm.validateInputFormatters(validateText!),
               keyboardType: textInputType,
               textAlign: textAlign!,
-              maxLength: _validateMaxLength(),
+              maxLength: ValidateForm.validateMaxLength(validateText!),
               controller: controller,
               decoration: InputDecoration(
                 hintText: hintText,
@@ -81,72 +80,4 @@ class TextFieldBase extends StatelessWidget {
       ),
     );
   }
-
-  ///valida cantidad de caracteres
-  int _validateMaxLength() {
-    switch (validateText) {
-      case ValidateText.email:
-        return 64;
-      case ValidateText.creditValue:
-        return 9;
-      case ValidateText.installmentAmount:
-        return 2;
-      case ValidateText.interestPercentage:
-        return 2;
-      case ValidateText.name:
-        return 30;
-      case ValidateText.onlyNumbers:
-        return 20;
-      case ValidateText.phoneNumber:
-        return 10;
-      case ValidateText.observations:
-        return 250;
-      case ValidateText.date:
-        return 10;
-      default:
-        return 64;
-    }
-  }
-
-  /// valida tipo de datos que se ingresan
-  List<TextInputFormatter> _validateInputFormatters() {
-    switch (validateText) {
-      case ValidateText.creditValue:
-        return [
-          FilteringTextInputFormatter.digitsOnly,
-          CurrencyTextInputFormatter(
-            symbol: '',
-            decimalDigits: 0,
-          ),
-        ];
-      case ValidateText.installmentAmount:
-        return [FilteringTextInputFormatter.digitsOnly];
-      case ValidateText.interestPercentage:
-        return [FilteringTextInputFormatter.digitsOnly];
-      case ValidateText.onlyNumbers:
-        return [FilteringTextInputFormatter.digitsOnly];
-      case ValidateText.phoneNumber:
-        return [FilteringTextInputFormatter.digitsOnly];
-      default:
-        return [FilteringTextInputFormatter.singleLineFormatter];
-    }
-  }
-
-  ///valida estructuras
-  String? _validateStructure(String? value) {
-    if (required! && value!.isEmpty) {
-      return 'El campo requerido';
-    } else {
-      switch (validateText) {
-        case ValidateText.email:
-          return validateEmail(value!) ? null : message('email');
-        case ValidateText.phoneNumber:
-          return validateNumberPhone(value!) ? null : message('celular');
-        default:
-          return null;
-      }
-    }
-  }
-
-  String message(String type) => '$type es incorrecto';
 }
