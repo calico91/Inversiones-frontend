@@ -18,6 +18,8 @@ class SignInController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   Rx<bool> obscureText = Rx<bool>(true);
 
+
+
   void signIn(Size size) {
     if (formKey.currentState!.validate()) {
       Get.showOverlay(
@@ -25,8 +27,8 @@ class SignInController extends GetxController {
           try {
             final SignInResponse res =
                 await const SignInHttp().signInWithUsernameAndPassword(
-              usernameController.text.trim(),
-              passwordController.value.text,
+              usernameController.value.text.trim(),
+              passwordController.value.text.trim(),
             );
             if (res.status == 200) {
               await const SecureStorageLocal().saveToken(res.token);

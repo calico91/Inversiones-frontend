@@ -51,7 +51,6 @@ class TextFieldBase extends StatelessWidget {
             width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
               textDirection: TextDirection.ltr,
-              key: key,
               expands: true,
               maxLines: null,
               validator: (String? value) => ValidateForm()

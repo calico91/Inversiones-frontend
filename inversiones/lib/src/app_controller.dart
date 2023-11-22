@@ -6,8 +6,7 @@ class AppController extends GetxController {
   void manageError(String error) {
     if (error == 'security-token-required' ||
         error == 'invalid-token' ||
-        error == 'token-has-expired' ||
-        error == 'Your credentials are incorrect') {
+        error == 'token-has-expired' ) {
       Get.offAllNamed(RouteNames.signIn);
       Get.showSnackbar(ErrorSnackbar(error));
     } else {
