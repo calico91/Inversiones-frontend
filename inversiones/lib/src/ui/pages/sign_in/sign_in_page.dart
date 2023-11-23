@@ -27,8 +27,9 @@ class SignInPage extends StatelessWidget {
                     controller: controller.usernameController,
                     prefixIcon: const Icon(Icons.person),
                     validateText: ValidateText.username,
-                    hintText: 'Username',
+                    hintText: 'Usuario',
                   ),
+                  SizedBox(height: General.mediaQuery(context).height * 0.02),
                   Obx(
                     () => TextFieldLogin(
                       suffixIcon: _mostrarcontrasena(controller),
@@ -36,16 +37,29 @@ class SignInPage extends StatelessWidget {
                       controller: controller.passwordController,
                       prefixIcon: const Icon(Icons.lock),
                       validateText: ValidateText.password,
-                      hintText: 'Password',
+                      hintText: 'Contraseña',
                     ),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 15.0),
-            ElevatedButton(
-              onPressed: () => controller.signIn(General.mediaQuery(context)),
-              child: const Text('Sign in'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Ingresar',
+                    style: TextStyle(
+                        color: const Color.fromRGBO(31, 33, 36, 0.8),
+                        fontSize: General.mediaQuery(context).height * 0.05)),
+                IconButton(
+                  splashRadius: 1,
+                  color: const Color.fromRGBO(31, 33, 36, 0.8),
+                  iconSize: General.mediaQuery(context).height * 0.06,
+                  onPressed: () =>
+                      controller.signIn(General.mediaQuery(context)),
+                  icon: const Icon(Icons.arrow_circle_right_rounded),
+                ),
+              ],
             ),
           ],
         ),
@@ -57,7 +71,9 @@ class SignInPage extends StatelessWidget {
     return IconButton(
       onPressed: () =>
           controller.obscureText.value = !controller.obscureText.value,
-      icon: const Icon(Icons.remove_red_eye),
+      icon: controller.obscureText.value
+          ? const Icon(Icons.visibility_off)
+          : const Icon(Icons.visibility),
     );
   }
 }
