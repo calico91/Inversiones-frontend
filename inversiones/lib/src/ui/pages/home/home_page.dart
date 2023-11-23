@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: controller.logout,
+            onPressed: () => _confirmacionCerrarSesion(controller, context),
             icon: const Icon(Icons.logout_outlined),
           ),
         ],
@@ -66,6 +66,28 @@ class HomePage extends StatelessWidget {
                 child: SimulateCreditMolecule(),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future _confirmacionCerrarSesion(
+    HomeController controller,
+    BuildContext context,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Desea cerrar sesion'),
+        actions: [
+          TextButton(
+            onPressed: () => controller.logout(),
+            child: const Text('Si'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('No'),
           ),
         ],
       ),

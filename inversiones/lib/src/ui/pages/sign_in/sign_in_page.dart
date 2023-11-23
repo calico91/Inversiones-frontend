@@ -47,10 +47,13 @@ class SignInPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Ingresar',
-                    style: TextStyle(
-                        color: const Color.fromRGBO(31, 33, 36, 0.8),
-                        fontSize: General.mediaQuery(context).height * 0.05)),
+                Text(
+                  'Ingresar',
+                  style: TextStyle(
+                    color: const Color.fromRGBO(31, 33, 36, 0.8),
+                    fontSize: General.mediaQuery(context).height * 0.05,
+                  ),
+                ),
                 IconButton(
                   splashRadius: 1,
                   color: const Color.fromRGBO(31, 33, 36, 0.8),
