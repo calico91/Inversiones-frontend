@@ -179,6 +179,7 @@ Object _abonar(
         TextButton(
           onPressed: () {
             controllerCredits.pagarInteresOCapital(
+              General.mediaQuery(context),
               tipoAbono,
               estadoCredito,
               idCuotaCredito,

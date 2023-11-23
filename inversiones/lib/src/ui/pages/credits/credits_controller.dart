@@ -71,9 +71,11 @@ class CreditsController extends GetxController {
     }
   }
 
-  void save() {
+  void save(Size size) {
     Get.showOverlay(
-      loadingWidget: const Loading(),
+      loadingWidget: Loading(
+        vertical: size.height * 0.46,
+      ),
       asyncFunction: () async {
         try {
           final AddCreditResponse res = await const CreditHttp().addCredit(
@@ -101,9 +103,11 @@ class CreditsController extends GetxController {
     );
   }
 
-  Future<void> infoCreditoySaldo(int idCredito) async {
+  Future<void> infoCreditoySaldo(int idCredito,Size size) async {
     Get.showOverlay(
-      loadingWidget: const Loading(),
+      loadingWidget: Loading(
+        vertical: size.height * 0.46,
+      ),
       asyncFunction: () async {
         try {
           final InfoCreditoySaldoResponse res =
@@ -124,13 +128,16 @@ class CreditsController extends GetxController {
   }
 
   Future<void> pagarInteresOCapital(
+    Size size,
     String tipoAbono,
     String estadoCredito,
     int idCuota, [
     double? valorInteres,
   ]) async {
     Get.showOverlay(
-      loadingWidget: const Loading(),
+      loadingWidget: Loading(
+        vertical: size.height * 0.46,
+      ),
       asyncFunction: () async {
         try {
           final GenericoResponse respuestaHttp =

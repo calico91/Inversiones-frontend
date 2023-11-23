@@ -12,7 +12,7 @@ class ListaCreditosActivos extends StatelessWidget {
     final CreditsController controller = Get.find<CreditsController>();
     return Obx(() {
       if (controller.status.value != 200) {
-        return  Loading(
+        return Loading(
           vertical: General.mediaQuery(context).height * 0.1,
         );
       }
@@ -30,7 +30,10 @@ class ListaCreditosActivos extends StatelessWidget {
                     onChanged: (value) => controller.buscarCredito(value),
                   ),
                   _listaClientes(
-                      controller, General.mediaQuery(context), context,),
+                    controller,
+                    General.mediaQuery(context),
+                    context,
+                  ),
                 ],
               ),
             ),
@@ -53,7 +56,7 @@ class ListaCreditosActivos extends StatelessWidget {
             child: ListTile(
               onTap: () => controller.infoCreditoySaldo(
                 controller.filtroCreditos.value[index].idCredito!,
-                
+                General.mediaQuery(context),
               ),
               title: _showClientTitle(controller, index, size),
               subtitle: _informacionSubtitulo(controller, index),
