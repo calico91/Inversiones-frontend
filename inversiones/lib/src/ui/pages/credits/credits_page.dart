@@ -91,7 +91,7 @@ class Credits extends StatelessWidget {
                     child: FilledButton.icon(
                       onPressed: () {
                         if (controller.validateForm()) {
-                          controller.save();
+                          controller.save(General.mediaQuery(context));
                         }
                       },
                       icon: const Icon(Icons.monetization_on),

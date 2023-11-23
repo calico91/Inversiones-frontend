@@ -15,7 +15,6 @@ class PayFeePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PayFeeController controller = Get.find<PayFeeController>();
-    
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -203,11 +202,17 @@ class PayFeePage extends StatelessWidget {
           TextButton(
             onPressed: () {
               if (!soloInteres) {
-                controller.pagarCuota(Constantes.CUOTA_NORMAL);
+                controller.pagarCuota(
+                  Constantes.CUOTA_NORMAL,
+                  General.mediaQuery(context),
+                );
                 Navigator.pop(context);
               } else {
                 if (controller.validateForm()) {
-                  controller.pagarCuota(Constantes.SOLO_INTERES);
+                  controller.pagarCuota(
+                    Constantes.SOLO_INTERES,
+                    General.mediaQuery(context),
+                  );
                   Navigator.pop(context);
                 }
               }
