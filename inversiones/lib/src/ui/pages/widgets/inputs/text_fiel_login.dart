@@ -40,8 +40,10 @@ class TextFieldLogin extends StatelessWidget {
             textAlign: TextAlign.left,
             maxLength: ValidateForm.validateMaxLength(validateText!),
             controller: controller,
-            obscureText: obscureText?? false,
+            obscureText: obscureText ?? false,
             decoration: InputDecoration(
+              prefixIconColor: const Color.fromRGBO(31, 33, 36, 0.8),
+              suffixIconColor: const Color.fromRGBO(31, 33, 36, 0.8),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               filled: true,
