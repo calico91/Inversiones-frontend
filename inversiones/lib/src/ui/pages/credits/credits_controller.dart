@@ -32,6 +32,7 @@ class CreditsController extends GetxController {
   final TextEditingController document = TextEditingController();
   final TextEditingController installmentDate = TextEditingController();
   final TextEditingController creditDate = TextEditingController();
+  TextEditingController buscar = TextEditingController();
   final Rx<int> status = Rx(0);
   final Rx<List<InfoCreditosActivos>> creditosActivos =
       Rx<List<InfoCreditosActivos>>([]);
@@ -103,7 +104,7 @@ class CreditsController extends GetxController {
     );
   }
 
-  Future<void> infoCreditoySaldo(int idCredito,Size size) async {
+  Future<void> infoCreditoySaldo(int idCredito, Size size) async {
     Get.showOverlay(
       loadingWidget: Loading(
         vertical: size.height * 0.46,

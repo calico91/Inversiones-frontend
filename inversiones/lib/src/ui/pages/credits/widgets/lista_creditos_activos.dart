@@ -26,7 +26,9 @@ class ListaCreditosActivos extends StatelessWidget {
               child: Column(
                 children: [
                   TextFieldSearch(
-                    labelText: 'Buscar credito',
+                    controller: controller.buscar,
+                    labelText:
+                        'Buscar credito ${controller.creditosActivos.value.length}',
                     onChanged: (value) => controller.buscarCredito(value),
                   ),
                   _listaClientes(
