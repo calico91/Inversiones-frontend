@@ -153,7 +153,6 @@ class CreditsController extends GetxController {
             ),
           );
           if (respuestaHttp.status == 200) {
-            await Future.delayed(const Duration(seconds: 5));
             _showInfoDialog();
           } else {
             appController.manageError(respuestaHttp.message);

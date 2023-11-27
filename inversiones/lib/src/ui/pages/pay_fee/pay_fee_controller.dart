@@ -50,7 +50,7 @@ class PayFeeController extends GetxController {
     }
   }
 
-  Future<void> pagarCuota(String tipoAbono,Size size) async {
+  Future<void> pagarCuota(String tipoAbono, Size size) async {
     Get.showOverlay(
       loadingWidget: Loading(
         vertical: size.height * 0.46,
@@ -71,7 +71,6 @@ class PayFeeController extends GetxController {
             ),
           );
           if (respuestaHttp.status == 200) {
-            await Future.delayed(const Duration(seconds: 5));
             _showInfoDialog();
           } else {
             appController.manageError(respuestaHttp.message);
