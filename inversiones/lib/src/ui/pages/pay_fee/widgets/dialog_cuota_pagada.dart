@@ -1,46 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:screenshot/screenshot.dart';
 
 class DialogCuotaPagada extends StatelessWidget {
-  const DialogCuotaPagada({required this.accion, this.dataAbono});
+  DialogCuotaPagada({required this.accion, this.dataAbono});
   final VoidCallback accion;
   final DataAbono? dataAbono;
 
+  final ScreenshotController screenshotController = ScreenshotController();
+
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        textAlign: TextAlign.center,
-        dataAbono?.estadoCuota ?? 'Abono realizado correctamente',
-      ),
-      content: SizedBox(
-        height: dataAbono != null
-            ? General.mediaQuery(context).height * 0.07
-            : General.mediaQuery(context).height * 0.00,
-        child: dataAbono != null
-            ? Column(
-                children: [
-                  _mostrarContenido(
-                    'Cuotas Pagadas:',
-                    dataAbono!.cuotasPagadas,
-                    context,
-                  ),
-                  _mostrarContenido(
-                    'Cantidad de cuotas:',
-                    dataAbono!.cantidadCuotas,
-                    context,
-                  ),
-                ],
-              )
-            : const SizedBox(),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => accion(),
-          child: const Text('Aceptar'),
+    return Screenshot(
+      controller: screenshotController,
+      child: AlertDialog(
+        title: Text(
+          textAlign: TextAlign.center,
+          dataAbono?.estadoCuota ?? 'Abono realizado correctamente',
         ),
-      ],
+        content: SizedBox(
+          height: dataAbono != null
+              ? General.mediaQuery(context).height * 0.07
+              : General.mediaQuery(context).height * 0.00,
+          child: dataAbono != null
+              ? Column(
+                  children: [
+                    _mostrarContenido(
+                      'Cuotas Pagadas:',
+                      dataAbono!.cuotasPagadas,
+                      context,
+                    ),
+                    _mostrarContenido(
+                      'Cantidad de cuotas:',
+                      dataAbono!.cantidadCuotas,
+                      context,
+                    ),
+                  ],
+                )
+              : const SizedBox(),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () async {
+              final image = await screenshotController.capture(
+                delay: const Duration(seconds: 2),
+              );
+              if (image == null) return;
+              await General.capturarGardarImagen(image);
+              General.compartirImagen(image);
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.home),
+            onPressed: () => accion(),
+          ),
+        ],
+      ),
     );
   }
 

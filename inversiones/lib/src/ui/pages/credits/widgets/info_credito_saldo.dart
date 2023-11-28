@@ -6,6 +6,7 @@ import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
+import 'package:screenshot/screenshot.dart';
 
 class InfoCreditoSaldoModal extends StatelessWidget {
   final String title;
@@ -13,7 +14,9 @@ class InfoCreditoSaldoModal extends StatelessWidget {
   final VoidCallback? accion;
   final int idCredito;
 
-  const InfoCreditoSaldoModal({
+  final ScreenshotController screenshotController = ScreenshotController();
+
+  InfoCreditoSaldoModal({
     required this.title,
     required this.info,
     this.accion,
@@ -25,50 +28,68 @@ class InfoCreditoSaldoModal extends StatelessWidget {
     final CreditsController controllerCredits = Get.find<CreditsController>();
 
     return AlertDialog(
-      title: const Text(
-        'Informacion credito',
-        textAlign: TextAlign.center,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'Informacion credito',
+            textAlign: TextAlign.center,
+          ),
+          IconButton(
+            onPressed: () => compartirImagen(),
+            icon: const Icon(Icons.share),
+          )
+        ],
       ),
-      content: SizedBox(
+      content: Container(
+        color: Colors.white,
         height: General.mediaQuery(context).height * 0.46,
         child: Column(
           children: [
-            _showInfoCredito('Id credito', idCredito.toString()),
-            _showInfoCredito('Numero cuotas', info.numeroCuotas!.toString()),
-            _showInfoCredito(
-              'Cuotas pagadas',
-              (info.cuotaNumero! - 1).toString(),
-            ),
-            _showInfoCredito(
-              'Interes',
-              '${info.interesPorcentaje!.toStringAsFixed(0)}%',
-            ),
-            _showInfoCredito('Fecha credito', info.fechaCredito!),
-            _showInfoCredito('Fecha cuota', info.fechaCuota!),
-            _showInfoCredito('Ultima pagada', info.ultimaCuotaPagada!),
-            _showInfoCredito(
-              'Valor credito',
-              General.formatoMoneda(info.valorCredito),
-            ),
-            _showInfoCredito(
-              'Valor cuota',
-              General.formatoMoneda(info.valorCuota),
-            ),
-            _showInfoCredito(
-              'Valor interes',
-              General.formatoMoneda(info.valorInteres),
-            ),
-            _showInfoCredito(
-              'Interes a hoy',
-              General.formatoMoneda(info.interesHoy),
-            ),
-            _showInfoCredito(
-              'Saldo credito',
-              General.formatoMoneda(info.saldoCredito),
-            ),
-            _showInfoCredito(
-              'Capital pagado',
-              General.formatoMoneda(info.capitalPagado),
+            Screenshot(
+              controller: screenshotController,
+              child: Column(
+                children: [
+                  _showInfoCredito('Id credito', idCredito.toString()),
+                  _showInfoCredito(
+                      'Numero cuotas', info.numeroCuotas!.toString()),
+                  _showInfoCredito(
+                    'Cuotas pagadas',
+                    (info.cuotaNumero! - 1).toString(),
+                  ),
+                  _showInfoCredito(
+                    'Interes',
+                    '${info.interesPorcentaje!.toStringAsFixed(0)}%',
+                  ),
+                  _showInfoCredito('Fecha credito', info.fechaCredito!),
+                  _showInfoCredito('Fecha cuota', info.fechaCuota!),
+                  _showInfoCredito('Ultima pagada', info.ultimaCuotaPagada!),
+                  _showInfoCredito(
+                    'Valor credito',
+                    General.formatoMoneda(info.valorCredito),
+                  ),
+                  _showInfoCredito(
+                    'Valor cuota',
+                    General.formatoMoneda(info.valorCuota),
+                  ),
+                  _showInfoCredito(
+                    'Valor interes',
+                    General.formatoMoneda(info.valorInteres),
+                  ),
+                  _showInfoCredito(
+                    'Interes a hoy',
+                    General.formatoMoneda(info.interesHoy),
+                  ),
+                  _showInfoCredito(
+                    'Saldo credito',
+                    General.formatoMoneda(info.saldoCredito),
+                  ),
+                  _showInfoCredito(
+                    'Capital pagado',
+                    General.formatoMoneda(info.capitalPagado),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -122,6 +143,15 @@ class InfoCreditoSaldoModal extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void compartirImagen() async {
+    final image = await screenshotController.capture(
+      delay: const Duration(seconds: 2),
+    );
+    if (image == null) return;
+    await General.capturarGardarImagen(image);
+    General.compartirImagen(image);
   }
 }
 
