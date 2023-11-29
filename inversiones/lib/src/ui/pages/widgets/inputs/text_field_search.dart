@@ -16,24 +16,8 @@ class TextFieldSearch extends StatelessWidget {
       onChanged: (value) => onChanged(value),
       decoration: InputDecoration(
         labelText: labelText,
-        suffixIcon: _cambiarIconoCampoBuscar(),
+        suffixIcon: const Icon(Icons.search),
       ),
     );
-  }
-
-  //TODO implementar al dar en la X que se borre lo que busco
-  Widget _cambiarIconoCampoBuscar() {
-    if (controller!.value.text.isEmpty) {
-      return const Icon(Icons.search);
-    } else {
-      return IconButton(
-        splashRadius: 1,
-        icon: const Icon(Icons.cancel_sharp),
-        onPressed: () {
-          const Icon(Icons.search);
-          return;
-        },
-      );
-    }
   }
 }
