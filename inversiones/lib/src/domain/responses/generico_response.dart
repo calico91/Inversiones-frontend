@@ -28,16 +28,22 @@ class DataAbono {
   String cuotasPagadas;
   String estadoCuota;
   String cantidadCuotas;
+  String valorAbonado;
+  String tipoAbono;
 
   DataAbono({
     required this.cuotasPagadas,
     required this.estadoCuota,
     required this.cantidadCuotas,
+    required this.valorAbonado,
+    required this.tipoAbono,
   });
 
   factory DataAbono.fromJson(Map<String, dynamic> json) => DataAbono(
         cuotasPagadas: json["cuotasPagadas"] as String,
         estadoCuota: json["estadoCuota"] as String,
         cantidadCuotas: json["cantidadCuotas"] as String,
+        valorAbonado: json["valorAbonado"] as String,
+        tipoAbono: json["tipoAbono"] as String,
       );
 }

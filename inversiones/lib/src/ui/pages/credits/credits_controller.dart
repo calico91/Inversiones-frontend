@@ -14,7 +14,6 @@ import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart
 import 'package:inversiones/src/ui/pages/home/dialog/dialog_info.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
-import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -169,9 +168,7 @@ class CreditsController extends GetxController {
 
   void _showInfoDialog() {
     Get.dialog(
-      DialogCuotaPagada(
-        accion: irAlHome,
-      ),
+      DialogCuotaPagada(),
     );
   }
 
@@ -181,13 +178,8 @@ class CreditsController extends GetxController {
       DialogInfoCredito(
         title: 'Informacion credito',
         info: info,
-        accion: irAlHome,
       ),
     );
-  }
-
-  void irAlHome() {
-    Get.offAllNamed(RouteNames.home);
   }
 
   /// modal que muestra la informacion del credito, saldo y si quiere abonar a capital

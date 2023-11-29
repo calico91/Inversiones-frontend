@@ -5,6 +5,7 @@ import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -35,10 +36,9 @@ class InfoCreditoSaldoModal extends StatelessWidget {
             'Informacion credito',
             textAlign: TextAlign.center,
           ),
-          IconButton(
-            onPressed: () => compartirImagen(),
-            icon: const Icon(Icons.share),
-          )
+          ShareButton(
+              screenshotController: screenshotController,
+              nombreArchivo: 'Informacion credito',),
         ],
       ),
       content: SizedBox(
@@ -147,15 +147,6 @@ class InfoCreditoSaldoModal extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Future<void> compartirImagen() async {
-    final image = await screenshotController.capture(
-      delay: const Duration(seconds: 2),
-    );
-    if (image == null) return;
-    await General.capturarGardarImagen(image);
-    General.compartirImagen(image);
   }
 }
 

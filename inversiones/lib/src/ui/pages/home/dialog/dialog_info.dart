@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
-import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
+import 'package:screenshot/screenshot.dart';
 
 class DialogInfoCredito extends StatelessWidget {
   final String title;
   final DataCreditResponse? info;
-  final VoidCallback accion;
+  final ScreenshotController screenshotController = ScreenshotController();
 
-  const DialogInfoCredito({
+  DialogInfoCredito({
     required this.title,
     this.info,
-    required this.accion,
   });
 
   @override
@@ -30,32 +30,44 @@ class DialogInfoCredito extends StatelessWidget {
                 height: 0,
                 width: 0,
               )
-            : Column(
-                children: [
-                  _showInfoCredito('Fecha pago', info!.fechaPago!),
-                  _showInfoCredito(
-                    'Valor credito',
-                    General.formatoMoneda(double.parse(info!.valorCredito!)),
+            : Screenshot(
+                controller: screenshotController,
+                child: ColoredBox(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      _showInfoCredito('Fecha pago', info!.fechaPago!),
+                      _showInfoCredito(
+                        'Valor credito',
+                        General.formatoMoneda(
+                          double.parse(info!.valorCredito!),
+                        ),
+                      ),
+                      _showInfoCredito(
+                        'Valor cuotas',
+                        General.formatoMoneda(double.parse(info!.valorCuotas!)),
+                      ),
+                      _showInfoCredito(
+                        'Cantidad cuotas',
+                        info!.cantidadCuotas!,
+                      ),
+                      _showInfoCredito(
+                        'Valor primer cuota',
+                        General.formatoMoneda(
+                          double.parse(info!.valorPrimerCuota!),
+                        ),
+                      ),
+                    ],
                   ),
-                  _showInfoCredito(
-                    'Valor cuotas',
-                    General.formatoMoneda(double.parse(info!.valorCuotas!)),
-                  ),
-                  _showInfoCredito('Cantidad cuotas', info!.cantidadCuotas!),
-                  _showInfoCredito(
-                    'Valor primer cuota',
-                    General.formatoMoneda(
-                      double.parse(info!.valorPrimerCuota!),
-                    ),
-                  ),
-                ],
+                ),
               ),
       ),
       actions: [
-        TextButton(
-          onPressed: () => accion(),
-          child: const Text('Aceptar'),
+        ShareButton(
+          screenshotController: screenshotController,
+          nombreArchivo: 'Info credito creado',
         ),
+        HomeButton(),
       ],
     );
   }
@@ -74,9 +86,5 @@ class DialogInfoCredito extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void irAlHome() {
-    Get.offAllNamed(RouteNames.home);
   }
 }

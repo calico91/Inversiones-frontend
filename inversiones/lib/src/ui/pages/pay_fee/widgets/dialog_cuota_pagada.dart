@@ -1,63 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogCuotaPagada extends StatelessWidget {
-  DialogCuotaPagada({required this.accion, this.dataAbono});
-  final VoidCallback accion;
+  DialogCuotaPagada({this.dataAbono});
   final DataAbono? dataAbono;
 
   final ScreenshotController screenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
-    return Screenshot(
-      controller: screenshotController,
-      child: AlertDialog(
-        title: Text(
-          textAlign: TextAlign.center,
-          dataAbono?.estadoCuota ?? 'Abono realizado correctamente',
-        ),
-        content: SizedBox(
-          height: dataAbono != null
-              ? General.mediaQuery(context).height * 0.07
-              : General.mediaQuery(context).height * 0.00,
-          child: dataAbono != null
-              ? Column(
-                  children: [
-                    _mostrarContenido(
-                      'Cuotas Pagadas:',
-                      dataAbono!.cuotasPagadas,
-                      context,
-                    ),
-                    _mostrarContenido(
-                      'Cantidad de cuotas:',
-                      dataAbono!.cantidadCuotas,
-                      context,
-                    ),
-                  ],
-                )
-              : const SizedBox(),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () async {
-              final image = await screenshotController.capture(
-                delay: const Duration(seconds: 2),
-              );
-              if (image == null) return;
-              await General.capturarGardarImagen(image);
-              General.compartirImagen(image);
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.home),
-            onPressed: () => accion(),
-          ),
-        ],
+    return AlertDialog(
+      title: Text(
+        textAlign: TextAlign.center,
+        dataAbono?.estadoCuota ?? 'Abono realizado correctamente',
       ),
+      content: SizedBox(
+        height: dataAbono != null
+            ? General.mediaQuery(context).height * 0.16
+            : General.mediaQuery(context).height * 0.00,
+        child: dataAbono != null
+            ? Screenshot(
+                controller: screenshotController,
+                child: ColoredBox(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      _mostrarContenido(
+                        'Cuotas Pagadas:',
+                        dataAbono!.cuotasPagadas,
+                        context,
+                      ),
+                      _mostrarContenido(
+                        'Cantidad de cuotas:',
+                        dataAbono!.cantidadCuotas,
+                        context,
+                      ),
+                      _mostrarContenido(
+                        'Tipo abono:',
+                        dataAbono!.tipoAbono == Constantes.SOLO_INTERES
+                            ? 'Interes'
+                            : 'Cuota capital',
+                        context,
+                      ),
+                      _mostrarContenido(
+                        'Valor abonado:',
+                        General.formatoMoneda(
+                          General.stringToDouble(dataAbono!.valorAbonado),
+                        ),
+                        context,
+                      ),
+                      _mostrarContenido(
+                        'Fecha abono:',
+                        General.formatoFecha(DateTime.now()),
+                        context,
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : const SizedBox(),
+      ),
+      actions: [
+        if (dataAbono != null)
+          ShareButton(
+            screenshotController: screenshotController,
+            nombreArchivo: 'Abono',
+          )
+        else
+          const SizedBox(),
+        HomeButton(),
+      ],
     );
   }
 
@@ -71,7 +88,7 @@ class DialogCuotaPagada extends StatelessWidget {
         bottom: General.mediaQuery(context).height * 0.01,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             textAlign: TextAlign.center,
