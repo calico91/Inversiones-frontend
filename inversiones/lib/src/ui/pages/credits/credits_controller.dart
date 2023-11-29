@@ -10,8 +10,8 @@ import 'package:inversiones/src/domain/responses/creditos/add_credit_response.da
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
-import 'package:inversiones/src/ui/pages/home/dialog/dialog_info.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
