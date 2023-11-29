@@ -148,7 +148,7 @@ class CreditsController extends GetxController {
               estadoCredito: estadoCredito,
               tipoAbono: tipoAbono,
               fechaAbono: General.formatoFecha(DateTime.now()),
-              valorAbonado: valorAbonar - valorInteres!,
+              valorAbonado: valorAbonar,
               idCuotaCredito: idCuota,
             ),
           );
