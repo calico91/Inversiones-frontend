@@ -41,54 +41,58 @@ class InfoCreditoSaldoModal extends StatelessWidget {
           )
         ],
       ),
-      content: Container(
-        color: Colors.white,
+      content: SizedBox(
         height: General.mediaQuery(context).height * 0.46,
         child: Column(
           children: [
             Screenshot(
               controller: screenshotController,
-              child: Column(
-                children: [
-                  _showInfoCredito('Id credito', idCredito.toString()),
-                  _showInfoCredito(
-                      'Numero cuotas', info.numeroCuotas!.toString()),
-                  _showInfoCredito(
-                    'Cuotas pagadas',
-                    (info.cuotaNumero! - 1).toString(),
-                  ),
-                  _showInfoCredito(
-                    'Interes',
-                    '${info.interesPorcentaje!.toStringAsFixed(0)}%',
-                  ),
-                  _showInfoCredito('Fecha credito', info.fechaCredito!),
-                  _showInfoCredito('Fecha cuota', info.fechaCuota!),
-                  _showInfoCredito('Ultima pagada', info.ultimaCuotaPagada!),
-                  _showInfoCredito(
-                    'Valor credito',
-                    General.formatoMoneda(info.valorCredito),
-                  ),
-                  _showInfoCredito(
-                    'Valor cuota',
-                    General.formatoMoneda(info.valorCuota),
-                  ),
-                  _showInfoCredito(
-                    'Valor interes',
-                    General.formatoMoneda(info.valorInteres),
-                  ),
-                  _showInfoCredito(
-                    'Interes a hoy',
-                    General.formatoMoneda(info.interesHoy),
-                  ),
-                  _showInfoCredito(
-                    'Saldo credito',
-                    General.formatoMoneda(info.saldoCredito),
-                  ),
-                  _showInfoCredito(
-                    'Capital pagado',
-                    General.formatoMoneda(info.capitalPagado),
-                  ),
-                ],
+              child: ColoredBox(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    _showInfoCredito('Id credito', idCredito.toString()),
+                    _showInfoCredito(
+                      'Numero cuotas',
+                      info.numeroCuotas!.toString(),
+                    ),
+                    _showInfoCredito(
+                      'Cuotas pagadas',
+                      (info.cuotaNumero! - 1).toString(),
+                    ),
+                    _showInfoCredito(
+                      'Interes',
+                      '${info.interesPorcentaje!.toStringAsFixed(0)}%',
+                    ),
+                    _showInfoCredito('Fecha credito', info.fechaCredito!),
+                    _showInfoCredito('Fecha cuota', info.fechaCuota!),
+                    _showInfoCredito('Ultima pagada', info.ultimaCuotaPagada!),
+                    _showInfoCredito(
+                      'Valor credito',
+                      General.formatoMoneda(info.valorCredito),
+                    ),
+                    _showInfoCredito(
+                      'Valor cuota',
+                      General.formatoMoneda(info.valorCuota),
+                    ),
+                    _showInfoCredito(
+                      'Valor interes',
+                      General.formatoMoneda(info.valorInteres),
+                    ),
+                    _showInfoCredito(
+                      'Interes a hoy',
+                      General.formatoMoneda(info.interesHoy),
+                    ),
+                    _showInfoCredito(
+                      'Saldo credito',
+                      General.formatoMoneda(info.saldoCredito),
+                    ),
+                    _showInfoCredito(
+                      'Capital pagado',
+                      General.formatoMoneda(info.capitalPagado),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -145,7 +149,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
     );
   }
 
-  void compartirImagen() async {
+  Future<void> compartirImagen() async {
     final image = await screenshotController.capture(
       delay: const Duration(seconds: 2),
     );
