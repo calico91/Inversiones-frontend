@@ -56,9 +56,11 @@ class ClientsController extends GetxController {
     }
   }
 
-  void save() {
+  void save(Size size) {
     Get.showOverlay(
-      loadingWidget: const Loading(),
+      loadingWidget:  Loading(
+        vertical: size.height * 0.46,
+      ),
       asyncFunction: () async {
         try {
           final AddClientResponse res = await const ClientHttp().addClient(
@@ -113,9 +115,11 @@ class ClientsController extends GetxController {
     );
   }
 
-  void updateClient() {
+  void updateClient( Size size) {
     Get.showOverlay(
-      loadingWidget: const Loading(),
+      loadingWidget:  Loading(
+        vertical: size.height * 0.46,
+      ),
       asyncFunction: () async {
         try {
           final AddClientResponse res = await const ClientHttp().updateClient(

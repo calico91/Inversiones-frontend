@@ -14,7 +14,10 @@ class ShareButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => _compartirImagen(),
-      icon: const Icon(Icons.share),
+      icon: const Icon(
+        Icons.share,
+        color: Colors.blue,
+      ),
     );
   }
 
