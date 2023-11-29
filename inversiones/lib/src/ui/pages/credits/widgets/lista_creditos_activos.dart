@@ -56,12 +56,8 @@ class ListaCreditosActivos extends StatelessWidget {
         itemBuilder: (_, index) {
           return Card(
             child: ListTile(
-              onTap: () => controller.infoCreditoySaldo(
-                controller.filtroCreditos.value[index].idCredito!,
-                General.mediaQuery(context),
-              ),
               title: _showClientTitle(controller, index, size),
-              subtitle: _informacionSubtitulo(controller, index),
+              subtitle: _informacionSubtitulo(controller, index, context),
             ),
           );
         },
@@ -90,9 +86,42 @@ class ListaCreditosActivos extends StatelessWidget {
     );
   }
 
-  Widget _informacionSubtitulo(CreditsController controller, int index) {
-    return Text(
-      'Fecha credito: ${controller.filtroCreditos.value[index].fechaCredito}',
+  Widget _informacionSubtitulo(
+    CreditsController controller,
+    int index,
+    BuildContext context,
+  ) {
+    return Row(
+      children: [
+        Text(
+          'Fecha credito: ${controller.filtroCreditos.value[index].fechaCredito}',
+        ),
+        const Expanded(child: SizedBox()),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              tooltip: 'Informacion credito',
+              onPressed: () => controller.infoCreditoySaldo(
+                controller.filtroCreditos.value[index].idCredito!,
+                General.mediaQuery(context),
+              ),
+              icon: const Icon(Icons.info),
+              color: Colors.blue,
+              iconSize: 32,
+            ),
+            const IconButton(
+              tooltip: 'Informacion abonos',
+              onPressed: null,
+              icon: Icon(
+                Icons.document_scanner_outlined,
+                color: Colors.blue,
+              ),
+              iconSize: 32,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

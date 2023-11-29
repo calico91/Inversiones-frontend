@@ -93,10 +93,10 @@ class Clients extends StatelessWidget {
                     if (controller.validateForm()) {
                       if (controller.idClient.value == 0) {
                         controller.unfocus(context);
-                        controller.save();
+                        controller.save(General.mediaQuery(context));
                       } else {
                         controller.unfocus(context);
-                        controller.updateClient();
+                        controller.updateClient(General.mediaQuery(context));
                       }
                     }
                   },

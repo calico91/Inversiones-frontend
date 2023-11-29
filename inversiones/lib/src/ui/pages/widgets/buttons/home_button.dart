@@ -7,7 +7,7 @@ class HomeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => _irAlHome(),
-      icon: const Icon(Icons.home),
+      icon: const Icon(Icons.home,color: Colors.blue,),
     );
   }
 
