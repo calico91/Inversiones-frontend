@@ -6,6 +6,7 @@ import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -37,76 +38,77 @@ class InfoCreditoSaldoModal extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           ShareButton(
-              screenshotController: screenshotController,
-              nombreArchivo: 'Informacion credito',),
+            screenshotController: screenshotController,
+            nombreArchivo: 'Informacion credito',
+          ),
         ],
       ),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.46,
+        height: General.mediaQuery(context).height * 0.42,
         child: Column(
           children: [
             Screenshot(
               controller: screenshotController,
               child: ColoredBox(
                 color: Colors.white,
-                child: Column(
-                  children: [
-                    _showInfoCredito('Id credito', idCredito.toString()),
-                    _showInfoCredito(
-                      'Numero cuotas',
-                      info.numeroCuotas!.toString(),
-                    ),
-                    _showInfoCredito(
-                      'Cuotas pagadas',
-                      (info.cuotaNumero! - 1).toString(),
-                    ),
-                    _showInfoCredito(
-                      'Interes',
-                      '${info.interesPorcentaje!.toStringAsFixed(0)}%',
-                    ),
-                    _showInfoCredito('Fecha credito', info.fechaCredito!),
-                    _showInfoCredito('Fecha cuota', info.fechaCuota!),
-                    _showInfoCredito('Ultima pagada', info.ultimaCuotaPagada!),
-                    _showInfoCredito(
-                      'Valor credito',
-                      General.formatoMoneda(info.valorCredito),
-                    ),
-                    _showInfoCredito(
-                      'Valor cuota',
-                      General.formatoMoneda(info.valorCuota),
-                    ),
-                    _showInfoCredito(
-                      'Valor interes',
-                      General.formatoMoneda(info.valorInteres),
-                    ),
-                    _showInfoCredito(
-                      'Interes a hoy',
-                      General.formatoMoneda(info.interesHoy),
-                    ),
-                    _showInfoCredito(
-                      'Saldo credito',
-                      General.formatoMoneda(info.saldoCredito),
-                    ),
-                    _showInfoCredito(
-                      'Capital pagado',
-                      General.formatoMoneda(info.capitalPagado),
-                    ),
-                  ],
+                child: CustomCard(
+                  child: Column(
+                    children: [
+                      _showInfoCredito('Id credito', idCredito.toString()),
+                      _showInfoCredito(
+                        'Numero cuotas',
+                        info.numeroCuotas!.toString(),
+                      ),
+                      _showInfoCredito(
+                        'Cuotas pagadas',
+                        (info.cuotaNumero! - 1).toString(),
+                      ),
+                      _showInfoCredito(
+                        'Interes',
+                        '${info.interesPorcentaje!.toStringAsFixed(0)}%',
+                      ),
+                      _showInfoCredito('Fecha credito', info.fechaCredito!),
+                      _showInfoCredito('Fecha cuota', info.fechaCuota!),
+                      _showInfoCredito(
+                        'Ultima pagada',
+                        info.ultimaCuotaPagada!,
+                      ),
+                      _showInfoCredito(
+                        'Valor credito',
+                        General.formatoMoneda(info.valorCredito),
+                      ),
+                      _showInfoCredito(
+                        'Valor cuota',
+                        General.formatoMoneda(info.valorCuota),
+                      ),
+                      _showInfoCredito(
+                        'Valor interes',
+                        General.formatoMoneda(info.valorInteres),
+                      ),
+                      _showInfoCredito(
+                        'Interes a hoy',
+                        General.formatoMoneda(info.interesHoy),
+                      ),
+                      _showInfoCredito(
+                        'Saldo credito',
+                        General.formatoMoneda(info.saldoCredito),
+                      ),
+                      _showInfoCredito(
+                        'Capital pagado',
+                        General.formatoMoneda(info.capitalPagado),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: General.mediaQuery(context).height * 0.01,
-              ),
-              child: Form(
-                key: controllerCredits.formKeyAbonoCapital,
-                child: TextFieldBase(
-                  title: 'Abonar',
-                  controller: controllerCredits.abonar,
-                  textInputType: TextInputType.number,
-                  validateText: ValidateText.creditValue,
-                ),
+            Form(
+              key: controllerCredits.formKeyAbonoCapital,
+              child: TextFieldBase(
+                title: 'Abonar',
+                controller: controllerCredits.abonar,
+                textInputType: TextInputType.number,
+                validateText: ValidateText.creditValue,
               ),
             ),
           ],

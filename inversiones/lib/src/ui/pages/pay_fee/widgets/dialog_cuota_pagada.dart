@@ -4,6 +4,7 @@ import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogCuotaPagada extends StatelessWidget {
@@ -21,45 +22,47 @@ class DialogCuotaPagada extends StatelessWidget {
       ),
       content: SizedBox(
         height: dataAbono != null
-            ? General.mediaQuery(context).height * 0.16
+            ? General.mediaQuery(context).height * 0.17
             : General.mediaQuery(context).height * 0.00,
         child: dataAbono != null
             ? Screenshot(
                 controller: screenshotController,
                 child: ColoredBox(
                   color: Colors.white,
-                  child: Column(
-                    children: [
-                      _mostrarContenido(
-                        'Cuotas Pagadas:',
-                        dataAbono!.cuotasPagadas,
-                        context,
-                      ),
-                      _mostrarContenido(
-                        'Cantidad de cuotas:',
-                        dataAbono!.cantidadCuotas,
-                        context,
-                      ),
-                      _mostrarContenido(
-                        'Tipo abono:',
-                        dataAbono!.tipoAbono == Constantes.SOLO_INTERES
-                            ? 'Interes'
-                            : 'Cuota capital',
-                        context,
-                      ),
-                      _mostrarContenido(
-                        'Valor abonado:',
-                        General.formatoMoneda(
-                          General.stringToDouble(dataAbono!.valorAbonado),
+                  child: CustomCard(
+                    child: Column(
+                      children: [
+                        _mostrarContenido(
+                          'Cuotas Pagadas:',
+                          dataAbono!.cuotasPagadas,
+                          context,
                         ),
-                        context,
-                      ),
-                      _mostrarContenido(
-                        'Fecha abono:',
-                        General.formatoFecha(DateTime.now()),
-                        context,
-                      ),
-                    ],
+                        _mostrarContenido(
+                          'Cantidad de cuotas:',
+                          dataAbono!.cantidadCuotas,
+                          context,
+                        ),
+                        _mostrarContenido(
+                          'Tipo abono:',
+                          dataAbono!.tipoAbono == Constantes.SOLO_INTERES
+                              ? 'Interes'
+                              : 'Cuota capital',
+                          context,
+                        ),
+                        _mostrarContenido(
+                          'Valor abonado:',
+                          General.formatoMoneda(
+                            General.stringToDouble(dataAbono!.valorAbonado),
+                          ),
+                          context,
+                        ),
+                        _mostrarContenido(
+                          'Fecha abono:',
+                          General.formatoFecha(DateTime.now()),
+                          context,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )
