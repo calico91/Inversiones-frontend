@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
@@ -62,7 +63,7 @@ class DialogInfoCredito extends StatelessWidget {
       actions: [
         ShareButton(
           screenshotController: screenshotController,
-          nombreArchivo: 'Info credito creado',
+          descripcion: Constantes.INFORMACION_CREDITO_CREADO,
         ),
         HomeButton(),
       ],

@@ -39,7 +39,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
           ),
           ShareButton(
             screenshotController: screenshotController,
-            nombreArchivo: 'Informacion credito',
+            descripcion: 'Informacion credito \nPor cada  3 días pasados de la fecha de la cuota se empieza a cobrar \$5.000 adicionales al valor de la cuota.',
           ),
         ],
       ),

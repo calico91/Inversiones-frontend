@@ -5,11 +5,11 @@ import 'package:screenshot/screenshot.dart';
 class ShareButton extends StatelessWidget {
   const ShareButton({
     required this.screenshotController,
-    required this.nombreArchivo,
+    required this.descripcion,
   });
 
   final ScreenshotController screenshotController;
-  final String nombreArchivo;
+  final String descripcion;
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -27,6 +27,6 @@ class ShareButton extends StatelessWidget {
     );
     if (image == null) return;
     await General.capturarGardarImagen(image);
-    General.compartirImagen(image, nombreArchivo);
+    General.compartirImagen(image, descripcion);
   }
 }

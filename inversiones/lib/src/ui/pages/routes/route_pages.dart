@@ -44,7 +44,7 @@ class RoutePages {
       ),
       GetPage(
         name: RouteNames.payFee,
-        page: () =>  const PayFeePage(),
+        page: () =>   PayFeePage(),
         binding: const PayFeeBinding(),
       ),
     ];

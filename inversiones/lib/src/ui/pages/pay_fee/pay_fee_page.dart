@@ -5,12 +5,16 @@ import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
+import 'package:screenshot/screenshot.dart';
 
 class PayFeePage extends StatelessWidget {
-  const PayFeePage({super.key, this.idCliente = 0});
+  PayFeePage({super.key, this.idCliente = 0});
   final int idCliente;
+  final ScreenshotController screenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,41 +27,40 @@ class PayFeePage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: General.mediaQuery(context).height * 0.05,
+          vertical: General.mediaQuery(context).height * 0.03,
           horizontal: General.mediaQuery(context).width * 0.1,
         ),
         child: Column(
           children: [
-            Text(
-              controller.nombreCliente,
-              style: const TextStyle(fontSize: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  controller.nombreCliente,
+                  style: const TextStyle(fontSize: 20),
+                ),
+                ShareButton(
+                  screenshotController: screenshotController,
+                  descripcion: 'Informacion cuota',
+                ),
+              ],
             ),
             const SizedBox(
               height: 10,
             ),
-            Card(
-              elevation: 8,
-              shape: const RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 0.01,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-              ),
-              child: SizedBox(
-                width: General.mediaQuery(context).width * 0.8,
-                height: General.mediaQuery(context).height * 0.41,
+            Screenshot(
+              controller: screenshotController,
+              child: CustomCard(
                 child: Obx(() {
                   if (controller.loading) {
                     return Loading(
                       circularLoading: false,
-                      horizontal: General.mediaQuery(context).width * 0.00008,
-                      vertical: General.mediaQuery(context).height * 0.2,
+                      horizontal: General.mediaQuery(context).width * 0.001,
+                      vertical: General.mediaQuery(context).height * 0.16,
                     );
                   }
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: General.mediaQuery(context).width * 0.06,
-                    ),
+                  return ColoredBox(
+                    color: Colors.white,
                     child: Column(
                       children: [
                         _infoValorCuota(
@@ -77,18 +80,29 @@ class PayFeePage extends StatelessWidget {
                         ),
                         _infoValorCuota(
                           General.mediaQuery(context),
+                          'Dias mora',
+                          controller.payFee.diasMora.toString(),
+                        ),
+                        _infoValorCuota(
+                          General.mediaQuery(context),
+                          'Interes mora',
+                          General.formatoMoneda(
+                            controller.payFee.interesMora,
+                          ),
+                        ),
+                        _infoValorCuota(
+                          General.mediaQuery(context),
                           'Valor interes',
-                          General.formatoMoneda(controller.payFee.valorInteres),
+                          General.formatoMoneda(
+                            controller.payFee.valorInteres,
+                          ),
                         ),
                         _infoValorCuota(
                           General.mediaQuery(context),
                           'Valor cuota',
-                          General.formatoMoneda(controller.payFee.valorCuota),
-                        ),
-                        _infoValorCuota(
-                          General.mediaQuery(context),
-                          'Valor credito',
-                          General.formatoMoneda(controller.payFee.valorCredito),
+                          General.formatoMoneda(
+                            controller.payFee.valorCuota,
+                          ),
                         ),
                       ],
                     ),
@@ -141,7 +155,7 @@ class PayFeePage extends StatelessWidget {
   ) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: size.height * 0.02,
+        vertical: size.height * 0.01,
         horizontal: size.width * 0.01,
       ),
       child: Row(
