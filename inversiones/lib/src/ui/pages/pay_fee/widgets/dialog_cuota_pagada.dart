@@ -72,7 +72,7 @@ class DialogCuotaPagada extends StatelessWidget {
         if (dataAbono != null)
           ShareButton(
             screenshotController: screenshotController,
-            nombreArchivo: 'Abono',
+            descripcion: 'Abono',
           )
         else
           const SizedBox(),

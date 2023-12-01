@@ -36,11 +36,14 @@ class General {
     return result['filePaht'];
   }
 
-  static Future compartirImagen(Uint8List bytes, String nombreArchivo) async {
+  static Future compartirImagen(Uint8List bytes, String titulo) async {
     final directory = await getApplicationDocumentsDirectory();
     final image = File('${directory.path}/comprobante.jpg');
     image.writeAsBytesSync(bytes);
 
-    await Share.shareXFiles([XFile(image.path, name: nombreArchivo)]);
+    await Share.shareXFiles(
+      [XFile(image.path)],
+      text: titulo,
+    );
   }
 }
