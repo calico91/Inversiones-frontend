@@ -20,9 +20,9 @@ class PayFeeController extends GetxController {
   final Rx<PayFee> _payFee = Rx<PayFee>(PayFee());
   final Rx<int> _status = Rx<int>(0);
   final Rx<bool> _loading = Rx<bool>(true);
-  final TextEditingController interestPercentage = TextEditingController();
+  final TextEditingController valorAbono = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final Rx<bool> switchCuota = Rx<bool>(false);
+  final Rx<bool> cambiarCuota = Rx<bool>(false);
 
   @override
   void onInit() {
@@ -64,9 +64,15 @@ class PayFeeController extends GetxController {
               estadoCredito: Constantes.CREDITO_ACTIVO,
               tipoAbono: tipoAbono,
               fechaAbono: General.formatoFecha(DateTime.now()),
+
+              /// si solo abona interes, envia valor del campo de texto interes
+              /// si al pagar la cuota normal activa el boton de cambiar valor se envia el valor del input
+              /// si no lo cambia envia el valor que viene del back
               valorAbonado: tipoAbono == Constantes.SOLO_INTERES
-                  ? General.stringToDouble(interestPercentage.text)
-                  : payFee.valorCuota!,
+                  ? General.stringToDouble(valorAbono.text)
+                  : cambiarCuota.value
+                      ? General.stringToDouble(valorAbono.text)
+                      : payFee.valorCuota!,
               idCuotaCredito: payFee.id!,
             ),
           );
@@ -97,7 +103,7 @@ class PayFeeController extends GetxController {
   }
 
   bool? cambiarValorSwitch(bool value) {
-    return switchCuota.value = value;
+    return cambiarCuota.value = value;
   }
 
   int get status => _status.value;

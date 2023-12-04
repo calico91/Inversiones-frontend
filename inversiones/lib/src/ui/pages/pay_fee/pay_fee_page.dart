@@ -207,7 +207,7 @@ class PayFeePage extends StatelessWidget {
                       key: controller.formKey,
                       child: TextFieldBase(
                         title: 'valor Interes',
-                        controller: controller.interestPercentage,
+                        controller: controller.valorAbono,
                         textInputType: TextInputType.number,
                         validateText: ValidateText.creditValue,
                       ),
@@ -217,7 +217,7 @@ class PayFeePage extends StatelessWidget {
               )
             : Obx(
                 () => SizedBox(
-                  height: controller.switchCuota.value
+                  height: controller.cambiarCuota.value
                       ? size.height * 0.2
                       : size.height * 0.08,
                   child: Column(
@@ -233,19 +233,19 @@ class PayFeePage extends StatelessWidget {
                             'Desea modificar cuota',
                           ),
                           Switch(
-                            value: controller.switchCuota.value,
+                            value: controller.cambiarCuota.value,
                             activeColor: Colors.blue,
                             onChanged: (bool value) =>
                                 controller.cambiarValorSwitch(value),
                           ),
                         ],
                       ),
-                      if (controller.switchCuota.value)
+                      if (controller.cambiarCuota.value)
                         Form(
                           key: controller.formKey,
                           child: TextFieldBase(
                             title: 'Valor cuota',
-                            controller: controller.interestPercentage,
+                            controller: controller.valorAbono,
                             textInputType: TextInputType.number,
                             validateText: ValidateText.creditValue,
                           ),
@@ -258,13 +258,26 @@ class PayFeePage extends StatelessWidget {
               ),
         actions: [
           TextButton(
+            child: const Text('Si'),
             onPressed: () {
               if (!soloInteres) {
-                controller.pagarCuota(
-                  Constantes.CUOTA_NORMAL,
-                  General.mediaQuery(context),
-                );
-                Navigator.pop(context);
+                if (controller.cambiarCuota.value) {
+                  if (controller.validateForm()) {
+                    controller.pagarCuota(
+                      Constantes.CUOTA_NORMAL,
+                      General.mediaQuery(context),
+                    );
+                    Navigator.pop(context);
+                    return;
+                  }
+                } else {
+                  controller.pagarCuota(
+                    Constantes.CUOTA_NORMAL,
+                    General.mediaQuery(context),
+                  );
+                  Navigator.pop(context);
+                  return;
+                }
               } else {
                 if (controller.validateForm()) {
                   controller.pagarCuota(
@@ -275,10 +288,12 @@ class PayFeePage extends StatelessWidget {
                 }
               }
             },
-            child: const Text('Si'),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+              controller.cambiarCuota(false);
+            },
             child: const Text('No'),
           ),
         ],
