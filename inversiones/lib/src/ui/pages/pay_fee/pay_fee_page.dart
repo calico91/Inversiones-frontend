@@ -65,6 +65,11 @@ class PayFeePage extends StatelessWidget {
                       children: [
                         _infoValorCuota(
                           General.mediaQuery(context),
+                          'Fecha cuota',
+                          controller.payFee.fechaCuota!,
+                        ),
+                        _infoValorCuota(
+                          General.mediaQuery(context),
                           'Cantidad cuotas',
                           controller.payFee.numeroCuotas!.toString(),
                         ),
@@ -72,11 +77,6 @@ class PayFeePage extends StatelessWidget {
                           General.mediaQuery(context),
                           'Cuota numero',
                           controller.payFee.cuotaNumero!.toString(),
-                        ),
-                        _infoValorCuota(
-                          General.mediaQuery(context),
-                          'Fecha cuota',
-                          controller.payFee.fechaCuota!,
                         ),
                         _infoValorCuota(
                           General.mediaQuery(context),
@@ -95,6 +95,13 @@ class PayFeePage extends StatelessWidget {
                           'Valor interes',
                           General.formatoMoneda(
                             controller.payFee.valorInteres,
+                          ),
+                        ),
+                        _infoValorCuota(
+                          General.mediaQuery(context),
+                          'Valor capital',
+                          General.formatoMoneda(
+                            controller.payFee.valorCapital,
                           ),
                         ),
                         _infoValorCuota(
@@ -200,7 +207,7 @@ class PayFeePage extends StatelessWidget {
                       key: controller.formKey,
                       child: TextFieldBase(
                         title: 'valor Interes',
-                        controller: controller.interestPercentage,
+                        controller: controller.valorAbono,
                         textInputType: TextInputType.number,
                         validateText: ValidateText.creditValue,
                       ),
@@ -208,19 +215,69 @@ class PayFeePage extends StatelessWidget {
                   ],
                 ),
               )
-            : Text(
-                textAlign: TextAlign.center,
-                mensaje,
+            : Obx(
+                () => SizedBox(
+                  height: controller.cambiarCuota.value
+                      ? size.height * 0.2
+                      : size.height * 0.08,
+                  child: Column(
+                    children: [
+                      Text(
+                        textAlign: TextAlign.center,
+                        mensaje,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            textAlign: TextAlign.center,
+                            'Desea modificar cuota',
+                          ),
+                          Switch(
+                            value: controller.cambiarCuota.value,
+                            activeColor: Colors.blue,
+                            onChanged: (bool value) =>
+                                controller.cambiarValorSwitch(value),
+                          ),
+                        ],
+                      ),
+                      if (controller.cambiarCuota.value)
+                        Form(
+                          key: controller.formKey,
+                          child: TextFieldBase(
+                            title: 'Valor cuota',
+                            controller: controller.valorAbono,
+                            textInputType: TextInputType.number,
+                            validateText: ValidateText.creditValue,
+                          ),
+                        )
+                      else
+                        const SizedBox(),
+                    ],
+                  ),
+                ),
               ),
         actions: [
           TextButton(
+            child: const Text('Si'),
             onPressed: () {
               if (!soloInteres) {
-                controller.pagarCuota(
-                  Constantes.CUOTA_NORMAL,
-                  General.mediaQuery(context),
-                );
-                Navigator.pop(context);
+                if (controller.cambiarCuota.value) {
+                  if (controller.validateForm()) {
+                    controller.pagarCuota(
+                      Constantes.CUOTA_NORMAL,
+                      General.mediaQuery(context),
+                    );
+                    Navigator.pop(context);
+                    return;
+                  }
+                } else {
+                  controller.pagarCuota(
+                    Constantes.CUOTA_NORMAL,
+                    General.mediaQuery(context),
+                  );
+                  Navigator.pop(context);
+                  return;
+                }
               } else {
                 if (controller.validateForm()) {
                   controller.pagarCuota(
@@ -231,10 +288,12 @@ class PayFeePage extends StatelessWidget {
                 }
               }
             },
-            child: const Text('Si'),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+              controller.cambiarCuota(false);
+            },
             child: const Text('No'),
           ),
         ],
