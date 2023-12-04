@@ -65,6 +65,11 @@ class PayFeePage extends StatelessWidget {
                       children: [
                         _infoValorCuota(
                           General.mediaQuery(context),
+                          'Fecha cuota',
+                          controller.payFee.fechaCuota!,
+                        ),
+                        _infoValorCuota(
+                          General.mediaQuery(context),
                           'Cantidad cuotas',
                           controller.payFee.numeroCuotas!.toString(),
                         ),
@@ -72,11 +77,6 @@ class PayFeePage extends StatelessWidget {
                           General.mediaQuery(context),
                           'Cuota numero',
                           controller.payFee.cuotaNumero!.toString(),
-                        ),
-                        _infoValorCuota(
-                          General.mediaQuery(context),
-                          'Fecha cuota',
-                          controller.payFee.fechaCuota!,
                         ),
                         _infoValorCuota(
                           General.mediaQuery(context),
@@ -95,6 +95,13 @@ class PayFeePage extends StatelessWidget {
                           'Valor interes',
                           General.formatoMoneda(
                             controller.payFee.valorInteres,
+                          ),
+                        ),
+                        _infoValorCuota(
+                          General.mediaQuery(context),
+                          'Valor capital',
+                          General.formatoMoneda(
+                            controller.payFee.valorCapital,
                           ),
                         ),
                         _infoValorCuota(
@@ -208,9 +215,46 @@ class PayFeePage extends StatelessWidget {
                   ],
                 ),
               )
-            : Text(
-                textAlign: TextAlign.center,
-                mensaje,
+            : Obx(
+                () => SizedBox(
+                  height: controller.switchCuota.value
+                      ? size.height * 0.2
+                      : size.height * 0.08,
+                  child: Column(
+                    children: [
+                      Text(
+                        textAlign: TextAlign.center,
+                        mensaje,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            textAlign: TextAlign.center,
+                            'Desea modificar cuota',
+                          ),
+                          Switch(
+                            value: controller.switchCuota.value,
+                            activeColor: Colors.blue,
+                            onChanged: (bool value) =>
+                                controller.cambiarValorSwitch(value),
+                          ),
+                        ],
+                      ),
+                      if (controller.switchCuota.value)
+                        Form(
+                          key: controller.formKey,
+                          child: TextFieldBase(
+                            title: 'Valor cuota',
+                            controller: controller.interestPercentage,
+                            textInputType: TextInputType.number,
+                            validateText: ValidateText.creditValue,
+                          ),
+                        )
+                      else
+                        const SizedBox(),
+                    ],
+                  ),
+                ),
               ),
         actions: [
           TextButton(

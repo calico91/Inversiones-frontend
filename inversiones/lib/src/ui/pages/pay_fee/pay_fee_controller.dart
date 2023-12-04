@@ -22,6 +22,7 @@ class PayFeeController extends GetxController {
   final Rx<bool> _loading = Rx<bool>(true);
   final TextEditingController interestPercentage = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final Rx<bool> switchCuota = Rx<bool>(false);
 
   @override
   void onInit() {
@@ -91,10 +92,12 @@ class PayFeeController extends GetxController {
     );
   }
 
-
-
   bool validateForm() {
     return formKey.currentState!.validate();
+  }
+
+  bool? cambiarValorSwitch(bool value) {
+    return switchCuota.value = value;
   }
 
   int get status => _status.value;
