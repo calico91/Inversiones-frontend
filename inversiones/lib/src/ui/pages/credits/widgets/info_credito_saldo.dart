@@ -11,7 +11,6 @@ import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:screenshot/screenshot.dart';
 
 class InfoCreditoSaldoModal extends StatelessWidget {
-  final String title;
   final InfoCreditoySaldo info;
   final VoidCallback? accion;
   final int idCredito;
@@ -19,7 +18,6 @@ class InfoCreditoSaldoModal extends StatelessWidget {
   final ScreenshotController screenshotController = ScreenshotController();
 
   InfoCreditoSaldoModal({
-    required this.title,
     required this.info,
     this.accion,
     required this.idCredito,
@@ -34,8 +32,12 @@ class InfoCreditoSaldoModal extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            title,
+            Constantes.INFORMACION_CREDITO,
             textAlign: TextAlign.center,
+          ),
+          const IconButton(
+            onPressed: null,
+            icon: Icon(color: Colors.blue, Icons.edit),
           ),
           ShareButton(
             screenshotController: screenshotController,

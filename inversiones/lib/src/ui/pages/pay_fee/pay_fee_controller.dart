@@ -65,7 +65,7 @@ class PayFeeController extends GetxController {
               tipoAbono: tipoAbono,
               fechaAbono: General.formatoFecha(DateTime.now()),
 
-              /// si solo abona interes, envia valor del campo de texto interes
+              /// si solo abona interes, envia el valor del input
               /// si al pagar la cuota normal activa el boton de cambiar valor se envia el valor del input
               /// si no lo cambia envia el valor que viene del back
               valorAbonado: tipoAbono == Constantes.SOLO_INTERES
@@ -90,6 +90,7 @@ class PayFeeController extends GetxController {
     );
   }
 
+  /// muestra modal al realizar un abono a capital
   void _showInfoDialog(DataAbono dataAbono) {
     Get.dialog(
       DialogCuotaPagada(
@@ -102,6 +103,7 @@ class PayFeeController extends GetxController {
     return formKey.currentState!.validate();
   }
 
+/// cambia el valor del switch modificar valor 
   bool? cambiarValorSwitch(bool value) {
     return cambiarCuota.value = value;
   }

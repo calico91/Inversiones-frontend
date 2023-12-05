@@ -190,7 +190,6 @@ class CreditsController extends GetxController {
     Get.dialog(
       barrierDismissible: false,
       InfoCreditoSaldoModal(
-        title: Constantes.INFORMACION_CREDITO,
         info: info,
         idCredito: idCredito,
         accion: () {},
