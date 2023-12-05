@@ -290,11 +290,11 @@ class PayFeePage extends StatelessWidget {
             },
           ),
           TextButton(
+            child: const Text('No'),
             onPressed: () {
               Navigator.pop(context);
               controller.cambiarCuota(false);
             },
-            child: const Text('No'),
           ),
         ],
       ),

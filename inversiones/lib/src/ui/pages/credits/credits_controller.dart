@@ -14,6 +14,7 @@ import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dar
 import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -153,7 +154,7 @@ class CreditsController extends GetxController {
             ),
           );
           if (respuestaHttp.status == 200) {
-            _showInfoDialog();
+            _showInfoDialog(respuestaHttp.dataAbono!);
           } else {
             appController.manageError(respuestaHttp.message);
           }
@@ -166,9 +167,11 @@ class CreditsController extends GetxController {
     );
   }
 
-  void _showInfoDialog() {
+  void _showInfoDialog(DataAbono dataAbono) {
     Get.dialog(
-      DialogCuotaPagada(),
+      DialogCuotaPagada(
+        dataAbono: dataAbono,
+      ),
     );
   }
 
@@ -176,7 +179,7 @@ class CreditsController extends GetxController {
   void _mostrarInfoCredito(DataCreditResponse info) {
     Get.dialog(
       DialogInfoCredito(
-        title: 'Informacion credito',
+        title: Constantes.INFORMACION_CREDITO,
         info: info,
       ),
     );
@@ -187,7 +190,7 @@ class CreditsController extends GetxController {
     Get.dialog(
       barrierDismissible: false,
       InfoCreditoSaldoModal(
-        title: 'Informacion credito',
+        title: Constantes.INFORMACION_CREDITO,
         info: info,
         idCredito: idCredito,
         accion: () {},

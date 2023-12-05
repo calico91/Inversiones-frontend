@@ -33,13 +33,13 @@ class InfoCreditoSaldoModal extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'Informacion credito',
+          Text(
+            title,
             textAlign: TextAlign.center,
           ),
           ShareButton(
             screenshotController: screenshotController,
-            descripcion: 'Informacion credito \nPor cada  3 días pasados de la fecha de la cuota se empieza a cobrar \$5.000 adicionales al valor de la cuota.',
+            descripcion: Constantes.INFORMACION_CREDITO,
           ),
         ],
       ),
