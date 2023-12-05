@@ -32,6 +32,7 @@ class CreditsController extends GetxController {
   final TextEditingController document = TextEditingController();
   final TextEditingController installmentDate = TextEditingController();
   final TextEditingController creditDate = TextEditingController();
+  final TextEditingController nuevaFechaCuota = TextEditingController();
   TextEditingController buscar = TextEditingController();
   final Rx<int> status = Rx(0);
   final Rx<List<InfoCreditosActivos>> creditosActivos =
@@ -46,7 +47,7 @@ class CreditsController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    _creditDateInit();
+    _fechaInicial();
     _cedulaCliente();
 
     await _infoCreditosActivos();
@@ -219,19 +220,21 @@ class CreditsController extends GetxController {
   }
 
   ///inicializa fecha credito
-  void _creditDateInit() {
+  void _fechaInicial() {
     creditDate.text = _formattedDate(DateTime.now());
+    nuevaFechaCuota.text = _formattedDate(DateTime.now());
   }
 
   ///muestra modal de calentario
   Future<void> showCalendar(
     BuildContext context,
-    TextEditingController controllerField,
-  ) async {
+    TextEditingController controllerField, [
+    DateTime? firstDate,
+  ]) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2023),
+      firstDate: firstDate ?? DateTime(2023),
       lastDate: DateTime(2050),
     );
 

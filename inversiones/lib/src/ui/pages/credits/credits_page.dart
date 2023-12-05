@@ -67,7 +67,7 @@ class Credits extends StatelessWidget {
                         controller: controller.creditDate,
                         onTap: () async => controller.showCalendar(
                           context,
-                          controller.creditDate,
+                          controller.creditDate
                         ),
                         title: 'Fecha credito',
                       ),
@@ -75,7 +75,7 @@ class Credits extends StatelessWidget {
                         controller: controller.installmentDate,
                         onTap: () async => controller.showCalendar(
                           context,
-                          controller.installmentDate,
+                          controller.installmentDate
                         ),
                         title: 'Couta credito',
                       ),

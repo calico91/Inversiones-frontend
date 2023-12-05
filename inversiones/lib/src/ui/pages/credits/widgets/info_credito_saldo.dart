@@ -8,6 +8,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
+import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 import 'package:screenshot/screenshot.dart';
 
 class InfoCreditoSaldoModal extends StatelessWidget {
@@ -35,9 +36,9 @@ class InfoCreditoSaldoModal extends StatelessWidget {
             Constantes.INFORMACION_CREDITO,
             textAlign: TextAlign.center,
           ),
-          const IconButton(
-            onPressed: null,
-            icon: Icon(color: Colors.blue, Icons.edit),
+          IconButton(
+            onPressed: () => _modificarCredito(context, controllerCredits),
+            icon: const Icon(color: Colors.blue, Icons.edit),
           ),
           ShareButton(
             screenshotController: screenshotController,
@@ -222,6 +223,28 @@ Object _abonar(
           child: const Text('No'),
         ),
       ],
+    ),
+  );
+}
+
+Object _modificarCredito(BuildContext context, CreditsController controller) {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Editar credito'),
+      content: SizedBox(
+        height: General.mediaQuery(context).height * 0.1,
+        child: TextFieldCalendar(
+          title: 'Nueva fecha cuota',
+          paddingHorizontal: 20,
+          controller: controller.nuevaFechaCuota,
+          onTap: () async => controller.showCalendar(
+            context,
+            controller.nuevaFechaCuota,
+            DateTime.now(),
+          ),
+        ),
+      ),
     ),
   );
 }
