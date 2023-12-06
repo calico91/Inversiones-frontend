@@ -89,13 +89,13 @@ class Credits extends StatelessWidget {
                       horizontal: General.mediaQuery(context).width * 0.3,
                     ),
                     child: FilledButton.icon(
+                      icon: const Icon(Icons.monetization_on),
+                      label: const Text("Registrar"),
                       onPressed: () {
                         if (controller.validateForm()) {
                           controller.save(General.mediaQuery(context));
                         }
                       },
-                      icon: const Icon(Icons.monetization_on),
-                      label: const Text("Registrar"),
                     ),
                   ),
                   const ListaCreditosActivos(),

@@ -13,6 +13,7 @@ class ShareButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: 'Compartir',
       onPressed: () => _compartirImagen(),
       icon: const Icon(
         Icons.share,

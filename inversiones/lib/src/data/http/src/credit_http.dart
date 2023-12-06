@@ -77,4 +77,19 @@ class CreditHttp implements CreditRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<PayFeeResponse> modificarFechaCuota(
+    String fechaNueva,
+    int idCredito,
+  ) async {
+    try {
+      final http.Response response = await baseHttpClient.put(
+        '${UrlPaths.modimodificarFechaCuota}/$fechaNueva/$idCredito',
+      );
+      return compute(payFeeResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

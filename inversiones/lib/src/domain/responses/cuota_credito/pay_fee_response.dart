@@ -69,7 +69,8 @@ class PayFee {
         interesPorcentaje: json["interesPorcentaje"] as double,
         fechaAbono:
             json["fechaAbono"] == null ? null : json["fechaAbono"] as String,
-        interesMora: json["interesMora"] as double,
-        diasMora: json["diasMora"] as int,
+        interesMora:
+            json["interesMora"] == null ? 0 : json["interesMora"] as double,
+        diasMora: json["diasMora"] == null ? 0 : json["diasMora"] as int,
       );
 }

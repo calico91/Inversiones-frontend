@@ -230,7 +230,7 @@ class PayFeePage extends StatelessWidget {
                         children: [
                           const Text(
                             textAlign: TextAlign.center,
-                            'Desea modificar cuota',
+                            'Modificar cuota',
                           ),
                           Switch(
                             value: controller.cambiarCuota.value,
@@ -290,11 +290,11 @@ class PayFeePage extends StatelessWidget {
             },
           ),
           TextButton(
+            child: const Text('No'),
             onPressed: () {
               Navigator.pop(context);
               controller.cambiarCuota(false);
             },
-            child: const Text('No'),
           ),
         ],
       ),

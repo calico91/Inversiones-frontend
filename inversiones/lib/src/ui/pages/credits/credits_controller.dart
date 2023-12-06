@@ -9,11 +9,14 @@ import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.dart';
+import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/dialog_response_general.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -31,6 +34,7 @@ class CreditsController extends GetxController {
   final TextEditingController document = TextEditingController();
   final TextEditingController installmentDate = TextEditingController();
   final TextEditingController creditDate = TextEditingController();
+  final TextEditingController nuevaFechaCuota = TextEditingController();
   TextEditingController buscar = TextEditingController();
   final Rx<int> status = Rx(0);
   final Rx<List<InfoCreditosActivos>> creditosActivos =
@@ -45,7 +49,7 @@ class CreditsController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    _creditDateInit();
+    _fechaInicialCredito();
     _cedulaCliente();
 
     await _infoCreditosActivos();
@@ -115,8 +119,10 @@ class CreditsController extends GetxController {
           if (res.status == 200) {
             infoCreditoSaldo(res.infoCreditoySaldo);
             _infoCreditoSaldoModal(res.infoCreditoySaldo!, idCredito);
+            nuevaFechaCuota.text = res.infoCreditoySaldo!.fechaCuota!;
           } else {
             appController.manageError(res.message!);
+            nuevaFechaCuota.text = res.infoCreditoySaldo!.fechaCuota!;
           }
         } on HttpException catch (e) {
           appController.manageError(e.message);
@@ -153,7 +159,7 @@ class CreditsController extends GetxController {
             ),
           );
           if (respuestaHttp.status == 200) {
-            _showInfoDialog();
+            _showInfoDialog(respuestaHttp.dataAbono!);
           } else {
             appController.manageError(respuestaHttp.message);
           }
@@ -166,9 +172,37 @@ class CreditsController extends GetxController {
     );
   }
 
-  void _showInfoDialog() {
+  Future<void> modificarFechaCuota(
+    Size size,
+    int idCredito,
+  ) async {
+    Get.showOverlay(
+      loadingWidget: Loading(
+        vertical: size.height * 0.46,
+      ),
+      asyncFunction: () async {
+        try {
+          final PayFeeResponse respuestaHttp = await const CreditHttp()
+              .modificarFechaCuota(nuevaFechaCuota.text.trim(), idCredito);
+          if (respuestaHttp.status == 200) {
+            _mostrarInfoCuotaModificada(respuestaHttp.payFee!);
+          } else {
+            appController.manageError(respuestaHttp.message);
+          }
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
+  void _showInfoDialog(DataAbono dataAbono) {
     Get.dialog(
-      DialogCuotaPagada(),
+      DialogCuotaPagada(
+        dataAbono: dataAbono,
+      ),
     );
   }
 
@@ -176,7 +210,7 @@ class CreditsController extends GetxController {
   void _mostrarInfoCredito(DataCreditResponse info) {
     Get.dialog(
       DialogInfoCredito(
-        title: 'Informacion credito',
+        title: Constantes.INFORMACION_CREDITO,
         info: info,
       ),
     );
@@ -187,10 +221,17 @@ class CreditsController extends GetxController {
     Get.dialog(
       barrierDismissible: false,
       InfoCreditoSaldoModal(
-        title: 'Informacion credito',
         info: info,
         idCredito: idCredito,
         accion: () {},
+      ),
+    );
+  }
+
+  void _mostrarInfoCuotaModificada(PayFee data) {
+    Get.dialog(
+      DialogResponseGeneral(
+        data: data,
       ),
     );
   }
@@ -217,19 +258,22 @@ class CreditsController extends GetxController {
   }
 
   ///inicializa fecha credito
-  void _creditDateInit() {
+  void _fechaInicialCredito() {
     creditDate.text = _formattedDate(DateTime.now());
+    nuevaFechaCuota.text = _formattedDate(DateTime.now());
   }
 
   ///muestra modal de calentario
   Future<void> showCalendar(
     BuildContext context,
-    TextEditingController controllerField,
-  ) async {
+    TextEditingController controllerField, [
+    DateTime? initialDate,
+    DateTime? firstDate,
+  ]) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2023),
+      initialDate: initialDate ?? DateTime.now(),
+      firstDate: firstDate ?? DateTime(2023),
       lastDate: DateTime(2050),
     );
 

@@ -8,10 +8,10 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
+import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 import 'package:screenshot/screenshot.dart';
 
 class InfoCreditoSaldoModal extends StatelessWidget {
-  final String title;
   final InfoCreditoySaldo info;
   final VoidCallback? accion;
   final int idCredito;
@@ -19,7 +19,6 @@ class InfoCreditoSaldoModal extends StatelessWidget {
   final ScreenshotController screenshotController = ScreenshotController();
 
   InfoCreditoSaldoModal({
-    required this.title,
     required this.info,
     this.accion,
     required this.idCredito,
@@ -33,13 +32,18 @@ class InfoCreditoSaldoModal extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'Informacion credito',
+          Text(
+            Constantes.INFORMACION_CREDITO,
             textAlign: TextAlign.center,
+          ),
+          IconButton(
+            onPressed: () => _modificarCredito(
+                context, controllerCredits, idCredito, info.fechaCuota!,),
+            icon: const Icon(color: Colors.blue, Icons.edit),
           ),
           ShareButton(
             screenshotController: screenshotController,
-            descripcion: 'Informacion credito \nPor cada  3 días pasados de la fecha de la cuota se empieza a cobrar \$5.000 adicionales al valor de la cuota.',
+            descripcion: Constantes.INFORMACION_CREDITO,
           ),
         ],
       ),
@@ -218,6 +222,43 @@ Object _abonar(
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: const Text('No'),
+        ),
+      ],
+    ),
+  );
+}
+
+Object _modificarCredito(BuildContext context, CreditsController controller,
+    int idCredito, String fechaCuota,) {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Center(child: Text('Editar credito')),
+      content: SizedBox(
+        height: General.mediaQuery(context).height * 0.1,
+        child: TextFieldCalendar(
+          title: 'Nueva fecha cuota',
+          paddingHorizontal: 20,
+          controller: controller.nuevaFechaCuota,
+          onTap: () async => controller.showCalendar(
+            context,
+            controller.nuevaFechaCuota,
+            DateTime.parse(fechaCuota),
+            DateTime.parse(fechaCuota),
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          child: const Text('Aceptar'),
+          onPressed: () => controller.modificarFechaCuota(
+            General.mediaQuery(context),
+            idCredito,
+          ),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cerrar'),
         ),
       ],
     ),
