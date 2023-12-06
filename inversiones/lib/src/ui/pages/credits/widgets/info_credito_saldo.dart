@@ -37,7 +37,8 @@ class InfoCreditoSaldoModal extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           IconButton(
-            onPressed: () => _modificarCredito(context, controllerCredits),
+            onPressed: () => _modificarCredito(
+                context, controllerCredits, idCredito, info.fechaCuota!,),
             icon: const Icon(color: Colors.blue, Icons.edit),
           ),
           ShareButton(
@@ -227,11 +228,12 @@ Object _abonar(
   );
 }
 
-Object _modificarCredito(BuildContext context, CreditsController controller) {
+Object _modificarCredito(BuildContext context, CreditsController controller,
+    int idCredito, String fechaCuota,) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Editar credito'),
+      title: const Center(child: Text('Editar credito')),
       content: SizedBox(
         height: General.mediaQuery(context).height * 0.1,
         child: TextFieldCalendar(
@@ -241,10 +243,24 @@ Object _modificarCredito(BuildContext context, CreditsController controller) {
           onTap: () async => controller.showCalendar(
             context,
             controller.nuevaFechaCuota,
-            DateTime.now(),
+            DateTime.parse(fechaCuota),
+            DateTime.parse(fechaCuota),
           ),
         ),
       ),
+      actions: [
+        TextButton(
+          child: const Text('Aceptar'),
+          onPressed: () => controller.modificarFechaCuota(
+            General.mediaQuery(context),
+            idCredito,
+          ),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cerrar'),
+        ),
+      ],
     ),
   );
 }
