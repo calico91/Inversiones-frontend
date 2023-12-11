@@ -48,7 +48,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
         ],
       ),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.42,
+        height: General.mediaQuery(context).height * 0.44,
         child: Column(
           children: [
             Screenshot(
@@ -88,6 +88,10 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                       _showInfoCredito(
                         'Valor interes',
                         General.formatoMoneda(info.valorInteres),
+                      ),
+                      _showInfoCredito(
+                        'Valor por Mora',
+                        General.formatoMoneda(info.interesMora),
                       ),
                       _showInfoCredito(
                         'Interes a hoy',
