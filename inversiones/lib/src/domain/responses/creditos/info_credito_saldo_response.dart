@@ -41,6 +41,7 @@ class InfoCreditoySaldo {
   double? saldoCredito;
   double? capitalPagado;
   String? ultimaCuotaPagada;
+  double? interesMora;
 
   InfoCreditoySaldo({
     this.idCredito,
@@ -57,6 +58,7 @@ class InfoCreditoySaldo {
     this.saldoCredito,
     this.capitalPagado,
     this.ultimaCuotaPagada,
+    this.interesMora,
   });
 
   factory InfoCreditoySaldo.fromJson(Map<String, dynamic> json) =>
@@ -74,5 +76,6 @@ class InfoCreditoySaldo {
         saldoCredito: json["saldoCredito"] as double,
         capitalPagado: json["capitalPagado"] as double,
         ultimaCuotaPagada: json["ultimaCuotaPagada"] as String,
+        interesMora: json["interesMora"] as double,
       );
 }
