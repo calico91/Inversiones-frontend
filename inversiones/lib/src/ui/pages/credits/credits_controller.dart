@@ -41,9 +41,11 @@ class CreditsController extends GetxController {
       Rx<List<InfoCreditosActivos>>([]);
 
   final Rx<int> idCuotaSeleccionada = Rx(0);
+  final Rx<bool> modalidad = Rx<bool>(true);
 
   Rx<List<InfoCreditosActivos>> filtroCreditos =
       Rx<List<InfoCreditosActivos>>([]);
+
   Rx<InfoCreditoySaldo> infoCreditoSaldo =
       Rx<InfoCreditoySaldo>(InfoCreditoySaldo());
 
@@ -90,6 +92,9 @@ class CreditsController extends GetxController {
               interesPorcentaje: double.parse(interestPercentage.text.trim()),
               fechaCredito: creditDate.text.trim(),
               fechaCuota: installmentDate.text.trim(),
+              modalidad: modalidad.value
+                  ? Constantes.MODALIDAD_MENSUAL.toLowerCase()
+                  : Constantes.MODALIDAD_QUINCENAL.toLowerCase(),
             ),
           );
           if (res.status == 200) {
@@ -301,6 +306,11 @@ class CreditsController extends GetxController {
   ///carga la cedula de cliente cuando viene desde el modulo de clientes
   void _cedulaCliente() {
     document.text = Get.parameters['cedula'] ?? '';
+  }
+
+  /// cambia la modalidad
+  bool? cambiarModalidad(bool value) {
+    return modalidad.value = value;
   }
 
   ///formatea fecha

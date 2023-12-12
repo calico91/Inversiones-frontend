@@ -14,7 +14,7 @@ class ValidateForm {
       case ValidateText.installmentAmount:
         return 2;
       case ValidateText.interestPercentage:
-        return 2;
+        return 3;
       case ValidateText.name:
         return 30;
       case ValidateText.onlyNumbers:
@@ -48,8 +48,6 @@ class ValidateForm {
           ),
         ];
       case ValidateText.installmentAmount:
-        return [FilteringTextInputFormatter.digitsOnly];
-      case ValidateText.interestPercentage:
         return [FilteringTextInputFormatter.digitsOnly];
       case ValidateText.onlyNumbers:
         return [FilteringTextInputFormatter.digitsOnly];

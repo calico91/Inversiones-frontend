@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/lista_creditos_activos.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
@@ -9,6 +10,7 @@ import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart
 
 class Credits extends StatelessWidget {
   const Credits({super.key});
+
   @override
   Widget build(BuildContext context) {
     final CreditsController controller = Get.find<CreditsController>();
@@ -81,22 +83,43 @@ class Credits extends StatelessWidget {
                       ),
                     ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Obx(
+                        () => SizedBox(
+                          width: General.mediaQuery(context).width * 0.18,
+                          child: Column(
+                            children: [
+                              Switch(
+                                value: controller.modalidad.value,
+                                activeTrackColor: Colors.blue,
+                                inactiveTrackColor: Colors.blue,
+                                inactiveThumbColor: Colors.blue,
+                                onChanged: (bool value) =>
+                                    controller.cambiarModalidad(value),
+                              ),
+                              Text(
+                                controller.modalidad.value
+                                    ? Constantes.MODALIDAD_MENSUAL
+                                    : Constantes.MODALIDAD_QUINCENAL,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
 
-                  /// boton registrar
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: General.mediaQuery(context).height * 0.015,
-                      horizontal: General.mediaQuery(context).width * 0.3,
-                    ),
-                    child: FilledButton.icon(
-                      icon: const Icon(Icons.monetization_on),
-                      label: const Text("Registrar"),
-                      onPressed: () {
-                        if (controller.validateForm()) {
-                          controller.save(General.mediaQuery(context));
-                        }
-                      },
-                    ),
+                      /// boton registrar
+                      FilledButton.icon(
+                        icon: const Icon(Icons.monetization_on),
+                        label: const Text("Registrar"),
+                        onPressed: () {
+                          if (controller.validateForm()) {
+                            controller.save(General.mediaQuery(context));
+                          }
+                        },
+                      ),
+                    ],
                   ),
                   const ListaCreditosActivos(),
                 ],
