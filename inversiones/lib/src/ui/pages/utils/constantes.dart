@@ -15,4 +15,8 @@ class Constantes {
       'Informacion credito \nPor cada  3 días pasados de la fecha de la cuota se empieza a cobrar \$5.000 adicionales al valor de la cuota.';
   // ignore: non_constant_identifier_names
   static String INFORMACION_CREDITO = 'Informacion credito';
+  // ignore: non_constant_identifier_names
+  static String MODALIDAD_MENSUAL = 'Mensual';
+  // ignore: non_constant_identifier_names
+  static String MODALIDAD_QUINCENAL = 'Quincenal';
 }

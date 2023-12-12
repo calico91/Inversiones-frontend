@@ -38,7 +38,11 @@ class InfoCreditoSaldoModal extends StatelessWidget {
           ),
           IconButton(
             onPressed: () => _modificarCredito(
-                context, controllerCredits, idCredito, info.fechaCuota!,),
+              context,
+              controllerCredits,
+              idCredito,
+              info.fechaCuota!,
+            ),
             icon: const Icon(color: Colors.blue, Icons.edit),
           ),
           ShareButton(
@@ -48,7 +52,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
         ],
       ),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.44,
+        height: General.mediaQuery(context).height * 0.46,
         child: Column(
           children: [
             Screenshot(
@@ -59,6 +63,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                   child: Column(
                     children: [
                       _showInfoCredito('Id credito', idCredito.toString()),
+                      _showInfoCredito('Modalidad', info.modalidad!),
                       _showInfoCredito(
                         'Numero cuotas',
                         info.numeroCuotas!.toString(),
@@ -232,8 +237,12 @@ Object _abonar(
   );
 }
 
-Object _modificarCredito(BuildContext context, CreditsController controller,
-    int idCredito, String fechaCuota,) {
+Object _modificarCredito(
+  BuildContext context,
+  CreditsController controller,
+  int idCredito,
+  String fechaCuota,
+) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
