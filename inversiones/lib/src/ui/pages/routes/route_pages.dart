@@ -7,6 +7,8 @@ import 'package:inversiones/src/ui/pages/home/home_binding.dart';
 import 'package:inversiones/src/ui/pages/home/home_page.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_binding.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_page.dart';
+import 'package:inversiones/src/ui/pages/reportes/reportes_binding.dart';
+import 'package:inversiones/src/ui/pages/reportes/reportes_page.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/sign_in/sign_in_binding.dart';
 import 'package:inversiones/src/ui/pages/sign_in/sign_in_page.dart';
@@ -44,8 +46,13 @@ class RoutePages {
       ),
       GetPage(
         name: RouteNames.payFee,
-        page: () =>   PayFeePage(),
+        page: () => PayFeePage(),
         binding: const PayFeeBinding(),
+      ),
+      GetPage(
+        name: RouteNames.reportes,
+        page: () => ReportesPage(),
+        binding: const ReportesBinding(),
       ),
     ];
   }

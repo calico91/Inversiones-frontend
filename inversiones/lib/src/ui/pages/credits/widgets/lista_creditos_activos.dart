@@ -102,10 +102,13 @@ class ListaCreditosActivos extends StatelessWidget {
           children: [
             IconButton(
               tooltip: 'Informacion credito',
-              onPressed: () => controller.infoCreditoySaldo(
-                controller.filtroCreditos.value[index].idCredito!,
-                General.mediaQuery(context),
-              ),
+              onPressed: () {
+                controller.infoCreditoySaldo(
+                  controller.filtroCreditos.value[index].idCredito!,
+                  General.mediaQuery(context),
+                );
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
               icon: const Icon(Icons.info),
               color: Colors.blue,
               iconSize: 32,

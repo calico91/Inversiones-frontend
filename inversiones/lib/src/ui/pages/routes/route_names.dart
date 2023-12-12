@@ -7,4 +7,5 @@ class RouteNames {
   static const String clients = '/clients';
   static const String credits = '/credits';
   static const String payFee = '/payFee';
+  static const String reportes = '/reportes';
 }
