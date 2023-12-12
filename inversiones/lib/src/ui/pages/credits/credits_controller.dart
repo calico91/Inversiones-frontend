@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
@@ -264,8 +263,8 @@ class CreditsController extends GetxController {
 
   ///inicializa fecha credito
   void _fechaInicialCredito() {
-    creditDate.text = _formattedDate(DateTime.now());
-    nuevaFechaCuota.text = _formattedDate(DateTime.now());
+    creditDate.text = General.formatoFecha(DateTime.now());
+    nuevaFechaCuota.text = General.formatoFecha(DateTime.now());
   }
 
   ///muestra modal de calentario
@@ -283,7 +282,7 @@ class CreditsController extends GetxController {
     );
 
     if (pickedDate != null) {
-      controllerField.text = _formattedDate(pickedDate);
+      controllerField.text = General.formatoFecha(pickedDate);
     }
   }
 
@@ -312,9 +311,6 @@ class CreditsController extends GetxController {
   bool? cambiarModalidad(bool value) {
     return modalidad.value = value;
   }
-
-  ///formatea fecha
-  String _formattedDate(DateTime date) => DateFormat('yyyy-MM-dd').format(date);
 
   double get valorAbonar => double.parse(abonar.value.text.replaceAll(",", ""));
 }

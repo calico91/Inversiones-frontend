@@ -15,5 +15,6 @@ class UrlPaths {
   static const String pagarCuota = '/cuotaCredito/pagarCuota';
   static const String infoCreditosActivos = '/credito/infoCreditosActivos';
   static const String infoCreditoySaldo = '/cuotaCredito/infoCreditoySaldo';
-  static const String modimodificarFechaCuota = '/cuotaCredito/modificarFechaPago';
+  static const String modificarFechaCuota = '/cuotaCredito/modificarFechaPago';
+  static const String infoReporteInteresyCapital = '/cuotaCredito/reporteInteresyCapital';
 }
