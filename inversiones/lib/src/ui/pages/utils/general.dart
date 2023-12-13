@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,6 +19,8 @@ class General {
 
   static String formatoFecha(DateTime date) =>
       DateFormat('yyyy-MM-dd').format(date);
+
+      ///formatea fecha
 
   ///quita las comas del string que viene del input
   static double stringToDouble(String value) =>
@@ -45,5 +47,23 @@ class General {
       [XFile(image.path)],
       text: titulo,
     );
+  }
+
+  static Future<void> showCalendar(
+    BuildContext context,
+    TextEditingController controllerField, [
+    DateTime? initialDate,
+    DateTime? firstDate,
+  ]) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate ?? DateTime.now(),
+      firstDate: firstDate ?? DateTime(2023),
+      lastDate: DateTime(2050),
+    );
+
+    if (pickedDate != null) {
+      controllerField.text = formatoFecha(pickedDate);
+    }
   }
 }

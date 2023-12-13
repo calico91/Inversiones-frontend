@@ -85,7 +85,7 @@ class CreditHttp implements CreditRepository {
   ) async {
     try {
       final http.Response response = await baseHttpClient.put(
-        '${UrlPaths.modimodificarFechaCuota}/$fechaNueva/$idCredito',
+        '${UrlPaths.modificarFechaCuota}/$fechaNueva/$idCredito',
       );
       return compute(payFeeResponseFromJson, response.body);
     } catch (e) {
