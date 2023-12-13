@@ -22,8 +22,7 @@ class BaseHttpClient {
   ]) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
-        : Uri.http('https://inversiones.up.railway.app', path, parameters);
-
+        : Uri.https('inversiones.up.railway.app', path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final http.Response response = await http.get(
