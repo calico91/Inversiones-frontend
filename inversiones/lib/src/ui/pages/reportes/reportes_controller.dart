@@ -17,6 +17,8 @@ class ReportesController extends GetxController {
   final Rx<ReporteInteresyCapital> infoInteresCapital =
       Rx(ReporteInteresyCapital());
 
+  final Rx<bool> fechasCorrectas = Rx(true);
+
   @override
   void onInit() {
     _fechaInicial();
@@ -25,35 +27,44 @@ class ReportesController extends GetxController {
   }
 
   Future<void> consultarCapitalInteres(Size size) async {
-    Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
-      asyncFunction: () async {
-        try {
-          final ReporteInteresyCapitalResponse resHttp =
-              await const ReportesHttp().infoReporteInteresyCapital(
-            fechaInicial.text,
-            fechaFinal.text,
-          );
-          if (resHttp.status == 200) {
-            print(resHttp.reporteInteresyCapital!.capitalMes);
-            print(resHttp.reporteInteresyCapital!.interesMes);
-            infoInteresCapital(resHttp.reporteInteresyCapital);
-          } else {
-            appController.manageError(resHttp.message!);
+    _validarFechasCorrectas();
+    if (fechasCorrectas.value) {
+      Get.showOverlay(
+        loadingWidget: Loading(
+          vertical: size.height * 0.46,
+        ),
+        asyncFunction: () async {
+          try {
+            final ReporteInteresyCapitalResponse resHttp =
+                await const ReportesHttp().infoReporteInteresyCapital(
+              fechaInicial.text,
+              fechaFinal.text,
+            );
+            if (resHttp.status == 200) {
+              infoInteresCapital(resHttp.reporteInteresyCapital);
+            } else {
+              appController.manageError(resHttp.message!);
+            }
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
           }
-        } on HttpException catch (e) {
-          appController.manageError(e.message);
-        } catch (e) {
-          appController.manageError(e.toString());
-        }
-      },
-    );
+        },
+      );
+    }
   }
 
   void _fechaInicial() {
     fechaInicial.text = General.formatoFecha(DateTime.now());
     fechaFinal.text = General.formatoFecha(DateTime.now());
+  }
+
+  void _validarFechasCorrectas() {
+    DateTime.parse(fechaInicial.text)
+                .compareTo(DateTime.parse(fechaFinal.text)) >
+            0
+        ? fechasCorrectas(false)
+        : fechasCorrectas(true);
   }
 }
