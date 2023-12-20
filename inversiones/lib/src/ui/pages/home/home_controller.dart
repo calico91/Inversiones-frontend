@@ -37,7 +37,8 @@ class HomeController extends GetxService {
   Future<void> loadClientsPendingInstallments() async {
     try {
       final ClientsPendingInstallmentsResponse clientsPendingInstallments =
-          await const ClientHttp().clientsPendingInstallments();
+          await const ClientHttp()
+              .clientsPendingInstallments(General.formatoFecha(DateTime.now()));
       if (clientsPendingInstallments.status == 200) {
         _status(clientsPendingInstallments.status);
         _clients(clientsPendingInstallments.clientsPendingInstallments);

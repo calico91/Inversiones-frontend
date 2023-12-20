@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inversiones/src/domain/responses/reportes/reporte_interes_capital_response.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_controller.dart';
+import 'package:inversiones/src/ui/pages/reportes/widgets/informacion_capital_interes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
@@ -17,7 +17,7 @@ class ReportesPage extends StatelessWidget {
         title: const Text('Reportes'),
       ),
       body: SizedBox(
-      height: General.mediaQuery(context).height*0.23,
+        height: General.mediaQuery(context).height * 0.23,
         child: CustomCard(
           child: Column(
             children: <Widget>[
@@ -30,8 +30,9 @@ class ReportesPage extends StatelessWidget {
                   ),
                   IconButton(
                     tooltip: 'Consultar informacion',
-                    onPressed: () => controller
-                        .consultarCapitalInteres(General.mediaQuery(context)),
+                    onPressed: () => controller.consultarCapitalInteres(
+                      General.mediaQuery(context),
+                    ),
                     icon: const Icon(
                       Icons.info,
                       size: 30,
@@ -45,14 +46,18 @@ class ReportesPage extends StatelessWidget {
                 children: <Widget>[
                   TextFieldCalendar(
                     controller: controller.fechaInicial,
-                    onTap: () async =>
-                        General.showCalendar(context, controller.fechaInicial),
+                    onTap: () async => General.showCalendar(
+                      context,
+                      controller.fechaInicial,
+                    ),
                     title: 'Fecha inicial',
                   ),
                   TextFieldCalendar(
                     controller: controller.fechaFinal,
-                    onTap: () async =>
-                        General.showCalendar(context, controller.fechaFinal),
+                    onTap: () async => General.showCalendar(
+                      context,
+                      controller.fechaFinal,
+                    ),
                     title: 'Fecha final',
                   ),
                 ],
@@ -60,7 +65,7 @@ class ReportesPage extends StatelessWidget {
               Obx(
                 () => !controller.fechasCorrectas.value
                     ? _mensajeFechasError()
-                    : _informacionCapitalInteres(
+                    : InformacionCapitalInteres(
                         controller.infoInteresCapital.value,
                       ),
               ),
@@ -78,35 +83,6 @@ class ReportesPage extends StatelessWidget {
         'Revise las fechas de consulta',
         style: TextStyle(color: Colors.red.shade900),
       ),
-    );
-  }
-
-  Widget _informacionCapitalInteres(ReporteInteresyCapital info) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Column(
-          children: [
-            const Text(
-              'Interes',
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              General.formatoMoneda(info.interesMes ?? 0),
-              style: const TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            const Text('Capital', style: TextStyle(fontSize: 20)),
-            Text(
-              General.formatoMoneda(info.capitalMes ?? 0),
-              style: const TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }

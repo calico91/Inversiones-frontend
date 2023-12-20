@@ -12,5 +12,5 @@ abstract class ClientRepository {
   Future<AddClientResponse> addClient(Client client);
 
   /// clientes con cuotas pendientes
-  Future<ClientsPendingInstallmentsResponse> clientsPendingInstallments();
+  Future<ClientsPendingInstallmentsResponse> clientsPendingInstallments(String fechaFiltro);
 }
