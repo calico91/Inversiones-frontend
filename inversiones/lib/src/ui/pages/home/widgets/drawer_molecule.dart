@@ -24,7 +24,7 @@ class DrawerMolecule extends StatelessWidget {
     );
   }
 
-  Widget headerDrawer(BuildContext context) {
+   Widget headerDrawer(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
         top: 15 + MediaQuery.of(context).padding.top,
@@ -34,14 +34,12 @@ class DrawerMolecule extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 52,
-            backgroundImage: NetworkImage(
-              'https://ih1.redbubble.net/image.4011562022.5678/st,small,507x507-pad,600x600,f8f8f8.jpg',
-            ),
+            backgroundImage: AssetImage('assets/maelo.jpg')
           ),
         ],
       ),
     );
-  }
+  } 
 
   Widget opciones(IconData icono, String titulo, VoidCallback accion) {
     return ListTile(

@@ -69,13 +69,13 @@ class SignInPage extends StatelessWidget {
       ),
       persistentFooterAlignment: AlignmentDirectional.topEnd,
       persistentFooterButtons: const [
-        CircleAvatar(
+         CircleAvatar(
           backgroundColor: Colors.white,
           radius: 12,
-          backgroundImage: NetworkImage(
-            'https://www.bancolombia.com/wcm/connect/b8e4c3f2-36a9-497d-a125-ac04f83b0bf8/LogoBancolombia.png?MOD=AJPERES',
+          backgroundImage: AssetImage(
+            'assets/iconoBancolombia.png',
           ),
-        ),
+        ), 
         Text('By cblandon', style: TextStyle(color: Colors.black)),
       ],
     );
