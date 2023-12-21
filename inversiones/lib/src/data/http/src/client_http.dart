@@ -29,7 +29,7 @@ class ClientHttp implements ClientRepository {
   /// consulta los clientes que tienen creditos activos o todos los clientes.
   /// T creditos activos F todos los clientes.
   @override
-  Future<AllClientsResponse> allClients( ) async {
+  Future<AllClientsResponse> allClients() async {
     try {
       final http.Response response = await baseHttpClient.get(
         UrlPaths.allClients,
@@ -69,13 +69,13 @@ class ClientHttp implements ClientRepository {
   ///consulta informacion de los clientes que tienen cuotas pendientes
   ///de la fecha actual hacia atras
   @override
-  Future<ClientsPendingInstallmentsResponse>
-      clientsPendingInstallments(String fechaFiltro ) async {
+  Future<ClientsPendingInstallmentsResponse> clientsPendingInstallments(
+    String fechaFiltro,
+  ) async {
     try {
       final http.Response response = await baseHttpClient.get(
-       ' ${UrlPaths.infoClientesCuotaCredito}/$fechaFiltro',
+        "${UrlPaths.infoClientesCuotaCredito}/$fechaFiltro",
       );
-
       return compute(clientsPendingInstallmentsResponseFromJson, response.body);
     } catch (e) {
       rethrow;
