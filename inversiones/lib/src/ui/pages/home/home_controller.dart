@@ -27,15 +27,18 @@ class HomeController extends GetxService {
   final TextEditingController interestPercentage = TextEditingController();
   final Rx<UserDetails> userDetails = Rx<UserDetails>(const UserDetails());
 
+  final TextEditingController fechafiltro = TextEditingController();
+
   @override
   Future<void> onInit() async {
     userDetails(await const SecureStorageLocal().userDetails);
-    loadClientsPendingInstallments();
+    fechafiltro.text = General.formatoFecha(DateTime.now());
     super.onInit();
   }
 
   Future<void> loadClientsPendingInstallments([String? fechaFiltro]) async {
     try {
+      _loading(true);
       final ClientsPendingInstallmentsResponse clientsPendingInstallments =
           await const ClientHttp().clientsPendingInstallments(
         fechaFiltro ?? General.formatoFecha(DateTime.now()),
@@ -50,6 +53,8 @@ class HomeController extends GetxService {
       appController.manageError(e.message);
     } catch (e) {
       appController.manageError(e.toString());
+    } finally {
+      _loading(false);
     }
   }
 
