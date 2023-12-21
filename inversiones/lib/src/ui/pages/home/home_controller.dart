@@ -34,10 +34,12 @@ class HomeController extends GetxService {
     super.onInit();
   }
 
-  Future<void> loadClientsPendingInstallments() async {
+  Future<void> loadClientsPendingInstallments([String? fechaFiltro]) async {
     try {
       final ClientsPendingInstallmentsResponse clientsPendingInstallments =
-          await const ClientHttp().clientsPendingInstallments();
+          await const ClientHttp().clientsPendingInstallments(
+        fechaFiltro ?? General.formatoFecha(DateTime.now()),
+      );
       if (clientsPendingInstallments.status == 200) {
         _status(clientsPendingInstallments.status);
         _clients(clientsPendingInstallments.clientsPendingInstallments);

@@ -4,7 +4,6 @@ import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/clients_pending_installments_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/drawer_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
-import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class HomePage extends StatelessWidget {
@@ -39,27 +38,6 @@ class HomePage extends StatelessWidget {
 
                 /// lista cuotas pendientes anteriores a la fecha de hoy
                 child: const ClientsPendingInstallmentsMolecule(),
-              ),
-              SizedBox(
-                height: General.mediaQuery(context).height * 0.02,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FilledButton.icon(
-                    onPressed: () => Get.toNamed(RouteNames.clients),
-                    icon: const Icon(Icons.person),
-                    label: const Text("Clientes"),
-                  ),
-                  FilledButton.icon(
-                    onPressed: () => Get.toNamed(RouteNames.credits),
-                    icon: const Icon(Icons.monetization_on_outlined),
-                    label: const Text("Creditos"),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: General.mediaQuery(context).height * 0.02,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),

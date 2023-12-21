@@ -112,7 +112,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
           child: Text(
             textAlign: TextAlign.right,
             overflow: TextOverflow.ellipsis,
-            "Valor cuota: $valorCuota",
+            "Cuota normal: $valorCuota",
           ),
         ),
       ],
