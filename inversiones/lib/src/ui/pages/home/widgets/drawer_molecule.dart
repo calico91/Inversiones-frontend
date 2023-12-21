@@ -12,7 +12,17 @@ class DrawerMolecule extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               headerDrawer(context),
-              opciones(
+              _opciones(
+                Icons.person_2_outlined,
+                'Clientes',
+                () => Get.toNamed(RouteNames.clients),
+              ),
+              _opciones(
+                Icons.monetization_on_outlined,
+                'Creditos',
+                () => Get.toNamed(RouteNames.credits),
+              ),
+              _opciones(
                 Icons.data_saver_off_sharp,
                 'Reportes',
                 () => Get.toNamed(RouteNames.reportes),
@@ -41,7 +51,7 @@ class DrawerMolecule extends StatelessWidget {
     );
   }
 
-  Widget opciones(IconData icono, String titulo, VoidCallback accion) {
+  Widget _opciones(IconData icono, String titulo, VoidCallback accion) {
     return ListTile(
       onTap: accion,
       leading: Icon(

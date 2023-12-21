@@ -87,11 +87,11 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                         General.formatoMoneda(info.valorCredito),
                       ),
                       _showInfoCredito(
-                        'Valor cuota',
-                        General.formatoMoneda(info.valorCuota),
+                        'Interes a hoy',
+                        General.formatoMoneda(info.interesHoy),
                       ),
                       _showInfoCredito(
-                        'Valor interes',
+                        'Interes mes',
                         General.formatoMoneda(info.valorInteres),
                       ),
                       _showInfoCredito(
@@ -99,16 +99,16 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                         General.formatoMoneda(info.interesMora),
                       ),
                       _showInfoCredito(
-                        'Interes a hoy',
-                        General.formatoMoneda(info.interesHoy),
-                      ),
-                      _showInfoCredito(
-                        'Saldo credito',
-                        General.formatoMoneda(info.saldoCredito),
+                        'Valor cuota',
+                        General.formatoMoneda(info.valorCuota),
                       ),
                       _showInfoCredito(
                         'Capital pagado',
                         General.formatoMoneda(info.capitalPagado),
+                      ),
+                      _showInfoCredito(
+                        'Saldo credito',
+                        General.formatoMoneda(info.saldoCredito),
                       ),
                     ],
                   ),
