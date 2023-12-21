@@ -14,59 +14,52 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
 
     return Obx(
       () {
-        if (controller.status != 200) {
-          return  Loading(
+        if (controller.loading ) {
+          return Loading(
             vertical: General.mediaQuery(context).height * 0.13,
-
           );
-        } else if (controller.status == 200 && controller.clients.isEmpty) {
+        } else if (!controller.loading && controller.clients.isEmpty) {
           return Center(
-            child: RefreshIndicator(
-              onRefresh: () => controller.loadClientsPendingInstallments(),
-              child: ListView(
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: General.mediaQuery(context).height * 0.1,
-                      ),
-                      child: const Text('No hay creditos pendientes'),
+            child: ListView(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: General.mediaQuery(context).height * 0.1,
                     ),
+                    child: const Text('No hay creditos pendientes'),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         }
-        return RefreshIndicator(
-          onRefresh: () => controller.loadClientsPendingInstallments(),
-          child: ListView.builder(
-            itemCount: controller.clients.length,
-            itemBuilder: (_, index) {
-              return Card(
-                child: ListTile(
-                  onTap: () {
-                    Get.toNamed(RouteNames.payFee);
-                    controller.idCliente(controller.clients[index].idCliente);
-                    controller.idCredito(controller.clients[index].idCredito);
-                    controller.nombreCliente(
-                      '${controller.clients[index].nombres} ${controller.clients[index].apellidos}',
-                    );
-                  },
-                  title: _showClientTitle(
-                    controller,
-                    index,
-                    General.mediaQuery(context),
-                  ),
-                  subtitle: _showClientSubtitle(
-                    controller,
-                    index,
-                    General.mediaQuery(context),
-                  ),
+        return ListView.builder(
+          itemCount: controller.clients.length,
+          itemBuilder: (_, index) {
+            return Card(
+              child: ListTile(
+                onTap: () {
+                  Get.toNamed(RouteNames.payFee);
+                  controller.idCliente(controller.clients[index].idCliente);
+                  controller.idCredito(controller.clients[index].idCredito);
+                  controller.nombreCliente(
+                    '${controller.clients[index].nombres} ${controller.clients[index].apellidos}',
+                  );
+                },
+                title: _showClientTitle(
+                  controller,
+                  index,
+                  General.mediaQuery(context),
                 ),
-              );
-            },
-          ),
+                subtitle: _showClientSubtitle(
+                  controller,
+                  index,
+                  General.mediaQuery(context),
+                ),
+              ),
+            );
+          },
         );
       },
     );
