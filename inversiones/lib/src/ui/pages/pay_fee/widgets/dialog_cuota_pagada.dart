@@ -8,8 +8,9 @@ import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogCuotaPagada extends StatelessWidget {
-  DialogCuotaPagada({required this.dataAbono});
+  DialogCuotaPagada({required this.dataAbono, this.nombreCliente});
   final DataAbono dataAbono;
+  final String? nombreCliente;
 
   final ScreenshotController screenshotController = ScreenshotController();
 
@@ -78,7 +79,7 @@ class DialogCuotaPagada extends StatelessWidget {
       actions: [
         ShareButton(
           screenshotController: screenshotController,
-          descripcion: 'Abono',
+          descripcion: 'Abono ${nombreCliente ?? ''}',
         ),
         HomeButton(),
       ],

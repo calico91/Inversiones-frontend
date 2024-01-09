@@ -95,6 +95,7 @@ class PayFeeController extends GetxController {
     Get.dialog(
       DialogCuotaPagada(
         dataAbono: dataAbono,
+        nombreCliente: nombreCliente,
       ),
     );
   }
@@ -103,7 +104,7 @@ class PayFeeController extends GetxController {
     return formKey.currentState!.validate();
   }
 
-/// cambia el valor del switch modificar valor 
+  /// cambia el valor del switch modificar valor
   bool? cambiarValorSwitch(bool value) {
     return cambiarCuota.value = value;
   }
