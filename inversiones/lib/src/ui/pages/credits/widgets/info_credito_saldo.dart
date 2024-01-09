@@ -243,32 +243,79 @@ Object _modificarCredito(
   int idCredito,
   String fechaCuota,
 ) {
+  final Map<String, String> estadosCredito = {
+    Constantes.CREDITO_ACTIVO: 'Activo',
+    Constantes.CREDITO_PAGADO: 'Pagado',
+    Constantes.CREDITO_ANULADO: 'Anulado',
+  };
+
+  String estadoCreditoInicial = Constantes.CREDITO_ACTIVO;
+
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
       title: const Center(child: Text('Editar credito')),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.1,
-        child: TextFieldCalendar(
-          title: 'Nueva fecha cuota',
-          paddingHorizontal: 20,
-          controller: controller.nuevaFechaCuota,
-          onTap: () async => controller.showCalendar(
-            context,
-            controller.nuevaFechaCuota,
-            DateTime.parse(fechaCuota),
-            DateTime.parse(fechaCuota),
-          ),
+        height: General.mediaQuery(context).height * 0.2,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                TextFieldCalendar(
+                  title: 'Nueva fecha cuota',
+                  paddingHorizontal: 20,
+                  controller: controller.nuevaFechaCuota,
+                  onTap: () async => controller.showCalendar(
+                    context,
+                    controller.nuevaFechaCuota,
+                    DateTime.parse(fechaCuota),
+                    DateTime.parse(fechaCuota),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, right: 20),
+                  child: IconButton(
+                    iconSize: 40,
+                    onPressed: () => controller.modificarFechaCuota(
+                      General.mediaQuery(context),
+                      idCredito,
+                    ),
+                    icon: const Icon(
+                      Icons.arrow_circle_right_rounded,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                DropdownButton<String>(
+                  items: estadosCredito
+                      .map((key, value) {
+                        return MapEntry(
+                          key,
+                          DropdownMenuItem<String>(
+                            value: key,
+                            child: Text(value),
+                          ),
+                        );
+                      })
+                      .values
+                      .toList(),
+                  value: estadoCreditoInicial,
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      estadoCreditoInicial = newValue;
+                    }
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
       actions: [
-        TextButton(
-          child: const Text('Aceptar'),
-          onPressed: () => controller.modificarFechaCuota(
-            General.mediaQuery(context),
-            idCredito,
-          ),
-        ),
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: const Text('Cerrar'),

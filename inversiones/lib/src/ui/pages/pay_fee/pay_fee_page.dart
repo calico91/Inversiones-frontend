@@ -41,7 +41,7 @@ class PayFeePage extends StatelessWidget {
                 ),
                 ShareButton(
                   screenshotController: screenshotController,
-                  descripcion: 'Informacion cuota',
+                  descripcion: 'Informacion cuota ${controller.nombreCliente}' ,
                 ),
               ],
             ),

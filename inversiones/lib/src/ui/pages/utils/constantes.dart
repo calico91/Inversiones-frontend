@@ -9,6 +9,8 @@ class Constantes {
   // ignore: non_constant_identifier_names
   static String CREDITO_ACTIVO = 'A';
   // ignore: non_constant_identifier_names
+  static String CREDITO_ANULADO = 'N';
+  // ignore: non_constant_identifier_names
   static String CREDITO_PAGADO = 'C';
   // ignore: non_constant_identifier_names
   static String INFORMACION_CREDITO_CREADO =
