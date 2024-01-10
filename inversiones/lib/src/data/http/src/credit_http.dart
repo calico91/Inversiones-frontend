@@ -6,6 +6,7 @@ import 'package:inversiones/src/domain/repositories/credit_repository.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
@@ -88,6 +89,21 @@ class CreditHttp implements CreditRepository {
         '${UrlPaths.modificarFechaCuota}/$fechaNueva/$idCredito',
       );
       return compute(payFeeResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<EstadoCreditoResponse> modificarEstadoCredito(
+    int idCredito,
+    String estadoCredito,
+  ) async {
+    try {
+      final http.Response response = await baseHttpClient.put(
+        '${UrlPaths.modificarEstadoCredito}/$idCredito/$estadoCredito',
+      );
+      return compute(estadoCreditoResponseFromJson, response.body);
     } catch (e) {
       rethrow;
     }
