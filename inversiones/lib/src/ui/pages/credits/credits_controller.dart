@@ -11,12 +11,12 @@ import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_res
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_response_general.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
-import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
@@ -219,7 +219,7 @@ class CreditsController extends GetxController {
           final EstadoCreditoResponse respuestaHttp = await const CreditHttp()
               .modificarEstadoCredito(idCredito, estadoCredito);
           if (respuestaHttp.status == 200) {
-           Get.offAllNamed(RouteNames.home);
+            _mostrarInformacionEstadoCredito(respuestaHttp.estadoCredito!);
           } else {
             appController.manageError(respuestaHttp.message);
           }
@@ -232,6 +232,7 @@ class CreditsController extends GetxController {
     );
   }
 
+  /// informacion cuando se hacen abonos a capital o interes
   void _showInfoDialog(DataAbono dataAbono) {
     Get.dialog(
       DialogCuotaPagada(
@@ -262,10 +263,20 @@ class CreditsController extends GetxController {
     );
   }
 
+  /// info de la cuota cuando se modifica la fecha de pago
   void _mostrarInfoCuotaModificada(PayFee data) {
     Get.dialog(
       DialogResponseGeneral(
         data: data,
+      ),
+    );
+  }
+
+  void _mostrarInformacionEstadoCredito(String info) {
+    Get.dialog(
+      barrierDismissible: false,
+      DialogEstadoCredito(
+        info: info,
       ),
     );
   }
