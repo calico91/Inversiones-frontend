@@ -6,10 +6,12 @@ import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_response_general.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
@@ -34,6 +36,7 @@ class CreditsController extends GetxController {
   final TextEditingController installmentDate = TextEditingController();
   final TextEditingController creditDate = TextEditingController();
   final TextEditingController nuevaFechaCuota = TextEditingController();
+  final Rx<String> estadoCredito = Rx(Constantes.CREDITO_ACTIVO);
   TextEditingController buscar = TextEditingController();
   final Rx<int> status = Rx(0);
   final Rx<List<InfoCreditosActivos>> creditosActivos =
@@ -202,6 +205,34 @@ class CreditsController extends GetxController {
     );
   }
 
+  Future<void> modificarEstadoCredito(
+    Size size,
+    int idCredito,
+    String estadoCredito,
+  ) async {
+    Get.showOverlay(
+      loadingWidget: Loading(
+        vertical: size.height * 0.46,
+      ),
+      asyncFunction: () async {
+        try {
+          final EstadoCreditoResponse respuestaHttp = await const CreditHttp()
+              .modificarEstadoCredito(idCredito, estadoCredito);
+          if (respuestaHttp.status == 200) {
+            _mostrarInformacionEstadoCredito(respuestaHttp.estadoCredito!);
+          } else {
+            appController.manageError(respuestaHttp.message);
+          }
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
+  /// informacion cuando se hacen abonos a capital o interes
   void _showInfoDialog(DataAbono dataAbono) {
     Get.dialog(
       DialogCuotaPagada(
@@ -232,10 +263,20 @@ class CreditsController extends GetxController {
     );
   }
 
+  /// info de la cuota cuando se modifica la fecha de pago
   void _mostrarInfoCuotaModificada(PayFee data) {
     Get.dialog(
       DialogResponseGeneral(
         data: data,
+      ),
+    );
+  }
+
+  void _mostrarInformacionEstadoCredito(String info) {
+    Get.dialog(
+      barrierDismissible: false,
+      DialogEstadoCredito(
+        info: info,
       ),
     );
   }

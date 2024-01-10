@@ -249,8 +249,6 @@ Object _modificarCredito(
     Constantes.CREDITO_ANULADO: 'Anulado',
   };
 
-  String estadoCreditoInicial = Constantes.CREDITO_ACTIVO;
-
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -258,6 +256,7 @@ Object _modificarCredito(
       content: SizedBox(
         height: General.mediaQuery(context).height * 0.2,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -272,43 +271,71 @@ Object _modificarCredito(
                     DateTime.parse(fechaCuota),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15, right: 20),
-                  child: IconButton(
-                    iconSize: 40,
-                    onPressed: () => controller.modificarFechaCuota(
-                      General.mediaQuery(context),
-                      idCredito,
-                    ),
-                    icon: const Icon(
-                      Icons.arrow_circle_right_rounded,
-                      color: Colors.blue,
-                    ),
+                botonAccionEditarCredito(
+                  context,
+                  () => controller.modificarFechaCuota(
+                    General.mediaQuery(context),
+                    idCredito,
                   ),
                 ),
               ],
             ),
-            Row(
+            SizedBox(
+              height: General.mediaQuery(context).height * 0.02,
+            ),
+
+            /// estado de credito
+            Column(
               children: [
-                DropdownButton<String>(
-                  items: estadosCredito
-                      .map((key, value) {
-                        return MapEntry(
-                          key,
-                          DropdownMenuItem<String>(
-                            value: key,
-                            child: Text(value),
-                          ),
-                        );
-                      })
-                      .values
-                      .toList(),
-                  value: estadoCreditoInicial,
-                  onChanged: (String? newValue) {
-                    if (newValue != null) {
-                      estadoCreditoInicial = newValue;
-                    }
-                  },
+                Row(
+                  children: [
+                    Obx(
+                      () => Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: General.mediaQuery(context).width * 0.05,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Estado credito'),
+                            SizedBox(
+                              width: General.mediaQuery(context).width * 0.39,
+                              height: General.mediaQuery(context).width * 0.1,
+                              child: DropdownButton<String>(
+                                isExpanded: true,
+                                items: estadosCredito
+                                    .map((key, value) {
+                                      return MapEntry(
+                                        key,
+                                        DropdownMenuItem<String>(
+                                          value: key,
+                                          child: Text(value),
+                                        ),
+                                      );
+                                    })
+                                    .values
+                                    .toList(),
+                                value: controller.estadoCredito.value,
+                                onChanged: (String? newValue) {
+                                  if (newValue != null) {
+                                    controller.estadoCredito.value = newValue;
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    botonAccionEditarCredito(
+                      context,
+                      () => controller.modificarEstadoCredito(
+                        General.mediaQuery(context),
+                        idCredito,
+                        controller.estadoCredito.value,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -321,6 +348,20 @@ Object _modificarCredito(
           child: const Text('Cerrar'),
         ),
       ],
+    ),
+  );
+}
+
+Widget botonAccionEditarCredito(BuildContext context, VoidCallback accion) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 15, right: 20),
+    child: IconButton(
+      iconSize: 40,
+      onPressed: accion,
+      icon: const Icon(
+        Icons.arrow_circle_right_rounded,
+        color: Colors.blue,
+      ),
     ),
   );
 }
