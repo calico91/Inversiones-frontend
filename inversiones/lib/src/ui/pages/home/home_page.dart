@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: General.mediaQuery(context).height * 0.35,
 
-                /// lista cuotas pendientes anteriores a la fecha de hoy
+                /// lista cuotas pendientes 
                 child: const ClientsPendingInstallmentsMolecule(),
               ),
               Padding(

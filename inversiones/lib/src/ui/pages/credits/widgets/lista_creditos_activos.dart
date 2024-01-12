@@ -113,10 +113,16 @@ class ListaCreditosActivos extends StatelessWidget {
               color: Colors.blue,
               iconSize: 32,
             ),
-            const IconButton(
+            IconButton(
               tooltip: 'Informacion abonos',
-              onPressed: null,
-              icon: Icon(
+              onPressed: () {
+                controller.consultarAbonosRealizados(
+                  controller.filtroCreditos.value[index].idCredito!,
+                  General.mediaQuery(context),
+                );
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              icon: const Icon(
                 Icons.document_scanner_outlined,
                 color: Colors.blue,
               ),
