@@ -5,12 +5,14 @@ import 'package:inversiones/src/data/http/src/credit_http.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
+import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
-import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos.dart';
+import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/dialog_abonos_realizados.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_response_general.dart';
@@ -114,6 +116,16 @@ class CreditsController extends GetxController {
     );
   }
 
+  ///modal que muestra informacion del credito cuando se crea
+  void _mostrarInfoCredito(DataCreditResponse info) {
+    Get.dialog(
+      DialogInfoCredito(
+        title: Constantes.INFORMACION_CREDITO,
+        info: info,
+      ),
+    );
+  }
+
   Future<void> infoCreditoySaldo(int idCredito, Size size) async {
     Get.showOverlay(
       loadingWidget: Loading(
@@ -137,6 +149,18 @@ class CreditsController extends GetxController {
           appController.manageError(e.toString());
         }
       },
+    );
+  }
+
+  /// modal que muestra la informacion del credito, saldo y si quiere abonar a capital
+  void _infoCreditoSaldoModal(InfoCreditoySaldo info, int idCredito) {
+    Get.dialog(
+      barrierDismissible: false,
+      InfoCreditoSaldoModal(
+        info: info,
+        idCredito: idCredito,
+        accion: () {},
+      ),
     );
   }
 
@@ -179,6 +203,15 @@ class CreditsController extends GetxController {
     );
   }
 
+  /// informacion cuando se hacen abonos a capital o interes
+  void _showInfoDialog(DataAbono dataAbono) {
+    Get.dialog(
+      DialogCuotaPagada(
+        dataAbono: dataAbono,
+      ),
+    );
+  }
+
   Future<void> modificarFechaCuota(
     Size size,
     int idCredito,
@@ -202,6 +235,15 @@ class CreditsController extends GetxController {
           appController.manageError(e.toString());
         }
       },
+    );
+  }
+
+  /// info de la cuota cuando se modifica la fecha de pago
+  void _mostrarInfoCuotaModificada(PayFee data) {
+    Get.dialog(
+      DialogResponseGeneral(
+        data: data,
+      ),
     );
   }
 
@@ -232,51 +274,43 @@ class CreditsController extends GetxController {
     );
   }
 
-  /// informacion cuando se hacen abonos a capital o interes
-  void _showInfoDialog(DataAbono dataAbono) {
-    Get.dialog(
-      DialogCuotaPagada(
-        dataAbono: dataAbono,
-      ),
-    );
-  }
-
-  ///modal que muestra informacion del credito cuando se crea
-  void _mostrarInfoCredito(DataCreditResponse info) {
-    Get.dialog(
-      DialogInfoCredito(
-        title: Constantes.INFORMACION_CREDITO,
-        info: info,
-      ),
-    );
-  }
-
-  /// modal que muestra la informacion del credito, saldo y si quiere abonar a capital
-  void _infoCreditoSaldoModal(InfoCreditoySaldo info, int idCredito) {
-    Get.dialog(
-      barrierDismissible: false,
-      InfoCreditoSaldoModal(
-        info: info,
-        idCredito: idCredito,
-        accion: () {},
-      ),
-    );
-  }
-
-  /// info de la cuota cuando se modifica la fecha de pago
-  void _mostrarInfoCuotaModificada(PayFee data) {
-    Get.dialog(
-      DialogResponseGeneral(
-        data: data,
-      ),
-    );
-  }
-
   void _mostrarInformacionEstadoCredito(String info) {
     Get.dialog(
       barrierDismissible: false,
       DialogEstadoCredito(
         info: info,
+      ),
+    );
+  }
+
+  Future<void> consultarAbonosRealizados(int idCredito, Size size) async {
+    Get.showOverlay(
+      loadingWidget: Loading(
+        vertical: size.height * 0.46,
+      ),
+      asyncFunction: () async {
+        try {
+          final AbonosRealizadosResponse res =
+              await const CreditHttp().consultarAbonosRealizados(idCredito);
+          if (res.status == 200) {
+            _mostrarAbonosRealizados(res.abonosRealizados!);
+          } else {
+            appController.manageError(res.message!);
+          }
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
+  /// informacion abonos realizados
+  void _mostrarAbonosRealizados(List<AbonosRealizados> abonosRealizados) {
+    Get.dialog(
+      DialogAbonosRealizados(
+        abonosRealizados: abonosRealizados,
       ),
     );
   }
