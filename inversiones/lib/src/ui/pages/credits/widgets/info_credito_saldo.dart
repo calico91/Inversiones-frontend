@@ -197,7 +197,9 @@ Object _abonar(
   final String titulo =
       abonoCapital ? 'Desea abonar capital?' : 'Desea abonar interes?';
 
-  final String estadoCredito = controllerCredits.validarEstadoCredito();
+  final String estadoCredito = abonoCapital
+      ? controllerCredits.validarEstadoCredito()
+      : Constantes.CREDITO_ACTIVO;
 
   final double interes =
       estadoCredito == Constantes.CREDITO_PAGADO ? valorInteres : 0;

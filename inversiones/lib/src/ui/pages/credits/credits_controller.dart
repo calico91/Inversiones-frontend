@@ -206,6 +206,7 @@ class CreditsController extends GetxController {
   /// informacion cuando se hacen abonos a capital o interes
   void _showInfoDialog(DataAbono dataAbono) {
     Get.dialog(
+      barrierDismissible: false,
       DialogCuotaPagada(
         dataAbono: dataAbono,
       ),
