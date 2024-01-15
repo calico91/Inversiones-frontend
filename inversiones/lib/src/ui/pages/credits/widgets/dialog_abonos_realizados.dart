@@ -19,31 +19,35 @@ class DialogAbonosRealizados extends StatelessWidget {
       ),
       content: SizedBox(
         width: 300,
-        height:
-            General.mediaQuery(context).height * (abonosRealizados.length / 11),
-        child: Screenshot(
-          controller: screenshotController,
-          child: ListView.builder(
-            itemCount: abonosRealizados.length,
-            shrinkWrap: true,
-            itemBuilder: (_, index) {
-              return Card(
-                child: ListTile(
-                  title: _showClientTitle(
-                    abonosRealizados,
-                    index,
-                    General.mediaQuery(context),
-                  ),
-                  subtitle: _showClientSubtitle(
-                    abonosRealizados,
-                    index,
-                    General.mediaQuery(context),
-                  ),
+        height: abonosRealizados.isEmpty
+            ? General.mediaQuery(context).height * 0.05
+            : General.mediaQuery(context).height *
+                (abonosRealizados.length / 11),
+        child: abonosRealizados.isEmpty
+            ? const Center(child: Text('No se han realizado abonos'))
+            : Screenshot(
+                controller: screenshotController,
+                child: ListView.builder(
+                  itemCount: abonosRealizados.length,
+                  shrinkWrap: true,
+                  itemBuilder: (_, index) {
+                    return Card(
+                      child: ListTile(
+                        title: _showClientTitle(
+                          abonosRealizados,
+                          index,
+                          General.mediaQuery(context),
+                        ),
+                        subtitle: _showClientSubtitle(
+                          abonosRealizados,
+                          index,
+                          General.mediaQuery(context),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ),
+              ),
       ),
       actions: [
         ShareButton(
