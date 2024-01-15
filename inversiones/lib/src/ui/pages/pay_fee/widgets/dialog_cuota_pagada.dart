@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/credit_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -81,6 +82,7 @@ class DialogCuotaPagada extends StatelessWidget {
           screenshotController: screenshotController,
           descripcion: 'Abono ${nombreCliente ?? ''}',
         ),
+        CreditButton(),
         HomeButton(),
       ],
     );

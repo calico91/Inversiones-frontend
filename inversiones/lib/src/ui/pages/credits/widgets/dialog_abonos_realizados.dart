@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogAbonosRealizados extends StatelessWidget {
@@ -18,28 +19,37 @@ class DialogAbonosRealizados extends StatelessWidget {
       ),
       content: SizedBox(
         width: 300,
-        height: General.mediaQuery(context).height * 0.3,
-        child: ListView.builder(
-          itemCount: abonosRealizados.length,
-          itemBuilder: (_, index) {
-            return Card(
-              child: ListTile(
-                title: _showClientTitle(
-                  abonosRealizados,
-                  index,
-                  General.mediaQuery(context),
+        height:
+            General.mediaQuery(context).height * (abonosRealizados.length / 11),
+        child: Screenshot(
+          controller: screenshotController,
+          child: ListView.builder(
+            itemCount: abonosRealizados.length,
+            shrinkWrap: true,
+            itemBuilder: (_, index) {
+              return Card(
+                child: ListTile(
+                  title: _showClientTitle(
+                    abonosRealizados,
+                    index,
+                    General.mediaQuery(context),
+                  ),
+                  subtitle: _showClientSubtitle(
+                    abonosRealizados,
+                    index,
+                    General.mediaQuery(context),
+                  ),
                 ),
-                subtitle: _showClientSubtitle(
-                  abonosRealizados,
-                  index,
-                  General.mediaQuery(context),
-                ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
       actions: [
+        ShareButton(
+          screenshotController: screenshotController,
+          descripcion: 'Abonos realizados',
+        ),
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: const Text('Cerrar'),
