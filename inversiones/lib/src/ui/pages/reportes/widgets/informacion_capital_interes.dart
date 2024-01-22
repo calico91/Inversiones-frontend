@@ -32,6 +32,17 @@ class InformacionCapitalInteres extends StatelessWidget {
             ),
           ],
         ),
+        Column(
+          children: [
+            const Text('Total', style: TextStyle(fontSize: 20)),
+            Text(
+              General.formatoMoneda(
+                (info.interesMes ?? 0) + (info.capitalMes ?? 0),
+              ),
+              style: const TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
       ],
     );
   }
