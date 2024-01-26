@@ -65,7 +65,8 @@ class PayFee {
             json["valorAbonado"] == null ? 0 : json["valorAbonado"] as double,
         valorCapital: json["valorCapital"] as double,
         valorInteres: json["valorInteres"] as double,
-        valorCredito: json["valorCredito"] as double,
+        valorCredito:
+            json["valorCredito"] == null ? 0 : json["valorCredito"] as double,
         interesPorcentaje: json["interesPorcentaje"] as double,
         fechaAbono:
             json["fechaAbono"] == null ? null : json["fechaAbono"] as String,
