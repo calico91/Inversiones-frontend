@@ -18,6 +18,10 @@ class Constantes {
   // ignore: non_constant_identifier_names
   static String INFORMACION_CREDITO = 'Informacion credito';
   // ignore: non_constant_identifier_names
+  static int CODIGO_MODALIDAD_MENSUAL = 1;
+  // ignore: non_constant_identifier_names
+  static int CODIGO_MODALIDAD_QUINCENAL = 2;
+  // ignore: non_constant_identifier_names
   static String MODALIDAD_MENSUAL = 'Mensual';
   // ignore: non_constant_identifier_names
   static String MODALIDAD_QUINCENAL = 'Quincenal';
