@@ -98,7 +98,7 @@ class CreditsController extends GetxController {
               fechaCuota: installmentDate.text.trim(),
               modalidad: modalidad.value
                   ? Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL)
-                  : Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL),
+                  : Modalidad(id: Constantes.CODIGO_MODALIDAD_QUINCENAL),
             ),
           );
           if (res.status == 200) {

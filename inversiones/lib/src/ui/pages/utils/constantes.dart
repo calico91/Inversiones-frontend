@@ -25,4 +25,10 @@ class Constantes {
   static String MODALIDAD_MENSUAL = 'Mensual';
   // ignore: non_constant_identifier_names
   static String MODALIDAD_QUINCENAL = 'Quincenal';
+  // ignore: non_constant_identifier_names
+  static int CODIGO_CREDITO_ACTIVO = 1;
+  // ignore: non_constant_identifier_names
+  static int CODIGO_CREDITO_ANULADO = 3;
+  // ignore: non_constant_identifier_names
+  static int CODIGO_CREDITO_PAGADO = 2;
 }
