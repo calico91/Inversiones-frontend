@@ -246,9 +246,9 @@ Object _modificarCredito(
   String fechaCuota,
 ) {
   final Map<String, String> estadosCredito = {
-    Constantes.CREDITO_ACTIVO: 'Activo',
-    Constantes.CREDITO_PAGADO: 'Pagado',
-    Constantes.CREDITO_ANULADO: 'Anulado',
+    Constantes.CODIGO_CREDITO_ACTIVO.toString(): 'Activo',
+    Constantes.CODIGO_CREDITO_PAGADO.toString(): 'Pagado',
+    Constantes.CODIGO_CREDITO_ANULADO.toString(): 'Anulado',
   };
 
   return showDialog(
@@ -317,10 +317,13 @@ Object _modificarCredito(
                                     })
                                     .values
                                     .toList(),
-                                value: controller.estadoCredito.value,
+                                value:
+                                    controller.estadoCredito.value.toString(),
                                 onChanged: (String? newValue) {
+                                  print(newValue);
                                   if (newValue != null) {
-                                    controller.estadoCredito.value = newValue;
+                                    controller.estadoCredito.value =
+                                        int.parse(newValue);
                                   }
                                 },
                               ),

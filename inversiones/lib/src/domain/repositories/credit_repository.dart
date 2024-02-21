@@ -22,7 +22,7 @@ abstract class CreditRepository {
   );
   Future<EstadoCreditoResponse> modificarEstadoCredito(
     int idCredito,
-    String estadoCredito,
+    int estadoCredito,
   );
   Future<AbonosRealizadosResponse> consultarAbonosRealizados(
     int idCredito,

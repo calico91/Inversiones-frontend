@@ -38,7 +38,7 @@ class CreditsController extends GetxController {
   final TextEditingController installmentDate = TextEditingController();
   final TextEditingController creditDate = TextEditingController();
   final TextEditingController nuevaFechaCuota = TextEditingController();
-  final Rx<String> estadoCredito = Rx(Constantes.CREDITO_ACTIVO);
+  final Rx<int> estadoCredito = Rx(Constantes.CODIGO_CREDITO_ACTIVO);
   TextEditingController buscar = TextEditingController();
   final Rx<int> status = Rx(0);
   final Rx<List<InfoCreditosActivos>> creditosActivos =
@@ -251,7 +251,7 @@ class CreditsController extends GetxController {
   Future<void> modificarEstadoCredito(
     Size size,
     int idCredito,
-    String estadoCredito,
+    int estadoCredito,
   ) async {
     Get.showOverlay(
       loadingWidget: Loading(
