@@ -98,7 +98,7 @@ class CreditHttp implements CreditRepository {
   @override
   Future<EstadoCreditoResponse> modificarEstadoCredito(
     int idCredito,
-    String estadoCredito,
+    int estadoCredito,
   ) async {
     try {
       final http.Response response = await baseHttpClient.put(
