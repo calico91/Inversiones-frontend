@@ -41,7 +41,7 @@ class PayFeePage extends StatelessWidget {
                 ),
                 ShareButton(
                   screenshotController: screenshotController,
-                  descripcion: 'Informacion cuota ${controller.nombreCliente}' ,
+                  descripcion: 'Informacion cuota ${controller.nombreCliente}',
                 ),
               ],
             ),
@@ -188,6 +188,11 @@ class PayFeePage extends StatelessWidget {
     PayFeeController controller,
     bool soloInteres,
   ) {
+    soloInteres
+        ? controller.valorAbono.text =
+            controller.payFee.valorInteres.toString().split(".").first
+        : controller.valorAbono.text = '';
+
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(

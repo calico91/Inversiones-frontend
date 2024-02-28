@@ -320,7 +320,6 @@ Object _modificarCredito(
                                 value:
                                     controller.estadoCredito.value.toString(),
                                 onChanged: (String? newValue) {
-                                  print(newValue);
                                   if (newValue != null) {
                                     controller.estadoCredito.value =
                                         int.parse(newValue);
