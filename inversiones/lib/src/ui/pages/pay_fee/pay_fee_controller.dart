@@ -93,6 +93,7 @@ class PayFeeController extends GetxController {
   /// muestra modal al realizar un abono a capital
   void _showInfoDialog(DataAbono dataAbono) {
     Get.dialog(
+      barrierDismissible: false,
       DialogCuotaPagada(
         dataAbono: dataAbono,
         nombreCliente: nombreCliente,
