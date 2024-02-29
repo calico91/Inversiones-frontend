@@ -65,7 +65,7 @@ class ReportesController extends GetxController {
       asyncFunction: () async {
         try {
           final AbonosRealizadosResponse resHttp =
-              await const ReportesHttp().consultarUltimosAbonos(8);
+              await const ReportesHttp().consultarUltimosAbonos(10);
           if (resHttp.status == 200) {
             ultimosAbonos(resHttp.abonosRealizados);
           } else {
