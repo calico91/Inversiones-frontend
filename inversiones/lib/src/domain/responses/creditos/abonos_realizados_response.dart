@@ -39,24 +39,28 @@ class AbonosRealizados {
   String? tipoAbono;
   String? fechaAbono;
   int? cuotaNumero;
+  String? nombres;
+  String? apellidos;
 
   AbonosRealizados({
     this.valorAbonado,
     this.tipoAbono,
     this.fechaAbono,
     this.cuotaNumero,
+    this.nombres,
+    this.apellidos,
   });
 
   factory AbonosRealizados.fromJson(Map<String, dynamic> json) =>
       AbonosRealizados(
         valorAbonado:
             json["valorAbonado"] == null ? 0 : json["valorAbonado"] as double,
-        tipoAbono: json["tipoAbono"] == null
-            ? 'Sin pago'
-            : json["tipoAbono"] as String,
-        fechaAbono: json["fechaAbono"] == null
-            ? 'Sin pago'
-            : json["fechaAbono"] as String,
-        cuotaNumero: json["cuotaNumero"] as int,
+        tipoAbono: json["tipoAbono"] == null ? '' : json["tipoAbono"] as String,
+        fechaAbono:
+            json["fechaAbono"] == null ? '' : json["fechaAbono"] as String,
+        cuotaNumero:
+            json["cuotaNumero"] == null ? 0 : json["cuotaNumero"] as int,
+        apellidos: json["apellidos"] == null ? '' : json["apellidos"] as String,
+        nombres: json["nombres"] == null ? '' : json["nombres"] as String,
       );
 }

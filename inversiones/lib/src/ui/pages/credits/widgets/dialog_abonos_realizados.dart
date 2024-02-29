@@ -29,7 +29,6 @@ class DialogAbonosRealizados extends StatelessWidget {
                 controller: screenshotController,
                 child: ListView.builder(
                   itemCount: abonosRealizados.length,
-                  shrinkWrap: true,
                   itemBuilder: (_, index) {
                     return Card(
                       child: ListTile(
