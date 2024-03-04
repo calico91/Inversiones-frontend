@@ -44,4 +44,4 @@ app.*.map.json
 /android/app/release
 
 #url base
-/lib/src/data/http/
+/lib/src/data/http/base_http_client.dart
