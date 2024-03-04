@@ -45,4 +45,4 @@ app.*.map.json
 
 
 #url base
-/lib/src/data/http/
+/lib/src/data/http/base_http_client.dart
