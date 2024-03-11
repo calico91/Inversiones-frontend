@@ -65,7 +65,7 @@ class ValidateForm {
     ValidateText validateText,
   ) {
     if (required && value!.isEmpty) {
-      return 'El campo requerido';
+      return 'Campo requerido';
     } else {
       switch (validateText) {
         case ValidateText.email:

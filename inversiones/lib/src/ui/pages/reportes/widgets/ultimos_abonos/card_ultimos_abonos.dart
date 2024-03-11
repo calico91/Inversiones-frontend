@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_small.dart';
 
 class CardUltimosAbonos extends StatelessWidget {
   const CardUltimosAbonos(this.controller);
@@ -20,11 +22,25 @@ class CardUltimosAbonos extends StatelessWidget {
                 'Informacion ultimos abonos',
                 style: TextStyle(fontSize: 20),
               ),
+              SizedBox(
+                height: 78,
+                width: 50,
+                child: Form(
+                  key: controller.formKey,
+                  child: TextFieldSmall(
+                    validateText: ValidateText.installmentAmount,
+                    controller: controller.cantidadAbonosConsultar,
+                  ),
+                ),
+              ),
               IconButton(
                 tooltip: 'Consultar ultimos abonos',
-                onPressed: () => controller.consultarUltimosAbonos(
-                  General.mediaQuery(context),
-                ),
+                onPressed: () {
+                  if (controller.validateForm()) {
+                    controller
+                        .consultarUltimosAbonos(General.mediaQuery(context));
+                  }
+                },
                 icon: const Icon(
                   Icons.info,
                   size: 30,
@@ -36,8 +52,8 @@ class CardUltimosAbonos extends StatelessWidget {
           Obx(
             () => controller.ultimosAbonos.value.isNotEmpty
                 ? SizedBox(
-                  height: General.mediaQuery(context).height * 0.6,
-                  child: ListView.builder(
+                    height: General.mediaQuery(context).height * 0.6,
+                    child: ListView.builder(
                       itemCount: controller.ultimosAbonos.value.length,
                       itemBuilder: (_, index) {
                         return Card(
@@ -62,7 +78,7 @@ class CardUltimosAbonos extends StatelessWidget {
                         );
                       },
                     ),
-                )
+                  )
                 : const SizedBox(),
           ),
         ],
