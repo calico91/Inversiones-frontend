@@ -169,9 +169,7 @@ class ClientsController extends GetxController {
     phoneNumber.text = client.celular;
   }
 
-  bool validateForm() {
-    return formKey.currentState!.validate();
-  }
+
 
   void buscarCliente(String value) {
     List<Client> results = [];

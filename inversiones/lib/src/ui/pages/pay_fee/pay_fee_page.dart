@@ -267,7 +267,7 @@ class PayFeePage extends StatelessWidget {
             onPressed: () {
               if (!soloInteres) {
                 if (controller.cambiarCuota.value) {
-                  if (controller.validateForm()) {
+                  if (General.validateForm(controller.formKey)) {
                     controller.pagarCuota(
                       Constantes.CUOTA_NORMAL,
                       General.mediaQuery(context),
@@ -284,7 +284,7 @@ class PayFeePage extends StatelessWidget {
                   return;
                 }
               } else {
-                if (controller.validateForm()) {
+                if (General.validateForm(controller.formKey)) {
                   controller.pagarCuota(
                     Constantes.SOLO_INTERES,
                     General.mediaQuery(context),

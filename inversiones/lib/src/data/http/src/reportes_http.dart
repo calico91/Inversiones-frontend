@@ -14,7 +14,7 @@ class ReportesHttp implements ReportesRepository {
   final BaseHttpClient baseHttpClient;
 
   @override
-  Future<ReporteInteresyCapitalResponse> infoReporteInteresyCapital(
+  Future<ReporteInteresyCapitalResponse> consultarReporteInteresyCapital(
     String fechaInicial,
     String fechaFinal,
   ) async {

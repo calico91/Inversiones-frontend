@@ -101,9 +101,7 @@ class PayFeeController extends GetxController {
     );
   }
 
-  bool validateForm() {
-    return formKey.currentState!.validate();
-  }
+
 
   /// cambia el valor del switch modificar valor
   bool? cambiarValorSwitch(bool value) {

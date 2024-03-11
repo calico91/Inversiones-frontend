@@ -27,7 +27,7 @@ class ReportesController extends GetxController {
   @override
   void onInit() {
     _fechaInicial();
-
+    cantidadAbonosConsultar.text = '10';
     super.onInit();
   }
 
@@ -41,7 +41,7 @@ class ReportesController extends GetxController {
         asyncFunction: () async {
           try {
             final ReporteInteresyCapitalResponse resHttp =
-                await const ReportesHttp().infoReporteInteresyCapital(
+                await const ReportesHttp().consultarReporteInteresyCapital(
               fechaInicial.text,
               fechaFinal.text,
             );
@@ -97,9 +97,5 @@ class ReportesController extends GetxController {
             0
         ? fechasCorrectas(false)
         : fechasCorrectas(true);
-  }
-
-  bool validateForm() {
-    return formKey.currentState!.validate();
   }
 }

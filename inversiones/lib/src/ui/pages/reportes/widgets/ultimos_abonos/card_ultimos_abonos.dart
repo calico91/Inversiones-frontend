@@ -36,7 +36,7 @@ class CardUltimosAbonos extends StatelessWidget {
               IconButton(
                 tooltip: 'Consultar ultimos abonos',
                 onPressed: () {
-                  if (controller.validateForm()) {
+                  if (General.validateForm(controller.formKey)) {
                     controller
                         .consultarUltimosAbonos(General.mediaQuery(context));
                   }

@@ -114,7 +114,7 @@ class Credits extends StatelessWidget {
                         icon: const Icon(Icons.monetization_on),
                         label: const Text("Registrar"),
                         onPressed: () {
-                          if (controller.validateForm()) {
+                          if (General.validateForm(controller.formKey)) {
                             controller.save(General.mediaQuery(context));
                           }
                         },
