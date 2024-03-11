@@ -20,7 +20,7 @@ class General {
   static String formatoFecha(DateTime date) =>
       DateFormat('yyyy-MM-dd').format(date);
 
-      ///formatea fecha
+  ///formatea fecha
 
   ///quita las comas del string que viene del input
   static double stringToDouble(String value) =>
@@ -66,4 +66,7 @@ class General {
       controllerField.text = formatoFecha(pickedDate);
     }
   }
+
+  static bool validateForm(GlobalKey<FormState> formKey) =>
+      formKey.currentState!.validate();
 }

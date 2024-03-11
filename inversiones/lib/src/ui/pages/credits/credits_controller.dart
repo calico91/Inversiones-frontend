@@ -324,8 +324,6 @@ class CreditsController extends GetxController {
     installmentDate.clear();
   }
 
-  bool validateForm() => formKey.currentState!.validate();
-
   bool validarFormAbonoCapital() =>
       formKeyAbonoCapital.currentState!.validate();
 

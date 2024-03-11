@@ -4,7 +4,7 @@ import 'package:inversiones/src/domain/responses/reportes/reporte_interes_capita
 abstract class ReportesRepository {
   const ReportesRepository();
 
-  Future<ReporteInteresyCapitalResponse> infoReporteInteresyCapital(
+  Future<ReporteInteresyCapitalResponse> consultarReporteInteresyCapital(
     String fechaInicial,
     String fechaFinal,
   );

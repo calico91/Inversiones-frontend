@@ -90,7 +90,7 @@ class Clients extends StatelessWidget {
                 ),
                 child: FilledButton.icon(
                   onPressed: () {
-                    if (controller.validateForm()) {
+                    if (General.validateForm(controller.formKey)) {
                       if (controller.idClient.value == 0) {
                         controller.unfocus(context);
                         controller.save(General.mediaQuery(context));

@@ -21,10 +21,13 @@ class ReportesController extends GetxController {
 
   final Rx<bool> fechasCorrectas = Rx(true);
 
+  final TextEditingController cantidadAbonosConsultar = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   void onInit() {
     _fechaInicial();
-
+    cantidadAbonosConsultar.text = '10';
     super.onInit();
   }
 
@@ -38,7 +41,7 @@ class ReportesController extends GetxController {
         asyncFunction: () async {
           try {
             final ReporteInteresyCapitalResponse resHttp =
-                await const ReportesHttp().infoReporteInteresyCapital(
+                await const ReportesHttp().consultarReporteInteresyCapital(
               fechaInicial.text,
               fechaFinal.text,
             );
@@ -65,9 +68,12 @@ class ReportesController extends GetxController {
       asyncFunction: () async {
         try {
           final AbonosRealizadosResponse resHttp =
-              await const ReportesHttp().consultarUltimosAbonos(10);
+              await const ReportesHttp().consultarUltimosAbonos(
+            int.parse(cantidadAbonosConsultar.value.text),
+          );
           if (resHttp.status == 200) {
             ultimosAbonos(resHttp.abonosRealizados);
+            cantidadAbonosConsultar.clear();
           } else {
             appController.manageError(resHttp.message!);
           }
