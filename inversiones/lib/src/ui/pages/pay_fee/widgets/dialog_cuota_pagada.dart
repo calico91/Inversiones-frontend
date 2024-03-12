@@ -17,8 +17,8 @@ class DialogCuotaPagada extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// si no es un abono a capital muestra todos los campos
-    final bool mostrarCampo = dataAbono.tipoAbono != Constantes.ABONO_CAPITAL;
+    /// si  es un abono normal muestra todos los campos
+    final bool mostrarCampo = dataAbono.tipoAbono == Constantes.CUOTA_NORMAL;
     return AlertDialog(
       title: const Text(
         textAlign: TextAlign.center,
@@ -37,13 +37,13 @@ class DialogCuotaPagada extends StatelessWidget {
                 children: [
                   _mostrarContenido(
                     'Cuotas Pagadas:',
-                    dataAbono.cuotasPagadas,
+                    dataAbono.cuotasPagadas.toString(),
                     context,
                     mostrarCampo,
                   ),
                   _mostrarContenido(
                     'Cantidad de cuotas:',
-                    dataAbono.cantidadCuotas,
+                    dataAbono.cantidadCuotas.toString(),
                     context,
                     mostrarCampo,
                   ),
@@ -60,14 +60,18 @@ class DialogCuotaPagada extends StatelessWidget {
                   _mostrarContenido(
                     'Valor abonado:',
                     General.formatoMoneda(
-                      General.stringToDouble(dataAbono.valorAbonado),
+                      General.stringToDouble(dataAbono.valorAbonado.toString()),
                     ),
                     context,
                     true,
                   ),
                   _mostrarContenido(
                     'Fecha abono:',
-                    General.formatoFecha(DateTime.now()),
+                    General.formatoFecha(
+                      DateTime.parse(
+                        dataAbono.fechaAbono ?? DateTime.now().toString(),
+                      ),
+                    ),
                     context,
                     true,
                   ),

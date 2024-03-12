@@ -2,8 +2,11 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
+import 'package:inversiones/src/domain/responses/generico_response.dart';
+import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
@@ -69,4 +72,16 @@ class General {
 
   static bool validateForm(GlobalKey<FormState> formKey) =>
       formKey.currentState!.validate();
+
+  static void mostrarModalCompartirAbonos(
+    DataAbono dataAbono,
+    bool barrierDismissible,
+  ) {
+    Get.dialog(
+      barrierDismissible: barrierDismissible,
+      DialogCuotaPagada(
+        dataAbono: dataAbono,
+      ),
+    );
+  }
 }

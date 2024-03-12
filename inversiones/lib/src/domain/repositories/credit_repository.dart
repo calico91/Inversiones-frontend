@@ -27,4 +27,7 @@ abstract class CreditRepository {
   Future<AbonosRealizadosResponse> consultarAbonosRealizados(
     int idCredito,
   );
+  Future<GenericoResponse> consultarAbonoPorId(
+    int idCuotaCredito,
+  );
 }

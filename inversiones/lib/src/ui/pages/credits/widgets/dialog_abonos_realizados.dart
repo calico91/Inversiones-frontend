@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
+import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:screenshot/screenshot.dart';
@@ -9,6 +11,7 @@ class DialogAbonosRealizados extends StatelessWidget {
   final List<AbonosRealizados> abonosRealizados;
 
   final ScreenshotController screenshotController = ScreenshotController();
+  final CreditsController controller = Get.find<CreditsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,10 @@ class DialogAbonosRealizados extends StatelessWidget {
                         subtitle: _showClientSubtitle(
                           abonosRealizados,
                           index,
+                          General.mediaQuery(context),
+                        ),
+                        onTap: () => controller.consultarAbonoPorId(
+                          abonosRealizados[index].id!,
                           General.mediaQuery(context),
                         ),
                       ),

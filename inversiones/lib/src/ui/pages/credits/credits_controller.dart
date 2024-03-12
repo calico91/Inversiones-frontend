@@ -18,7 +18,6 @@ import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dar
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_response_general.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
-import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
@@ -190,7 +189,10 @@ class CreditsController extends GetxController {
             ),
           );
           if (respuestaHttp.status == 200) {
-            _showInfoDialog(respuestaHttp.dataAbono!);
+            General.mostrarModalCompartirAbonos(
+              respuestaHttp.dataAbono!,
+              false,
+            );
           } else {
             appController.manageError(respuestaHttp.message);
           }
@@ -200,16 +202,6 @@ class CreditsController extends GetxController {
           appController.manageError(e.toString());
         }
       },
-    );
-  }
-
-  /// informacion cuando se hacen abonos a capital o interes
-  void _showInfoDialog(DataAbono dataAbono) {
-    Get.dialog(
-      barrierDismissible: false,
-      DialogCuotaPagada(
-        dataAbono: dataAbono,
-      ),
     );
   }
 
@@ -297,6 +289,29 @@ class CreditsController extends GetxController {
             _mostrarAbonosRealizados(res.abonosRealizados!);
           } else {
             appController.manageError(res.message!);
+          }
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
+  Future<void> consultarAbonoPorId(int idCuotaCredito, Size size) async {
+    Get.showOverlay(
+      loadingWidget: Loading(
+        vertical: size.height * 0.46,
+      ),
+      asyncFunction: () async {
+        try {
+          final GenericoResponse res =
+              await const CreditHttp().consultarAbonoPorId(idCuotaCredito);
+          if (res.status == 200) {
+            General.mostrarModalCompartirAbonos(res.dataAbono!, true);
+          } else {
+            appController.manageError(res.message);
           }
         } on HttpException catch (e) {
           appController.manageError(e.message);

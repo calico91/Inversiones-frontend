@@ -25,25 +25,33 @@ class GenericoResponse {
 }
 
 class DataAbono {
-  String cuotasPagadas;
-  String estadoCuota;
-  String cantidadCuotas;
-  String valorAbonado;
+  int? id;
+  int cuotasPagadas;
+  String? estadoCuota;
+  int cantidadCuotas;
+  double valorAbonado;
   String tipoAbono;
+  String? fechaAbono;
 
   DataAbono({
+    this.id,
     required this.cuotasPagadas,
-    required this.estadoCuota,
+    this.estadoCuota,
     required this.cantidadCuotas,
     required this.valorAbonado,
     required this.tipoAbono,
+    this.fechaAbono,
   });
 
   factory DataAbono.fromJson(Map<String, dynamic> json) => DataAbono(
-        cuotasPagadas: json["cuotasPagadas"] as String,
-        estadoCuota: json["estadoCuota"] as String,
-        cantidadCuotas: json["cantidadCuotas"] as String,
-        valorAbonado: json["valorAbonado"] as String,
+        id: json["id"] == null ? null : json["id"] as int,
+        cuotasPagadas: json["cuotasPagadas"] as int,
+        estadoCuota:
+            json["estadoCuota"] == null ? null : json["estadoCuota"] as String,
+        cantidadCuotas: json["cantidadCuotas"] as int,
+        valorAbonado: json["valorAbonado"] as double,
         tipoAbono: json["tipoAbono"] as String,
+        fechaAbono:
+            json["fechaAbono"] == null ? null : json["fechaAbono"] as String,
       );
 }
