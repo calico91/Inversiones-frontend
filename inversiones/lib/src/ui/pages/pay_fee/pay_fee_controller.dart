@@ -7,7 +7,6 @@ import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
-import 'package:inversiones/src/ui/pages/pay_fee/widgets/dialog_cuota_pagada.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
@@ -77,7 +76,10 @@ class PayFeeController extends GetxController {
             ),
           );
           if (respuestaHttp.status == 200) {
-            _showInfoDialog(respuestaHttp.dataAbono!);
+            General.mostrarModalCompartirAbonos(
+              respuestaHttp.dataAbono!,
+              false,
+            );
           } else {
             appController.manageError(respuestaHttp.message);
           }
@@ -89,19 +91,6 @@ class PayFeeController extends GetxController {
       },
     );
   }
-
-  /// muestra modal al realizar un abono a capital
-  void _showInfoDialog(DataAbono dataAbono) {
-    Get.dialog(
-      barrierDismissible: false,
-      DialogCuotaPagada(
-        dataAbono: dataAbono,
-        nombreCliente: nombreCliente,
-      ),
-    );
-  }
-
-
 
   /// cambia el valor del switch modificar valor
   bool? cambiarValorSwitch(bool value) {

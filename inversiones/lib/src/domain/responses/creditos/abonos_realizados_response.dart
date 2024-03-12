@@ -35,6 +35,7 @@ class AbonosRealizadosResponse {
 }
 
 class AbonosRealizados {
+  int? id;
   double? valorAbonado;
   String? tipoAbono;
   String? fechaAbono;
@@ -43,6 +44,7 @@ class AbonosRealizados {
   String? apellidos;
 
   AbonosRealizados({
+    this.id,
     this.valorAbonado,
     this.tipoAbono,
     this.fechaAbono,
@@ -53,6 +55,7 @@ class AbonosRealizados {
 
   factory AbonosRealizados.fromJson(Map<String, dynamic> json) =>
       AbonosRealizados(
+        id: json["id"] as int,
         valorAbonado:
             json["valorAbonado"] == null ? 0 : json["valorAbonado"] as double,
         tipoAbono: json["tipoAbono"] == null ? '' : json["tipoAbono"] as String,

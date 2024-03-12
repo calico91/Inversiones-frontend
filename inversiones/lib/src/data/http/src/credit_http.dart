@@ -122,4 +122,15 @@ class CreditHttp implements CreditRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<GenericoResponse> consultarAbonoPorId(int idCuotaCredito) async {
+    try {
+      final http.Response response = await baseHttpClient
+          .get('${UrlPaths.consultarAbonoPorId}/$idCuotaCredito');
+      return compute(genericoResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
