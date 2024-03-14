@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
           child: Obx(
             () => controller.userDetails.value.username != null
                 ? Text(controller.userDetails.value.username!.toUpperCase())
-                : Container(),
+                : const SizedBox(),
           ),
         ),
         actions: [
@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: General.mediaQuery(context).height * 0.35,
 
-                /// lista cuotas pendientes 
+                /// lista cuotas pendientes
                 child: const ClientsPendingInstallmentsMolecule(),
               ),
               Padding(

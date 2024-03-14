@@ -55,7 +55,7 @@ class AbonosRealizados {
 
   factory AbonosRealizados.fromJson(Map<String, dynamic> json) =>
       AbonosRealizados(
-        id: json["id"] as int,
+        id: json["id"] == null ? null : json["id"] as int,
         valorAbonado:
             json["valorAbonado"] == null ? 0 : json["valorAbonado"] as double,
         tipoAbono: json["tipoAbono"] == null ? '' : json["tipoAbono"] as String,
