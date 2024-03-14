@@ -25,7 +25,7 @@ class HomeController extends GetxService {
   final TextEditingController creditValue = TextEditingController();
   final TextEditingController installmentAmount = TextEditingController();
   final TextEditingController interestPercentage = TextEditingController();
-  final Rx<UserDetails> userDetails = Rx<UserDetails>(const UserDetails());
+  final Rx<UserDetails> userDetails = Rx<UserDetails>( UserDetails());
 
   final TextEditingController fechafiltro = TextEditingController();
 

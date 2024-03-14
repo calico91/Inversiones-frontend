@@ -8,6 +8,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SplashController controller = Get.find<SplashController>();
+    
     return Scaffold(
       body: Center(
         child: Obx(() {

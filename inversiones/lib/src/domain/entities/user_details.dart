@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:inversiones/src/domain/entities/Authority.dart';
 
 class UserDetails {
-  const UserDetails({
+   UserDetails({
     this.password,
      this.username,
      this.authorities,
@@ -13,7 +13,7 @@ class UserDetails {
      this.enabled,
   });
 
-  final String? password;
+  String? password;
   final String? username;
   final List<Authority>? authorities;
   final bool? accountNonExpired;
