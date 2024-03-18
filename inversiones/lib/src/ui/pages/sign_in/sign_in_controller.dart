@@ -35,36 +35,30 @@ class SignInController extends GetxController {
   }
 
   void signIn(
-    Size size,
-    String username,
-    String clave,
-    bool validarFormulario,
-  ) {
+      Size size, String username, String clave, bool validarFormulario) {
     if (formKey.currentState!.validate() || !validarFormulario) {
       Get.showOverlay(
-        asyncFunction: () async {
-          try {
-            final SignInResponse res =
-                await const SignInHttp().signInWithUsernameAndPassword(
-              username,
-              clave,
-            );
-            password(passwordController.value.text.trim());
+          asyncFunction: () async {
+            try {
+              final SignInResponse res = await const SignInHttp()
+                  .signInWithUsernameAndPassword(username, clave);
 
-            if (res.status == 200) {
-              await const SecureStorageLocal().savePassword(password.value);
-              await const SecureStorageLocal().saveToken(res.token);
-              await const SecureStorageLocal().saveUserDetails(res.userDetails);
-              Get.offNamed(RouteNames.home);
-            } else {
-              appController.manageError(res.message);
+              password(passwordController.value.text.trim());
+
+              if (res.status == 200) {
+                await const SecureStorageLocal().savePassword(password.value);
+                await const SecureStorageLocal().saveToken(res.token);
+                await const SecureStorageLocal()
+                    .saveUserDetails(res.userDetails);
+                Get.offNamed(RouteNames.home);
+              } else {
+                appController.manageError(res.message);
+              }
+            } on HttpException catch (e) {
+              appController.manageError(e.message);
             }
-          } on HttpException catch (e) {
-            appController.manageError(e.message);
-          }
-        },
-        loadingWidget: Loading(vertical: size.height * 0.46),
-      );
+          },
+          loadingWidget: Loading(vertical: size.height * 0.46));
     }
   }
 
@@ -75,9 +69,8 @@ class SignInController extends GetxController {
     try {
       if (!await _canAuth()) return false;
       return await _auth.authenticate(
-        localizedReason: 'Necesito tu conf',
-        options: const AuthenticationOptions(biometricOnly: true),
-      );
+          localizedReason: 'Necesito tu conf',
+          options: const AuthenticationOptions(biometricOnly: true));
     } catch (e) {
       return false;
     }

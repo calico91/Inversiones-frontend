@@ -14,9 +14,7 @@ import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 
 class CreditHttp implements CreditRepository {
-  const CreditHttp({
-    this.baseHttpClient = const BaseHttpClient(),
-  });
+  const CreditHttp({this.baseHttpClient = const BaseHttpClient()});
 
   final BaseHttpClient baseHttpClient;
 
@@ -44,13 +42,11 @@ class CreditHttp implements CreditRepository {
 
   @override
   Future<GenericoResponse> pagarCuota(
-    PagarCuotaRequest pagarCuotaRequest,
-  ) async {
+      PagarCuotaRequest pagarCuotaRequest) async {
     try {
       final http.Response response = await baseHttpClient.put(
-        '${UrlPaths.pagarCuota}/${pagarCuotaRequest.idCuotaCredito}',
-        request: pagarCuotaRequest.toJson(),
-      );
+          '${UrlPaths.pagarCuota}/${pagarCuotaRequest.idCuotaCredito}',
+          request: pagarCuotaRequest.toJson());
       return compute(genericoResponseFromJson, response.body);
     } catch (e) {
       rethrow;
@@ -82,13 +78,10 @@ class CreditHttp implements CreditRepository {
 
   @override
   Future<PayFeeResponse> modificarFechaCuota(
-    String fechaNueva,
-    int idCredito,
-  ) async {
+      String fechaNueva, int idCredito) async {
     try {
-      final http.Response response = await baseHttpClient.put(
-        '${UrlPaths.modificarFechaCuota}/$fechaNueva/$idCredito',
-      );
+      final http.Response response = await baseHttpClient
+          .put('${UrlPaths.modificarFechaCuota}/$fechaNueva/$idCredito');
       return compute(payFeeResponseFromJson, response.body);
     } catch (e) {
       rethrow;
@@ -97,13 +90,10 @@ class CreditHttp implements CreditRepository {
 
   @override
   Future<EstadoCreditoResponse> modificarEstadoCredito(
-    int idCredito,
-    int estadoCredito,
-  ) async {
+      int idCredito, int estadoCredito) async {
     try {
-      final http.Response response = await baseHttpClient.put(
-        '${UrlPaths.modificarEstadoCredito}/$idCredito/$estadoCredito',
-      );
+      final http.Response response = await baseHttpClient
+          .put('${UrlPaths.modificarEstadoCredito}/$idCredito/$estadoCredito');
       return compute(estadoCreditoResponseFromJson, response.body);
     } catch (e) {
       rethrow;
@@ -112,8 +102,7 @@ class CreditHttp implements CreditRepository {
 
   @override
   Future<AbonosRealizadosResponse> consultarAbonosRealizados(
-    int idCredito,
-  ) async {
+      int idCredito) async {
     try {
       final http.Response response = await baseHttpClient
           .get('${UrlPaths.consultarAbonosRealizados}/$idCredito');

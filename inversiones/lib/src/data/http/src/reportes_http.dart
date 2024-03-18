@@ -7,22 +7,17 @@ import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_resp
 import 'package:inversiones/src/domain/responses/reportes/reporte_interes_capital_response.dart';
 
 class ReportesHttp implements ReportesRepository {
-  const ReportesHttp({
-    this.baseHttpClient = const BaseHttpClient(),
-  });
+  const ReportesHttp({this.baseHttpClient = const BaseHttpClient()});
 
   final BaseHttpClient baseHttpClient;
 
   @override
   Future<ReporteInteresyCapitalResponse> consultarReporteInteresyCapital(
-    String fechaInicial,
-    String fechaFinal,
-  ) async {
+      String fechaInicial, String fechaFinal) async {
     try {
       final http.Response response = await baseHttpClient.get(
-        UrlPaths.infoReporteInteresyCapital,
-        {'fechaInicial': fechaInicial, 'fechaFinal': fechaFinal},
-      );
+          UrlPaths.infoReporteInteresyCapital,
+          {'fechaInicial': fechaInicial, 'fechaFinal': fechaFinal});
       return compute(reporteInteresyCapitalResponseFromJson, response.body);
     } catch (e) {
       rethrow;
@@ -31,12 +26,10 @@ class ReportesHttp implements ReportesRepository {
 
   @override
   Future<AbonosRealizadosResponse> consultarUltimosAbonos(
-    int cantidadAbonos,
-  ) async {
+      int cantidadAbonos) async {
     try {
-      final http.Response response = await baseHttpClient.get(
-        '${UrlPaths.consultarUltimosAbonos}/$cantidadAbonos',
-      );
+      final http.Response response = await baseHttpClient
+          .get('${UrlPaths.consultarUltimosAbonos}/$cantidadAbonos');
       return compute(abonosRealizadosResponseFromJson, response.body);
     } catch (_) {
       rethrow;
