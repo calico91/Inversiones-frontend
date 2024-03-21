@@ -7,4 +7,8 @@ abstract class SignInRepository {
     String username,
     String password,
   );
+  Future<SignInResponse> authBiometrica(
+    String username,
+    String idMovil,
+  );
 }

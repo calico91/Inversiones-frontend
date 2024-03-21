@@ -22,7 +22,8 @@ class SignInController extends GetxController {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final Rx<UserDetails> userDetails = Rx<UserDetails>(UserDetails());
-  final Rx<String?> password = Rx<String?>(null);
+  String? idMovil;
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
   Rx<bool> obscureText = Rx<bool>(true);
   Rx<bool> autenticado = Rx<bool>(false);
@@ -30,23 +31,22 @@ class SignInController extends GetxController {
   @override
   Future<void> onInit() async {
     userDetails(await const SecureStorageLocal().userDetails);
-    password(await const SecureStorageLocal().password);
+    idMovil = await const SecureStorageLocal().idMovil;
     super.onInit();
   }
 
-  void signIn(
-      Size size, String username, String clave, bool validarFormulario) {
-    if (formKey.currentState!.validate() || !validarFormulario) {
+  void signIn(Size size, String username, String clave) {
+    if (formKey.currentState!.validate()) {
       Get.showOverlay(
           asyncFunction: () async {
             try {
               final SignInResponse res = await const SignInHttp()
                   .signInWithUsernameAndPassword(username, clave);
-
-              password(passwordController.value.text.trim());
+              final AndroidDeviceInfo androidInfo =
+                  await deviceInfo.androidInfo;
 
               if (res.status == 200) {
-                await const SecureStorageLocal().savePassword(password.value);
+                await const SecureStorageLocal().saveIdMovil(androidInfo.id);
                 await const SecureStorageLocal().saveToken(res.token);
                 await const SecureStorageLocal()
                     .saveUserDetails(res.userDetails);
@@ -60,6 +60,29 @@ class SignInController extends GetxController {
           },
           loadingWidget: Loading(vertical: size.height * 0.46));
     }
+  }
+
+  void authBiometrica(Size size) {
+    Get.showOverlay(
+        asyncFunction: () async {
+          try {
+            final SignInResponse res = await const SignInHttp()
+                .authBiometrica(userDetails.value.username!, idMovil!);
+
+            if (res.status == 200) {
+              await const SecureStorageLocal().saveToken(res.token);
+              await const SecureStorageLocal().saveUserDetails(res.userDetails);
+              Get.offNamed(RouteNames.home);
+
+
+            } else {
+              appController.manageError(res.message);
+            }
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          }
+        },
+        loadingWidget: Loading(vertical: size.height * 0.46));
   }
 
   Future<bool> _canAuth() async =>

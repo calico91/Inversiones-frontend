@@ -22,4 +22,16 @@ class SignInHttp implements SignInRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<SignInResponse> authBiometrica(String username, String idMovil) async {
+    try {
+      final http.Response response = await baseHttpClient.post(UrlPaths.authBiometrica,
+          request: {'username': username, 'idMovil': idMovil});
+
+      return compute(signInResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

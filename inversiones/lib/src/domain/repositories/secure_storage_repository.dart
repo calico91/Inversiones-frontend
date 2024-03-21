@@ -7,6 +7,6 @@ abstract class SecureStorageRepository {
   Future<UserDetails?> get userDetails;
   Future<void> saveToken(String? token);
   Future<void> saveUserDetails(UserDetails? userDetails);
-  Future<void> savePassword(String? password);
-  Future<String?> get password;
+  Future<void> saveIdMovil(String? password);
+  Future<String?> get idMovil;
 }
