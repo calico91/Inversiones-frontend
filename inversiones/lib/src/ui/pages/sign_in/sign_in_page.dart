@@ -19,12 +19,9 @@ class SignInPage extends StatelessWidget {
                 onPressed: () async {
                   final bool autBiometria = await controller.authenticate();
                   if (autBiometria) {
-                    controller.signIn(
+                    controller.authBiometrica(
                       // ignore: use_build_context_synchronously
                       General.mediaQuery(context),
-                      controller.userDetails.value.username!,
-                      controller.password.value ?? '',
-                      false,
                     );
                   }
                 },
@@ -81,7 +78,6 @@ class SignInPage extends StatelessWidget {
                       General.mediaQuery(context),
                       controller.usernameController.value.text.trim(),
                       controller.passwordController.value.text.trim(),
-                      true,
                     ),
                     icon: const Icon(Icons.arrow_circle_right_rounded),
                   ),

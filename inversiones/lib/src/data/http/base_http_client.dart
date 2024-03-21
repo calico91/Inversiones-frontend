@@ -8,27 +8,23 @@ import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 
 class BaseHttpClient {
-  const BaseHttpClient({
-    this.timeout = const Duration(seconds: 15),
-    this.secureStorageLocal = const SecureStorageLocal(),
-  });
+  const BaseHttpClient(
+      {this.timeout = const Duration(seconds: 15),
+      this.secureStorageLocal = const SecureStorageLocal()});
 
   final Duration timeout;
   final SecureStorageLocal secureStorageLocal;
 
-  Future<http.Response> get(
-    String path, [
-    Map<String, String>? parameters,
-  ]) async {
+  Future<http.Response> get(String path,
+      [Map<String, String>? parameters]) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
         : Uri.https('inversiones.up.railway.app', path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
-      final http.Response response = await http.get(
-        uri,
-        headers: {HttpHeaders.authorizationHeader: token ?? ''},
-      ).timeout(timeout);
+      final http.Response response = await http.get(uri, headers: {
+        HttpHeaders.authorizationHeader: token ?? ''
+      }).timeout(timeout);
       if (response.statusCode == 200) {
         return Future.value(response);
       }
@@ -46,27 +42,22 @@ class BaseHttpClient {
     }
   }
 
-  Future<http.Response> post(
-    String path, {
-    Map<String, dynamic>? request,
-    Map<String, String>? parameters,
-  }) async {
+  Future<http.Response> post(String path,
+      {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
         : Uri.http('https://inversiones.up.railway.app', path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
-          .post(
-            uri,
-            headers: path == UrlPaths.signIn
-                ? null
-                : {
-                    HttpHeaders.authorizationHeader: token ?? '',
-                    'Content-Type': 'application/json',
-                  },
-            body: request != null ? json.encode(request) : null,
-          )
+          .post(uri,
+              headers: path == UrlPaths.signIn
+                  ? null
+                  : {
+                      HttpHeaders.authorizationHeader: token ?? '',
+                      'Content-Type': 'application/json'
+                    },
+              body: request != null ? json.encode(request) : null)
           .timeout(timeout);
       if (response.statusCode == 200) {
         return Future.value(response);
@@ -85,11 +76,8 @@ class BaseHttpClient {
     }
   }
 
-  Future<http.Response> put(
-    String path, {
-    Map<String, dynamic>? request,
-    Map<String, String>? parameters,
-  }) async {
+  Future<http.Response> put(String path,
+      {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
         : Uri.http('https://inversiones.up.railway.app', path, parameters);
@@ -102,7 +90,7 @@ class BaseHttpClient {
                 ? null
                 : {
                     HttpHeaders.authorizationHeader: token ?? '',
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                   },
             body: request != null ? json.encode(request) : null,
           )
@@ -112,11 +100,10 @@ class BaseHttpClient {
       }
       final message = jsonDecode(response.body);
       throw _processResponse(
-        response.statusCode,
-        response.request?.url.toString() ?? uri.toString(),
-        // ignore: avoid_dynamic_calls
-        message['message'].toString(),
-      );
+          response.statusCode,
+          response.request?.url.toString() ?? uri.toString(),
+          // ignore: avoid_dynamic_calls
+          message['message'].toString());
     } on SocketException {
       throw FetchDataException('No internet connection', uri.toString());
     } on TimeoutException {

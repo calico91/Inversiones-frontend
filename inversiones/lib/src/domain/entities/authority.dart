@@ -9,7 +9,5 @@ class Authority {
         authority: json["authority"] as String,
       );
 
-  Map<String, dynamic> toJson() => {
-        "authority": authority,
-      };
+  Map<String, dynamic> toJson() => {"authority": authority};
 }

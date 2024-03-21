@@ -9,9 +9,7 @@ import 'package:inversiones/src/domain/responses/clientes/all_clients_response.d
 import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
 
 class ClientHttp implements ClientRepository {
-  const ClientHttp({
-    this.baseHttpClient = const BaseHttpClient(),
-  });
+  const ClientHttp({this.baseHttpClient = const BaseHttpClient()});
 
   final BaseHttpClient baseHttpClient;
 
@@ -31,9 +29,8 @@ class ClientHttp implements ClientRepository {
   @override
   Future<AllClientsResponse> allClients() async {
     try {
-      final http.Response response = await baseHttpClient.get(
-        UrlPaths.allClients,
-      );
+      final http.Response response =
+          await baseHttpClient.get(UrlPaths.allClients);
 
       return compute(allClientsResponseFromJson, response.body);
     } catch (e) {
@@ -70,11 +67,10 @@ class ClientHttp implements ClientRepository {
   ///de la fecha actual hacia atras
   @override
   Future<ClientsPendingInstallmentsResponse> clientsPendingInstallments(
-    String fechaFiltro,
-  ) async {
+      String fechaFiltro) async {
     try {
       final http.Response response = await baseHttpClient.get(
-        "${UrlPaths.infoClientesCuotaCredito}/$fechaFiltro",
+        ' ${UrlPaths.infoClientesCuotaCredito}/$fechaFiltro',
       );
       return compute(clientsPendingInstallmentsResponseFromJson, response.body);
     } catch (e) {

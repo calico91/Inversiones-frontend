@@ -10,7 +10,6 @@ class SecureStorageLocal implements SecureStorageRepository {
   final FlutterSecureStorage secureStorage;
 
   static String? _jwtToken;
-  static String? _password;
 
   @override
   Future<String?> get jwtToken async {
@@ -41,12 +40,12 @@ class SecureStorageLocal implements SecureStorageRepository {
   }
 
   @override
-  Future<String?> get password async {
-    return _password ??= await secureStorage.read(key: 'password');
+  Future<String?> get idMovil async {
+    return  await secureStorage.read(key: 'idMovil');
   }
 
   @override
-  Future<void> savePassword(String? password) {
-    return secureStorage.write(key: 'password', value: password);
+  Future<void> saveIdMovil(String? idMovil) {
+    return secureStorage.write(key: 'idMovil', value: idMovil);
   }
 }

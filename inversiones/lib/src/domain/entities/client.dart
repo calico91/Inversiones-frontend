@@ -1,18 +1,17 @@
 import 'package:inversiones/src/domain/entities/credit.dart';
 
 class Client {
-  const Client({
-    this.id,
-    required this.nombres,
-    required this.apellidos,
-    this.email,
-    required this.celular,
-    this.pais,
-    required this.cedula,
-    required this.direccion,
-    required this.observaciones,
-    this.listaCreditos,
-  });
+  const Client(
+      {this.id,
+      required this.nombres,
+      required this.apellidos,
+      this.email,
+      required this.celular,
+      this.pais,
+      required this.cedula,
+      required this.direccion,
+      required this.observaciones,
+      this.listaCreditos});
 
   final int? id;
   final String nombres;
@@ -32,22 +31,20 @@ class Client {
         ? List.empty()
         : List<Credit>.from(
             (json['listaCreditos'] as List<dynamic>).map((element) {
-              return Credit.fromJson(element as Map<String, dynamic>);
-            }),
-          );
+            return Credit.fromJson(element as Map<String, dynamic>);
+          }));
 
     return Client(
-      id: json['id'] as int,
-      nombres: json['nombres'] as String,
-      apellidos: json['apellidos'] as String,
-      email: email,
-      celular: json['celular'] as String,
-      pais: pais,
-      cedula: json['cedula'] as String,
-      direccion: json['direccion'] as String,
-      observaciones: json['observaciones'] as String,
-      listaCreditos: listaCreditos,
-    );
+        id: json['id'] as int,
+        nombres: json['nombres'] as String,
+        apellidos: json['apellidos'] as String,
+        email: email,
+        celular: json['celular'] as String,
+        pais: pais,
+        cedula: json['cedula'] as String,
+        direccion: json['direccion'] as String,
+        observaciones: json['observaciones'] as String,
+        listaCreditos: listaCreditos);
   }
 
   Map<String, dynamic> toJson() {
@@ -60,7 +57,7 @@ class Client {
       'pais': pais,
       'cedula': cedula,
       'direccion': direccion,
-      'observaciones': observaciones,
+      'observaciones': observaciones
     };
   }
 }
