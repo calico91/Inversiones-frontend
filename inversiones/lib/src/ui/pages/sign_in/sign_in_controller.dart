@@ -70,11 +70,10 @@ class SignInController extends GetxController {
                 .authBiometrica(userDetails.value.username!, idMovil!);
 
             if (res.status == 200) {
+              print(res.token);
               await const SecureStorageLocal().saveToken(res.token);
               await const SecureStorageLocal().saveUserDetails(res.userDetails);
               Get.offNamed(RouteNames.home);
-
-
             } else {
               appController.manageError(res.message);
             }
