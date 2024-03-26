@@ -69,8 +69,9 @@ class ClientHttp implements ClientRepository {
   Future<ClientsPendingInstallmentsResponse> clientsPendingInstallments(
       String fechaFiltro) async {
     try {
-      final http.Response response = await baseHttpClient
-          .get('${UrlPaths.infoClientesCuotaCredito}/$fechaFiltro');
+      final http.Response response = await baseHttpClient.get('${UrlPaths.infoClientesCuotaCredito}/$fechaFiltro',
+      );
+
       return compute(clientsPendingInstallmentsResponseFromJson, response.body);
     } catch (e) {
       rethrow;
