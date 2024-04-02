@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class DrawerMolecule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.find<HomeController>();
     return NavigationDrawer(
       children: [
         SingleChildScrollView(
@@ -26,6 +29,12 @@ class DrawerMolecule extends StatelessWidget {
                 Icons.data_saver_off_sharp,
                 'Reportes',
                 () => Get.toNamed(RouteNames.reportes),
+              ),
+              _opciones(
+                Icons.mobile_friendly,
+                'Asignar dispositivo',
+                () =>
+                    controller.vincularDispositivo(General.mediaQuery(context)),
               ),
             ],
           ),

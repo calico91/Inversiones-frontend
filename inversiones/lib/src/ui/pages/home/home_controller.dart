@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
+import 'package:inversiones/src/data/http/src/userdetails_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
+import 'package:inversiones/src/domain/request/vincular_dispositivo_request.dart';
 import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
+import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
+import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 
 class HomeController extends GetxService {
   HomeController(this.appController);
@@ -25,7 +29,7 @@ class HomeController extends GetxService {
   final TextEditingController creditValue = TextEditingController();
   final TextEditingController installmentAmount = TextEditingController();
   final TextEditingController interestPercentage = TextEditingController();
-  final Rx<UserDetails> userDetails = Rx<UserDetails>( UserDetails());
+  final Rx<UserDetails> userDetails = Rx<UserDetails>(UserDetails());
 
   final TextEditingController fechafiltro = TextEditingController();
 
@@ -56,6 +60,37 @@ class HomeController extends GetxService {
     } finally {
       _loading(false);
     }
+  }
+
+  Future<void> vincularDispositivo(Size size) async {
+    final String? idmovil = await const SecureStorageLocal().idMovil;
+
+    Get.showOverlay(
+      loadingWidget: Loading(
+        vertical: size.height * 0.46,
+      ),
+      asyncFunction: () async {
+        try {
+          final GenericoResponse respuestaHttp =
+              await const UserDetailsHttp().vincularDispositivo(
+            VincularDispositivoRequest(
+                username: userDetails.value.username!,
+                idDispositivo: idmovil ?? ""),
+          );
+          if (respuestaHttp.status == 200) {
+            Get.showSnackbar(
+              InfoSnackbar(respuestaHttp.data),
+            );
+          } else {
+            appController.manageError(respuestaHttp.message);
+          }
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
   }
 
   void logout() {

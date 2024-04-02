@@ -4,8 +4,8 @@ import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
+import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
-import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -56,7 +56,7 @@ class PayFeeController extends GetxController {
       ),
       asyncFunction: () async {
         try {
-          final GenericoResponse respuestaHttp =
+          final AbonoResponse respuestaHttp =
               await const CreditHttp().pagarCuota(
             PagarCuotaRequest(
               abonoExtra: false,
