@@ -5,15 +5,15 @@ import 'package:inversiones/src/domain/responses/creditos/add_credit_response.da
 import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
+import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
-import 'package:inversiones/src/domain/responses/generico_response.dart';
 
 abstract class CreditRepository {
   const CreditRepository();
 
   Future<AddCreditResponse> addCredit(AddCreditRequest addCreditRequest);
   Future<PayFeeResponse> infoPayFee(int idCliente, int idCredito);
-  Future<GenericoResponse> pagarCuota(PagarCuotaRequest pagarCuotaRequest);
+  Future<AbonoResponse> pagarCuota(PagarCuotaRequest pagarCuotaRequest);
   Future<InfoCreditosActivosResponse> infoCreditosActivos();
   Future<InfoCreditoySaldoResponse> infoCreditoySaldo(int idCredito);
   Future<PayFeeResponse> modificarFechaCuota(
@@ -27,7 +27,7 @@ abstract class CreditRepository {
   Future<AbonosRealizadosResponse> consultarAbonosRealizados(
     int idCredito,
   );
-  Future<GenericoResponse> consultarAbonoPorId(
+  Future<AbonoResponse> consultarAbonoPorId(
     int idCuotaCredito,
   );
 }

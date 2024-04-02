@@ -70,7 +70,6 @@ class SignInController extends GetxController {
                 .authBiometrica(userDetails.value.username!, idMovil!);
 
             if (res.status == 200) {
-              print(res.token);
               await const SecureStorageLocal().saveToken(res.token);
               await const SecureStorageLocal().saveUserDetails(res.userDetails);
               Get.offNamed(RouteNames.home);
@@ -91,7 +90,7 @@ class SignInController extends GetxController {
     try {
       if (!await _canAuth()) return false;
       return await _auth.authenticate(
-          localizedReason: 'Necesito tu conf',
+          localizedReason: 'Autenticacion biometrica',
           options: const AuthenticationOptions(biometricOnly: true));
     } catch (e) {
       return false;

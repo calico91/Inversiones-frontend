@@ -10,8 +10,8 @@ import 'package:inversiones/src/domain/responses/creditos/add_credit_response.da
 import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
+import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
-import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_abonos_realizados.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
@@ -176,7 +176,7 @@ class CreditsController extends GetxController {
       ),
       asyncFunction: () async {
         try {
-          final GenericoResponse respuestaHttp =
+          final AbonoResponse respuestaHttp =
               await const CreditHttp().pagarCuota(
             PagarCuotaRequest(
               valorInteres: valorInteres,
@@ -306,7 +306,7 @@ class CreditsController extends GetxController {
       ),
       asyncFunction: () async {
         try {
-          final GenericoResponse res =
+          final AbonoResponse res =
               await const CreditHttp().consultarAbonoPorId(idCuotaCredito);
           if (res.status == 200) {
             General.mostrarModalCompartirAbonos(res.dataAbono!, true);

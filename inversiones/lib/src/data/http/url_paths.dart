@@ -16,11 +16,15 @@ class UrlPaths {
   static const String infoCreditosActivos = '/credito/infoCreditosActivos';
   static const String infoCreditoySaldo = '/cuotaCredito/infoCreditoySaldo';
   static const String modificarFechaCuota = '/cuotaCredito/modificarFechaPago';
-  static const String infoReporteInteresyCapital = '/cuotaCredito/reporteInteresyCapital';
-  static const String modificarEstadoCredito = '/credito/modificarEstadoCredito';
-  static const String consultarAbonosRealizados = '/cuotaCredito/consultarAbonosRealizados';
-  static const String consultarUltimosAbonos = '/cuotaCredito/consultarUltimosAbonosRealizados';
+  static const String infoReporteInteresyCapital =
+      '/cuotaCredito/reporteInteresyCapital';
+  static const String modificarEstadoCredito =
+      '/credito/modificarEstadoCredito';
+  static const String consultarAbonosRealizados =
+      '/cuotaCredito/consultarAbonosRealizados';
+  static const String consultarUltimosAbonos =
+      '/cuotaCredito/consultarUltimosAbonosRealizados';
   static const String consultarAbonoPorId = '/cuotaCredito/consultarAbonoPorId';
-    static const String authBiometrica = '/user/auth-biometrica';
-
+  static const String authBiometrica = '/user/auth-biometrica';
+  static const String vincularDispositivo = '/user/vincular-dispositivo';
 }

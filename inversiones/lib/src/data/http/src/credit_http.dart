@@ -10,8 +10,8 @@ import 'package:inversiones/src/domain/responses/creditos/add_credit_response.da
 import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
+import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
-import 'package:inversiones/src/domain/responses/generico_response.dart';
 
 class CreditHttp implements CreditRepository {
   const CreditHttp({this.baseHttpClient = const BaseHttpClient()});
@@ -41,8 +41,7 @@ class CreditHttp implements CreditRepository {
   }
 
   @override
-  Future<GenericoResponse> pagarCuota(
-      PagarCuotaRequest pagarCuotaRequest) async {
+  Future<AbonoResponse> pagarCuota(PagarCuotaRequest pagarCuotaRequest) async {
     try {
       final http.Response response = await baseHttpClient.put(
           '${UrlPaths.pagarCuota}/${pagarCuotaRequest.idCuotaCredito}',
@@ -113,7 +112,7 @@ class CreditHttp implements CreditRepository {
   }
 
   @override
-  Future<GenericoResponse> consultarAbonoPorId(int idCuotaCredito) async {
+  Future<AbonoResponse> consultarAbonoPorId(int idCuotaCredito) async {
     try {
       final http.Response response = await baseHttpClient
           .get('${UrlPaths.consultarAbonoPorId}/$idCuotaCredito');
