@@ -189,10 +189,8 @@ class CreditsController extends GetxController {
             ),
           );
           if (respuestaHttp.status == 200) {
-            General.mostrarModalCompartirAbonos(
-              respuestaHttp.dataAbono!,
-              false,
-            );
+            General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
+                homeController.nombreClienteSeleccionado);
           } else {
             appController.manageError(respuestaHttp.message);
           }
@@ -309,7 +307,8 @@ class CreditsController extends GetxController {
           final AbonoResponse res =
               await const CreditHttp().consultarAbonoPorId(idCuotaCredito);
           if (res.status == 200) {
-            General.mostrarModalCompartirAbonos(res.dataAbono!, true);
+            General.mostrarModalCompartirAbonos(
+                res.dataAbono!, true, homeController.nombreClienteSeleccionado);
           } else {
             appController.manageError(res.message);
           }

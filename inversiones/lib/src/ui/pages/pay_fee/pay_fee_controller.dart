@@ -76,10 +76,8 @@ class PayFeeController extends GetxController {
             ),
           );
           if (respuestaHttp.status == 200) {
-            General.mostrarModalCompartirAbonos(
-              respuestaHttp.dataAbono!,
-              false,
-            );
+            General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
+                homeController.nombreClienteSeleccionado);
           } else {
             appController.manageError(respuestaHttp.message);
           }
