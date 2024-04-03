@@ -74,13 +74,13 @@ class General {
       formKey.currentState!.validate();
 
   static void mostrarModalCompartirAbonos(
-    DataAbono dataAbono,
-    bool barrierDismissible,
-  ) {
+      DataAbono dataAbono, bool barrierDismissible,
+      [String? nombreCliente]) {
     Get.dialog(
       barrierDismissible: barrierDismissible,
       DialogCuotaPagada(
         dataAbono: dataAbono,
+        nombreCliente: nombreCliente,
       ),
     );
   }
