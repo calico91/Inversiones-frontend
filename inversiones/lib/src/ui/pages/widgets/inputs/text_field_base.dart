@@ -18,6 +18,7 @@ class TextFieldBase extends StatelessWidget {
     this.required = true,
     this.textAlign = TextAlign.right,
     this.moneyCamp = false,
+    this.enabled = true,
   });
 
   final String? hintText;
@@ -32,6 +33,7 @@ class TextFieldBase extends StatelessWidget {
   final TextInputType textInputType;
   final bool? required;
   final bool? moneyCamp;
+  final bool? enabled;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -50,6 +52,7 @@ class TextFieldBase extends StatelessWidget {
             height: General.mediaQuery(context).height * heightTextField!,
             width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
+              enabled: enabled,
               textDirection: TextDirection.ltr,
               expands: true,
               maxLines: null,

@@ -54,11 +54,16 @@ class Credits extends StatelessWidget {
                         textInputType: TextInputType.number,
                         validateText: ValidateText.installmentAmount,
                       ),
-                      TextFieldBase(
-                        title: 'Documento cliente',
-                        controller: controller.document,
-                        textInputType: TextInputType.number,
-                        validateText: ValidateText.onlyNumbers,
+                      InkWell(
+                        onTap: () => controller
+                            .consultarClientes(General.mediaQuery(context)),
+                        child: TextFieldBase(
+                          enabled: false,
+                          title: 'Seleccione cliente',
+                          controller: controller.document,
+                          textInputType: TextInputType.number,
+                          validateText: ValidateText.name,
+                        ),
                       ),
                     ],
                   ),

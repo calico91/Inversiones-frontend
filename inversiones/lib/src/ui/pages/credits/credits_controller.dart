@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
+import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
+import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
+import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
@@ -15,6 +18,7 @@ import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_abonos_realizados.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/dialog_lista_clientes.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_response_general.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
@@ -38,7 +42,8 @@ class CreditsController extends GetxController {
   final TextEditingController creditDate = TextEditingController();
   final TextEditingController nuevaFechaCuota = TextEditingController();
   final Rx<int> estadoCredito = Rx(Constantes.CODIGO_CREDITO_ACTIVO);
-  TextEditingController buscar = TextEditingController();
+  TextEditingController campoBuscarCredito = TextEditingController();
+  TextEditingController campoBuscarCliente = TextEditingController();
   final Rx<int> status = Rx(0);
   final Rx<List<InfoCreditosActivos>> creditosActivos =
       Rx<List<InfoCreditosActivos>>([]);
@@ -52,6 +57,9 @@ class CreditsController extends GetxController {
   Rx<InfoCreditoySaldo> infoCreditoSaldo =
       Rx<InfoCreditoySaldo>(InfoCreditoySaldo());
 
+  final Rx<List<Client>> listaClientes = Rx<List<Client>>([]);
+  Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
+  final Rx<String> cedulaClienteSeleccionado = Rx<String>("");
   @override
   Future<void> onInit() async {
     _fechaInicialCredito();
@@ -91,7 +99,7 @@ class CreditsController extends GetxController {
             AddCreditRequest(
               cantidadCuotas: int.parse(installmentAmount.text.trim()),
               valorCredito: General.stringToDouble(creditValue.text),
-              cedulaTitularCredito: document.text.trim(),
+              cedulaTitularCredito: cedulaClienteSeleccionado.value,
               interesPorcentaje: double.parse(interestPercentage.text.trim()),
               fechaCredito: creditDate.text.trim(),
               fechaCuota: installmentDate.text.trim(),
@@ -297,6 +305,15 @@ class CreditsController extends GetxController {
     );
   }
 
+  /// informacion abonos realizados
+  void _mostrarAbonosRealizados(List<AbonosRealizados> abonosRealizados) {
+    Get.dialog(
+      DialogAbonosRealizados(
+        abonosRealizados: abonosRealizados,
+      ),
+    );
+  }
+
   Future<void> consultarAbonoPorId(int idCuotaCredito, Size size) async {
     Get.showOverlay(
       loadingWidget: Loading(
@@ -321,12 +338,33 @@ class CreditsController extends GetxController {
     );
   }
 
-  /// informacion abonos realizados
-  void _mostrarAbonosRealizados(List<AbonosRealizados> abonosRealizados) {
-    Get.dialog(
-      DialogAbonosRealizados(
-        abonosRealizados: abonosRealizados,
+  Future<void> consultarClientes(Size size) async {
+    Get.showOverlay(
+      loadingWidget: Loading(
+        vertical: size.height * 0.46,
       ),
+      asyncFunction: () async {
+        try {
+          final AllClientsResponse res = await const ClientHttp().allClients();
+          if (res.status == 200) {
+            _mostrarListaClientes(res.clients!);
+            listaClientes(res.clients);
+            filtroClientes(res.clients);
+          } else {
+            appController.manageError(res.message);
+          }
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
+  void _mostrarListaClientes(List<Client> clientes) {
+    Get.dialog(
+      DialogListaClientes(),
     );
   }
 
@@ -374,6 +412,7 @@ class CreditsController extends GetxController {
     }
   }
 
+  /// busca los clientes en la lista de creditos y en la lista de clientes
   void buscarCredito(String value) {
     List<InfoCreditosActivos> results = [];
     if (value.isEmpty) {

@@ -58,7 +58,7 @@ class ClientsController extends GetxController {
 
   void save(Size size) {
     Get.showOverlay(
-      loadingWidget:  Loading(
+      loadingWidget: Loading(
         vertical: size.height * 0.46,
       ),
       asyncFunction: () async {
@@ -115,9 +115,9 @@ class ClientsController extends GetxController {
     );
   }
 
-  void updateClient( Size size) {
+  void updateClient(Size size) {
     Get.showOverlay(
-      loadingWidget:  Loading(
+      loadingWidget: Loading(
         vertical: size.height * 0.46,
       ),
       asyncFunction: () async {
@@ -168,8 +168,6 @@ class ClientsController extends GetxController {
     observations.text = client.observaciones ?? '';
     phoneNumber.text = client.celular;
   }
-
-
 
   void buscarCliente(String value) {
     List<Client> results = [];
