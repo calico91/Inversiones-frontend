@@ -78,7 +78,9 @@ void _buscarCliente(String value, CreditsController controller) {
 void _obtenerClienteSeleccionado(
     CreditsController controller, Client cliente, BuildContext context) {
   controller.nombreCliente.text =
-      '${cliente.nombres.split('').first} ${cliente.apellidos}';
+      '${cliente.nombres.split(' ').first} ${cliente.apellidos}';
+
+  print(controller.nombreCliente.text);
 
   controller.cedulaClienteSeleccionado(cliente.cedula);
   Navigator.pop(context);
