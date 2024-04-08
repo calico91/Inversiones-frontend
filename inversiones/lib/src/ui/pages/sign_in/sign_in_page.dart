@@ -19,10 +19,11 @@ class SignInPage extends StatelessWidget {
                 onPressed: () async {
                   final bool autBiometria = await controller.authenticate();
                   if (autBiometria) {
-                    controller.authBiometrica(
-                      // ignore: use_build_context_synchronously
-                      General.mediaQuery(context),
-                    );
+                    if (context.mounted) {
+                      controller.authBiometrica(
+                        General.mediaQuery(context),
+                      );
+                    }
                   }
                 },
                 child: const Icon(Icons.fingerprint),

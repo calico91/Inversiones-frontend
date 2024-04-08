@@ -10,6 +10,7 @@ import 'package:inversiones/src/domain/responses/sing_in_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:local_auth_android/local_auth_android.dart';
 
 class SignInController extends GetxController {
   SignInController(this.appController);
@@ -90,8 +91,15 @@ class SignInController extends GetxController {
     try {
       if (!await _canAuth()) return false;
       return await _auth.authenticate(
-          localizedReason: 'Autenticacion biometrica',
-          options: const AuthenticationOptions(biometricOnly: true));
+          localizedReason: 'Usar los datos biometricos para ingresar',
+          options: const AuthenticationOptions(biometricOnly: true),
+          authMessages: const <AuthMessages>[
+            AndroidAuthMessages(
+              signInTitle: 'Autenticacion biometrica',
+              biometricHint: "",
+              cancelButton: 'Cancelar',
+            ),
+          ]);
     } catch (e) {
       return false;
     }
