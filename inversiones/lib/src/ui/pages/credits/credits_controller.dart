@@ -37,7 +37,7 @@ class CreditsController extends GetxController {
   final TextEditingController installmentAmount = TextEditingController();
   final TextEditingController interestPercentage = TextEditingController();
   final TextEditingController abonar = TextEditingController();
-  final TextEditingController document = TextEditingController();
+  final TextEditingController nombreCliente = TextEditingController();
   final TextEditingController installmentDate = TextEditingController();
   final TextEditingController creditDate = TextEditingController();
   final TextEditingController nuevaFechaCuota = TextEditingController();
@@ -63,7 +63,7 @@ class CreditsController extends GetxController {
   @override
   Future<void> onInit() async {
     _fechaInicialCredito();
-    _cedulaCliente();
+    _datosCliente();
 
     await _infoCreditosActivos();
     filtroCreditos(creditosActivos.value);
@@ -369,7 +369,7 @@ class CreditsController extends GetxController {
   }
 
   void _cleanForm() {
-    document.clear();
+    nombreCliente.clear();
     creditValue.clear();
     installmentAmount.clear();
     interestPercentage.clear();
@@ -430,8 +430,9 @@ class CreditsController extends GetxController {
   }
 
   ///carga la cedula de cliente cuando viene desde el modulo de clientes
-  void _cedulaCliente() {
-    document.text = Get.parameters['cedula'] ?? '';
+  void _datosCliente() {
+    nombreCliente.text = Get.parameters['nombreCliente'] ?? '';
+    cedulaClienteSeleccionado.value = Get.parameters['cedula'] ?? '';
   }
 
   /// cambia la modalidad

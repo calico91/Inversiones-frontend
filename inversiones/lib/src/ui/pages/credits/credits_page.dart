@@ -60,7 +60,7 @@ class Credits extends StatelessWidget {
                         child: TextFieldBase(
                           enabled: false,
                           title: 'Seleccione cliente',
-                          controller: controller.document,
+                          controller: controller.nombreCliente,
                           textInputType: TextInputType.number,
                           validateText: ValidateText.name,
                         ),

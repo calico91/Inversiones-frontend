@@ -70,7 +70,8 @@ class ListaClientes extends StatelessWidget {
                 tooltip: 'editar',
                 onPressed: () {
                   controller.loadClient(
-                    controller.filtroClientes.value[index].cedula,size,
+                    controller.filtroClientes.value[index].cedula,
+                    size,
                   );
                 },
                 icon: const Icon(color: Colors.blue, Icons.edit),
@@ -82,6 +83,8 @@ class ListaClientes extends StatelessWidget {
                     RouteNames.credits,
                     parameters: {
                       'cedula': controller.filtroClientes.value[index].cedula,
+                      'nombreCliente':
+                          "${controller.filtroClientes.value[index].nombres.split(' ').first} ${controller.filtroClientes.value[index].apellidos}"
                     },
                   );
                 },

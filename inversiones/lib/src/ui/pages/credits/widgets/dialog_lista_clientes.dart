@@ -6,7 +6,6 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 
 class DialogListaClientes extends StatelessWidget {
-  
   final CreditsController controller = Get.find<CreditsController>();
 
   @override
@@ -78,7 +77,9 @@ void _buscarCliente(String value, CreditsController controller) {
 
 void _obtenerClienteSeleccionado(
     CreditsController controller, Client cliente, BuildContext context) {
-  controller.document.text = '${cliente.nombres} ${cliente.apellidos}';
+  controller.nombreCliente.text =
+      '${cliente.nombres.split('').first} ${cliente.apellidos}';
+
   controller.cedulaClienteSeleccionado(cliente.cedula);
   Navigator.pop(context);
 }
