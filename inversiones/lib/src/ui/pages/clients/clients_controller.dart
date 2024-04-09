@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
@@ -30,6 +32,7 @@ class ClientsController extends GetxController {
   @override
   Future<void> onInit() async {
     await _allClients();
+    await const SecureStorageLocal().saveListaClientes(clients.value);
     filtroClientes(clients.value);
     super.onInit();
   }
