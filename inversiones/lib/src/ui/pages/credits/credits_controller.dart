@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
+import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
@@ -61,31 +62,33 @@ class CreditsController extends GetxController {
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
   final Rx<String> cedulaClienteSeleccionado = Rx<String>("");
   @override
-  Future<void> onInit() async {
+  void onInit() {
     _fechaInicialCredito();
     _datosCliente();
-
-    await _infoCreditosActivos();
-    filtroCreditos(creditosActivos.value);
-
     super.onInit();
   }
 
-  Future<void> _infoCreditosActivos() async {
-    try {
-      final InfoCreditosActivosResponse res =
-          await const CreditHttp().infoCreditosActivos();
-      if (res.status == 200) {
-        creditosActivos(res.infoCreditosActivos);
-        status(res.status);
-      } else {
-        appController.manageError(res.message!);
-      }
-    } on HttpException catch (e) {
-      appController.manageError(e.message);
-    } catch (e) {
-      appController.manageError(e.toString());
-    }
+  Future<void> infoCreditosActivos(Size size) async {
+    Get.showOverlay(
+        loadingWidget: Loading(
+          vertical: size.height * 0.46,
+        ),
+        asyncFunction: () async {
+          try {
+            final InfoCreditosActivosResponse res =
+                await const CreditHttp().infoCreditosActivos();
+            if (res.status == 200) {
+              creditosActivos(res.infoCreditosActivos);
+              filtroCreditos(creditosActivos.value);
+            } else {
+              appController.manageError(res.message!);
+            }
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
   }
 
   void save(Size size) {
@@ -344,15 +347,19 @@ class CreditsController extends GetxController {
         vertical: size.height * 0.46,
       ),
       asyncFunction: () async {
+        /// si la lista ya se cargo una vez, se guarda en local storage y no se consulta de nuevo
+        final List<Client> listaClienteLocal =
+            await const SecureStorageLocal().listaClientes;
+        if (listaClienteLocal.isNotEmpty) {
+          _asignarListaClientes(listaClienteLocal);
+          return;
+        }
+
         try {
-          final AllClientsResponse res = await const ClientHttp().allClients();
-          if (res.status == 200) {
-            _mostrarListaClientes(res.clients!);
-            listaClientes(res.clients);
-            filtroClientes(res.clients);
-          } else {
-            appController.manageError(res.message);
-          }
+          final AllClientsResponse respuestaHTTP =
+              await const ClientHttp().allClients();
+
+          _asignarListaClientes(respuestaHTTP.clients!);
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -360,6 +367,14 @@ class CreditsController extends GetxController {
         }
       },
     );
+  }
+
+  ///Asigna los valores de la consulta HTTP o del cache si esta guardado de la lista de clientes
+  Future<void> _asignarListaClientes(List<Client> getLista) async {
+    await const SecureStorageLocal().saveListaClientes(getLista);
+    listaClientes(getLista);
+    filtroClientes(getLista);
+    _mostrarListaClientes(getLista);
   }
 
   void _mostrarListaClientes(List<Client> clientes) {

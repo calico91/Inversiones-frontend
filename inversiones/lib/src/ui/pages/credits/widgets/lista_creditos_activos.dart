@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
-import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class ListaCreditosActivos extends StatelessWidget {
   const ListaCreditosActivos({super.key});
@@ -11,9 +10,16 @@ class ListaCreditosActivos extends StatelessWidget {
   Widget build(BuildContext context) {
     final CreditsController controller = Get.find<CreditsController>();
     return Obx(() {
-      if (controller.status.value != 200) {
-        return Loading(
-          vertical: General.mediaQuery(context).height * 0.1,
+      if (controller.creditosActivos.value.isEmpty) {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: General.mediaQuery(context).height * 0.2,
+              horizontal: General.mediaQuery(context).height * 0.15),
+          child: FilledButton.icon(
+              icon: const Icon(Icons.list),
+              label: const Text('Cargar creditos'),
+              onPressed: () =>
+                  controller.infoCreditosActivos(General.mediaQuery(context))),
         );
       }
       return Column(

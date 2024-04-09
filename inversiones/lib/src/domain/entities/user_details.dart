@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:inversiones/src/domain/entities/Authority.dart';
 
@@ -45,7 +44,7 @@ class UserDetails {
         "enabled": enabled,
       };
 
-  static Map<String, dynamic> toMap(UserDetails model) => <String, dynamic>{
+/*   static Map<String, dynamic> toMap(UserDetails model) => <String, dynamic>{
         "password": model.password,
         "username": model.username,
         "authorities": model.authorities,
@@ -53,9 +52,9 @@ class UserDetails {
         "accountNonLocked": model.accountNonLocked,
         "credentialsNonExpired": model.credentialsNonExpired,
         "enabled": model.enabled,
-      };
-  String serialize(UserDetails model) => json.encode(UserDetails.toMap(model));
+      }; */
+/*   String serialize(UserDetails model) => json.encode(UserDetails.toMap(model));
 
   UserDetails deserialize(String json) =>
-      UserDetails.fromJson(jsonDecode(json) as Map<String, dynamic>);
+      UserDetails.fromJson(jsonDecode(json) as Map<String, dynamic>); */
 }
