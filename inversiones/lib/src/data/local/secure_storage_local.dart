@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/repositories/secure_storage_repository.dart';
 
@@ -41,11 +42,37 @@ class SecureStorageLocal implements SecureStorageRepository {
 
   @override
   Future<String?> get idMovil async {
-    return  await secureStorage.read(key: 'idMovil');
+    return await secureStorage.read(key: 'idMovil');
   }
 
   @override
   Future<void> saveIdMovil(String? idMovil) {
     return secureStorage.write(key: 'idMovil', value: idMovil);
+  }
+
+  @override
+  Future<void> saveListaClientes(List<Client>? listaClientes) async {
+    /*    final objetosJson =
+        listaClientes!.map((objeto) => objeto.toJson()).toList();
+    await secureStorage.write(
+        key: 'listaClientes', value: jsonEncode(objetosJson)); */
+    return secureStorage.write(
+        key: 'listaClientes',
+        value: jsonEncode(
+            listaClientes?.map((cliente) => cliente.toJson()).toList()));
+  }
+
+  @override
+  Future<List<Client>> get listaClientes async {
+    final listaClientesJson = await secureStorage.read(key: 'listaClientes');
+    if (listaClientesJson != null || (listaClientesJson?.isNotEmpty ?? false)) {
+      final List<dynamic> objetosList =
+          jsonDecode(listaClientesJson!) as List<dynamic>;
+      return objetosList
+          .map((e) => Client.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+
+    return [];
   }
 }
