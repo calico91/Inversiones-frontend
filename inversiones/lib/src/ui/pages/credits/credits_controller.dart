@@ -68,12 +68,6 @@ class CreditsController extends GetxController {
     super.onInit();
   }
 
-  @override
-  Future<void> onClose() async {
-    await const SecureStorageLocal().saveListaClientes([]);
-    super.onClose();
-  }
-
   Future<void> infoCreditosActivos(Size size) async {
     Get.showOverlay(
         loadingWidget: Loading(
@@ -353,24 +347,19 @@ class CreditsController extends GetxController {
         vertical: size.height * 0.46,
       ),
       asyncFunction: () async {
-        /// si la lista ya se cargo una vez, se guarda en secure storage y no se consulta de nuevo
-        /// se elimina al cerrar el modulo de creditos
+        /// si la lista ya se cargo una vez, se guarda en local storage y no se consulta de nuevo
         final List<Client> listaClienteLocal =
             await const SecureStorageLocal().listaClientes;
-
         if (listaClienteLocal.isNotEmpty) {
-          _mostrarListaClientes(listaClienteLocal);
+          _asignarListaClientes(listaClienteLocal);
           return;
         }
 
         try {
           final AllClientsResponse respuestaHTTP =
               await const ClientHttp().allClients();
-          await const SecureStorageLocal()
-              .saveListaClientes(respuestaHTTP.clients);
-          listaClientes(respuestaHTTP.clients);
-          filtroClientes(respuestaHTTP.clients);
-          _mostrarListaClientes(respuestaHTTP.clients!);
+
+          _asignarListaClientes(respuestaHTTP.clients!);
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -378,6 +367,14 @@ class CreditsController extends GetxController {
         }
       },
     );
+  }
+
+  ///Asigna los valores de la consulta HTTP o del cache si esta guardado de la lista de clientes
+  Future<void> _asignarListaClientes(List<Client> getLista) async {
+    await const SecureStorageLocal().saveListaClientes(getLista);
+    listaClientes(getLista);
+    filtroClientes(getLista);
+    _mostrarListaClientes(getLista);
   }
 
   void _mostrarListaClientes(List<Client> clientes) {

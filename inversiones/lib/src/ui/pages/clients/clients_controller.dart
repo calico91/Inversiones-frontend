@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
+import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
@@ -62,8 +63,12 @@ class ClientsController extends GetxController {
         vertical: size.height * 0.46,
       ),
       asyncFunction: () async {
+        final List<Client> listaClienteLocal =
+            await const SecureStorageLocal().listaClientes;
+
         try {
-          final AddClientResponse res = await const ClientHttp().addClient(
+          final AddClientResponse respuestaHTTP =
+              await const ClientHttp().addClient(
             Client(
               observaciones: observations.text.trim(),
               direccion: address.text.trim(),
@@ -73,14 +78,20 @@ class ClientsController extends GetxController {
               cedula: document.text.trim(),
             ),
           );
-          if (res.status == 200) {
-            filtroClientes.value.insert(0, res.client!);
+          if (respuestaHTTP.status == 200) {
+            filtroClientes.value.insert(0, respuestaHTTP.client!);
+
+            ///al crearse un cliente se adiciona a la lista local
+            listaClienteLocal.insert(0, respuestaHTTP.client!);
+            await const SecureStorageLocal()
+                .saveListaClientes(listaClienteLocal);
+
             Get.showSnackbar(
               const InfoSnackbar('cliente creado correctamente'),
             );
             _cleanForm();
           } else {
-            appController.manageError(res.message);
+            appController.manageError(respuestaHTTP.message);
           }
         } on HttpException catch (e) {
           appController.manageError(e.message);
