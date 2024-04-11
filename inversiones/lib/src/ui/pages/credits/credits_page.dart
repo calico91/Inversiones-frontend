@@ -15,6 +15,10 @@ class Credits extends StatelessWidget {
   Widget build(BuildContext context) {
     final CreditsController controller = Get.find<CreditsController>();
 
+
+
+    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Creditos'),
