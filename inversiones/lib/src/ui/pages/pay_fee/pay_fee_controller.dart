@@ -12,7 +12,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class PayFeeController extends GetxController {
-  PayFeeController(this.appController, this.homeController);
+  PayFeeController(this.appController, this.homeController); 
 
   final AppController appController;
   final HomeController homeController;
@@ -77,7 +77,7 @@ class PayFeeController extends GetxController {
           );
           if (respuestaHttp.status == 200) {
             General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
-                homeController.nombreClienteSeleccionado);
+                homeController.nombreClienteSeleccionado, false);
           } else {
             appController.manageError(respuestaHttp.message);
           }
