@@ -220,6 +220,7 @@ Object _abonar(
       actions: [
         TextButton(
           onPressed: () {
+            Navigator.pop(context);
             controllerCredits.pagarInteresOCapital(
               General.mediaQuery(context),
               tipoAbono,

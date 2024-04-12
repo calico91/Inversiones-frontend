@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/buttons/credit_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogCuotaPagada extends StatelessWidget {
-  DialogCuotaPagada({required this.dataAbono, this.nombreCliente});
+  DialogCuotaPagada(
+      {required this.dataAbono, this.nombreCliente, this.mostrarBotonCerrar});
   final DataAbono dataAbono;
   final String? nombreCliente;
+  final bool? mostrarBotonCerrar;
 
   final ScreenshotController screenshotController = ScreenshotController();
 
@@ -87,9 +88,9 @@ class DialogCuotaPagada extends StatelessWidget {
           descripcion: 'Abono ${nombreCliente ?? ''}',
         ),
         HomeButton(),
-        TextButton(
+        if (mostrarBotonCerrar ?? true)  TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cerrar'))
+            child: const Text('Cerrar')) 
       ],
     );
   }

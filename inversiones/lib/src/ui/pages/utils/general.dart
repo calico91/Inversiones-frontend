@@ -75,12 +75,13 @@ class General {
 
   static void mostrarModalCompartirAbonos(
       DataAbono dataAbono, bool barrierDismissible,
-      [String? nombreCliente]) {
+      [String? nombreCliente, bool? mostrarBotonCerrar]) {
     Get.dialog(
       barrierDismissible: barrierDismissible,
       DialogCuotaPagada(
         dataAbono: dataAbono,
         nombreCliente: nombreCliente,
+        mostrarBotonCerrar: mostrarBotonCerrar,
       ),
     );
   }
