@@ -86,8 +86,10 @@ class DialogCuotaPagada extends StatelessWidget {
           screenshotController: screenshotController,
           descripcion: 'Abono ${nombreCliente ?? ''}',
         ),
-        CreditButton(),
         HomeButton(),
+        TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cerrar'))
       ],
     );
   }

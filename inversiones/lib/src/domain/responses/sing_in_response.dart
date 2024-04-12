@@ -10,13 +10,11 @@ class SignInResponse {
     required this.status,
     required this.message,
     this.userDetails,
-    this.token,
   });
 
   final int status;
   final String message;
   final UserDetails? userDetails;
-  final String? token;
 
   factory SignInResponse.fromJson(Map<String, dynamic> json) {
     final int status = json['status'] as int;
@@ -24,9 +22,8 @@ class SignInResponse {
       status: status,
       message: json['message'] as String,
       userDetails: status == 200
-          ? UserDetails.fromJson(json['userDetails'] as Map<String, dynamic>)
+          ? UserDetails.fromJson(json['data'] as Map<String, dynamic>)
           : null,
-      token: status == 200 ? json['token'] as String : null,
     );
   }
 }

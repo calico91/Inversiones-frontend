@@ -48,7 +48,8 @@ class SignInController extends GetxController {
 
               if (res.status == 200) {
                 await const SecureStorageLocal().saveIdMovil(androidInfo.id);
-                await const SecureStorageLocal().saveToken(res.token);
+                await const SecureStorageLocal()
+                    .saveToken(res.userDetails!.token);
                 await const SecureStorageLocal()
                     .saveUserDetails(res.userDetails);
                 Get.offNamed(RouteNames.home);
@@ -71,7 +72,8 @@ class SignInController extends GetxController {
                 .authBiometrica(userDetails.value.username!, idMovil!);
 
             if (res.status == 200) {
-              await const SecureStorageLocal().saveToken(res.token);
+              await const SecureStorageLocal()
+                  .saveToken(res.userDetails!.token);
               await const SecureStorageLocal().saveUserDetails(res.userDetails);
               Get.offNamed(RouteNames.home);
             } else {
