@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -88,9 +89,7 @@ class DialogCuotaPagada extends StatelessWidget {
           descripcion: 'Abono ${nombreCliente ?? ''}',
         ),
         HomeButton(),
-        if (mostrarBotonCerrar ?? true)  TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cerrar')) 
+        if (mostrarBotonCerrar ?? true) CloseButtonCustom()
       ],
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -25,7 +26,7 @@ class DialogResponseGeneral extends StatelessWidget {
           color: Colors.white,
           child: CustomCard(
             child: SizedBox(
-              height: General.mediaQuery(context).height*0.09,
+              height: General.mediaQuery(context).height * 0.09,
               child: Column(
                 children: [
                   _mostrarContenido(
@@ -55,6 +56,7 @@ class DialogResponseGeneral extends StatelessWidget {
           descripcion: 'Modificacion fecha pago',
         ),
         HomeButton(),
+        CloseButtonCustom()
       ],
     );
   }

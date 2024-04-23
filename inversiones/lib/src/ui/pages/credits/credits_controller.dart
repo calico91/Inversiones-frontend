@@ -215,9 +215,7 @@ class CreditsController extends GetxController {
   }
 
   Future<void> modificarFechaCuota(
-    Size size,
-    int idCredito,
-  ) async {
+      Size size, int idCredito, BuildContext context) async {
     Get.showOverlay(
       loadingWidget: Loading(
         vertical: size.height * 0.46,
@@ -227,6 +225,7 @@ class CreditsController extends GetxController {
           final PayFeeResponse respuestaHttp = await const CreditHttp()
               .modificarFechaCuota(nuevaFechaCuota.text.trim(), idCredito);
           if (respuestaHttp.status == 200) {
+            if (context.mounted) Navigator.pop(context);
             _mostrarInfoCuotaModificada(respuestaHttp.payFee!);
           } else {
             appController.manageError(respuestaHttp.message);
@@ -250,10 +249,7 @@ class CreditsController extends GetxController {
   }
 
   Future<void> modificarEstadoCredito(
-    Size size,
-    int idCredito,
-    int estadoCredito,
-  ) async {
+      Size size, int idCredito, int estadoCredito, BuildContext context) async {
     Get.showOverlay(
       loadingWidget: Loading(
         vertical: size.height * 0.46,
@@ -263,6 +259,7 @@ class CreditsController extends GetxController {
           final EstadoCreditoResponse respuestaHttp = await const CreditHttp()
               .modificarEstadoCredito(idCredito, estadoCredito);
           if (respuestaHttp.status == 200) {
+            if (context.mounted) Navigator.pop(context);
             _mostrarInformacionEstadoCredito(respuestaHttp.estadoCredito!);
           } else {
             appController.manageError(respuestaHttp.message);

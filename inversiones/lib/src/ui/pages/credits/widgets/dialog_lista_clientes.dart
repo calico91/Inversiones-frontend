@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 
 class DialogListaClientes extends StatelessWidget {
@@ -47,12 +48,7 @@ class DialogListaClientes extends StatelessWidget {
               ],
             ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cerrar'),
-            ),
-          ],
+          actions: [CloseButtonCustom()],
         )
       ],
     );
