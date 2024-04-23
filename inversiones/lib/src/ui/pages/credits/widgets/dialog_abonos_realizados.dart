@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -60,10 +61,7 @@ class DialogAbonosRealizados extends StatelessWidget {
           screenshotController: screenshotController,
           descripcion: 'Abonos realizados',
         ),
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Cerrar'),
-        ),
+       CloseButtonCustom(),
       ],
     );
   }

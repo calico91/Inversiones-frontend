@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 
 class BaseHttpClient {
   const BaseHttpClient(
@@ -51,12 +52,16 @@ class BaseHttpClient {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
           .post(uri,
-              headers: path == UrlPaths.signIn
-                  ? null
-                  : {
-                      HttpHeaders.authorizationHeader: token ?? '',
-                      'Content-Type': 'application/json'
-                    },
+              headers:
+                  path == UrlPaths.signIn || path == UrlPaths.authBiometrica
+                      ? {
+                          HttpHeaders.authorizationHeader: Constantes.NO_TOKEN,
+                          HttpHeaders.contentTypeHeader: 'application/json'
+                        }
+                      : {
+                          HttpHeaders.authorizationHeader: token ?? '',
+                          HttpHeaders.contentTypeHeader: 'application/json'
+                        },
               body: request != null ? json.encode(request) : null)
           .timeout(timeout);
       if (response.statusCode == 200) {
@@ -86,12 +91,15 @@ class BaseHttpClient {
       final response = await http
           .put(
             uri,
-            headers: path == UrlPaths.signIn
-                ? null
-                : {
-                    HttpHeaders.authorizationHeader: token ?? '',
-                    'Content-Type': 'application/json'
-                  },
+            headers: path == UrlPaths.signIn || path == UrlPaths.authBiometrica
+                      ? {
+                          HttpHeaders.authorizationHeader: Constantes.NO_TOKEN,
+                          HttpHeaders.contentTypeHeader: 'application/json'
+                        }
+                      : {
+                          HttpHeaders.authorizationHeader: token ?? '',
+                          HttpHeaders.contentTypeHeader: 'application/json'
+                        },
             body: request != null ? json.encode(request) : null,
           )
           .timeout(timeout);

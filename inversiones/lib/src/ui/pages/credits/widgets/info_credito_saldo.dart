@@ -5,6 +5,7 @@ import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
@@ -156,10 +157,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
           },
           child: const Text('Abonar interes'),
         ),
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Cerrar'),
-        ),
+        CloseButtonCustom()
       ],
     );
   }
@@ -277,9 +275,7 @@ Object _modificarCredito(
                 botonAccionEditarCredito(
                   context,
                   () => controller.modificarFechaCuota(
-                    General.mediaQuery(context),
-                    idCredito,
-                  ),
+                      General.mediaQuery(context), idCredito, context),
                 ),
               ],
             ),
@@ -335,10 +331,10 @@ Object _modificarCredito(
                     botonAccionEditarCredito(
                       context,
                       () => controller.modificarEstadoCredito(
-                        General.mediaQuery(context),
-                        idCredito,
-                        controller.estadoCredito.value,
-                      ),
+                          General.mediaQuery(context),
+                          idCredito,
+                          controller.estadoCredito.value,
+                          context),
                     ),
                   ],
                 ),
@@ -347,12 +343,7 @@ Object _modificarCredito(
           ],
         ),
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Cerrar'),
-        ),
-      ],
+      actions: [CloseButtonCustom()],
     ),
   );
 }

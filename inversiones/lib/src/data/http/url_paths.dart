@@ -2,7 +2,7 @@ class UrlPaths {
   const UrlPaths._();
 
   static const String url = 'https://inversiones.up.railway.app';
-  static const String signIn = '/login';
+  static const String signIn = '/user/login';
   static const String allClients = '/cliente/consultarClientes';
   static const String loadClient = '/cliente/consultarClientePorCedula';
   static const String addClient = '/cliente';

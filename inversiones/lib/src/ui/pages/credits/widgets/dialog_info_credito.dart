@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -66,6 +67,7 @@ class DialogInfoCredito extends StatelessWidget {
           descripcion: Constantes.INFORMACION_CREDITO_CREADO,
         ),
         HomeButton(),
+        CloseButtonCustom()
       ],
     );
   }
