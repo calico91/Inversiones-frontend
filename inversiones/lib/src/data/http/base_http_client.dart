@@ -55,7 +55,10 @@ class BaseHttpClient {
           .post(uri,
               headers:
                   path == UrlPaths.signIn || path == UrlPaths.authBiometrica
-                      ? null
+                      ? {
+                          HttpHeaders.authorizationHeader: Constantes.NO_TOKEN,
+                          HttpHeaders.contentTypeHeader: 'application/json'
+                        }
                       : {
                           HttpHeaders.authorizationHeader: token ?? '',
                           HttpHeaders.contentTypeHeader: 'application/json'
