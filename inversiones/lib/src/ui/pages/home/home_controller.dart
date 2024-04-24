@@ -45,8 +45,8 @@ class HomeController extends GetxService {
       _loading(true);
       final ClientsPendingInstallmentsResponse clientsPendingInstallments =
           await const ClientHttp().clientsPendingInstallments(
-        fechaFiltro ?? General.formatoFecha(DateTime.now()),
-      );
+              fechaFiltro ?? General.formatoFecha(DateTime.now()),
+              userDetails.value.id!);
       if (clientsPendingInstallments.status == 200) {
         _status(clientsPendingInstallments.status);
         _clients(clientsPendingInstallments.clientsPendingInstallments);

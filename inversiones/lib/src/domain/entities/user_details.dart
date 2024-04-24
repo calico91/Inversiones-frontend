@@ -9,7 +9,8 @@ class UserDetails {
       this.accountNonLocked,
       this.credentialsNonExpired,
       this.enabled,
-      this.token});
+      this.token,
+      this.id});
 
   String? password;
   final String? username;
@@ -19,6 +20,7 @@ class UserDetails {
   final bool? credentialsNonExpired;
   final bool? enabled;
   final String? token;
+  final int? id;
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
         password: json["password"] == null ? "" : json["password"] as String,
@@ -36,6 +38,7 @@ class UserDetails {
             json["credentialsNonExpired"] as bool,
         enabled: json["enabled"] == null || json["enabled"] as bool,
         token: json["token"] == null ? "" : json["token"] as String,
+        id: json["id"] == null ? 0 : json["id"] as int,
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,5 +50,6 @@ class UserDetails {
         "credentialsNonExpired": credentialsNonExpired,
         "enabled": enabled,
         "token": token,
+        "id": id,
       };
 }
