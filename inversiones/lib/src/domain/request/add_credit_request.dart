@@ -7,6 +7,7 @@ class AddCreditRequest {
     required this.fechaCuota,
     required this.fechaCredito,
     required this.modalidad,
+    required this.usuario,
   });
 
   final double valorCredito;
@@ -15,7 +16,8 @@ class AddCreditRequest {
   final String cedulaTitularCredito;
   final String fechaCuota;
   final String fechaCredito;
-  final Modalidad  modalidad;
+  final Modalidad modalidad;
+  final String usuario;
 
   Map<String, dynamic> toJson() {
     return {
@@ -25,7 +27,8 @@ class AddCreditRequest {
       'cedulaTitularCredito': cedulaTitularCredito,
       'fechaCuota': fechaCuota,
       'fechaCredito': fechaCredito,
-         "modalidad": modalidad.toJson(),
+      "modalidad": modalidad.toJson(),
+      "usuario": usuario,
     };
   }
 }

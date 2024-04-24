@@ -5,6 +5,7 @@ import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
+import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
@@ -98,18 +99,20 @@ class CreditsController extends GetxController {
       ),
       asyncFunction: () async {
         try {
+          final UserDetails? userDetails =
+              await const SecureStorageLocal().userDetails;
           final AddCreditResponse res = await const CreditHttp().addCredit(
             AddCreditRequest(
-              cantidadCuotas: int.parse(installmentAmount.text.trim()),
-              valorCredito: General.stringToDouble(creditValue.text),
-              cedulaTitularCredito: cedulaClienteSeleccionado.value,
-              interesPorcentaje: double.parse(interestPercentage.text.trim()),
-              fechaCredito: creditDate.text.trim(),
-              fechaCuota: installmentDate.text.trim(),
-              modalidad: modalidad.value
-                  ? Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL)
-                  : Modalidad(id: Constantes.CODIGO_MODALIDAD_QUINCENAL),
-            ),
+                cantidadCuotas: int.parse(installmentAmount.text.trim()),
+                valorCredito: General.stringToDouble(creditValue.text),
+                cedulaTitularCredito: cedulaClienteSeleccionado.value,
+                interesPorcentaje: double.parse(interestPercentage.text.trim()),
+                fechaCredito: creditDate.text.trim(),
+                fechaCuota: installmentDate.text.trim(),
+                modalidad: modalidad.value
+                    ? Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL)
+                    : Modalidad(id: Constantes.CODIGO_MODALIDAD_QUINCENAL),
+                usuario: userDetails?.username ?? ""),
           );
           if (res.status == 200) {
             _mostrarInfoCredito(res.data!);

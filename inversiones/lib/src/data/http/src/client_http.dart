@@ -67,9 +67,10 @@ class ClientHttp implements ClientRepository {
   ///de la fecha actual hacia atras
   @override
   Future<ClientsPendingInstallmentsResponse> clientsPendingInstallments(
-      String fechaFiltro) async {
+      String fechaFiltro, int idUsuario) async {
     try {
-      final http.Response response = await baseHttpClient.get('${UrlPaths.infoClientesCuotaCredito}/$fechaFiltro',
+      final http.Response response = await baseHttpClient.get(
+        '${UrlPaths.infoClientesCuotaCredito}/$fechaFiltro/$idUsuario',
       );
 
       return compute(clientsPendingInstallmentsResponseFromJson, response.body);
