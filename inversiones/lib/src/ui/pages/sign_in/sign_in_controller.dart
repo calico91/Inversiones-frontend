@@ -24,6 +24,7 @@ class SignInController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   final Rx<UserDetails> userDetails = Rx<UserDetails>(UserDetails());
   String? idMovil;
+  final Rx<String?> usuarioBiometria = Rx<String?>(null);
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
   Rx<bool> obscureText = Rx<bool>(true);
@@ -33,6 +34,7 @@ class SignInController extends GetxController {
   Future<void> onInit() async {
     userDetails(await const SecureStorageLocal().userDetails);
     idMovil = await const SecureStorageLocal().idMovil;
+    usuarioBiometria(await const SecureStorageLocal().usuarioBiometria);
     super.onInit();
   }
 
@@ -69,7 +71,7 @@ class SignInController extends GetxController {
         asyncFunction: () async {
           try {
             final SignInResponse res = await const SignInHttp()
-                .authBiometrica(userDetails.value.username!, idMovil!);
+                .authBiometrica(usuarioBiometria.value!, idMovil!);
 
             if (res.status == 200) {
               await const SecureStorageLocal()

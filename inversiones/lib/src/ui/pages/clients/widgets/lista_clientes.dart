@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
+import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
@@ -53,6 +54,8 @@ class ListaClientes extends StatelessWidget {
   }
 
   Widget _showClientTitle(ClientsController controller, int index, Size size) {
+    final HomeController homeController = Get.find<HomeController>();
+
     return Row(
       children: [
         SizedBox(
@@ -66,16 +69,17 @@ class ListaClientes extends StatelessWidget {
           width: size.width * 0.25,
           child: Row(
             children: [
-              IconButton(
-                tooltip: 'editar',
-                onPressed: () {
-                  controller.loadClient(
-                    controller.filtroClientes.value[index].cedula,
-                    size,
-                  );
-                },
-                icon: const Icon(color: Colors.blue, Icons.edit),
-              ),
+              if (homeController.mostrarModulo(['ADMIN']))
+                IconButton(
+                  tooltip: 'editar',
+                  onPressed: () {
+                    controller.loadClient(
+                      controller.filtroClientes.value[index].cedula,
+                      size,
+                    );
+                  },
+                  icon: const Icon(color: Colors.blue, Icons.edit),
+                ),
               IconButton(
                 tooltip: 'Crear credito',
                 onPressed: () {

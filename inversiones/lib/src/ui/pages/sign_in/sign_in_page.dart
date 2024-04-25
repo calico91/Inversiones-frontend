@@ -14,7 +14,7 @@ class SignInPage extends StatelessWidget {
 
     return Obx(() {
       return Scaffold(
-        floatingActionButton: controller.userDetails.value.username != null
+        floatingActionButton: controller.usuarioBiometria.value != null
             ? FloatingActionButton(
                 onPressed: () async {
                   final bool autBiometria = await controller.authenticate();

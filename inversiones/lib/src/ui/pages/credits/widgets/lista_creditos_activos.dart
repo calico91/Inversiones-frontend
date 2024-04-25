@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
+import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 
@@ -9,17 +10,21 @@ class ListaCreditosActivos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CreditsController controller = Get.find<CreditsController>();
+    final HomeController homeController = Get.find<HomeController>();
     return Obx(() {
       if (controller.creditosActivos.value.isEmpty) {
         return Padding(
           padding: EdgeInsets.symmetric(
               vertical: General.mediaQuery(context).height * 0.2,
               horizontal: General.mediaQuery(context).height * 0.15),
-          child: FilledButton.icon(
-              icon: const Icon(Icons.list),
-              label: const Text('Cargar creditos'),
-              onPressed: () =>
-                  controller.infoCreditosActivos(General.mediaQuery(context))),
+          child:  Visibility(
+            visible: homeController.mostrarModulo(['ADMIN']),
+            child: FilledButton.icon(
+                icon: const Icon(Icons.list),
+                label: const Text('Cargar creditos'),
+                onPressed: () =>
+                    controller.infoCreditosActivos(General.mediaQuery(context))),
+          ),
         );
       }
       return Column(
