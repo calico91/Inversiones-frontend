@@ -71,6 +71,9 @@ class HomeController extends GetxService {
       ),
       asyncFunction: () async {
         try {
+          await const SecureStorageLocal()
+              .saveUsuarioBiometria(userDetails.value.username);
+
           final GenericoResponse respuestaHttp =
               await const UserDetailsHttp().vincularDispositivo(
             VincularDispositivoRequest(
@@ -123,4 +126,9 @@ class HomeController extends GetxService {
   String get nombreClienteSeleccionado => nombreCliente.value;
 
   List<ClientsPendingInstallment> get clients => _clients.value;
+
+  bool mostrarModulo(List<String> rol) {
+    return userDetails.value.authorities!
+        .any((elemento) => rol.contains(elemento));
+  }
 }

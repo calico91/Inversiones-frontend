@@ -25,11 +25,12 @@ class DrawerMolecule extends StatelessWidget {
                 'Creditos',
                 () => Get.toNamed(RouteNames.credits),
               ),
-              _opciones(
-                Icons.data_saver_off_sharp,
-                'Reportes',
-                () => Get.toNamed(RouteNames.reportes),
-              ),
+              if (controller.mostrarModulo(['ADMIN']))
+                _opciones(
+                  Icons.data_saver_off_sharp,
+                  'Reportes',
+                  () => Get.toNamed(RouteNames.reportes),
+                ),
               _opciones(
                 Icons.mobile_friendly,
                 'Asignar dispositivo',

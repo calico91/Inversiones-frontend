@@ -41,21 +41,14 @@ class SecureStorageLocal implements SecureStorageRepository {
   }
 
   @override
-  Future<String?> get idMovil async {
-    return await secureStorage.read(key: 'idMovil');
-  }
+  Future<String?> get idMovil async => await secureStorage.read(key: 'idMovil');
 
   @override
-  Future<void> saveIdMovil(String? idMovil) {
-    return secureStorage.write(key: 'idMovil', value: idMovil);
-  }
+  Future<void> saveIdMovil(String? idMovil) =>
+      secureStorage.write(key: 'idMovil', value: idMovil);
 
   @override
   Future<void> saveListaClientes(List<Client>? listaClientes) async {
-    /*    final objetosJson =
-        listaClientes!.map((objeto) => objeto.toJson()).toList();
-    await secureStorage.write(
-        key: 'listaClientes', value: jsonEncode(objetosJson)); */
     return secureStorage.write(
         key: 'listaClientes',
         value: jsonEncode(
@@ -75,4 +68,12 @@ class SecureStorageLocal implements SecureStorageRepository {
 
     return [];
   }
+
+  @override
+  Future<void> saveUsuarioBiometria(String? usuarioBiometria) =>
+      secureStorage.write(key: 'usuarioBiometria', value: usuarioBiometria);
+
+  @override
+  Future<String?> get usuarioBiometria async =>
+      await secureStorage.read(key: 'usuarioBiometria');
 }

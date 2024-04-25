@@ -11,7 +11,7 @@ class AppController extends GetxController {
       Get.offAllNamed(RouteNames.signIn);
       await const SecureStorageLocal().saveToken(null);
 
-      Get.showSnackbar(ErrorSnackbar(error));
+      Get.showSnackbar(ErrorSnackbar(error)); 
     } else {
       Get.showSnackbar(ErrorSnackbar(error));
     }
