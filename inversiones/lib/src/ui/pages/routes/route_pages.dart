@@ -14,6 +14,8 @@ import 'package:inversiones/src/ui/pages/sign_in/sign_in_binding.dart';
 import 'package:inversiones/src/ui/pages/sign_in/sign_in_page.dart';
 import 'package:inversiones/src/ui/pages/splash/splash_binding.dart';
 import 'package:inversiones/src/ui/pages/splash/splash_page.dart';
+import 'package:inversiones/src/ui/pages/users/users_binding.dart';
+import 'package:inversiones/src/ui/pages/users/users_page.dart';
 
 class RoutePages {
   const RoutePages._();
@@ -53,6 +55,11 @@ class RoutePages {
         name: RouteNames.reportes,
         page: () => ReportesPage(),
         binding: const ReportesBinding(),
+      ),
+      GetPage(
+        name: RouteNames.users,
+        page: () => UsersPage(),
+        binding: const UsersBinding(),
       ),
     ];
   }

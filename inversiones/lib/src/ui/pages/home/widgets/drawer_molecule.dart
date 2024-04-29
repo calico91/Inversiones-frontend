@@ -31,9 +31,15 @@ class DrawerMolecule extends StatelessWidget {
                   'Reportes',
                   () => Get.toNamed(RouteNames.reportes),
                 ),
+              if (controller.mostrarModulo(['ADMIN']))
+                _opciones(
+                  Icons.admin_panel_settings_outlined,
+                  'Usuarios',
+                  () => Get.toNamed(RouteNames.users),
+                ),
               _opciones(
-                Icons.mobile_friendly,
-                'Asignar dispositivo',
+                Icons.fingerprint_outlined,
+                'Asignar biometria',
                 () =>
                     controller.vincularDispositivo(General.mediaQuery(context)),
               ),

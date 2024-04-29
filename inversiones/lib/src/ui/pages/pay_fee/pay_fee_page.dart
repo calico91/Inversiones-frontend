@@ -35,9 +35,12 @@ class PayFeePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  controller.nombreCliente,
-                  style: const TextStyle(fontSize: 20),
+                SizedBox(
+                  width: General.mediaQuery(context).width * 0.5,
+                  child: Text(controller.nombreCliente,
+                      style: const TextStyle(
+                          fontSize: 20, overflow: TextOverflow.ellipsis),
+                      maxLines: 2),
                 ),
                 ShareButton(
                   screenshotController: screenshotController,
