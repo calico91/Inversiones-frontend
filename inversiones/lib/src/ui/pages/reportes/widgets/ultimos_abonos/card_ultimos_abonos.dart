@@ -23,7 +23,7 @@ class CardUltimosAbonos extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(
-                height: 78,
+                height: General.mediaQuery(context).height* 0.09,
                 width: 50,
                 child: Form(
                   key: controller.formKey,
@@ -52,7 +52,7 @@ class CardUltimosAbonos extends StatelessWidget {
           Obx(
             () => controller.ultimosAbonos.value.isNotEmpty
                 ? SizedBox(
-                    height: General.mediaQuery(context).height * 0.6,
+                    height: General.mediaQuery(context).height * 0.56,
                     child: ListView.builder(
                       itemCount: controller.ultimosAbonos.value.length,
                       itemBuilder: (_, index) {

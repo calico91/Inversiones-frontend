@@ -5,6 +5,8 @@ import 'package:inversiones/src/ui/pages/credits/credits_binding.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_page.dart';
 import 'package:inversiones/src/ui/pages/home/home_binding.dart';
 import 'package:inversiones/src/ui/pages/home/home_page.dart';
+import 'package:inversiones/src/ui/pages/navigation_bar/navigation_bar_binding.dart';
+import 'package:inversiones/src/ui/pages/navigation_bar/navigation_bar_page.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_binding.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_page.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_binding.dart';
@@ -38,12 +40,12 @@ class RoutePages {
       ),
       GetPage(
         name: RouteNames.clients,
-        page: () => const Clients(),
+        page: () => const ClientsPage(),
         binding: const ClientsBinding(),
       ),
       GetPage(
         name: RouteNames.credits,
-        page: () => const Credits(),
+        page: () => const CreditsPage(),
         binding: const CreditsBinding(),
       ),
       GetPage(
@@ -60,6 +62,11 @@ class RoutePages {
         name: RouteNames.users,
         page: () => UsersPage(),
         binding: const UsersBinding(),
+      ),
+      GetPage(
+        name: RouteNames.navigationBar,
+        page: () => NavigatinBarPage(),
+        binding: const NavigationBarBinding(),
       ),
     ];
   }

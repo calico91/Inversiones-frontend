@@ -12,6 +12,6 @@ class HomeButton extends StatelessWidget {
   }
 
   void _irAlHome() {
-    Get.offAllNamed(RouteNames.home);
+    Get.offAllNamed(RouteNames.navigationBar);
   }
 }

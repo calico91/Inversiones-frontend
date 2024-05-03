@@ -27,7 +27,7 @@ class SplashController extends GetxController {
       return await const UserDetailsHttp().userDetails.then((value) async {
         if (value.status == 200) {
           const SecureStorageLocal().saveUserDetails(value.userDetails);
-          Get.offNamed(RouteNames.home);
+          Get.offNamed(RouteNames.navigationBar);
         } else {
           appController.manageError(value.message);
           Get.offNamed(RouteNames.signIn);

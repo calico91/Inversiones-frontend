@@ -15,16 +15,6 @@ class DrawerMolecule extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               headerDrawer(context),
-              _opciones(
-                Icons.person_2_outlined,
-                'Clientes',
-                () => Get.toNamed(RouteNames.clients),
-              ),
-              _opciones(
-                Icons.monetization_on_outlined,
-                'Creditos',
-                () => Get.toNamed(RouteNames.credits),
-              ),
               if (controller.mostrarModulo(['ADMIN']))
                 _opciones(
                   Icons.data_saver_off_sharp,
