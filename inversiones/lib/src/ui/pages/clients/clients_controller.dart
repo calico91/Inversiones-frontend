@@ -11,9 +11,7 @@ import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 
 class ClientsController extends GetxController {
-  ClientsController(this.appController);
-
-  final AppController appController;
+  final AppController appController = Get.find<AppController>();
 
   final TextEditingController name = TextEditingController();
   final TextEditingController lastname = TextEditingController();
@@ -30,15 +28,6 @@ class ClientsController extends GetxController {
   @override
   Future<void> onInit() async {
     await _allClients();
-    await const SecureStorageLocal().saveListaClientes(clients.value);
-    filtroClientes(clients.value);
-    super.onInit();
-  }
-
-  @override
-  Future<void> onClose() async {
-    await _allClients();
-    filtroClientes(clients.value);
     super.onInit();
   }
 
@@ -48,6 +37,9 @@ class ClientsController extends GetxController {
       if (res.status == 200) {
         clients(res.clients);
         status(res.status);
+        filtroClientes(clients.value);
+
+        await const SecureStorageLocal().saveListaClientes(clients.value);
       } else {
         appController.manageError(res.message);
       }
@@ -84,6 +76,7 @@ class ClientsController extends GetxController {
 
             ///al crearse un cliente se adiciona a la lista local
             listaClienteLocal.insert(0, respuestaHTTP.client!);
+
             await const SecureStorageLocal()
                 .saveListaClientes(listaClienteLocal);
 

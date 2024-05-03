@@ -17,13 +17,13 @@ class ListaCreditosActivos extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               vertical: General.mediaQuery(context).height * 0.2,
               horizontal: General.mediaQuery(context).height * 0.15),
-          child:  Visibility(
+          child: Visibility(
             visible: homeController.mostrarModulo(['ADMIN']),
             child: FilledButton.icon(
                 icon: const Icon(Icons.list),
                 label: const Text('Cargar creditos'),
-                onPressed: () =>
-                    controller.infoCreditosActivos(General.mediaQuery(context))),
+                onPressed: () => controller
+                    .infoCreditosActivos(General.mediaQuery(context))),
           ),
         );
       }
@@ -36,11 +36,30 @@ class ListaCreditosActivos extends StatelessWidget {
               width: General.mediaQuery(context).width * 0.82,
               child: Column(
                 children: [
-                  TextFieldSearch(
-                    controller: controller.campoBuscarCliente,
-                    labelText:
-                        'Buscar credito ${controller.creditosActivos.value.length}',
-                    onChanged: (value) => controller.buscarCredito(value),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: General.mediaQuery(context).width * 0.01),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: General.mediaQuery(context).width * 0.68,
+                          child: TextFieldSearch(
+                            controller: controller.campoBuscarCliente,
+                            labelText:
+                                'Buscar credito ${controller.creditosActivos.value.length}',
+                            onChanged: (value) =>
+                                controller.buscarCredito(value),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => controller
+                              .infoCreditosActivos(General.mediaQuery(context)),
+                          icon: const Icon(Icons.refresh),
+                          color: Colors.blue,
+                        )
+                      ],
+                    ),
                   ),
                   _listaClientes(
                     controller,

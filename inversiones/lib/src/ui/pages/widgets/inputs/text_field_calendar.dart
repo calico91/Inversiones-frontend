@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class TextFieldCalendar extends StatelessWidget {
-  const TextFieldCalendar({
-    required this.controller,
-    required this.onTap,
-    required this.title,
-    this.paddingVertical = 0,
-    this.paddingHorizontal = 0,
-    this.required = true,
-    this.height,
-  });
+  const TextFieldCalendar(
+      {required this.controller,
+      required this.onTap,
+      required this.title,
+      this.paddingVertical = 0,
+      this.paddingHorizontal = 0,
+      this.required = true,
+      this.height,
+      this.mostrarBordes = true});
 
   final TextEditingController controller;
   final VoidCallback onTap;
@@ -19,6 +19,7 @@ class TextFieldCalendar extends StatelessWidget {
   final double? paddingHorizontal;
   final bool? required;
   final double? height;
+  final bool? mostrarBordes;
 
   @override
   Widget build(BuildContext context) {
@@ -40,22 +41,34 @@ class TextFieldCalendar extends StatelessWidget {
             child: TextFormField(
               validator: (value) => _validateStructure(value),
               controller: controller,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: Colors.red),
-                ),
-                prefixIcon: const Icon(
-                  Icons.calendar_today,
-                  color: Colors.blue,
-                ),
-              ),
+              decoration: mostrarBordes!
+                  ? InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(color: Colors.red),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.calendar_today,
+                        color: Colors.blue,
+                      ),
+                    )
+                  : const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.calendar_today,
+                        color: Colors.blue,
+                      ),
+                    ),
               readOnly: true,
               onTap: onTap,
             ),

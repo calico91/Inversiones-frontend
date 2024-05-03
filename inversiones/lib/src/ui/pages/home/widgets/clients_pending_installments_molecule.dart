@@ -16,7 +16,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
       () {
         if (controller.loading ) {
           return Loading(
-            vertical: General.mediaQuery(context).height * 0.13,
+            vertical: General.mediaQuery(context).height * 0.2,
           );
         } else if (!controller.loading && controller.clients.isEmpty) {
           return Center(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
 class SimulateCreditMolecule extends StatelessWidget {
@@ -23,35 +24,46 @@ class SimulateCreditMolecule extends StatelessWidget {
           key: controller.formKey,
           child: Column(
             children: [
-              TextFieldBase(
-                title: 'Valor credito',
-                textInputType: TextInputType.number,
-                validateText: ValidateText.creditValue,
-                controller: controller.creditValue,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextFieldBase(
+                    title: 'Valor credito',
+                    textInputType: TextInputType.number,
+                    validateText: ValidateText.creditValue,
+                    controller: controller.creditValue,
+                  ),
+                  TextFieldBase(
+                    title: 'Cantidad cuotas',
+                    textInputType: TextInputType.number,
+                    validateText: ValidateText.installmentAmount,
+                    controller: controller.installmentAmount,
+                  ),
+                ],
               ),
-              TextFieldBase(
-                title: 'Cantidad cuotas',
-                textInputType: TextInputType.number,
-                validateText: ValidateText.installmentAmount,
-                controller: controller.installmentAmount,
-              ),
-              TextFieldBase(
-                title: 'Interes',
-                textInputType: TextInputType.number,
-                validateText: ValidateText.interestPercentage,
-                controller: controller.interestPercentage,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              FilledButton.icon(
-                icon: const Icon(Icons.calculate),
-                label: const Text('Calcular'),
-                onPressed: () {
-                  if (controller.formKey.currentState!.validate()) {
-                    _showCreditInstallments(context);
-                  }
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextFieldBase(
+                    title: 'Interes',
+                    textInputType: TextInputType.number,
+                    validateText: ValidateText.interestPercentage,
+                    controller: controller.interestPercentage,
+                  ),
+                  SizedBox(
+                    width: General.mediaQuery(context).width * 0.39,
+                    child: FilledButton.icon(
+                      icon: const Icon(Icons.calculate),
+                      label: const Text('Calcular'),
+                      onLongPress: () => controller.limpiarCampos(),
+                      onPressed: () {
+                        if (controller.formKey.currentState!.validate()) {
+                          _showCreditInstallments(context);
+                        }
+                      },
+                    ),
+                  )
+                ],
               ),
             ],
           ),

@@ -54,7 +54,7 @@ class SignInController extends GetxController {
                     .saveToken(res.userDetails!.token);
                 await const SecureStorageLocal()
                     .saveUserDetails(res.userDetails);
-                Get.offNamed(RouteNames.home);
+                Get.offNamed(RouteNames.navigationBar);
               } else {
                 appController.manageError(res.message);
               }
@@ -77,7 +77,7 @@ class SignInController extends GetxController {
               await const SecureStorageLocal()
                   .saveToken(res.userDetails!.token);
               await const SecureStorageLocal().saveUserDetails(res.userDetails);
-              Get.offNamed(RouteNames.home);
+              Get.offNamed(RouteNames.navigationBar);
             } else {
               appController.manageError(res.message);
             }

@@ -5,24 +5,27 @@ import 'package:inversiones/src/ui/pages/credits/widgets/lista_creditos_activos.
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar_style/tittle_appbar.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 
-class Credits extends StatelessWidget {
-  const Credits({super.key});
+class CreditsPage extends StatelessWidget {
+  const CreditsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final CreditsController controller = Get.find<CreditsController>();
-
-
-
-    
+    final CreditsController controller = Get.put(CreditsController());
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Creditos'),
-      ),
+          iconTheme: const IconThemeData(color: Colors.black),
+          elevation: 0,
+          backgroundColor: Colors.white12,
+          title: Padding(
+            padding:
+                EdgeInsets.only(left: General.mediaQuery(context).width * 0.3),
+            child: const TittleAppbar('Registrar credito'),
+          )),
       body: ListView(
         children: [
           Padding(

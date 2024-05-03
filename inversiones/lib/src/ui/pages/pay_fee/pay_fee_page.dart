@@ -5,6 +5,7 @@ import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar_style/tittle_appbar.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
@@ -23,8 +24,14 @@ class PayFeePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Cuota credito'),
-      ),
+          iconTheme: const IconThemeData(color: Colors.black),
+          elevation: 0,
+          backgroundColor: Colors.white60,
+          title: Padding(
+            padding:
+                EdgeInsets.only(left: General.mediaQuery(context).width * 0.2),
+            child: const TittleAppbar('Cuota credito'),
+          )),
       body: Padding(
         padding: EdgeInsets.symmetric(
           vertical: General.mediaQuery(context).height * 0.03,
@@ -35,9 +42,12 @@ class PayFeePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  controller.nombreCliente,
-                  style: const TextStyle(fontSize: 20),
+                SizedBox(
+                  width: General.mediaQuery(context).width * 0.5,
+                  child: Text(controller.nombreCliente,
+                      style: const TextStyle(
+                          fontSize: 20, overflow: TextOverflow.ellipsis),
+                      maxLines: 2),
                 ),
                 ShareButton(
                   screenshotController: screenshotController,
@@ -45,19 +55,16 @@ class PayFeePage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Screenshot(
               controller: screenshotController,
               child: CustomCard(
                 child: Obx(() {
                   if (controller.loading) {
                     return Loading(
-                      circularLoading: false,
-                      horizontal: General.mediaQuery(context).width * 0.001,
-                      vertical: General.mediaQuery(context).height * 0.16,
-                    );
+                        circularLoading: false,
+                        horizontal: General.mediaQuery(context).width * 0.001,
+                        vertical: General.mediaQuery(context).height * 0.16);
                   }
                   return ColoredBox(
                     color: Colors.white,

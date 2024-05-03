@@ -15,21 +15,20 @@ import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 
 class HomeController extends GetxService {
-  HomeController(this.appController);
-
-  final AppController appController;
-  final RxBool _loading = RxBool(false);
+  final AppController appController = Get.find<AppController>();
+  final RxBool _loading = false.obs;
   final Rx<List<ClientsPendingInstallment>> _clients =
       Rx<List<ClientsPendingInstallment>>([]);
-  final Rx<int> _status = Rx<int>(0);
-  final Rx<int> idCliente = Rx<int>(0);
-  final Rx<int> idCredito = Rx<int>(0);
-  final Rx<String> nombreCliente = Rx<String>('');
+  final Rx<int> _status = 0.obs;
+  final Rx<int> idCliente = 0.obs;
+  final Rx<int> idCredito = 0.obs;
+  final Rx<String> nombreCliente = ''.obs;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController creditValue = TextEditingController();
   final TextEditingController installmentAmount = TextEditingController();
   final TextEditingController interestPercentage = TextEditingController();
-  final Rx<UserDetails> userDetails = Rx<UserDetails>(UserDetails());
+  final Rx<UserDetails> userDetails = UserDetails().obs;
+  final Rx<int> indexPage = 0.obs;
 
   final TextEditingController fechafiltro = TextEditingController();
 
@@ -118,6 +117,12 @@ class HomeController extends GetxService {
     return General.formatoMoneda(creditFee);
   }
 
+  void limpiarCampos() {
+    interestPercentage.clear();
+    installmentAmount.clear();
+    creditValue.clear();
+  }
+
   bool get loading => _loading.value;
 
   int get status => _status.value;
@@ -127,8 +132,6 @@ class HomeController extends GetxService {
 
   List<ClientsPendingInstallment> get clients => _clients.value;
 
-  bool mostrarModulo(List<String> rol) {
-    return userDetails.value.authorities!
-        .any((elemento) => rol.contains(elemento));
-  }
+  bool mostrarModulo(List<String> rol) =>
+      userDetails.value.authorities!.any((elemento) => rol.contains(elemento));
 }

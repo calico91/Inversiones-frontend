@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
 
-class ClientsBinding implements Bindings {
-  const ClientsBinding();
+class UsersBinding implements Bindings {
+  const UsersBinding();
 
   @override
   void dependencies() {

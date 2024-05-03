@@ -15,25 +15,21 @@ class DrawerMolecule extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               headerDrawer(context),
-              _opciones(
-                Icons.person_2_outlined,
-                'Clientes',
-                () => Get.toNamed(RouteNames.clients),
-              ),
-              _opciones(
-                Icons.monetization_on_outlined,
-                'Creditos',
-                () => Get.toNamed(RouteNames.credits),
-              ),
               if (controller.mostrarModulo(['ADMIN']))
                 _opciones(
                   Icons.data_saver_off_sharp,
                   'Reportes',
                   () => Get.toNamed(RouteNames.reportes),
                 ),
+              if (controller.mostrarModulo(['ADMIN']))
+                _opciones(
+                  Icons.admin_panel_settings_outlined,
+                  'Usuarios',
+                  () => Get.toNamed(RouteNames.users),
+                ),
               _opciones(
-                Icons.mobile_friendly,
-                'Asignar dispositivo',
+                Icons.fingerprint_outlined,
+                'Asignar biometria',
                 () =>
                     controller.vincularDispositivo(General.mediaQuery(context)),
               ),

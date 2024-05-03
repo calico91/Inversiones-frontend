@@ -29,9 +29,8 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class CreditsController extends GetxController {
-  CreditsController(this.appController);
 
-  final AppController appController;
+  final AppController appController =  Get.find<AppController>();
   final HomeController homeController = Get.find<HomeController>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formKeyAbonoCapital = GlobalKey<FormState>();

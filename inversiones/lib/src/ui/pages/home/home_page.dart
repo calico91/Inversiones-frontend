@@ -5,6 +5,7 @@ import 'package:inversiones/src/ui/pages/home/widgets/clients_pending_installmen
 import 'package:inversiones/src/ui/pages/home/widgets/drawer_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar_style/tittle_appbar.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,16 +13,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.find<HomeController>();
+    final HomeController controller = Get.put(HomeController());
     return Scaffold(
       drawer: DrawerMolecule(),
       appBar: AppBar(
-        title: Center(
-          child: Obx(
-            () => controller.userDetails.value.username != null
-                ? Text(controller.userDetails.value.username!.toUpperCase())
-                : const SizedBox(),
-          ),
+        backgroundColor: Colors.white12,
+        iconTheme: const IconThemeData(color: Colors.black),
+        elevation: 0,
+        title: Obx(
+          () => Center(
+              child: TittleAppbar(
+                  controller.userDetails.value.username?.toUpperCase() ?? '')),
         ),
         actions: [
           IconButton(
@@ -71,7 +73,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: General.mediaQuery(context).height * 0.35,
+                height: General.mediaQuery(context).height * 0.45,
 
                 /// lista cuotas pendientes
                 child: const ClientsPendingInstallmentsMolecule(),
@@ -96,7 +98,7 @@ class HomePage extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Desea cerrar sesion'),
+        title: const Center(child: Text('Desea cerrar sesion')),
         actions: [
           TextButton(
             onPressed: () => controller.logout(),
