@@ -14,7 +14,7 @@ class ValidateForm {
       case ValidateText.installmentAmount:
         return 2;
       case ValidateText.interestPercentage:
-        return 3;
+        return 2;
       case ValidateText.name:
         return 30;
       case ValidateText.onlyNumbers:

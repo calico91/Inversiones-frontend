@@ -75,7 +75,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                       ),
                       _showInfoCredito(
                         'Interes',
-                        '${info.interesPorcentaje!.toStringAsFixed(0)}%',
+                        '${info.interesPorcentaje!}%',
                       ),
                       _showInfoCredito('Fecha credito', info.fechaCredito!),
                       _showInfoCredito('Fecha cuota', info.fechaCuota!),
