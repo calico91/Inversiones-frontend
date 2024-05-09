@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/ui/pages/splash/splash_controller.dart';
 
 class SplashBinding implements Bindings {
@@ -8,7 +7,7 @@ class SplashBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<SplashController>(
-      () => SplashController(Get.find<AppController>()),
+      () => SplashController(),
     );
   }
 }

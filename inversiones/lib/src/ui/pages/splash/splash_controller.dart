@@ -1,46 +1,29 @@
+import 'dart:async';
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
-import 'package:inversiones/src/data/http/src/userdetails_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
-import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
-import 'package:inversiones/src/ui/pages/widgets/snackbars/error_snackbar.dart';
 
 class SplashController extends GetxController {
-  SplashController(this.appController);
-  final AppController appController;
+  SplashController();
+
+  final AppController appController = Get.find<AppController>();
 
   final RxBool _loading = true.obs;
+  final Rx<String> ruta = ''.obs;
 
   @override
-  void onInit() {
-    load();
+  Future<void> onInit() async {
+    Future.delayed(const Duration(seconds: 8), () => redireccionarRuta());
     super.onInit();
   }
 
-  Future<void> load() async {
-    try {
-      final String? token = await const SecureStorageLocal().jwtToken;
-      if (token == null) {
-        return Get.offNamed(RouteNames.signIn);
-      }
-      return await const UserDetailsHttp().userDetails.then((value) async {
-        if (value.status == 200) {
-          const SecureStorageLocal().saveUserDetails(value.userDetails);
-          Get.offNamed(RouteNames.navigationBar);
-        } else {
-          appController.manageError(value.message);
-          Get.offNamed(RouteNames.signIn);
-        }
-      });
-    } on HttpException catch (e) {
-      appController.manageError(e.message);
-    } catch (e) {
+  Future<void> redireccionarRuta() async {
+    final String? token = await const SecureStorageLocal().jwtToken;
+    if (token == null) {
       Get.offNamed(RouteNames.signIn);
-
-      Get.showSnackbar(ErrorSnackbar(e.toString()));
-    } finally {
-      _loading(false);
+    } else {
+      Get.offNamed(RouteNames.navigationBar);
     }
   }
 
