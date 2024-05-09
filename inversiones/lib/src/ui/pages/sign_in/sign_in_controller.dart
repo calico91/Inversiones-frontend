@@ -8,7 +8,7 @@ import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/sing_in_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
-import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 
@@ -38,42 +38,17 @@ class SignInController extends GetxController {
     super.onInit();
   }
 
-  void signIn(Size size, String username, String clave) {
+  void signIn(String username, String clave) {
     if (formKey.currentState!.validate()) {
       Get.showOverlay(
-          asyncFunction: () async {
-            try {
-              final SignInResponse res = await const SignInHttp()
-                  .signInWithUsernameAndPassword(username, clave);
-              final AndroidDeviceInfo androidInfo =
-                  await deviceInfo.androidInfo;
-
-              if (res.status == 200) {
-                await const SecureStorageLocal().saveIdMovil(androidInfo.id);
-                await const SecureStorageLocal()
-                    .saveToken(res.userDetails!.token);
-                await const SecureStorageLocal()
-                    .saveUserDetails(res.userDetails);
-                Get.offNamed(RouteNames.navigationBar);
-              } else {
-                appController.manageError(res.message);
-              }
-            } on HttpException catch (e) {
-              appController.manageError(e.message);
-            }
-          },
-          loadingWidget: Loading(vertical: size.height * 0.46));
-    }
-  }
-
-  void authBiometrica(Size size) {
-    Get.showOverlay(
         asyncFunction: () async {
           try {
             final SignInResponse res = await const SignInHttp()
-                .authBiometrica(usuarioBiometria.value!, idMovil!);
+                .signInWithUsernameAndPassword(username, clave);
+            final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
             if (res.status == 200) {
+              await const SecureStorageLocal().saveIdMovil(androidInfo.id);
               await const SecureStorageLocal()
                   .saveToken(res.userDetails!.token);
               await const SecureStorageLocal().saveUserDetails(res.userDetails);
@@ -85,7 +60,31 @@ class SignInController extends GetxController {
             appController.manageError(e.message);
           }
         },
-        loadingWidget: Loading(vertical: size.height * 0.46));
+        loadingWidget:CargandoAnimacion(),
+      );
+    }
+  }
+
+  void authBiometrica() {
+    Get.showOverlay(
+      asyncFunction: () async {
+        try {
+          final SignInResponse res = await const SignInHttp()
+              .authBiometrica(usuarioBiometria.value!, idMovil!);
+
+          if (res.status == 200) {
+            await const SecureStorageLocal().saveToken(res.userDetails!.token);
+            await const SecureStorageLocal().saveUserDetails(res.userDetails);
+            Get.offNamed(RouteNames.navigationBar);
+          } else {
+            appController.manageError(res.message);
+          }
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        }
+      },
+      loadingWidget:CargandoAnimacion(),
+    );
   }
 
   Future<bool> _canAuth() async =>

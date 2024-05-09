@@ -21,7 +21,6 @@ class SignInPage extends StatelessWidget {
                   if (autBiometria) {
                     if (context.mounted) {
                       controller.authBiometrica(
-                        General.mediaQuery(context),
                       );
                     }
                   }
@@ -76,7 +75,6 @@ class SignInPage extends StatelessWidget {
                     color: const Color.fromRGBO(31, 33, 36, 0.8),
                     iconSize: General.mediaQuery(context).height * 0.06,
                     onPressed: () => controller.signIn(
-                      General.mediaQuery(context),
                       controller.usernameController.value.text.trim(),
                       controller.passwordController.value.text.trim(),
                     ),

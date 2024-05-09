@@ -9,10 +9,10 @@ import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 
 class PayFeeController extends GetxController {
-  PayFeeController(this.appController, this.homeController); 
+  PayFeeController(this.appController, this.homeController);
 
   final AppController appController;
   final HomeController homeController;
@@ -49,11 +49,9 @@ class PayFeeController extends GetxController {
     }
   }
 
-  Future<void> pagarCuota(String tipoAbono, Size size) async {
+  Future<void> pagarCuota(String tipoAbono) async {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonoResponse respuestaHttp =

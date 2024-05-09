@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
@@ -16,9 +17,9 @@ class DialogResponseGeneral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
+      title: Text(
         textAlign: TextAlign.center,
-        'Informacion credito',
+        Constantes.INFORMACION_CREDITO,
       ),
       content: Screenshot(
         controller: screenshotController,

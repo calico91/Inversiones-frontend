@@ -23,7 +23,7 @@ class CardUltimosAbonos extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(
-                height: General.mediaQuery(context).height* 0.09,
+                height: General.mediaQuery(context).height * 0.09,
                 width: 50,
                 child: Form(
                   key: controller.formKey,
@@ -37,8 +37,7 @@ class CardUltimosAbonos extends StatelessWidget {
                 tooltip: 'Consultar ultimos abonos',
                 onPressed: () {
                   if (General.validateForm(controller.formKey)) {
-                    controller
-                        .consultarUltimosAbonos(General.mediaQuery(context));
+                    controller.consultarUltimosAbonos();
                   }
                 },
                 icon: const Icon(

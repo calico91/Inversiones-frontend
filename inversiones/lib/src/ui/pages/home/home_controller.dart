@@ -11,6 +11,7 @@ import 'package:inversiones/src/domain/responses/clientes/clients_pending_instal
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 
@@ -65,9 +66,7 @@ class HomeController extends GetxService {
     final String? idmovil = await const SecureStorageLocal().idMovil;
 
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           await const SecureStorageLocal()

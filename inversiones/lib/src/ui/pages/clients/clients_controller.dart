@@ -7,7 +7,7 @@ import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
-import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 
 class ClientsController extends GetxController {
@@ -50,11 +50,9 @@ class ClientsController extends GetxController {
     }
   }
 
-  void save(Size size) {
+  void save() {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         final List<Client> listaClienteLocal =
             await const SecureStorageLocal().listaClientes;
@@ -96,11 +94,9 @@ class ClientsController extends GetxController {
     );
   }
 
-  void loadClient(String document, Size size) {
+  void loadClient(String document) {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AddClientResponse res =
@@ -120,11 +116,9 @@ class ClientsController extends GetxController {
     );
   }
 
-  void updateClient(Size size) {
+  void updateClient() {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AddClientResponse res = await const ClientHttp().updateClient(

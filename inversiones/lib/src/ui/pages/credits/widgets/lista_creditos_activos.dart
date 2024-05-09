@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 
@@ -22,8 +23,7 @@ class ListaCreditosActivos extends StatelessWidget {
             child: FilledButton.icon(
                 icon: const Icon(Icons.list),
                 label: const Text('Cargar creditos'),
-                onPressed: () => controller
-                    .infoCreditosActivos(General.mediaQuery(context))),
+                onPressed: () => controller.infoCreditosActivos()),
           ),
         );
       }
@@ -53,8 +53,7 @@ class ListaCreditosActivos extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () => controller
-                              .infoCreditosActivos(General.mediaQuery(context)),
+                          onPressed: () => controller.infoCreditosActivos(),
                           icon: const Icon(Icons.refresh),
                           color: Colors.blue,
                         )
@@ -131,12 +130,10 @@ class ListaCreditosActivos extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-              tooltip: 'Informacion credito',
+              tooltip: Constantes.INFORMACION_CREDITO,
               onPressed: () {
                 controller.infoCreditoySaldo(
-                  controller.filtroCreditos.value[index].idCredito!,
-                  General.mediaQuery(context),
-                );
+                    controller.filtroCreditos.value[index].idCredito!);
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               icon: const Icon(Icons.info),
@@ -147,9 +144,7 @@ class ListaCreditosActivos extends StatelessWidget {
               tooltip: 'Informacion abonos',
               onPressed: () {
                 controller.consultarAbonosRealizados(
-                  controller.filtroCreditos.value[index].idCredito!,
-                  General.mediaQuery(context),
-                );
+                    controller.filtroCreditos.value[index].idCredito!);
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               icon: const Icon(

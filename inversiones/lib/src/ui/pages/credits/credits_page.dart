@@ -63,7 +63,7 @@ class CreditsPage extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () => controller
-                            .consultarClientes(General.mediaQuery(context)),
+                            .consultarClientes(),
                         child: TextFieldBase(
                           enabled: false,
                           title: 'Seleccione cliente',
@@ -127,7 +127,7 @@ class CreditsPage extends StatelessWidget {
                         label: const Text("Registrar"),
                         onPressed: () {
                           if (General.validateForm(controller.formKey)) {
-                            controller.save(General.mediaQuery(context));
+                            controller.save();
                           }
                         },
                       ),

@@ -26,11 +26,10 @@ import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 
 class CreditsController extends GetxController {
-
-  final AppController appController =  Get.find<AppController>();
+  final AppController appController = Get.find<AppController>();
   final HomeController homeController = Get.find<HomeController>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formKeyAbonoCapital = GlobalKey<FormState>();
@@ -68,11 +67,9 @@ class CreditsController extends GetxController {
     super.onInit();
   }
 
-  Future<void> infoCreditosActivos(Size size) async {
+  Future<void> infoCreditosActivos() async {
     Get.showOverlay(
-        loadingWidget: Loading(
-          vertical: size.height * 0.46,
-        ),
+        loadingWidget:CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final InfoCreditosActivosResponse res =
@@ -91,11 +88,9 @@ class CreditsController extends GetxController {
         });
   }
 
-  void save(Size size) {
+  void save() {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final UserDetails? userDetails =
@@ -138,11 +133,9 @@ class CreditsController extends GetxController {
     );
   }
 
-  Future<void> infoCreditoySaldo(int idCredito, Size size) async {
+  Future<void> infoCreditoySaldo(int idCredito) async {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final InfoCreditoySaldoResponse res =
@@ -177,16 +170,13 @@ class CreditsController extends GetxController {
   }
 
   Future<void> pagarInteresOCapital(
-    Size size,
     String tipoAbono,
     String estadoCredito,
     int idCuota, [
     double? valorInteres,
   ]) async {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonoResponse respuestaHttp =
@@ -216,12 +206,9 @@ class CreditsController extends GetxController {
     );
   }
 
-  Future<void> modificarFechaCuota(
-      Size size, int idCredito, BuildContext context) async {
+  Future<void> modificarFechaCuota(int idCredito, BuildContext context) async {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final PayFeeResponse respuestaHttp = await const CreditHttp()
@@ -251,11 +238,9 @@ class CreditsController extends GetxController {
   }
 
   Future<void> modificarEstadoCredito(
-      Size size, int idCredito, int estadoCredito, BuildContext context) async {
+      int idCredito, int estadoCredito, BuildContext context) async {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final EstadoCreditoResponse respuestaHttp = await const CreditHttp()
@@ -284,11 +269,9 @@ class CreditsController extends GetxController {
     );
   }
 
-  Future<void> consultarAbonosRealizados(int idCredito, Size size) async {
+  Future<void> consultarAbonosRealizados(int idCredito) async {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonosRealizadosResponse res =
@@ -316,11 +299,9 @@ class CreditsController extends GetxController {
     );
   }
 
-  Future<void> consultarAbonoPorId(int idCuotaCredito, Size size) async {
+  Future<void> consultarAbonoPorId(int idCuotaCredito) async {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonoResponse res =
@@ -340,11 +321,9 @@ class CreditsController extends GetxController {
     );
   }
 
-  Future<void> consultarClientes(Size size) async {
+  Future<void> consultarClientes() async {
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         /// si la lista ya se cargo una vez, se guarda en local storage y no se consulta de nuevo
         final List<Client> listaClienteLocal =
