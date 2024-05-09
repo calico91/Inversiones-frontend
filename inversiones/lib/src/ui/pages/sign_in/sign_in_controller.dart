@@ -8,10 +8,9 @@ import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/sing_in_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
-import 'package:inversiones/src/ui/pages/utils/constantes.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
-import 'package:lottie/lottie.dart';
 
 class SignInController extends GetxController {
   SignInController(this.appController);
@@ -61,7 +60,7 @@ class SignInController extends GetxController {
             appController.manageError(e.message);
           }
         },
-        loadingWidget: Lottie.asset(Constantes.CARGANDO),
+        loadingWidget:CargandoAnimacion(),
       );
     }
   }
@@ -84,7 +83,7 @@ class SignInController extends GetxController {
           appController.manageError(e.message);
         }
       },
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
     );
   }
 

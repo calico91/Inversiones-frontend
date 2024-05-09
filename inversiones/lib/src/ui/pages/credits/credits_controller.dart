@@ -26,7 +26,7 @@ import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:lottie/lottie.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 
 class CreditsController extends GetxController {
   final AppController appController = Get.find<AppController>();
@@ -69,7 +69,7 @@ class CreditsController extends GetxController {
 
   Future<void> infoCreditosActivos() async {
     Get.showOverlay(
-        loadingWidget: Lottie.asset(Constantes.CARGANDO),
+        loadingWidget:CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final InfoCreditosActivosResponse res =
@@ -90,7 +90,7 @@ class CreditsController extends GetxController {
 
   void save() {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final UserDetails? userDetails =
@@ -135,7 +135,7 @@ class CreditsController extends GetxController {
 
   Future<void> infoCreditoySaldo(int idCredito) async {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final InfoCreditoySaldoResponse res =
@@ -176,7 +176,7 @@ class CreditsController extends GetxController {
     double? valorInteres,
   ]) async {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonoResponse respuestaHttp =
@@ -208,7 +208,7 @@ class CreditsController extends GetxController {
 
   Future<void> modificarFechaCuota(int idCredito, BuildContext context) async {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final PayFeeResponse respuestaHttp = await const CreditHttp()
@@ -240,7 +240,7 @@ class CreditsController extends GetxController {
   Future<void> modificarEstadoCredito(
       int idCredito, int estadoCredito, BuildContext context) async {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final EstadoCreditoResponse respuestaHttp = await const CreditHttp()
@@ -271,7 +271,7 @@ class CreditsController extends GetxController {
 
   Future<void> consultarAbonosRealizados(int idCredito) async {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonosRealizadosResponse res =
@@ -301,7 +301,7 @@ class CreditsController extends GetxController {
 
   Future<void> consultarAbonoPorId(int idCuotaCredito) async {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonoResponse res =
@@ -323,7 +323,7 @@ class CreditsController extends GetxController {
 
   Future<void> consultarClientes() async {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         /// si la lista ya se cargo una vez, se guarda en local storage y no se consulta de nuevo
         final List<Client> listaClienteLocal =

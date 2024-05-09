@@ -7,9 +7,8 @@ import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
-import 'package:inversiones/src/ui/pages/utils/constantes.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
-import 'package:lottie/lottie.dart';
 
 class ClientsController extends GetxController {
   final AppController appController = Get.find<AppController>();
@@ -53,7 +52,7 @@ class ClientsController extends GetxController {
 
   void save() {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         final List<Client> listaClienteLocal =
             await const SecureStorageLocal().listaClientes;
@@ -97,7 +96,7 @@ class ClientsController extends GetxController {
 
   void loadClient(String document) {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AddClientResponse res =
@@ -119,7 +118,7 @@ class ClientsController extends GetxController {
 
   void updateClient() {
     Get.showOverlay(
-      loadingWidget: Lottie.asset(Constantes.CARGANDO),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AddClientResponse res = await const ClientHttp().updateClient(

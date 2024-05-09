@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/splash/splash_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:lottie/lottie.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -15,10 +15,7 @@ class SplashPage extends StatelessWidget {
         builder: (_) {
           return Scaffold(
             body: AnimatedSplashScreen(
-              splash: Lottie.asset(
-                height:  General.mediaQuery(context).height * 0.9,
-                fit: BoxFit.fill,
-                'assets/splash.json'),
+              splash: CargandoAnimacion(),
               nextScreen: const SizedBox(),
               splashIconSize: General.mediaQuery(context).height * 0.9,
               animationDuration: const Duration(seconds: 3),

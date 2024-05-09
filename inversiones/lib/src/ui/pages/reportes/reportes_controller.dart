@@ -5,9 +5,8 @@ import 'package:inversiones/src/data/http/src/reportes_http.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/domain/responses/reportes/reporte_interes_capital_response.dart';
-import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:lottie/lottie.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 
 class ReportesController extends GetxController {
   ReportesController(this.appController);
@@ -36,7 +35,7 @@ class ReportesController extends GetxController {
     _validarFechasCorrectas();
     if (fechasCorrectas.value) {
       Get.showOverlay(
-        loadingWidget: Lottie.asset(Constantes.CARGANDO),
+        loadingWidget: CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final ReporteInteresyCapitalResponse resHttp =
@@ -61,7 +60,7 @@ class ReportesController extends GetxController {
 
   Future<void> consultarUltimosAbonos() async {
     Get.showOverlay(
-      loadingWidget:Lottie.asset(Constantes.CARGANDO),
+      loadingWidget:CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonosRealizadosResponse resHttp =
