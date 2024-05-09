@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 
@@ -131,7 +132,7 @@ class ListaCreditosActivos extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-              tooltip: 'Informacion credito',
+              tooltip: Constantes.INFORMACION_CREDITO,
               onPressed: () {
                 controller.infoCreditoySaldo(
                   controller.filtroCreditos.value[index].idCredito!,

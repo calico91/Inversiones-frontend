@@ -10,7 +10,7 @@ class SplashController extends GetxController {
   SplashController(this.appController);
   final AppController appController;
 
-  final RxBool _loading = RxBool(true);
+  final RxBool _loading = true.obs;
 
   @override
   void onInit() {
