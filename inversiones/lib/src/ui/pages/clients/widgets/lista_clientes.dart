@@ -13,8 +13,8 @@ class ListaClientes extends StatelessWidget {
     final ClientsController controller = Get.find<ClientsController>();
     return Obx(() {
       if (controller.status.value != 200) {
-        return Loading(
-          vertical: General.mediaQuery(context).height * 0.1,
+        return const Loading(
+          vertical: 0.1,
         );
       }
       return Column(
@@ -45,10 +45,8 @@ class ListaClientes extends StatelessWidget {
         itemBuilder: (_, index) {
           return InkWell(
             onTap: homeController.mostrarModulo(['ADMIN'])
-                ? () => controller.loadClient(
-                      controller.filtroClientes.value[index].cedula,
-                      size,
-                    )
+                ? () => controller
+                    .loadClient(controller.filtroClientes.value[index].cedula)
                 : null,
             child: Card(
               child: ListTile(

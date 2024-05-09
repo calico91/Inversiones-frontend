@@ -220,7 +220,6 @@ Object _abonar(
           onPressed: () {
             Navigator.pop(context);
             controllerCredits.pagarInteresOCapital(
-              General.mediaQuery(context),
               tipoAbono,
               estadoCredito,
               idCuotaCredito,
@@ -274,8 +273,7 @@ Object _modificarCredito(
                 ),
                 botonAccionEditarCredito(
                   context,
-                  () => controller.modificarFechaCuota(
-                      General.mediaQuery(context), idCredito, context),
+                  () => controller.modificarFechaCuota(idCredito, context),
                 ),
               ],
             ),
@@ -331,7 +329,6 @@ Object _modificarCredito(
                     botonAccionEditarCredito(
                       context,
                       () => controller.modificarEstadoCredito(
-                          General.mediaQuery(context),
                           idCredito,
                           controller.estadoCredito.value,
                           context),

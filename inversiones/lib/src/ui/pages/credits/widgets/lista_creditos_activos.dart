@@ -23,8 +23,7 @@ class ListaCreditosActivos extends StatelessWidget {
             child: FilledButton.icon(
                 icon: const Icon(Icons.list),
                 label: const Text('Cargar creditos'),
-                onPressed: () => controller
-                    .infoCreditosActivos(General.mediaQuery(context))),
+                onPressed: () => controller.infoCreditosActivos()),
           ),
         );
       }
@@ -54,8 +53,7 @@ class ListaCreditosActivos extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () => controller
-                              .infoCreditosActivos(General.mediaQuery(context)),
+                          onPressed: () => controller.infoCreditosActivos(),
                           icon: const Icon(Icons.refresh),
                           color: Colors.blue,
                         )
@@ -135,9 +133,7 @@ class ListaCreditosActivos extends StatelessWidget {
               tooltip: Constantes.INFORMACION_CREDITO,
               onPressed: () {
                 controller.infoCreditoySaldo(
-                  controller.filtroCreditos.value[index].idCredito!,
-                  General.mediaQuery(context),
-                );
+                    controller.filtroCreditos.value[index].idCredito!);
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               icon: const Icon(Icons.info),
@@ -148,9 +144,7 @@ class ListaCreditosActivos extends StatelessWidget {
               tooltip: 'Informacion abonos',
               onPressed: () {
                 controller.consultarAbonosRealizados(
-                  controller.filtroCreditos.value[index].idCredito!,
-                  General.mediaQuery(context),
-                );
+                    controller.filtroCreditos.value[index].idCredito!);
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               icon: const Icon(

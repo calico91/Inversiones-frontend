@@ -17,4 +17,5 @@ class Constantes {
   static int CODIGO_CREDITO_ANULADO = 3;
   static int CODIGO_CREDITO_PAGADO = 2;
   static String NO_TOKEN = 'Bearer notoken';
+  static String CARGANDO = 'assets/cargando-ondas.json';
 }

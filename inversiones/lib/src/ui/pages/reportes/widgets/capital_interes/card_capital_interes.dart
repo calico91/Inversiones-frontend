@@ -24,9 +24,7 @@ class CardCapitalInteres extends StatelessWidget {
               ),
               IconButton(
                 tooltip: 'Consultar informacion',
-                onPressed: () => controller.consultarCapitalInteres(
-                  General.mediaQuery(context),
-                ),
+                onPressed: () => controller.consultarCapitalInteres(),
                 icon: const Icon(
                   Icons.info,
                   size: 30,

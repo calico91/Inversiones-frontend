@@ -14,7 +14,7 @@ class SplashController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    Future.delayed(const Duration(seconds: 8), () => redireccionarRuta());
+    Future.delayed(const Duration(seconds: 4), () => redireccionarRuta());
     super.onInit();
   }
 

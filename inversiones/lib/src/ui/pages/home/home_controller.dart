@@ -10,9 +10,11 @@ import 'package:inversiones/src/domain/request/vincular_dispositivo_request.dart
 import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
+import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeController extends GetxService {
   final AppController appController = Get.find<AppController>();
@@ -65,9 +67,7 @@ class HomeController extends GetxService {
     final String? idmovil = await const SecureStorageLocal().idMovil;
 
     Get.showOverlay(
-      loadingWidget: Loading(
-        vertical: size.height * 0.46,
-      ),
+      loadingWidget: Lottie.asset(Constantes.CARGANDO),
       asyncFunction: () async {
         try {
           await const SecureStorageLocal()

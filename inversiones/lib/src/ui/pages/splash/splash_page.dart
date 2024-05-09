@@ -21,7 +21,8 @@ class SplashPage extends StatelessWidget {
                 'assets/splash.json'),
               nextScreen: const SizedBox(),
               splashIconSize: General.mediaQuery(context).height * 0.9,
-              animationDuration: const Duration(seconds: 7),
+              animationDuration: const Duration(seconds: 3),
+              splashTransition: SplashTransition.scaleTransition,
             ),
           );
         });

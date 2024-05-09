@@ -14,10 +14,8 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
 
     return Obx(
       () {
-        if (controller.loading ) {
-          return Loading(
-            vertical: General.mediaQuery(context).height * 0.2,
-          );
+        if (controller.loading) {
+          return const Loading(vertical: 0.2);
         } else if (!controller.loading && controller.clients.isEmpty) {
           return Center(
             child: ListView(

@@ -3,8 +3,8 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class Loading extends StatelessWidget {
   const Loading({
-    this.vertical,
-    this.horizontal,
+    this.vertical = 0.15,
+    this.horizontal = 0.41,
     this.circularLoading = true,
   });
 
@@ -15,8 +15,8 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: horizontal ?? General.mediaQuery(context).width * 0.41,
-        vertical: vertical ?? General.mediaQuery(context).height * 0.15,
+        horizontal: General.mediaQuery(context).width * horizontal!,
+        vertical: General.mediaQuery(context).height * vertical!,
       ),
       child: circularLoading!
           ? const CircularProgressIndicator.adaptive()

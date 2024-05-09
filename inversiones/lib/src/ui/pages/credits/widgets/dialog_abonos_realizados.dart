@@ -46,10 +46,8 @@ class DialogAbonosRealizados extends StatelessWidget {
                           index,
                           General.mediaQuery(context),
                         ),
-                        onTap: () => controller.consultarAbonoPorId(
-                          abonosRealizados[index].id!,
-                          General.mediaQuery(context),
-                        ),
+                        onTap: () => controller
+                            .consultarAbonoPorId(abonosRealizados[index].id!),
                       ),
                     );
                   },
@@ -61,7 +59,7 @@ class DialogAbonosRealizados extends StatelessWidget {
           screenshotController: screenshotController,
           descripcion: 'Abonos realizados',
         ),
-       CloseButtonCustom(),
+        CloseButtonCustom(),
       ],
     );
   }

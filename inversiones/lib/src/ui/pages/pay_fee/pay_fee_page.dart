@@ -61,10 +61,10 @@ class PayFeePage extends StatelessWidget {
               child: CustomCard(
                 child: Obx(() {
                   if (controller.loading) {
-                    return Loading(
+                    return const Loading(
                         circularLoading: false,
-                        horizontal: General.mediaQuery(context).width * 0.001,
-                        vertical: General.mediaQuery(context).height * 0.16);
+                        horizontal: 0.001,
+                        vertical: 0.16);
                   }
                   return ColoredBox(
                     color: Colors.white,
@@ -275,27 +275,18 @@ class PayFeePage extends StatelessWidget {
               if (!soloInteres) {
                 if (controller.cambiarCuota.value) {
                   if (General.validateForm(controller.formKey)) {
-                    controller.pagarCuota(
-                      Constantes.CUOTA_NORMAL,
-                      General.mediaQuery(context),
-                    );
+                    controller.pagarCuota(Constantes.CUOTA_NORMAL);
                     Navigator.pop(context);
                     return;
                   }
                 } else {
-                  controller.pagarCuota(
-                    Constantes.CUOTA_NORMAL,
-                    General.mediaQuery(context),
-                  );
+                  controller.pagarCuota(Constantes.CUOTA_NORMAL);
                   Navigator.pop(context);
                   return;
                 }
               } else {
                 if (General.validateForm(controller.formKey)) {
-                  controller.pagarCuota(
-                    Constantes.SOLO_INTERES,
-                    General.mediaQuery(context),
-                  );
+                  controller.pagarCuota(Constantes.SOLO_INTERES);
                   Navigator.pop(context);
                 }
               }
