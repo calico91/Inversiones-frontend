@@ -60,7 +60,7 @@ class SignInController extends GetxController {
             appController.manageError(e.message);
           }
         },
-        loadingWidget:CargandoAnimacion(),
+        loadingWidget: CargandoAnimacion(),
       );
     }
   }
@@ -83,7 +83,7 @@ class SignInController extends GetxController {
           appController.manageError(e.message);
         }
       },
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
     );
   }
 
