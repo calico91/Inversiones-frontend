@@ -17,25 +17,25 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
         if (controller.loading) {
           return const Loading(vertical: 0.2);
         } else if (!controller.loading && controller.clients.isEmpty) {
-          return Center(
-            child: ListView(
-              children: [
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: General.mediaQuery(context).height * 0.1,
-                    ),
-                    child: const Text('No hay creditos pendientes'),
-                  ),
-                ),
-              ],
-            ),
+          return Column(
+            children: [
+              Image.asset(
+                'assets/sin_creditos_pendientes.png',
+                width: double.infinity,
+                height: General.mediaQuery(context).height * 0.35,
+              ),
+              const Text(
+                'No hay créditos pendientes.',
+                style: TextStyle(fontSize: 18),
+              ),
+            ],
           );
         }
         return ListView.builder(
           itemCount: controller.clients.length,
           itemBuilder: (_, index) {
             return Card(
+              elevation: 5,
               child: ListTile(
                 onTap: () {
                   Get.toNamed(RouteNames.payFee);
@@ -75,7 +75,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: size.width * 0.4,
+          width: size.width * 0.35,
           child: Text(
             textAlign: TextAlign.right,
             controller.clients[index].cedula!,
@@ -91,7 +91,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: size.width * 0.39,
+          width: size.width * 0.37,
           child: Text(
             overflow: TextOverflow.ellipsis,
             "Fecha cuota:${controller.clients[index].fechaCuota}",
@@ -99,7 +99,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
         ),
         Expanded(child: Container()),
         SizedBox(
-          width: size.width * 0.5,
+          width: size.width * 0.44,
           child: Text(
             textAlign: TextAlign.right,
             overflow: TextOverflow.ellipsis,

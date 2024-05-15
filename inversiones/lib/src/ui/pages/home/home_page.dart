@@ -6,6 +6,7 @@ import 'package:inversiones/src/ui/pages/home/widgets/drawer_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar_style/tittle_appbar.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 
 class HomePage extends StatelessWidget {
@@ -62,28 +63,21 @@ class HomePage extends StatelessWidget {
                             );
                           },
                           icon: const Icon(
-                            size: 25,
-                            Icons.info,
-                            color: Colors.blue,
-                          ),
+                              size: 25, Icons.info, color: Colors.blue),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
+
+              /// lista cuotas pendientes
               SizedBox(
                 height: General.mediaQuery(context).height * 0.45,
-
-                /// lista cuotas pendientes
-                child: const ClientsPendingInstallmentsMolecule(),
+                child: const CustomCard(
+                    child: ClientsPendingInstallmentsMolecule()),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-
-                /// simular credito
-                child: SimulateCreditMolecule(),
-              ),
+              CustomCard(child: SimulateCreditMolecule()),
             ],
           ),
         ],
