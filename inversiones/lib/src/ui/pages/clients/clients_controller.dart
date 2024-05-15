@@ -19,6 +19,7 @@ class ClientsController extends GetxController {
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController observations = TextEditingController();
+  final TextEditingController buscarClienteCtrl = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final Rx<int> idClient = RxInt(0);
   final Rx<List<Client>> clients = Rx<List<Client>>([]);
@@ -96,7 +97,7 @@ class ClientsController extends GetxController {
 
   void loadClient(String document) {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AddClientResponse res =
@@ -168,10 +169,11 @@ class ClientsController extends GetxController {
     phoneNumber.text = client.celular;
   }
 
-  void buscarCliente(String value) {
+  void buscarCliente(String value, bool focus) {
     List<Client> results = [];
-    if (value.isEmpty) {
+    if (value.isEmpty || !focus) {
       results = clients.value;
+      buscarClienteCtrl.clear();
     } else {
       results = clients.value
           .where(

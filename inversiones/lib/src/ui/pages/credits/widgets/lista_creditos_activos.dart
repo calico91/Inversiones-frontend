@@ -4,6 +4,7 @@ import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 
 class ListaCreditosActivos extends StatelessWidget {
@@ -22,18 +23,17 @@ class ListaCreditosActivos extends StatelessWidget {
             visible: homeController.mostrarModulo(['ADMIN']),
             child: FilledButton.icon(
                 icon: const Icon(Icons.list),
-                label: const Text('Cargar creditos'),
+                label: const Text('Creditos'),
                 onPressed: () => controller.infoCreditosActivos()),
           ),
         );
       }
-      return Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SizedBox(
-              height: General.mediaQuery(context).height * 0.48,
-              width: General.mediaQuery(context).width * 0.82,
+      return CustomCard(
+        child: Column(
+          children: [
+            SizedBox(
+              height: General.mediaQuery(context).height * 0.39,
+              width: double.infinity,
               child: Column(
                 children: [
                   Padding(
@@ -68,8 +68,8 @@ class ListaCreditosActivos extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     });
   }

@@ -8,19 +8,14 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: const RoundedRectangleBorder(
-        side: BorderSide(
-          width: 0.2,
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: General.mediaQuery(context).width * 0.02,
-          vertical: General.mediaQuery(context).height * 0.008,
-        ),
-        child: child,
-      ),
-    );
+        elevation: 5,
+        shape: const RoundedRectangleBorder(
+            side: BorderSide(width: 0.2),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: General.mediaQuery(context).width * 0.02,
+                vertical: General.mediaQuery(context).height * 0.008),
+            child: child));
   }
 }

@@ -20,13 +20,17 @@ class ListaClientes extends StatelessWidget {
       return Column(
         children: [
           SizedBox(
-            height: General.mediaQuery(context).height * 0.32,
-            width: General.mediaQuery(context).width * 0.87,
+            height: General.mediaQuery(context).height * 0.232,
+            width: double.infinity,
             child: Column(
               children: [
-                TextFieldSearch(
-                  labelText: 'Buscar cliente',
-                  onChanged: (value) => controller.buscarCliente(value),
+                Focus(
+                  onFocusChange: (value) => controller.buscarCliente('', value),
+                  child: TextFieldSearch(
+                    controller: controller.buscarClienteCtrl,
+                    labelText: 'Buscar cliente',
+                    onChanged: (value) => controller.buscarCliente(value, true),
+                  ),
                 ),
                 _listaClientes(controller, General.mediaQuery(context)),
               ],
