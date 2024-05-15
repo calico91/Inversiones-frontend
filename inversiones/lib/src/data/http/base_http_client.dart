@@ -38,9 +38,9 @@ class BaseHttpClient {
         message['message'].toString(),
       );
     } on SocketException {
-      throw FetchDataException('No internet connection', uri.toString());
+      throw FetchDataException('No tiene conexión a internet.', uri.toString());
     } on TimeoutException {
-      throw ApiNotRespondingException('Timeout', uri.toString());
+      throw ApiNotRespondingException('Error de comunicación, intente nuevamente.', uri.toString());
     }
   }
 
@@ -76,9 +76,9 @@ class BaseHttpClient {
         message['message'].toString(),
       );
     } on SocketException {
-      throw FetchDataException('No internet connection', uri.toString());
+      throw FetchDataException('No tiene conexion a internet', uri.toString());
     } on TimeoutException {
-      throw ApiNotRespondingException('Timeout', uri.toString());
+      throw ApiNotRespondingException('Error de comunicacion, intente nuevamente.', uri.toString());
     }
   }
 
@@ -114,9 +114,9 @@ class BaseHttpClient {
           // ignore: avoid_dynamic_calls
           message['message'].toString());
     } on SocketException {
-      throw FetchDataException('No internet connection', uri.toString());
+      throw FetchDataException('No tiene conexión a internet.', uri.toString());
     } on TimeoutException {
-      throw ApiNotRespondingException('Timeout', uri.toString());
+      throw ApiNotRespondingException('Error de comunicación, intente nuevamente.', uri.toString());
     }
   }
 
