@@ -37,47 +37,9 @@ class HomePage extends StatelessWidget {
         children: [
           Column(
             children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      TextFieldCalendar(
-                        height: General.mediaQuery(context).height * 0.03,
-                        controller: controller.fechafiltro,
-                        onTap: () async => General.showCalendar(
-                          context,
-                          controller.fechafiltro,
-                        ),
-                        title: 'Seleccione fecha',
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(top: 10),
-                        height: General.mediaQuery(context).height * 0.05,
-                        width: General.mediaQuery(context).width * 0.1,
-                        child: IconButton(
-                          onPressed: () {
-                            controller.loadClientsPendingInstallments(
-                              controller.fechafiltro.text,
-                            );
-                          },
-                          icon: const Icon(
-                              size: 25, Icons.info, color: Colors.blue),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              /// lista cuotas pendientes
-              SizedBox(
-                height: General.mediaQuery(context).height * 0.45,
-                child: const CustomCard(
-                    child: ClientsPendingInstallmentsMolecule()),
-              ),
-              CustomCard(child: SimulateCreditMolecule()),
+              _seleccionarFechaConsulta(controller, context),
+              _mostrarCuotasPendientes(context),
+              SimulateCreditMolecule(),
             ],
           ),
         ],
@@ -86,24 +48,59 @@ class HomePage extends StatelessWidget {
   }
 
   Future _confirmacionCerrarSesion(
-    HomeController controller,
-    BuildContext context,
-  ) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Center(child: Text('Desea cerrar sesion')),
-        actions: [
-          TextButton(
-            onPressed: () => controller.logout(),
-            child: const Text('Si'),
+          HomeController controller, BuildContext context) =>
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Center(child: Text('Desea cerrar sesion')),
+          actions: [
+            TextButton(
+              onPressed: () => controller.logout(),
+              child: const Text('Si'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('No'),
+            ),
+          ],
+        ),
+      );
+
+  Widget _seleccionarFechaConsulta(
+          HomeController controller, BuildContext context) =>
+      Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextFieldCalendar(
+                height: General.mediaQuery(context).height * 0.03,
+                controller: controller.fechafiltro,
+                onTap: () async => General.showCalendar(
+                  context,
+                  controller.fechafiltro,
+                ),
+                title: 'Seleccione fecha',
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 10),
+                height: General.mediaQuery(context).height * 0.05,
+                width: General.mediaQuery(context).width * 0.1,
+                child: IconButton(
+                  onPressed: () => controller.loadClientsPendingInstallments(
+                    controller.fechafiltro.text,
+                  ),
+                  icon: const Icon(size: 25, Icons.info, color: Colors.blue),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('No'),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+      );
+
+  Widget _mostrarCuotasPendientes(BuildContext context) => SizedBox(
+        height: General.mediaQuery(context).height * 0.45,
+        child: const CustomCard(child: ClientsPendingInstallmentsMolecule()),
+      );
 }

@@ -15,7 +15,9 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Obx(
       () {
         if (controller.loading) {
-          return const Loading(vertical: 0.2);
+          return const Loading(
+            horizontal: double.infinity,
+            vertical: 0.19);
         } else if (!controller.loading && controller.clients.isEmpty) {
           return Column(
             children: [
