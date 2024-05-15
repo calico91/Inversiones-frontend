@@ -70,7 +70,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: size.width * 0.49,
+          width: size.width * 0.48,
           child: Text(
             overflow: TextOverflow.ellipsis,
             "${controller.clients[index].idCredito}.${controller.clients[index].nombres} ${controller.clients[index].apellidos}",
@@ -93,7 +93,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: size.width * 0.37,
+          width: size.width * 0.40,
           child: Text(
             overflow: TextOverflow.ellipsis,
             "Fecha cuota:${controller.clients[index].fechaCuota}",
@@ -101,7 +101,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
         ),
         Expanded(child: Container()),
         SizedBox(
-          width: size.width * 0.44,
+          width: size.width * 0.43,
           child: Text(
             textAlign: TextAlign.right,
             overflow: TextOverflow.ellipsis,
