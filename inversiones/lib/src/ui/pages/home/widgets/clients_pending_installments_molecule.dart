@@ -16,7 +16,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
       () {
         if (controller.loading) {
           return const Loading(
-            horizontal: double.infinity,
+            horizontal: 0.43,
             vertical: 0.19);
         } else if (!controller.loading && controller.clients.isEmpty) {
           return Column(
