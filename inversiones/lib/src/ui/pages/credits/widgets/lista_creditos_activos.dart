@@ -15,6 +15,7 @@ class ListaCreditosActivos extends StatelessWidget {
     final HomeController homeController = Get.find<HomeController>();
     return Obx(() {
       if (controller.creditosActivos.value.isEmpty) {
+        
         return Padding(
           padding: EdgeInsets.symmetric(
               vertical: General.mediaQuery(context).height * 0.2,
