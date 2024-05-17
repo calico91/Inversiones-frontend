@@ -38,22 +38,23 @@ class PayFee {
   String? fechaAbono;
   double? interesMora;
   int? diasMora;
+  String? fechaProximaMora;
 
-  PayFee({
-    this.id,
-    this.valorCuota,
-    this.fechaCuota,
-    this.numeroCuotas,
-    this.cuotaNumero,
-    this.valorAbonado,
-    this.valorCapital,
-    this.valorInteres,
-    this.valorCredito,
-    this.interesPorcentaje,
-    this.fechaAbono,
-    this.interesMora,
-    this.diasMora,
-  });
+  PayFee(
+      {this.id,
+      this.valorCuota,
+      this.fechaCuota,
+      this.numeroCuotas,
+      this.cuotaNumero,
+      this.valorAbonado,
+      this.valorCapital,
+      this.valorInteres,
+      this.valorCredito,
+      this.interesPorcentaje,
+      this.fechaAbono,
+      this.interesMora,
+      this.diasMora,
+      this.fechaProximaMora});
 
   factory PayFee.fromJson(Map<String, dynamic> json) => PayFee(
         id: json["id"] as int,
@@ -73,5 +74,8 @@ class PayFee {
         interesMora:
             json["interesMora"] == null ? 0 : json["interesMora"] as double,
         diasMora: json["diasMora"] == null ? 0 : json["diasMora"] as int,
+        fechaProximaMora: json["fechaProximaMora"] == null
+            ? null
+            : json["fechaProximaMora"] as String,
       );
 }
