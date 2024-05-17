@@ -63,18 +63,18 @@ class CreditsController extends GetxController {
   @override
   void onInit() {
     _fechaInicialCredito();
-    _datosCliente();
     super.onInit();
   }
 
   Future<void> infoCreditosActivos() async {
     Get.showOverlay(
-        loadingWidget:CargandoAnimacion(),
+        loadingWidget: CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final InfoCreditosActivosResponse res =
                 await const CreditHttp().infoCreditosActivos();
             if (res.status == 200) {
+              campoBuscarCredito.clear();
               creditosActivos(res.infoCreditosActivos);
               filtroCreditos(creditosActivos.value);
             } else {
@@ -90,7 +90,7 @@ class CreditsController extends GetxController {
 
   void save() {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final UserDetails? userDetails =
@@ -135,7 +135,7 @@ class CreditsController extends GetxController {
 
   Future<void> infoCreditoySaldo(int idCredito) async {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final InfoCreditoySaldoResponse res =
@@ -176,7 +176,7 @@ class CreditsController extends GetxController {
     double? valorInteres,
   ]) async {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonoResponse respuestaHttp =
@@ -208,7 +208,7 @@ class CreditsController extends GetxController {
 
   Future<void> modificarFechaCuota(int idCredito, BuildContext context) async {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final PayFeeResponse respuestaHttp = await const CreditHttp()
@@ -240,7 +240,7 @@ class CreditsController extends GetxController {
   Future<void> modificarEstadoCredito(
       int idCredito, int estadoCredito, BuildContext context) async {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final EstadoCreditoResponse respuestaHttp = await const CreditHttp()
@@ -271,7 +271,7 @@ class CreditsController extends GetxController {
 
   Future<void> consultarAbonosRealizados(int idCredito) async {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonosRealizadosResponse res =
@@ -301,7 +301,7 @@ class CreditsController extends GetxController {
 
   Future<void> consultarAbonoPorId(int idCuotaCredito) async {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonoResponse res =
@@ -323,7 +323,7 @@ class CreditsController extends GetxController {
 
   Future<void> consultarClientes() async {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         /// si la lista ya se cargo una vez, se guarda en local storage y no se consulta de nuevo
         final List<Client> listaClienteLocal =
@@ -421,13 +421,6 @@ class CreditsController extends GetxController {
     }
     filtroCreditos.value = results;
   }
-
-  ///carga la cedula de cliente cuando viene desde el modulo de clientes
-  void _datosCliente() {
-    nombreCliente.text = Get.parameters['nombreCliente'] ?? '';
-    cedulaClienteSeleccionado.value = Get.parameters['cedula'] ?? '';
-  }
-
   /// cambia la modalidad
   bool? cambiarModalidad(bool value) {
     return modalidad.value = value;

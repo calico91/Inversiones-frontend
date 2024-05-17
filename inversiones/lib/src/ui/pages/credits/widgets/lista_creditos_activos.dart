@@ -46,7 +46,7 @@ class ListaCreditosActivos extends StatelessWidget {
                         SizedBox(
                           width: General.mediaQuery(context).width * 0.68,
                           child: TextFieldSearch(
-                            controller: controller.campoBuscarCliente,
+                            controller: controller.campoBuscarCredito,
                             labelText:
                                 'Buscar credito ${controller.creditosActivos.value.length}',
                             onChanged: (value) =>

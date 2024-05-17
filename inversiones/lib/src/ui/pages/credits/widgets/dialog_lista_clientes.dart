@@ -22,7 +22,7 @@ class DialogListaClientes extends StatelessWidget {
             () => Column(
               children: [
                 TextFieldSearch(
-                  controller: controller.campoBuscarCredito,
+                  controller: controller.campoBuscarCliente,
                   labelText: 'Buscar cliente',
                   onChanged: (value) => _buscarCliente(value, controller),
                 ),
@@ -78,4 +78,5 @@ void _obtenerClienteSeleccionado(
 
   controller.cedulaClienteSeleccionado(cliente.cedula);
   Navigator.pop(context);
+  controller.campoBuscarCliente.clear();
 }
