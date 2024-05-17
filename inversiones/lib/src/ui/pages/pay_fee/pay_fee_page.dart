@@ -20,7 +20,6 @@ class PayFeePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PayFeeController controller = Get.find<PayFeeController>();
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -59,6 +58,7 @@ class PayFeePage extends StatelessWidget {
             Screenshot(
               controller: screenshotController,
               child: CustomCard(
+                
                 child: Obx(() {
                   if (controller.loading) {
                     return const Loading(
@@ -74,6 +74,11 @@ class PayFeePage extends StatelessWidget {
                           General.mediaQuery(context),
                           'Fecha cuota',
                           controller.payFee.fechaCuota!,
+                        ),
+                        _infoValorCuota(
+                          General.mediaQuery(context),
+                          'Proxima Mora',
+                          controller.payFee.fechaProximaMora!,
                         ),
                         _infoValorCuota(
                           General.mediaQuery(context),
