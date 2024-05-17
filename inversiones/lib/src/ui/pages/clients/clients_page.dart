@@ -26,7 +26,7 @@ class ClientsPage extends StatelessWidget {
       body: ListView(
         children: [
           _formularioRegistrarCliente(context, controller),
-          const CustomCard(child: ListaClientes()),
+          const ListaClientes(),
         ],
       ),
     );

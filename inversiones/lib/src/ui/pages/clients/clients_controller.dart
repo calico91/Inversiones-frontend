@@ -26,29 +26,29 @@ class ClientsController extends GetxController {
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
   final Rx<int> status = Rx<int>(0);
 
-  @override
-  Future<void> onInit() async {
-    await _allClients();
-    super.onInit();
-  }
 
-  Future<void> _allClients() async {
-    try {
-      final AllClientsResponse res = await const ClientHttp().allClients();
-      if (res.status == 200) {
-        clients(res.clients);
-        status(res.status);
-        filtroClientes(clients.value);
+  Future<void> allClients() async {
+    Get.showOverlay(
+        loadingWidget: CargandoAnimacion(),
+        asyncFunction: () async {
+          try {
+            final AllClientsResponse res =
+                await const ClientHttp().allClients();
+            if (res.status == 200) {
+              clients(res.clients);
+              status(res.status);
+              filtroClientes(clients.value);
 
-        await const SecureStorageLocal().saveListaClientes(clients.value);
-      } else {
-        appController.manageError(res.message);
-      }
-    } on HttpException catch (e) {
-      appController.manageError(e.message);
-    } catch (e) {
-      appController.manageError(e.toString());
-    }
+              await const SecureStorageLocal().saveListaClientes(clients.value);
+            } else {
+              appController.manageError(res.message);
+            }
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
   }
 
   void save() {

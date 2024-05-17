@@ -10,7 +10,7 @@ import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 
 class BaseHttpClient {
   const BaseHttpClient(
-      {this.timeout = const Duration(seconds: 30),
+      {this.timeout = const Duration(seconds: 15),
       this.secureStorageLocal = const SecureStorageLocal()});
 
   final Duration timeout;
