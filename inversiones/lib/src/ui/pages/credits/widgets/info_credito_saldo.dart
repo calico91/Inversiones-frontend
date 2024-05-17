@@ -88,12 +88,12 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                         General.formatoMoneda(info.valorCredito),
                       ),
                       _showInfoCredito(
-                        'Interes a hoy',
-                        General.formatoMoneda(info.interesHoy),
-                      ),
-                      _showInfoCredito(
                         'Interes mes',
                         General.formatoMoneda(info.valorInteres),
+                      ),
+                      _showInfoCredito(
+                        'Interes a hoy',
+                        General.formatoMoneda(info.interesHoy),
                       ),
                       _showInfoCredito(
                         'Valor por Mora',
@@ -329,9 +329,7 @@ Object _modificarCredito(
                     botonAccionEditarCredito(
                       context,
                       () => controller.modificarEstadoCredito(
-                          idCredito,
-                          controller.estadoCredito.value,
-                          context),
+                          idCredito, controller.estadoCredito.value, context),
                     ),
                   ],
                 ),
