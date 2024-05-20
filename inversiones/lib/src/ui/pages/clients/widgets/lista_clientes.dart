@@ -11,19 +11,28 @@ class ListaClientes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ClientsController controller = Get.find<ClientsController>();
-    final HomeController homeController = Get.find<HomeController>();
     return Obx(() {
       if (controller.clients.value.isEmpty) {
-        return Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: General.mediaQuery(context).height * 0.1,
-              horizontal: General.mediaQuery(context).height * 0.15),
-          child: Visibility(
-            visible: homeController.mostrarModulo(['ADMIN']),
-            child: FilledButton.icon(
-                icon: const Icon(Icons.person),
-                label: const Text('Clientes'),
-                onPressed: () => controller.allClients()),
+        return CustomCard(
+          child: InkWell(
+            onTap: () => controller.allClients(),
+            child: Column(
+              children: [
+                const Text(
+                  'Cargar clientes',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(
+                  height: General.mediaQuery(context).height * 0.21,
+                  width: General.mediaQuery(context).width * 0.45,
+                  child: Image.asset(
+                    'assets/cargar_clientes.png',
+                    width: double.infinity,
+                    height: General.mediaQuery(context).height * 0.35,
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       }

@@ -27,8 +27,12 @@ class InfoSnackbar extends GetSnackBar {
   @override
   Widget? get mainButton {
     return IconButton(
+       color: Colors.white,
       onPressed: () => Get.back(),
       icon: const Icon(Icons.close),
     );
   }
+
+    @override
+  double get borderRadius => 15;
 }
