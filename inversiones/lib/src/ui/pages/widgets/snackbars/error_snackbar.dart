@@ -21,7 +21,7 @@ class ErrorSnackbar extends GetSnackBar {
   Color get backgroundColor => Colors.redAccent;
 
   @override
-  Duration? get duration => const Duration(seconds: 5);
+  Duration? get duration => const Duration(seconds: 3);
 
   @override
   Widget? get icon => const Icon(Icons.error_outlined, color: Colors.white);
@@ -29,8 +29,13 @@ class ErrorSnackbar extends GetSnackBar {
   @override
   Widget? get mainButton {
     return IconButton(
+      color: Colors.white,
       onPressed: () => Get.back(),
       icon: const Icon(Icons.close),
     );
   }
+
+  @override
+  double get borderRadius => 15;
+
 }
