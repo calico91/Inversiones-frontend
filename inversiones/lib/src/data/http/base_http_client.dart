@@ -20,7 +20,8 @@ class BaseHttpClient {
       [Map<String, String>? parameters]) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
-        : Uri.http('10.102.1.64:8091', path, parameters);
+        : Uri.http(UrlPaths.url, path, parameters);
+
 
     try {
       final String? token = await secureStorageLocal.jwtToken;
@@ -48,7 +49,7 @@ class BaseHttpClient {
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
-        : Uri.http('10.102.1.64:8091', path, parameters);
+        : Uri.http(UrlPaths.url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
@@ -86,7 +87,7 @@ class BaseHttpClient {
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
-        : Uri.http('10.102.1.64:8091', path, parameters);
+        : Uri.http(UrlPaths.url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http

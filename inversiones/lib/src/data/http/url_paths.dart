@@ -1,7 +1,7 @@
 class UrlPaths {
   const UrlPaths._();
 
-  static const String url = 'http://10.102.1.64:8091';
+  static const String url = 'http://10.106.1.42:8091';
   static const String signIn = '/user/login';
   static const String allClients = '/cliente/consultarClientes';
   static const String loadClient = '/cliente/consultarClientePorCedula';
