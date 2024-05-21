@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
-import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -12,20 +11,29 @@ class ListaCreditosActivos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CreditsController controller = Get.find<CreditsController>();
-    final HomeController homeController = Get.find<HomeController>();
     return Obx(() {
       if (controller.creditosActivos.value.isEmpty) {
         
-        return Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: General.mediaQuery(context).height * 0.2,
-              horizontal: General.mediaQuery(context).height * 0.15),
-          child: Visibility(
-            visible: homeController.mostrarModulo(['ADMIN']),
-            child: FilledButton.icon(
-                icon: const Icon(Icons.list),
-                label: const Text('Creditos'),
-                onPressed: () => controller.infoCreditosActivos()),
+        return CustomCard(
+          child: InkWell(
+            onTap: () => controller.infoCreditosActivos(),
+            child: Column(
+              children: [
+                const Text(
+                  'Cargar creditos',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(
+                  height: General.mediaQuery(context).height * 0.36,
+                  width: General.mediaQuery(context).width * 0.45, 
+                  child: Image.asset(
+                    'assets/cargar_credito.png',
+                    width: double.infinity,
+                    height: General.mediaQuery(context).height * 0.35,
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       }

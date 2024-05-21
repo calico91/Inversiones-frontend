@@ -20,7 +20,7 @@ class BaseHttpClient {
       [Map<String, String>? parameters]) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
-        : Uri.https('inversiones.up.railway.app', path, parameters);
+        : Uri.https(UrlPaths.url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final http.Response response = await http.get(uri, headers: {
@@ -47,7 +47,7 @@ class BaseHttpClient {
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
-        : Uri.http('https://inversiones.up.railway.app', path, parameters);
+        : Uri.https(UrlPaths.url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
@@ -85,7 +85,7 @@ class BaseHttpClient {
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
         ? Uri.parse('${UrlPaths.url}$path')
-        : Uri.http('https://inversiones.up.railway.app', path, parameters);
+         : Uri.https(UrlPaths.url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
