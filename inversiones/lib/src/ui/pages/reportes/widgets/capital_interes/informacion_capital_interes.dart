@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/reportes/reporte_interes_capital_response.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 
 class InformacionCapitalInteres extends StatelessWidget {
   const InformacionCapitalInteres(this.info);
@@ -8,42 +9,44 @@ class InformacionCapitalInteres extends StatelessWidget {
   final ReporteInteresyCapital info;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Column(
+    return AlertDialog(
+      elevation: 10,
+      title: const Text('Información de ingresos'),
+      content: SizedBox(
+        height: General.mediaQuery(context).height * 0.23,
+        child: Column(
           children: [
-            const Text(
-              'Interes',
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              General.formatoMoneda(info.interesMes ?? 0),
-              style: const TextStyle(fontSize: 18),
-            ),
+            _divider(),
+            _mostrarInformacionIngresos('Valor interes',
+                interesMes: info.interesMes ?? 0),
+            _divider(),
+            _mostrarInformacionIngresos('Valor capital',
+                capitalMes: info.capitalMes ?? 0),
+            _divider(),
+            _mostrarInformacionIngresos('Valor total',
+                capitalMes: info.capitalMes ?? 0,
+                interesMes: info.interesMes ?? 0),
+            _divider()
           ],
         ),
-        Column(
-          children: [
-            const Text('Capital', style: TextStyle(fontSize: 20)),
-            Text(
-              General.formatoMoneda(info.capitalMes ?? 0),
-              style: const TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            const Text('Total', style: TextStyle(fontSize: 20)),
-            Text(
-              General.formatoMoneda(
-                (info.interesMes ?? 0) + (info.capitalMes ?? 0),
-              ),
-              style: const TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-      ],
+      ),
+      actions: [CloseButtonCustom()],
     );
   }
+
+  Widget _divider() => const Divider();
+
+  Widget _mostrarInformacionIngresos(String mensaje,
+          {double? interesMes, double? capitalMes}) =>
+      Column(
+        children: [
+          Text(mensaje, style: const TextStyle(fontSize: 20)),
+          Text(
+            General.formatoMoneda(
+              (interesMes ?? 0) + (capitalMes ?? 0),
+            ),
+            style: const TextStyle(fontSize: 18),
+          ),
+        ],
+      );
 }
