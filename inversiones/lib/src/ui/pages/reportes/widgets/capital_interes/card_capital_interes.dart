@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_controller.dart';
-import 'package:inversiones/src/ui/pages/reportes/widgets/capital_interes/informacion_capital_interes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
@@ -57,9 +56,7 @@ class CardCapitalInteres extends StatelessWidget {
           Obx(
             () => !controller.fechasCorrectas.value
                 ? _mensajeFechasError()
-                : InformacionCapitalInteres(
-                    controller.infoInteresCapital.value,
-                  ),
+                : const SizedBox(),
           ),
         ],
       ),

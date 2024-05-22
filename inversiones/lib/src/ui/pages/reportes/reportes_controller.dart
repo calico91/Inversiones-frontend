@@ -5,6 +5,7 @@ import 'package:inversiones/src/data/http/src/reportes_http.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/domain/responses/reportes/reporte_interes_capital_response.dart';
+import 'package:inversiones/src/ui/pages/reportes/widgets/capital_interes/informacion_capital_interes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 
@@ -40,14 +41,10 @@ class ReportesController extends GetxController {
           try {
             final ReporteInteresyCapitalResponse resHttp =
                 await const ReportesHttp().consultarReporteInteresyCapital(
-              fechaInicial.text,
-              fechaFinal.text,
-            );
-            if (resHttp.status == 200) {
-              infoInteresCapital(resHttp.reporteInteresyCapital);
-            } else {
-              appController.manageError(resHttp.message!);
-            }
+                    fechaInicial.text, fechaFinal.text);
+
+            infoInteresCapital(resHttp.reporteInteresyCapital);
+            _mostrarModalReportes(resHttp.reporteInteresyCapital!);
           } on HttpException catch (e) {
             appController.manageError(e.message);
           } catch (e) {
@@ -58,9 +55,16 @@ class ReportesController extends GetxController {
     }
   }
 
+  void _mostrarModalReportes(ReporteInteresyCapital info) {
+    Get.dialog(
+      barrierDismissible: false,
+      InformacionCapitalInteres(info),
+    );
+  }
+
   Future<void> consultarUltimosAbonos() async {
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonosRealizadosResponse resHttp =
