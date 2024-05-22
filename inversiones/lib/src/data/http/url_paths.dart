@@ -1,7 +1,8 @@
 class UrlPaths {
   const UrlPaths._();
 
-  static const String url = 'https://inversiones.up.railway.app';
+  static const String urlHTTP = 'https://inversiones.up.railway.app';
+  static const String url = 'inversiones.up.railway.app';
   static const String signIn = '/user/login';
   static const String allClients = '/cliente/consultarClientes';
   static const String loadClient = '/cliente/consultarClientePorCedula';

@@ -19,8 +19,10 @@ class BaseHttpClient {
   Future<http.Response> get(String path,
       [Map<String, String>? parameters]) async {
     final Uri uri = parameters == null
-        ? Uri.parse('${UrlPaths.url}$path')
-        : Uri.https(UrlPaths.url, path, parameters);
+        ? Uri.parse('${UrlPaths.urlHTTP}$path')
+        : Uri.http(UrlPaths.url, path, parameters);
+
+
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final http.Response response = await http.get(uri, headers: {
@@ -46,8 +48,8 @@ class BaseHttpClient {
   Future<http.Response> post(String path,
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
-        ? Uri.parse('${UrlPaths.url}$path')
-        : Uri.https(UrlPaths.url, path, parameters);
+        ? Uri.parse('${UrlPaths.urlHTTP}$path')
+        : Uri.http(UrlPaths.url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
@@ -84,8 +86,8 @@ class BaseHttpClient {
   Future<http.Response> put(String path,
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
-        ? Uri.parse('${UrlPaths.url}$path')
-         : Uri.https(UrlPaths.url, path, parameters);
+        ? Uri.parse('${UrlPaths.urlHTTP}$path')
+        : Uri.http(UrlPaths.url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
