@@ -6,6 +6,7 @@ import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/domain/responses/reportes/reporte_interes_capital_response.dart';
 import 'package:inversiones/src/ui/pages/reportes/widgets/capital_interes/informacion_capital_interes.dart';
+import 'package:inversiones/src/ui/pages/reportes/widgets/ultimos_abonos/informacion_ultimos_abonos.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 
@@ -44,7 +45,7 @@ class ReportesController extends GetxController {
                     fechaInicial.text, fechaFinal.text);
 
             infoInteresCapital(resHttp.reporteInteresyCapital);
-            _mostrarModalReportes(resHttp.reporteInteresyCapital!);
+            _mostrarModalCapitalInteres(resHttp.reporteInteresyCapital!);
           } on HttpException catch (e) {
             appController.manageError(e.message);
           } catch (e) {
@@ -55,11 +56,8 @@ class ReportesController extends GetxController {
     }
   }
 
-  void _mostrarModalReportes(ReporteInteresyCapital info) {
-    Get.dialog(
-      barrierDismissible: false,
-      InformacionCapitalInteres(info),
-    );
+  void _mostrarModalCapitalInteres(ReporteInteresyCapital info) {
+    Get.dialog(barrierDismissible: true, InformacionCapitalInteres(info));
   }
 
   Future<void> consultarUltimosAbonos() async {
@@ -71,12 +69,9 @@ class ReportesController extends GetxController {
               await const ReportesHttp().consultarUltimosAbonos(
             int.parse(cantidadAbonosConsultar.value.text),
           );
-          if (resHttp.status == 200) {
-            ultimosAbonos(resHttp.abonosRealizados);
-            cantidadAbonosConsultar.clear();
-          } else {
-            appController.manageError(resHttp.message!);
-          }
+          ultimosAbonos(resHttp.abonosRealizados);
+          cantidadAbonosConsultar.clear();
+          _mostrarModalUltimosAbonos(resHttp.abonosRealizados);
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -84,6 +79,10 @@ class ReportesController extends GetxController {
         }
       },
     );
+  }
+
+  void _mostrarModalUltimosAbonos(List<AbonosRealizados>? info) {
+    Get.dialog(barrierDismissible: false, InformacionUltimosAbonos(info));
   }
 
   void _fechaInicial() {

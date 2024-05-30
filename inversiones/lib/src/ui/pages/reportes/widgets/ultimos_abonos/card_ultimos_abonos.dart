@@ -48,38 +48,6 @@ class CardUltimosAbonos extends StatelessWidget {
               ),
             ],
           ),
-          Obx(
-            () => controller.ultimosAbonos.value.isNotEmpty
-                ? SizedBox(
-                    height: General.mediaQuery(context).height * 0.56,
-                    child: ListView.builder(
-                      itemCount: controller.ultimosAbonos.value.length,
-                      itemBuilder: (_, index) {
-                        return Card(
-                          child: ListTile(
-                            title: Center(
-                              child: Text(
-                                '${controller.ultimosAbonos.value[index].nombres!} ${controller.ultimosAbonos.value[index].apellidos!}',
-                              ),
-                            ),
-                            subtitle: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'Valor abonado: ${General.formatoMoneda(controller.ultimosAbonos.value[index].valorAbonado)}',
-                                ),
-                                Text(
-                                  'Fecha de pago: ${controller.ultimosAbonos.value[index].fechaAbono!}',
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                : const SizedBox(),
-          ),
         ],
       ),
     );
