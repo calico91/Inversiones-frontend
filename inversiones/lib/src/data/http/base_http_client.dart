@@ -19,9 +19,8 @@ class BaseHttpClient {
   Future<http.Response> get(String path,
       [Map<String, String>? parameters]) async {
     final Uri uri = parameters == null
-        ? Uri.parse('${UrlPaths.urlHTTP}$path')
+        ? Uri.http(UrlPaths.url, path)
         : Uri.http(UrlPaths.url, path, parameters);
-
 
     try {
       final String? token = await secureStorageLocal.jwtToken;
@@ -41,14 +40,15 @@ class BaseHttpClient {
     } on SocketException {
       throw FetchDataException('No tiene conexión a internet.', uri.toString());
     } on TimeoutException {
-      throw ApiNotRespondingException('Error de comunicación, intente nuevamente.', uri.toString());
+      throw ApiNotRespondingException(
+          'Error de comunicación, intente nuevamente.', uri.toString());
     }
   }
 
   Future<http.Response> post(String path,
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
-        ? Uri.parse('${UrlPaths.urlHTTP}$path')
+        ? Uri.http(UrlPaths.url, path)
         : Uri.http(UrlPaths.url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
@@ -79,14 +79,15 @@ class BaseHttpClient {
     } on SocketException {
       throw FetchDataException('No tiene conexion a internet', uri.toString());
     } on TimeoutException {
-      throw ApiNotRespondingException('Error de comunicacion, intente nuevamente.', uri.toString());
+      throw ApiNotRespondingException(
+          'Error de comunicacion, intente nuevamente.', uri.toString());
     }
   }
 
   Future<http.Response> put(String path,
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final Uri uri = parameters == null
-        ? Uri.parse('${UrlPaths.urlHTTP}$path')
+        ? Uri.http(UrlPaths.url, path)
         : Uri.http(UrlPaths.url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
@@ -94,14 +95,14 @@ class BaseHttpClient {
           .put(
             uri,
             headers: path == UrlPaths.signIn || path == UrlPaths.authBiometrica
-                      ? {
-                          HttpHeaders.authorizationHeader: Constantes.NO_TOKEN,
-                          HttpHeaders.contentTypeHeader: 'application/json'
-                        }
-                      : {
-                          HttpHeaders.authorizationHeader: token ?? '',
-                          HttpHeaders.contentTypeHeader: 'application/json'
-                        },
+                ? {
+                    HttpHeaders.authorizationHeader: Constantes.NO_TOKEN,
+                    HttpHeaders.contentTypeHeader: 'application/json'
+                  }
+                : {
+                    HttpHeaders.authorizationHeader: token ?? '',
+                    HttpHeaders.contentTypeHeader: 'application/json'
+                  },
             body: request != null ? json.encode(request) : null,
           )
           .timeout(timeout);
@@ -117,7 +118,8 @@ class BaseHttpClient {
     } on SocketException {
       throw FetchDataException('No tiene conexión a internet.', uri.toString());
     } on TimeoutException {
-      throw ApiNotRespondingException('Error de comunicación, intente nuevamente.', uri.toString());
+      throw ApiNotRespondingException(
+          'Error de comunicación, intente nuevamente.', uri.toString());
     }
   }
 

@@ -71,7 +71,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                       ),
                       _showInfoCredito(
                         'Cuotas pagadas',
-                        (info.cuotaNumero! - 1).toString(),
+                        (info.cuotaNumero!).toString(),
                       ),
                       _showInfoCredito(
                         'Interes',
