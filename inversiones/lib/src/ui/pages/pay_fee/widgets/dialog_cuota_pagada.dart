@@ -55,7 +55,7 @@ class DialogCuotaPagada extends StatelessWidget {
                         ? 'Interes'
                         : dataAbono.tipoAbono == Constantes.ABONO_CAPITAL
                             ? 'Abono capital'
-                            : 'Cuota capital',
+                            : 'Abono cuota',
                     context,
                     true,
                   ),

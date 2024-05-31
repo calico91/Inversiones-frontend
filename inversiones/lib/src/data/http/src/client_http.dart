@@ -70,7 +70,7 @@ class ClientHttp implements ClientRepository {
       String fechaFiltro, int idUsuario) async {
     try {
       final http.Response response = await baseHttpClient.get(
-        '${UrlPaths.infoClientesCuotaCredito}/$fechaFiltro/$idUsuario',
+        '${UrlPaths.consultarCuotasPorFecha}/$fechaFiltro/$idUsuario',
       );
 
       return compute(clientsPendingInstallmentsResponseFromJson, response.body);
