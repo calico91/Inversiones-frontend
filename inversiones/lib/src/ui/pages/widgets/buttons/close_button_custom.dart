@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class CloseButtonCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return IconButton(
+        tooltip: 'Cerrar',
         onPressed: () => Navigator.pop(context),
-        child: const Icon(Icons.close_rounded));
+        icon: const Icon(Icons.close_rounded),
+        color: Colors.blue);
   }
 }

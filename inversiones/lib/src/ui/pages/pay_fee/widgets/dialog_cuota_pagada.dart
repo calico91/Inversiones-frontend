@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
+import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
@@ -10,12 +12,17 @@ import 'package:screenshot/screenshot.dart';
 
 class DialogCuotaPagada extends StatelessWidget {
   DialogCuotaPagada(
-      {required this.dataAbono, this.nombreCliente, this.mostrarBotonCerrar});
+      {required this.dataAbono,
+      this.nombreCliente,
+      this.mostrarBotonCerrar,
+      this.idCredito});
   final DataAbono dataAbono;
   final String? nombreCliente;
   final bool? mostrarBotonCerrar;
+  final int? idCredito;
 
   final ScreenshotController screenshotController = ScreenshotController();
+  final CreditsController controller = Get.put(CreditsController());
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +91,8 @@ class DialogCuotaPagada extends StatelessWidget {
         ),
       ),
       actions: [
+        /// solo se muestra el boton de anular abono en modulo de compartir abonos
+        if (idCredito != null) _anularAbono(context),
         ShareButton(
           screenshotController: screenshotController,
           descripcion: 'Abono ${nombreCliente ?? ''}',
@@ -123,4 +132,25 @@ class DialogCuotaPagada extends StatelessWidget {
       return const SizedBox();
     }
   }
+
+  Widget _anularAbono(BuildContext context) => IconButton(
+      tooltip: 'Anular abono',
+      onPressed: () => showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Center(child: Text('Desea anular este abono?')),
+              actions: [
+                TextButton(
+                  onPressed: () =>
+                      controller.anularUltimoAbono(dataAbono.id!, idCredito!),
+                  child: const Text('Si'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('No'),
+                ),
+              ],
+            ),
+          ),
+      icon: const Icon(Icons.money_off_csred_sharp, color: Colors.blue));
 }

@@ -7,6 +7,7 @@ import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_res
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
+import 'package:inversiones/src/domain/responses/generico_response.dart';
 
 abstract class CreditRepository {
   const CreditRepository();
@@ -16,18 +17,10 @@ abstract class CreditRepository {
   Future<AbonoResponse> pagarCuota(PagarCuotaRequest pagarCuotaRequest);
   Future<InfoCreditosActivosResponse> infoCreditosActivos();
   Future<InfoCreditoySaldoResponse> infoCreditoySaldo(int idCredito);
-  Future<PayFeeResponse> modificarFechaCuota(
-    String fechaNueva,
-    int idCredito,
-  );
+  Future<PayFeeResponse> modificarFechaCuota(String fechaNueva, int idCredito);
   Future<EstadoCreditoResponse> modificarEstadoCredito(
-    int idCredito,
-    int estadoCredito,
-  );
-  Future<AbonosRealizadosResponse> consultarAbonosRealizados(
-    int idCredito,
-  );
-  Future<AbonoResponse> consultarAbonoPorId(
-    int idCuotaCredito,
-  );
+      int idCredito, int estadoCredito);
+  Future<AbonosRealizadosResponse> consultarAbonosRealizados(int idCredito);
+  Future<AbonoResponse> consultarAbonoPorId(int idCuotaCredito);
+  Future<GenericoResponse> anularUltimoAbono(int idAbono, int idCredito);
 }

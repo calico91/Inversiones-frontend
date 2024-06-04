@@ -6,6 +6,7 @@ class HomeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: 'Inicio',
       onPressed: () => _irAlHome(),
       icon: const Icon(Icons.home,color: Colors.blue,),
     );

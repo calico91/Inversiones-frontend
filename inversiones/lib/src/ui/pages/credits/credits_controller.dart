@@ -17,6 +17,7 @@ import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_res
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
+import 'package:inversiones/src/domain/responses/generico_response.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_abonos_realizados.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
@@ -27,6 +28,7 @@ import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
+import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 
 class CreditsController extends GetxController {
   final AppController appController = Get.find<AppController>();
@@ -60,6 +62,8 @@ class CreditsController extends GetxController {
   final Rx<List<Client>> listaClientes = Rx<List<Client>>([]);
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
   final Rx<String> cedulaClienteSeleccionado = Rx<String>("");
+
+  int? idCreditoSeleccionado;
   @override
   void onInit() {
     _fechaInicialCredito();
@@ -270,6 +274,7 @@ class CreditsController extends GetxController {
   }
 
   Future<void> consultarAbonosRealizados(int idCredito) async {
+    idCreditoSeleccionado = idCredito;
     Get.showOverlay(
       loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
@@ -306,12 +311,32 @@ class CreditsController extends GetxController {
         try {
           final AbonoResponse res =
               await const CreditHttp().consultarAbonoPorId(idCuotaCredito);
-          if (res.status == 200) {
-            General.mostrarModalCompartirAbonos(
-                res.dataAbono!, true, homeController.nombreClienteSeleccionado);
-          } else {
-            appController.manageError(res.message);
-          }
+          General.mostrarModalCompartirAbonos(
+              res.dataAbono!,
+              true,
+              homeController.nombreClienteSeleccionado,
+              true,
+              idCreditoSeleccionado);
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
+  Future<void> anularUltimoAbono(int idAbono, int idCredito) async {
+    Get.showOverlay(
+      loadingWidget: CargandoAnimacion(),
+      asyncFunction: () async {
+        try {
+          final GenericoResponse res =
+              await const CreditHttp().anularUltimoAbono(idAbono, idCredito);
+          Get.back();
+          Get.back();
+          Get.back();
+          Get.showSnackbar(InfoSnackbar(res.data));
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -421,6 +446,7 @@ class CreditsController extends GetxController {
     }
     filtroCreditos.value = results;
   }
+
   /// cambia la modalidad
   bool? cambiarModalidad(bool value) {
     return modalidad.value = value;
