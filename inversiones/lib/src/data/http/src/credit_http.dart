@@ -12,6 +12,7 @@ import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_res
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
+import 'package:inversiones/src/domain/responses/generico_response.dart';
 
 class CreditHttp implements CreditRepository {
   const CreditHttp({this.baseHttpClient = const BaseHttpClient()});
@@ -46,7 +47,7 @@ class CreditHttp implements CreditRepository {
       final http.Response response = await baseHttpClient.put(
           '${UrlPaths.pagarCuota}/${pagarCuotaRequest.idCuotaCredito}',
           request: pagarCuotaRequest.toJson());
-      return compute(genericoResponseFromJson, response.body);
+      return compute(abonoResponseFromJson, response.body);
     } catch (e) {
       rethrow;
     }
@@ -116,6 +117,17 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response = await baseHttpClient
           .get('${UrlPaths.consultarAbonoPorId}/$idCuotaCredito');
+      return compute(abonoResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<GenericoResponse> anularUltimoAbono(int idAbono, int idCredito) async {
+    try {
+      final http.Response response = await baseHttpClient
+          .put('${UrlPaths.anularUltimoAbono}/$idAbono/$idCredito');
       return compute(genericoResponseFromJson, response.body);
     } catch (e) {
       rethrow;

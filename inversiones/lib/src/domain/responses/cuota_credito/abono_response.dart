@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-AbonoResponse genericoResponseFromJson(String str) =>
+AbonoResponse abonoResponseFromJson(String str) =>
     AbonoResponse.fromJson(
       json.decode(str) as Map<String, dynamic>,
     );

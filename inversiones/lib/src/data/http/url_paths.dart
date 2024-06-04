@@ -37,4 +37,5 @@ class UrlPaths {
       '/cuotaCredito/consultar-ultimos-abonos-realizados';
   static const String consultarAbonoPorId =
       '/cuotaCredito/consultar-abono-por-id';
+  static const String anularUltimoAbono = '/cuotaCredito/anular-ultimo-abono';
 }
