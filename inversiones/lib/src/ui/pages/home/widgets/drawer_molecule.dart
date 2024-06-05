@@ -15,13 +15,13 @@ class DrawerMolecule extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               headerDrawer(context),
-              if (controller.mostrarModulo(['ADMIN']))
+              if (controller.mostrarModulo(['SUPER']))
                 _opciones(
                   Icons.data_saver_off_sharp,
                   'Reportes',
                   () => Get.toNamed(RouteNames.reportes),
                 ),
-              if (controller.mostrarModulo(['ADMIN']))
+              if (controller.mostrarModulo(['SUPER']))
                 _opciones(
                   Icons.admin_panel_settings_outlined,
                   'Usuarios',

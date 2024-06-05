@@ -71,7 +71,7 @@ class ListaClientes extends StatelessWidget {
         itemCount: controller.filtroClientes.value.length,
         itemBuilder: (_, index) {
           return InkWell(
-            onTap: homeController.mostrarModulo(['ADMIN'])
+            onTap: homeController.mostrarModulo(['SUPER'])
                 ? () => controller
                     .loadClient(controller.filtroClientes.value[index].cedula)
                 : null,
