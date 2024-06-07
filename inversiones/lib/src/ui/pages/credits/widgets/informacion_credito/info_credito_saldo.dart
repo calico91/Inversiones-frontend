@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_renovar_credito.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -19,11 +21,8 @@ class InfoCreditoSaldoModal extends StatelessWidget {
 
   final ScreenshotController screenshotController = ScreenshotController();
 
-  InfoCreditoSaldoModal({
-    required this.info,
-    this.accion,
-    required this.idCredito,
-  });
+  InfoCreditoSaldoModal(
+      {required this.info, this.accion, required this.idCredito});
 
   @override
   Widget build(BuildContext context) {
@@ -31,25 +30,13 @@ class InfoCreditoSaldoModal extends StatelessWidget {
 
     return AlertDialog(
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            Constantes.INFORMACION_CREDITO,
-            textAlign: TextAlign.center,
-          ),
-          IconButton(
-            onPressed: () => _modificarCredito(
-              context,
-              controllerCredits,
-              idCredito,
-              info.fechaCuota!,
-            ),
-            icon: const Icon(color: Colors.blue, Icons.edit),
-          ),
+          Text(Constantes.INFORMACION_CREDITO, textAlign: TextAlign.center),
+          _editarCreditoBoton(
+              context, controllerCredits, idCredito, info.fechaCuota!),
           ShareButton(
-            screenshotController: screenshotController,
-            descripcion: Constantes.INFORMACION_CREDITO,
-          ),
+              screenshotController: screenshotController,
+              descripcion: Constantes.INFORMACION_CREDITO)
         ],
       ),
       content: SizedBox(
@@ -66,51 +53,29 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                       _showInfoCredito('Id credito', idCredito.toString()),
                       _showInfoCredito('Modalidad', info.modalidad!),
                       _showInfoCredito(
-                        'Numero cuotas',
-                        info.numeroCuotas!.toString(),
-                      ),
+                          'Numero cuotas', info.numeroCuotas!.toString()),
                       _showInfoCredito(
-                        'Cuotas pagadas',
-                        (info.cuotaNumero!).toString(),
-                      ),
+                          'Cuotas pagadas', (info.cuotaNumero!).toString()),
                       _showInfoCredito(
-                        'Interes',
-                        '${info.interesPorcentaje!}%',
-                      ),
+                          'Interes', '${info.interesPorcentaje!}%'),
                       _showInfoCredito('Fecha credito', info.fechaCredito!),
                       _showInfoCredito('Fecha cuota', info.fechaCuota!),
                       _showInfoCredito(
-                        'Ultima pagada',
-                        info.ultimaCuotaPagada!,
-                      ),
-                      _showInfoCredito(
-                        'Valor credito',
-                        General.formatoMoneda(info.valorCredito),
-                      ),
-                      _showInfoCredito(
-                        'Interes mes',
-                        General.formatoMoneda(info.valorInteres),
-                      ),
-                      _showInfoCredito(
-                        'Interes a hoy',
-                        General.formatoMoneda(info.interesHoy),
-                      ),
-                      _showInfoCredito(
-                        'Valor por Mora',
-                        General.formatoMoneda(info.interesMora),
-                      ),
-                      _showInfoCredito(
-                        'Valor cuota',
-                        General.formatoMoneda(info.valorCuota),
-                      ),
-                      _showInfoCredito(
-                        'Capital pagado',
-                        General.formatoMoneda(info.capitalPagado),
-                      ),
-                      _showInfoCredito(
-                        'Saldo credito',
-                        General.formatoMoneda(info.saldoCredito),
-                      ),
+                          'Ultima pagada', info.ultimaCuotaPagada!),
+                      _showInfoCredito('Valor credito',
+                          General.formatoMoneda(info.valorCredito)),
+                      _showInfoCredito('Interes mes',
+                          General.formatoMoneda(info.valorInteres)),
+                      _showInfoCredito('Interes a hoy',
+                          General.formatoMoneda(info.interesHoy)),
+                      _showInfoCredito('Valor por Mora',
+                          General.formatoMoneda(info.interesMora)),
+                      _showInfoCredito('Valor cuota',
+                          General.formatoMoneda(info.valorCuota)),
+                      _showInfoCredito('Capital pagado',
+                          General.formatoMoneda(info.capitalPagado)),
+                      _showInfoCredito('Saldo credito',
+                          General.formatoMoneda(info.saldoCredito)),
                     ],
                   ),
                 ),
@@ -119,55 +84,32 @@ class InfoCreditoSaldoModal extends StatelessWidget {
             Form(
               key: controllerCredits.formKeyAbonoCapital,
               child: TextFieldBase(
-                title: 'Abonar',
-                controller: controllerCredits.abonar,
-                textInputType: TextInputType.number,
-                validateText: ValidateText.creditValue,
-              ),
+                  title: 'Abonar',
+                  controller: controllerCredits.abonar,
+                  textInputType: TextInputType.number,
+                  validateText: ValidateText.creditValue),
             ),
           ],
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: () {
-            if (controllerCredits.validarFormAbonoCapital()) {
-              _abonar(
-                controllerCredits,
-                context,
-                true,
-                info.id!,
-                info.interesHoy!,
-              );
-            }
-          },
-          child: const Text('Abonar capital'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _botonRenovarCredito(context),
+            _botonAbonarCapitalOInteres(
+                controllerCredits, context, true, info.id!, info.interesHoy!),
+            _botonAbonarCapitalOInteres(
+                controllerCredits, context, false, info.id!, info.interesHoy!),
+            CloseButtonCustom()
+          ],
         ),
-        TextButton(
-          onPressed: () {
-            if (controllerCredits.validarFormAbonoCapital()) {
-              _abonar(
-                controllerCredits,
-                context,
-                false,
-                info.id!,
-                info.interesHoy!,
-              );
-            }
-          },
-          child: const Text('Abonar interes'),
-        ),
-        CloseButtonCustom()
       ],
     );
   }
 }
 
-Widget _showInfoCredito(
-  String title,
-  String info,
-) =>
-    Row(
+Widget _showInfoCredito(String title, String info) => Row(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 1),
@@ -185,13 +127,8 @@ Widget _showInfoCredito(
       ],
     );
 
-Object _abonar(
-  CreditsController controllerCredits,
-  BuildContext context,
-  bool abonoCapital,
-  int idCuotaCredito,
-  double valorInteres,
-) {
+Object _abonar(CreditsController controllerCredits, BuildContext context,
+    bool abonoCapital, int idCuotaCredito, double valorInteres) {
   final String titulo =
       abonoCapital ? 'Desea abonar capital?' : 'Desea abonar interes?';
 
@@ -211,42 +148,29 @@ Object _abonar(
       title: Text(
         titulo,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: General.mediaQuery(context).height * 0.02,
-        ),
+        style: TextStyle(fontSize: General.mediaQuery(context).height * 0.02),
       ),
       actions: [
         TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-            controllerCredits.pagarInteresOCapital(
-              tipoAbono,
-              estadoCredito,
-              idCuotaCredito,
-              interes,
-            );
-          },
-          child: const Text('Si'),
-        ),
+            onPressed: () {
+              Navigator.pop(context);
+              controllerCredits.pagarInteresOCapital(
+                  tipoAbono, estadoCredito, idCuotaCredito, interes);
+            },
+            child: const Text('Si')),
         TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('No'),
-        ),
+            onPressed: () => Navigator.pop(context), child: const Text('No')),
       ],
     ),
   );
 }
 
-Object _modificarCredito(
-  BuildContext context,
-  CreditsController controller,
-  int idCredito,
-  String fechaCuota,
-) {
+Object _modificarCredito(BuildContext context, CreditsController controller,
+    int idCredito, String fechaCuota) {
   final Map<String, String> estadosCredito = {
     Constantes.CODIGO_CREDITO_ACTIVO.toString(): 'Activo',
     Constantes.CODIGO_CREDITO_PAGADO.toString(): 'Pagado',
-    Constantes.CODIGO_CREDITO_ANULADO.toString(): 'Anulado',
+    Constantes.CODIGO_CREDITO_ANULADO.toString(): 'Anulado'
   };
 
   return showDialog(
@@ -265,21 +189,16 @@ Object _modificarCredito(
                   paddingHorizontal: 20,
                   controller: controller.nuevaFechaCuota,
                   onTap: () async => controller.showCalendar(
-                    context,
-                    controller.nuevaFechaCuota,
-                    DateTime.parse(fechaCuota),
-                    DateTime.parse(fechaCuota),
-                  ),
+                      context,
+                      controller.nuevaFechaCuota,
+                      DateTime.parse(fechaCuota),
+                      DateTime.parse(fechaCuota)),
                 ),
-                botonAccionEditarCredito(
-                  context,
-                  () => controller.modificarFechaCuota(idCredito, context),
-                ),
+                botonAccionEditarCredito(context,
+                    () => controller.modificarFechaCuota(idCredito, context)),
               ],
             ),
-            SizedBox(
-              height: General.mediaQuery(context).height * 0.02,
-            ),
+            SizedBox(height: General.mediaQuery(context).height * 0.02),
 
             /// estado de credito
             Column(
@@ -289,8 +208,8 @@ Object _modificarCredito(
                     Obx(
                       () => Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: General.mediaQuery(context).width * 0.05,
-                        ),
+                            horizontal:
+                                General.mediaQuery(context).width * 0.05),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -356,3 +275,39 @@ Widget botonAccionEditarCredito(BuildContext context, VoidCallback accion) {
     ),
   );
 }
+
+Widget _editarCreditoBoton(BuildContext context, CreditsController controller,
+        int idCredito, String fechaCuota) =>
+    IconButton(
+        tooltip: "Editar credito",
+        onPressed: () =>
+            _modificarCredito(context, controller, idCredito, fechaCuota),
+        icon: const Icon(color: Colors.blue, Icons.edit));
+
+Widget _botonAbonarCapitalOInteres(
+        CreditsController controllerCredits,
+        BuildContext context,
+        bool abonoCapital,
+        int idCuotaCredito,
+        double valorInteres) =>
+    IconButton(
+        tooltip: abonoCapital ? 'Abonar capital' : 'Abonar interes',
+        onPressed: () {
+          if (controllerCredits.validarFormAbonoCapital()) {
+            _abonar(controllerCredits, context, abonoCapital, idCuotaCredito,
+                valorInteres);
+          }
+        },
+        icon: FaIcon(
+            abonoCapital
+                ? FontAwesomeIcons.sackDollar
+                : FontAwesomeIcons.handHoldingDollar,
+            color: Colors.blue));
+
+Widget _botonRenovarCredito(BuildContext context) => IconButton(
+    tooltip: 'Renovar credito',
+    onPressed: () => showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (context) => DialogRenovarCredito()),
+    icon: const FaIcon(FontAwesomeIcons.moneyBillTransfer, color: Colors.blue));

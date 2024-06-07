@@ -8,12 +8,12 @@ import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:screenshot/screenshot.dart';
 
-class DialogInfoCredito extends StatelessWidget {
+class DialogInfoCreditoCreado extends StatelessWidget {
   final String title;
   final DataCreditResponse? info;
   final ScreenshotController screenshotController = ScreenshotController();
 
-  DialogInfoCredito({
+  DialogInfoCreditoCreado({
     required this.title,
     this.info,
   });

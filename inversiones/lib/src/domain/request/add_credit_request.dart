@@ -19,8 +19,8 @@ class AddCreditRequest {
   final Modalidad modalidad;
   final String usuario;
 
-  Map<String, dynamic> toJson() {
-    return {
+  Map<String, dynamic> toJson() =>
+     {
       'valorCredito': valorCredito,
       'interesPorcentaje': interesPorcentaje,
       'cantidadCuotas': cantidadCuotas,
@@ -30,7 +30,7 @@ class AddCreditRequest {
       "modalidad": modalidad.toJson(),
       "usuario": usuario,
     };
-  }
+  
 }
 
 class Modalidad {

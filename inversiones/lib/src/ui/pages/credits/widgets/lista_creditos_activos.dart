@@ -13,7 +13,6 @@ class ListaCreditosActivos extends StatelessWidget {
     final CreditsController controller = Get.find<CreditsController>();
     return Obx(() {
       if (controller.creditosActivos.value.isEmpty) {
-        
         return CustomCard(
           child: InkWell(
             onTap: () => controller.infoCreditosActivos(),
@@ -25,7 +24,7 @@ class ListaCreditosActivos extends StatelessWidget {
                 ),
                 SizedBox(
                   height: General.mediaQuery(context).height * 0.36,
-                  width: General.mediaQuery(context).width * 0.45, 
+                  width: General.mediaQuery(context).width * 0.45,
                   child: Image.asset(
                     'assets/cargar_credito.png',
                     width: double.infinity,
@@ -125,10 +124,7 @@ class ListaCreditosActivos extends StatelessWidget {
   }
 
   Widget _informacionSubtitulo(
-    CreditsController controller,
-    int index,
-    BuildContext context,
-  ) {
+      CreditsController controller, int index, BuildContext context) {
     return Row(
       children: [
         Text(
@@ -141,6 +137,7 @@ class ListaCreditosActivos extends StatelessWidget {
             IconButton(
               tooltip: Constantes.INFORMACION_CREDITO,
               onPressed: () {
+                _capturarIdYNombresCliente(controller, index);
                 controller.infoCreditoySaldo(
                     controller.filtroCreditos.value[index].idCredito!);
                 FocusScope.of(context).requestFocus(FocusNode());
@@ -167,4 +164,12 @@ class ListaCreditosActivos extends StatelessWidget {
       ],
     );
   }
+}
+
+/// se captura nombre y id de cliente por si se necesita en renovacion de credito
+void _capturarIdYNombresCliente(CreditsController controller, int index) {
+  controller.nombreClienteSeleccionado =
+      '${controller.filtroCreditos.value[index].nombres} ${controller.filtroCreditos.value[index].apellidos}';
+  controller.idClienteSeleccionado =
+      controller.filtroCreditos.value[index].idCliente;
 }

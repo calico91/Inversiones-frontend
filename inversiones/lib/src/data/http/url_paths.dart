@@ -16,7 +16,7 @@ class UrlPaths {
       '/cliente/consultar-cuotas-por-fecha';
 
   /// credito
-  static const String addCredit = '/credito/registrar-credito';
+  static const String addCredit = '/credito/registrar-renovar-credito';
   static const String infoCreditosActivos =
       '/credito/consultar-creditos-activos';
   static const String modificarEstadoCredito =

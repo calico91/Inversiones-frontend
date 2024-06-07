@@ -18,12 +18,12 @@ import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_abonos_realizados.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_estado_credito.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito_creado.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_lista_clientes.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_response_general.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_abonos_realizados.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_estado_credito.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_fecha_cuota_modificada.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -35,23 +35,24 @@ class CreditsController extends GetxController {
   final HomeController homeController = Get.find<HomeController>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formKeyAbonoCapital = GlobalKey<FormState>();
-  final TextEditingController creditValue = TextEditingController();
-  final TextEditingController installmentAmount = TextEditingController();
-  final TextEditingController interestPercentage = TextEditingController();
+  final TextEditingController valorCredito = TextEditingController();
+  final TextEditingController cantidadCuotas = TextEditingController();
+  final TextEditingController porcentajeInteres = TextEditingController();
+  final TextEditingController valorAEntregar = TextEditingController();
   final TextEditingController abonar = TextEditingController();
   final TextEditingController nombreCliente = TextEditingController();
-  final TextEditingController installmentDate = TextEditingController();
-  final TextEditingController creditDate = TextEditingController();
+  final TextEditingController fechaCuota = TextEditingController();
+  final TextEditingController fechaCredito = TextEditingController();
   final TextEditingController nuevaFechaCuota = TextEditingController();
   final Rx<int> estadoCredito = Rx(Constantes.CODIGO_CREDITO_ACTIVO);
   TextEditingController campoBuscarCredito = TextEditingController();
   TextEditingController campoBuscarCliente = TextEditingController();
-  final Rx<int> status = Rx(0);
+  final Rx<int> status = 0.obs;
   final Rx<List<InfoCreditosActivos>> creditosActivos =
       Rx<List<InfoCreditosActivos>>([]);
 
-  final Rx<int> idCuotaSeleccionada = Rx(0);
-  final Rx<bool> modalidad = Rx<bool>(true);
+  final Rx<int> idCuotaSeleccionada = 0.obs;
+  final Rx<bool> modalidad = true.obs;
 
   Rx<List<InfoCreditosActivos>> filtroCreditos =
       Rx<List<InfoCreditosActivos>>([]);
@@ -61,7 +62,10 @@ class CreditsController extends GetxController {
 
   final Rx<List<Client>> listaClientes = Rx<List<Client>>([]);
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
-  final Rx<String> cedulaClienteSeleccionado = Rx<String>("");
+  final Rx<String> cedulaClienteSeleccionado = ''.obs;
+  String? nombreClienteSeleccionado;
+  int? idClienteSeleccionado;
+  double? saldoCreditoSeleccionado;
 
   int? idCreditoSeleccionado;
   @override
@@ -101,20 +105,20 @@ class CreditsController extends GetxController {
               await const SecureStorageLocal().userDetails;
           final AddCreditResponse res = await const CreditHttp().addCredit(
             AddCreditRequest(
-                cantidadCuotas: int.parse(installmentAmount.text.trim()),
-                valorCredito: General.stringToDouble(creditValue.text),
+                cantidadCuotas: int.parse(cantidadCuotas.text.trim()),
+                valorCredito: General.stringToDouble(valorCredito.text),
                 cedulaTitularCredito: cedulaClienteSeleccionado.value,
-                interesPorcentaje: double.parse(interestPercentage.text.trim()),
-                fechaCredito: creditDate.text.trim(),
-                fechaCuota: installmentDate.text.trim(),
+                interesPorcentaje: double.parse(porcentajeInteres.text.trim()),
+                fechaCredito: fechaCredito.text.trim(),
+                fechaCuota: fechaCuota.text.trim(),
                 modalidad: modalidad.value
                     ? Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL)
                     : Modalidad(id: Constantes.CODIGO_MODALIDAD_QUINCENAL),
                 usuario: userDetails?.username ?? ""),
           );
           if (res.status == 200) {
-            _mostrarInfoCredito(res.data!);
-            _cleanForm();
+            _mostrarInfoCreditoCreado(res.data!);
+            _limpiarFormularioCredito();
           } else {
             appController.manageError(res.message);
           }
@@ -128,9 +132,9 @@ class CreditsController extends GetxController {
   }
 
   ///modal que muestra informacion del credito cuando se crea
-  void _mostrarInfoCredito(DataCreditResponse info) {
+  void _mostrarInfoCreditoCreado(DataCreditResponse info) {
     Get.dialog(
-      DialogInfoCredito(
+      DialogInfoCreditoCreado(
         title: Constantes.INFORMACION_CREDITO,
         info: info,
       ),
@@ -138,6 +142,7 @@ class CreditsController extends GetxController {
   }
 
   Future<void> infoCreditoySaldo(int idCredito) async {
+    idCreditoSeleccionado = idCredito;
     Get.showOverlay(
       loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
@@ -148,6 +153,7 @@ class CreditsController extends GetxController {
             infoCreditoSaldo(res.infoCreditoySaldo);
             _infoCreditoSaldoModal(res.infoCreditoySaldo!, idCredito);
             nuevaFechaCuota.text = res.infoCreditoySaldo!.fechaCuota!;
+            saldoCreditoSeleccionado = res.infoCreditoySaldo!.saldoCredito;
           } else {
             appController.manageError(res.message!);
             nuevaFechaCuota.text = res.infoCreditoySaldo!.fechaCuota!;
@@ -235,7 +241,7 @@ class CreditsController extends GetxController {
   /// info de la cuota cuando se modifica la fecha de pago
   void _mostrarInfoCuotaModificada(PayFee data) {
     Get.dialog(
-      DialogResponseGeneral(
+      DialogFechaCuotaModificada(
         data: data,
       ),
     );
@@ -381,17 +387,11 @@ class CreditsController extends GetxController {
   }
 
   void _mostrarListaClientes(List<Client> clientes) {
-    Get.dialog(
-      DialogListaClientes(),
-    );
+    Get.dialog(DialogListaClientes());
   }
 
-  void _cleanForm() {
-    nombreCliente.clear();
-    creditValue.clear();
-    installmentAmount.clear();
-    interestPercentage.clear();
-    installmentDate.clear();
+  void _limpiarFormularioCredito() {
+    formKey.currentState!.reset();
   }
 
   bool validarFormAbonoCapital() =>
@@ -407,7 +407,7 @@ class CreditsController extends GetxController {
 
   ///inicializa fecha credito
   void _fechaInicialCredito() {
-    creditDate.text = General.formatoFecha(DateTime.now());
+    fechaCredito.text = General.formatoFecha(DateTime.now());
     nuevaFechaCuota.text = General.formatoFecha(DateTime.now());
   }
 
@@ -445,6 +445,11 @@ class CreditsController extends GetxController {
           .toList();
     }
     filtroCreditos.value = results;
+  }
+
+  void limpiarFormularioRenovacion() {
+    formKey.currentState!.reset();
+    Get.back();
   }
 
   /// cambia la modalidad
