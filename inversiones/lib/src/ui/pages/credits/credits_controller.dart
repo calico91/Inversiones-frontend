@@ -18,6 +18,7 @@ import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
+import 'package:inversiones/src/ui/pages/credits/text_editing_reactivos.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito_creado.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_lista_clientes.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_abonos_realizados.dart';
@@ -38,7 +39,6 @@ class CreditsController extends GetxController {
   final TextEditingController valorCredito = TextEditingController();
   final TextEditingController cantidadCuotas = TextEditingController();
   final TextEditingController porcentajeInteres = TextEditingController();
-  final TextEditingController valorAEntregar = TextEditingController();
   final TextEditingController abonar = TextEditingController();
   final TextEditingController nombreCliente = TextEditingController();
   final TextEditingController fechaCuota = TextEditingController();
@@ -63,6 +63,14 @@ class CreditsController extends GetxController {
   final Rx<List<Client>> listaClientes = Rx<List<Client>>([]);
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
   final Rx<String> cedulaClienteSeleccionado = ''.obs;
+  final ReactiveTextEditingController valorCreditoRenovacion =
+      ReactiveTextEditingController();
+  final ReactiveTextEditingController valorAEntregar =
+      ReactiveTextEditingController();
+
+  Rx<double> valorEntregarResultado = 0.0.obs;
+  Rx<String> valorCreditoRX = '0.0'.obs;
+
   String? nombreClienteSeleccionado;
   int? idClienteSeleccionado;
   double? saldoCreditoSeleccionado;
@@ -70,8 +78,22 @@ class CreditsController extends GetxController {
   int? idCreditoSeleccionado;
   @override
   void onInit() {
+    valorCreditoRenovacion.text.listen((_) => _calcularRenovacion());
     _fechaInicialCredito();
     super.onInit();
+  }
+
+  void _calcularRenovacion() {
+    print('entre');
+    double valorCredito =
+        double.tryParse(valorCreditoRenovacion.text.value) ?? 0.0;
+
+    print('valor credito $valorCredito');
+    double result = valorCredito - (saldoCreditoSeleccionado ?? 0.0);
+
+    print('resultado $result');
+    valorCreditoRX.value = result.toString();
+    print(valorCreditoRX.value);
   }
 
   Future<void> infoCreditosActivos() async {
@@ -452,6 +474,16 @@ class CreditsController extends GetxController {
     Get.back();
   }
 
+  /*  void calcularValorEntregar(String valorCredito) {
+    valorCreditoRX.value = valorCredito.isEmpty ? '0.0' : valorCredito;
+
+    print(valorCreditoRX.value);
+    valorEntregarResultado.value =
+        General.stringToDouble(valorCreditoRX.value) -
+            saldoCreditoSeleccionado!;
+    valorAEntregar.addListener(valorEntregarResultado.call);
+  }
+ */
   /// cambia la modalidad
   bool? cambiarModalidad(bool value) {
     return modalidad.value = value;

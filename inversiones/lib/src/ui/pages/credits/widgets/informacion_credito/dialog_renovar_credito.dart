@@ -23,15 +23,18 @@ class DialogRenovarCredito extends StatelessWidget {
                   paddingHorizontal: 10,
                   widthTextField: 0.32,
                   title: 'Valor credito',
-                  controller: controller.valorCredito,
+                  controller: controller.valorCreditoRenovacion.controller,
                   textInputType: TextInputType.number,
                   validateText: ValidateText.creditValue),
-              TextFieldBase(
-                  widthTextField: 0.32,
-                  title: 'Valor a entregar',
-                  controller: controller.valorAEntregar,
-                  textInputType: TextInputType.number,
-                  validateText: ValidateText.creditValue),
+              Obx(
+                () => TextFieldBase(
+                    widthTextField: 0.32,
+                    title: 'Valor a entregar',
+                    controller: TextEditingController(
+                        text: controller.valorCreditoRX.value),
+                    textInputType: TextInputType.number,
+                    validateText: ValidateText.creditValue),
+              )
             ],
           ),
         ],

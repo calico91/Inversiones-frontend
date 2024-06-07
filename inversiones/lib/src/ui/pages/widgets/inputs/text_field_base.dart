@@ -4,22 +4,22 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/utils/validate_form.dart';
 
 class TextFieldBase extends StatelessWidget {
-  const TextFieldBase({
-    super.key,
-    this.hintText = '',
-    required this.title,
-    this.controller,
-    required this.textInputType,
-    this.validateText,
-    this.paddingVertical = 0,
-    this.paddingHorizontal = 0,
-    this.widthTextField = 0.39,
-    this.heightTextField = 0.09,
-    this.required = true,
-    this.textAlign = TextAlign.right,
-    this.moneyCamp = false,
-    this.enabled = true,
-  });
+  const TextFieldBase(
+      {super.key,
+      this.hintText = '',
+      required this.title,
+      this.controller,
+      required this.textInputType,
+      this.validateText,
+      this.paddingVertical = 0,
+      this.paddingHorizontal = 0,
+      this.widthTextField = 0.39,
+      this.heightTextField = 0.09,
+      this.required = true,
+      this.textAlign = TextAlign.right,
+      this.moneyCamp = false,
+      this.enabled = true,
+      this.onChanged});
 
   final String? hintText;
   final String title;
@@ -34,6 +34,7 @@ class TextFieldBase extends StatelessWidget {
   final bool? required;
   final bool? moneyCamp;
   final bool? enabled;
+  final Function? onChanged;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -52,6 +53,7 @@ class TextFieldBase extends StatelessWidget {
             height: General.mediaQuery(context).height * heightTextField!,
             width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
+              onChanged: (String? value) => onChanged,
               enabled: enabled,
               textDirection: TextDirection.ltr,
               expands: true,
