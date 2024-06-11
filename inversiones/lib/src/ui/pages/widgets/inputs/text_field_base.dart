@@ -4,22 +4,23 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/utils/validate_form.dart';
 
 class TextFieldBase extends StatelessWidget {
-  const TextFieldBase({
-    super.key,
-    this.hintText = '',
-    required this.title,
-    this.controller,
-    required this.textInputType,
-    this.validateText,
-    this.paddingVertical = 0,
-    this.paddingHorizontal = 0,
-    this.widthTextField = 0.39,
-    this.heightTextField = 0.09,
-    this.required = true,
-    this.textAlign = TextAlign.right,
-    this.moneyCamp = false,
-    this.enabled = true,
-  });
+  const TextFieldBase(
+      {super.key,
+      this.hintText = '',
+      required this.title,
+      this.controller,
+      required this.textInputType,
+      this.validateText,
+      this.paddingVertical = 0,
+      this.paddingHorizontal = 0,
+      this.widthTextField = 0.39,
+      this.heightTextField = 0.09,
+      this.required = true,
+      this.textAlign = TextAlign.right,
+      this.moneyCamp = false,
+      this.enabled = true,
+      this.onChanged,
+      this.readOnly = false});
 
   final String? hintText;
   final String title;
@@ -34,6 +35,8 @@ class TextFieldBase extends StatelessWidget {
   final bool? required;
   final bool? moneyCamp;
   final bool? enabled;
+  final Function? onChanged;
+  final bool? readOnly;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -52,6 +55,8 @@ class TextFieldBase extends StatelessWidget {
             height: General.mediaQuery(context).height * heightTextField!,
             width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
+              readOnly: readOnly!,
+              onChanged: (String? value) => onChanged,
               enabled: enabled,
               textDirection: TextDirection.ltr,
               expands: true,
@@ -65,6 +70,8 @@ class TextFieldBase extends StatelessWidget {
               maxLength: ValidateForm.validateMaxLength(validateText!),
               controller: controller,
               decoration: InputDecoration(
+                fillColor: readOnly! ? Colors.grey.shade300 : Colors.white,
+                filled: true,
                 hintText: hintText,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),

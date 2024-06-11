@@ -8,15 +8,14 @@ import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:screenshot/screenshot.dart';
 
-class DialogInfoCredito extends StatelessWidget {
+class DialogInfoCreditoCreado extends StatelessWidget {
   final String title;
   final DataCreditResponse? info;
   final ScreenshotController screenshotController = ScreenshotController();
+  final bool renovarCredito;
 
-  DialogInfoCredito({
-    required this.title,
-    this.info,
-  });
+  DialogInfoCreditoCreado(
+      {required this.title, this.info, required this.renovarCredito});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class DialogInfoCredito extends StatelessWidget {
           descripcion: Constantes.INFORMACION_CREDITO_CREADO,
         ),
         HomeButton(),
-        CloseButtonCustom()
+        if (!renovarCredito) CloseButtonCustom()
       ],
     );
   }

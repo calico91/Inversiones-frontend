@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
@@ -18,12 +19,13 @@ import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_abonos_realizados.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_estado_credito.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito.dart';
+import 'package:inversiones/src/ui/pages/credits/text_editing_reactivos.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito_creado.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_lista_clientes.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_response_general.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/info_credito_saldo.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_abonos_realizados.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_estado_credito.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_fecha_cuota_modificada.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -34,24 +36,25 @@ class CreditsController extends GetxController {
   final AppController appController = Get.find<AppController>();
   final HomeController homeController = Get.find<HomeController>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formRenovacion = GlobalKey<FormState>();
   final GlobalKey<FormState> formKeyAbonoCapital = GlobalKey<FormState>();
-  final TextEditingController creditValue = TextEditingController();
-  final TextEditingController installmentAmount = TextEditingController();
-  final TextEditingController interestPercentage = TextEditingController();
+  final TextEditingController valorCredito = TextEditingController();
+  final TextEditingController cantidadCuotas = TextEditingController();
+  final TextEditingController porcentajeInteres = TextEditingController();
   final TextEditingController abonar = TextEditingController();
   final TextEditingController nombreCliente = TextEditingController();
-  final TextEditingController installmentDate = TextEditingController();
-  final TextEditingController creditDate = TextEditingController();
+  final TextEditingController fechaCuota = TextEditingController();
+  final TextEditingController fechaCredito = TextEditingController();
   final TextEditingController nuevaFechaCuota = TextEditingController();
   final Rx<int> estadoCredito = Rx(Constantes.CODIGO_CREDITO_ACTIVO);
   TextEditingController campoBuscarCredito = TextEditingController();
   TextEditingController campoBuscarCliente = TextEditingController();
-  final Rx<int> status = Rx(0);
+  final Rx<int> status = 0.obs;
   final Rx<List<InfoCreditosActivos>> creditosActivos =
       Rx<List<InfoCreditosActivos>>([]);
 
-  final Rx<int> idCuotaSeleccionada = Rx(0);
-  final Rx<bool> modalidad = Rx<bool>(true);
+  final Rx<int> idCuotaSeleccionada = 0.obs;
+  final Rx<bool> modalidad = true.obs;
 
   Rx<List<InfoCreditosActivos>> filtroCreditos =
       Rx<List<InfoCreditosActivos>>([]);
@@ -61,11 +64,23 @@ class CreditsController extends GetxController {
 
   final Rx<List<Client>> listaClientes = Rx<List<Client>>([]);
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
-  final Rx<String> cedulaClienteSeleccionado = Rx<String>("");
+  final Rx<String> cedulaClienteSeleccionado = ''.obs;
+  final ReactiveTextEditingController valorCreditoRenovacion =
+      ReactiveTextEditingController();
+  final ReactiveTextEditingController valorAEntregar =
+      ReactiveTextEditingController();
+
+  RxString valorEntregarResultado = '0.0'.obs;
+  Rx<double> valorCreditoRX = 0.0.obs;
+
+  String? nombreClienteSeleccionado;
+  int? idClienteSeleccionado;
+  double? saldoCreditoSeleccionado;
 
   int? idCreditoSeleccionado;
   @override
   void onInit() {
+    valorCreditoRenovacion.text.listen((_) => _calcularRenovacion());
     _fechaInicialCredito();
     super.onInit();
   }
@@ -92,32 +107,38 @@ class CreditsController extends GetxController {
         });
   }
 
-  void save() {
+  void save(bool renovarCredito) {
     Get.showOverlay(
       loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final UserDetails? userDetails =
               await const SecureStorageLocal().userDetails;
+
           final AddCreditResponse res = await const CreditHttp().addCredit(
-            AddCreditRequest(
-                cantidadCuotas: int.parse(installmentAmount.text.trim()),
-                valorCredito: General.stringToDouble(creditValue.text),
-                cedulaTitularCredito: cedulaClienteSeleccionado.value,
-                interesPorcentaje: double.parse(interestPercentage.text.trim()),
-                fechaCredito: creditDate.text.trim(),
-                fechaCuota: installmentDate.text.trim(),
-                modalidad: modalidad.value
-                    ? Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL)
-                    : Modalidad(id: Constantes.CODIGO_MODALIDAD_QUINCENAL),
-                usuario: userDetails?.username ?? ""),
-          );
-          if (res.status == 200) {
-            _mostrarInfoCredito(res.data!);
-            _cleanForm();
-          } else {
-            appController.manageError(res.message);
-          }
+              AddCreditRequest(
+                  cantidadCuotas: int.parse(cantidadCuotas.text.trim()),
+                  valorCredito: !renovarCredito
+                      ? General.stringToDouble(valorCredito.text)
+                      : General.stringToDouble(
+                          valorCreditoRenovacion.text.value),
+                  cedulaTitularCredito: cedulaClienteSeleccionado.value,
+                  interesPorcentaje:
+                      double.parse(porcentajeInteres.text.trim()),
+                  fechaCredito: fechaCredito.text.trim(),
+                  fechaCuota: fechaCuota.text.trim(),
+                  modalidad: modalidad.value
+                      ? Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL)
+                      : Modalidad(id: Constantes.CODIGO_MODALIDAD_QUINCENAL),
+                  usuario: userDetails?.username ?? "",
+                  idCliente: idClienteSeleccionado,
+                  idCreditoActual: idCreditoSeleccionado,
+                  renovacion: renovarCredito,
+                  valorRenovacion:
+                      General.stringToDouble(valorEntregarResultado.value)));
+
+          _mostrarInfoCreditoCreado(res.data!, renovarCredito);
+          _limpiarFormularioCredito();
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -128,16 +149,15 @@ class CreditsController extends GetxController {
   }
 
   ///modal que muestra informacion del credito cuando se crea
-  void _mostrarInfoCredito(DataCreditResponse info) {
-    Get.dialog(
-      DialogInfoCredito(
+  void _mostrarInfoCreditoCreado(DataCreditResponse info, bool renovarCredito) {
+    Get.dialog(DialogInfoCreditoCreado(
         title: Constantes.INFORMACION_CREDITO,
         info: info,
-      ),
-    );
+        renovarCredito: renovarCredito));
   }
 
   Future<void> infoCreditoySaldo(int idCredito) async {
+    idCreditoSeleccionado = idCredito;
     Get.showOverlay(
       loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
@@ -148,6 +168,7 @@ class CreditsController extends GetxController {
             infoCreditoSaldo(res.infoCreditoySaldo);
             _infoCreditoSaldoModal(res.infoCreditoySaldo!, idCredito);
             nuevaFechaCuota.text = res.infoCreditoySaldo!.fechaCuota!;
+            saldoCreditoSeleccionado = res.infoCreditoySaldo!.saldoCredito;
           } else {
             appController.manageError(res.message!);
             nuevaFechaCuota.text = res.infoCreditoySaldo!.fechaCuota!;
@@ -235,7 +256,7 @@ class CreditsController extends GetxController {
   /// info de la cuota cuando se modifica la fecha de pago
   void _mostrarInfoCuotaModificada(PayFee data) {
     Get.dialog(
-      DialogResponseGeneral(
+      DialogFechaCuotaModificada(
         data: data,
       ),
     );
@@ -381,17 +402,11 @@ class CreditsController extends GetxController {
   }
 
   void _mostrarListaClientes(List<Client> clientes) {
-    Get.dialog(
-      DialogListaClientes(),
-    );
+    Get.dialog(DialogListaClientes());
   }
 
-  void _cleanForm() {
-    nombreCliente.clear();
-    creditValue.clear();
-    installmentAmount.clear();
-    interestPercentage.clear();
-    installmentDate.clear();
+  void _limpiarFormularioCredito() {
+    formKey.currentState!.reset();
   }
 
   bool validarFormAbonoCapital() =>
@@ -407,7 +422,7 @@ class CreditsController extends GetxController {
 
   ///inicializa fecha credito
   void _fechaInicialCredito() {
-    creditDate.text = General.formatoFecha(DateTime.now());
+    fechaCredito.text = General.formatoFecha(DateTime.now());
     nuevaFechaCuota.text = General.formatoFecha(DateTime.now());
   }
 
@@ -447,9 +462,29 @@ class CreditsController extends GetxController {
     filtroCreditos.value = results;
   }
 
+  void limpiarFormularioRenovacion() {
+    formRenovacion.currentState!.reset();
+    valorCreditoRX.value = 0.0;
+    valorEntregarResultado.value = '0.0';
+    fechaCredito.text = General.formatoFecha(DateTime.now());
+    fechaCuota.clear();
+    Get.back();
+  }
+
   /// cambia la modalidad
   bool? cambiarModalidad(bool value) {
     return modalidad.value = value;
+  }
+
+  void _calcularRenovacion() {
+    valorCreditoRX.value =
+        General.stringToDouble(valorCreditoRenovacion.text.value);
+
+    final double result =
+        valorCreditoRX.value - (saldoCreditoSeleccionado ?? 0.0);
+
+    valorEntregarResultado.value =
+        NumberFormat('#,###', 'es_CO').format(result);
   }
 
   double get valorAbonar => double.parse(abonar.value.text.replaceAll(",", ""));

@@ -49,13 +49,13 @@ class CreditsPage extends StatelessWidget {
                   TextFieldBase(
                     paddingHorizontal: 20,
                     title: 'Valor credito',
-                    controller: controller.creditValue,
+                    controller: controller.valorCredito,
                     textInputType: TextInputType.number,
                     validateText: ValidateText.creditValue,
                   ),
                   TextFieldBase(
                     title: 'Interes',
-                    controller: controller.interestPercentage,
+                    controller: controller.porcentajeInteres,
                     textInputType: TextInputType.number,
                     validateText: ValidateText.interestPercentage,
                   ),
@@ -66,7 +66,7 @@ class CreditsPage extends StatelessWidget {
                   TextFieldBase(
                     paddingHorizontal: 20,
                     title: 'Cantidad cuotas',
-                    controller: controller.installmentAmount,
+                    controller: controller.cantidadCuotas,
                     textInputType: TextInputType.number,
                     validateText: ValidateText.installmentAmount,
                   ),
@@ -86,18 +86,18 @@ class CreditsPage extends StatelessWidget {
                 children: [
                   TextFieldCalendar(
                     paddingHorizontal: 20,
-                    controller: controller.creditDate,
+                    controller: controller.fechaCredito,
                     onTap: () async => controller.showCalendar(
                       context,
-                      controller.creditDate,
+                      controller.fechaCredito,
                     ),
                     title: 'Fecha credito',
                   ),
                   TextFieldCalendar(
-                    controller: controller.installmentDate,
+                    controller: controller.fechaCuota,
                     onTap: () async => controller.showCalendar(
                       context,
-                      controller.installmentDate,
+                      controller.fechaCuota,
                     ),
                     title: 'Couta credito',
                   ),
@@ -135,7 +135,7 @@ class CreditsPage extends StatelessWidget {
                     label: const Text("Registrar"),
                     onPressed: () {
                       if (General.validateForm(controller.formKey)) {
-                        controller.save();
+                        controller.save(false);
                       }
                     },
                   ),
