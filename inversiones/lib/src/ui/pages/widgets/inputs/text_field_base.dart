@@ -19,7 +19,8 @@ class TextFieldBase extends StatelessWidget {
       this.textAlign = TextAlign.right,
       this.moneyCamp = false,
       this.enabled = true,
-      this.onChanged});
+      this.onChanged,
+      this.readOnly = false});
 
   final String? hintText;
   final String title;
@@ -35,6 +36,7 @@ class TextFieldBase extends StatelessWidget {
   final bool? moneyCamp;
   final bool? enabled;
   final Function? onChanged;
+  final bool? readOnly;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,6 +55,7 @@ class TextFieldBase extends StatelessWidget {
             height: General.mediaQuery(context).height * heightTextField!,
             width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
+              readOnly: readOnly!,
               onChanged: (String? value) => onChanged,
               enabled: enabled,
               textDirection: TextDirection.ltr,
@@ -67,6 +70,8 @@ class TextFieldBase extends StatelessWidget {
               maxLength: ValidateForm.validateMaxLength(validateText!),
               controller: controller,
               decoration: InputDecoration(
+                fillColor: readOnly! ? Colors.grey.shade300 : Colors.white,
+                filled: true,
                 hintText: hintText,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),

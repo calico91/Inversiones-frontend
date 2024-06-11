@@ -12,11 +12,10 @@ class DialogInfoCreditoCreado extends StatelessWidget {
   final String title;
   final DataCreditResponse? info;
   final ScreenshotController screenshotController = ScreenshotController();
+  final bool renovarCredito;
 
-  DialogInfoCreditoCreado({
-    required this.title,
-    this.info,
-  });
+  DialogInfoCreditoCreado(
+      {required this.title, this.info, required this.renovarCredito});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
           descripcion: Constantes.INFORMACION_CREDITO_CREADO,
         ),
         HomeButton(),
-        CloseButtonCustom()
+        if (!renovarCredito) CloseButtonCustom()
       ],
     );
   }

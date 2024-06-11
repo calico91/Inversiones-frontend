@@ -23,11 +23,14 @@ class General {
   static String formatoFecha(DateTime date) =>
       DateFormat('yyyy-MM-dd').format(date);
 
-  ///formatea fecha
-
   ///quita las comas del string que viene del input
-  static double stringToDouble(String value) =>
-      double.parse(value.replaceAll(',', '').trim());
+  static double stringToDouble(String value) {
+    try {
+      return double.parse(value.replaceAll(RegExp('[.,]'), '').trim());
+    } on FormatException catch (_) {
+      return 0.0;
+    }
+  }
 
   ///mediaQuery
   static Size mediaQuery(BuildContext context) => MediaQuery.of(context).size;

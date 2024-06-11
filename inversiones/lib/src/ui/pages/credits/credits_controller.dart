@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/http/src/credit_http.dart';
@@ -35,6 +36,7 @@ class CreditsController extends GetxController {
   final AppController appController = Get.find<AppController>();
   final HomeController homeController = Get.find<HomeController>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formRenovacion = GlobalKey<FormState>();
   final GlobalKey<FormState> formKeyAbonoCapital = GlobalKey<FormState>();
   final TextEditingController valorCredito = TextEditingController();
   final TextEditingController cantidadCuotas = TextEditingController();
@@ -68,8 +70,8 @@ class CreditsController extends GetxController {
   final ReactiveTextEditingController valorAEntregar =
       ReactiveTextEditingController();
 
-  Rx<double> valorEntregarResultado = 0.0.obs;
-  Rx<String> valorCreditoRX = '0.0'.obs;
+  RxString valorEntregarResultado = '0.0'.obs;
+  Rx<double> valorCreditoRX = 0.0.obs;
 
   String? nombreClienteSeleccionado;
   int? idClienteSeleccionado;
@@ -81,19 +83,6 @@ class CreditsController extends GetxController {
     valorCreditoRenovacion.text.listen((_) => _calcularRenovacion());
     _fechaInicialCredito();
     super.onInit();
-  }
-
-  void _calcularRenovacion() {
-    print('entre');
-    double valorCredito =
-        double.tryParse(valorCreditoRenovacion.text.value) ?? 0.0;
-
-    print('valor credito $valorCredito');
-    double result = valorCredito - (saldoCreditoSeleccionado ?? 0.0);
-
-    print('resultado $result');
-    valorCreditoRX.value = result.toString();
-    print(valorCreditoRX.value);
   }
 
   Future<void> infoCreditosActivos() async {
@@ -118,32 +107,38 @@ class CreditsController extends GetxController {
         });
   }
 
-  void save() {
+  void save(bool renovarCredito) {
     Get.showOverlay(
       loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final UserDetails? userDetails =
               await const SecureStorageLocal().userDetails;
+
           final AddCreditResponse res = await const CreditHttp().addCredit(
-            AddCreditRequest(
-                cantidadCuotas: int.parse(cantidadCuotas.text.trim()),
-                valorCredito: General.stringToDouble(valorCredito.text),
-                cedulaTitularCredito: cedulaClienteSeleccionado.value,
-                interesPorcentaje: double.parse(porcentajeInteres.text.trim()),
-                fechaCredito: fechaCredito.text.trim(),
-                fechaCuota: fechaCuota.text.trim(),
-                modalidad: modalidad.value
-                    ? Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL)
-                    : Modalidad(id: Constantes.CODIGO_MODALIDAD_QUINCENAL),
-                usuario: userDetails?.username ?? ""),
-          );
-          if (res.status == 200) {
-            _mostrarInfoCreditoCreado(res.data!);
-            _limpiarFormularioCredito();
-          } else {
-            appController.manageError(res.message);
-          }
+              AddCreditRequest(
+                  cantidadCuotas: int.parse(cantidadCuotas.text.trim()),
+                  valorCredito: !renovarCredito
+                      ? General.stringToDouble(valorCredito.text)
+                      : General.stringToDouble(
+                          valorCreditoRenovacion.text.value),
+                  cedulaTitularCredito: cedulaClienteSeleccionado.value,
+                  interesPorcentaje:
+                      double.parse(porcentajeInteres.text.trim()),
+                  fechaCredito: fechaCredito.text.trim(),
+                  fechaCuota: fechaCuota.text.trim(),
+                  modalidad: modalidad.value
+                      ? Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL)
+                      : Modalidad(id: Constantes.CODIGO_MODALIDAD_QUINCENAL),
+                  usuario: userDetails?.username ?? "",
+                  idCliente: idClienteSeleccionado,
+                  idCreditoActual: idCreditoSeleccionado,
+                  renovacion: renovarCredito,
+                  valorRenovacion:
+                      General.stringToDouble(valorEntregarResultado.value)));
+
+          _mostrarInfoCreditoCreado(res.data!, renovarCredito);
+          _limpiarFormularioCredito();
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -154,13 +149,11 @@ class CreditsController extends GetxController {
   }
 
   ///modal que muestra informacion del credito cuando se crea
-  void _mostrarInfoCreditoCreado(DataCreditResponse info) {
-    Get.dialog(
-      DialogInfoCreditoCreado(
+  void _mostrarInfoCreditoCreado(DataCreditResponse info, bool renovarCredito) {
+    Get.dialog(DialogInfoCreditoCreado(
         title: Constantes.INFORMACION_CREDITO,
         info: info,
-      ),
-    );
+        renovarCredito: renovarCredito));
   }
 
   Future<void> infoCreditoySaldo(int idCredito) async {
@@ -470,23 +463,28 @@ class CreditsController extends GetxController {
   }
 
   void limpiarFormularioRenovacion() {
-    formKey.currentState!.reset();
+    formRenovacion.currentState!.reset();
+    valorCreditoRX.value = 0.0;
+    valorEntregarResultado.value = '0.0';
+    fechaCredito.text = General.formatoFecha(DateTime.now());
+    fechaCuota.clear();
     Get.back();
   }
 
-  /*  void calcularValorEntregar(String valorCredito) {
-    valorCreditoRX.value = valorCredito.isEmpty ? '0.0' : valorCredito;
-
-    print(valorCreditoRX.value);
-    valorEntregarResultado.value =
-        General.stringToDouble(valorCreditoRX.value) -
-            saldoCreditoSeleccionado!;
-    valorAEntregar.addListener(valorEntregarResultado.call);
-  }
- */
   /// cambia la modalidad
   bool? cambiarModalidad(bool value) {
     return modalidad.value = value;
+  }
+
+  void _calcularRenovacion() {
+    valorCreditoRX.value =
+        General.stringToDouble(valorCreditoRenovacion.text.value);
+
+    final double result =
+        valorCreditoRX.value - (saldoCreditoSeleccionado ?? 0.0);
+
+    valorEntregarResultado.value =
+        NumberFormat('#,###', 'es_CO').format(result);
   }
 
   double get valorAbonar => double.parse(abonar.value.text.replaceAll(",", ""));

@@ -10,6 +10,8 @@ class TextFieldCalendar extends StatelessWidget {
       this.paddingHorizontal = 0,
       this.required = true,
       this.height,
+      this.letterSize = 0.02,
+      this.widthTextField = 0.39,
       this.mostrarBordes = true});
 
   final TextEditingController controller;
@@ -20,6 +22,8 @@ class TextFieldCalendar extends StatelessWidget {
   final bool? required;
   final double? height;
   final bool? mostrarBordes;
+  final double? widthTextField;
+  final double? letterSize;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +40,11 @@ class TextFieldCalendar extends StatelessWidget {
             height: General.mediaQuery(context).height * 0.005,
           ),
           SizedBox(
-            width: General.mediaQuery(context).width * 0.39,
+            width: General.mediaQuery(context).width * widthTextField!,
             height: height ?? General.mediaQuery(context).height * 0.07,
             child: TextFormField(
+              style: TextStyle(
+                  fontSize: General.mediaQuery(context).height * letterSize!),
               validator: (value) => _validateStructure(value),
               controller: controller,
               decoration: mostrarBordes!
@@ -54,6 +60,7 @@ class TextFieldCalendar extends StatelessWidget {
                         borderSide: const BorderSide(color: Colors.red),
                       ),
                       prefixIcon: const Icon(
+                        size: 30,
                         Icons.calendar_today,
                         color: Colors.blue,
                       ),

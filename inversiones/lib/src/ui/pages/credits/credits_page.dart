@@ -135,7 +135,7 @@ class CreditsPage extends StatelessWidget {
                     label: const Text("Registrar"),
                     onPressed: () {
                       if (General.validateForm(controller.formKey)) {
-                        controller.save();
+                        controller.save(false);
                       }
                     },
                   ),
