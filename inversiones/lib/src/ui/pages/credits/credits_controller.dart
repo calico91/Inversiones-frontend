@@ -64,7 +64,6 @@ class CreditsController extends GetxController {
 
   final Rx<List<Client>> listaClientes = Rx<List<Client>>([]);
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
-  final Rx<String> cedulaClienteSeleccionado = ''.obs;
   final ReactiveTextEditingController valorCreditoRenovacion =
       ReactiveTextEditingController();
   final ReactiveTextEditingController valorAEntregar =
@@ -122,7 +121,6 @@ class CreditsController extends GetxController {
                       ? General.stringToDouble(valorCredito.text)
                       : General.stringToDouble(
                           valorCreditoRenovacion.text.value),
-                  cedulaTitularCredito: cedulaClienteSeleccionado.value,
                   interesPorcentaje:
                       double.parse(porcentajeInteres.text.trim()),
                   fechaCredito: fechaCredito.text.trim(),
