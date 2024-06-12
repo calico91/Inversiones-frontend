@@ -29,7 +29,7 @@ class ReportesHttp implements ReportesRepository {
       int cantidadAbonos) async {
     try {
       final http.Response response = await baseHttpClient
-          .get('${UrlPaths.consultarUltimosAbonos}/$cantidadAbonos');
+          .get('${UrlPaths.generarUltimosAbonosRealizados}/$cantidadAbonos');
       return compute(abonosRealizadosResponseFromJson, response.body);
     } catch (_) {
       rethrow;

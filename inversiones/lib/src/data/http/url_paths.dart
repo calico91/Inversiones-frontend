@@ -31,13 +31,13 @@ class UrlPaths {
       '/cuotaCredito/modificar-fecha-pago';
   static const String consultarAbonosRealizados =
       '/cuotaCredito/consultar-abonos-realizados';
-  static const String consultarUltimosAbonos =
-      '/cuotaCredito/consultar-ultimos-abonos-realizados';
   static const String consultarAbonoPorId =
       '/cuotaCredito/consultar-abono-por-id';
   static const String anularUltimoAbono = '/cuotaCredito/anular-ultimo-abono';
 
   ///reportes
-    static const String reporteInteresyCapital =
+  static const String reporteInteresyCapital =
       '/reporte/generar-reporte-interes-capital';
+  static const String generarUltimosAbonosRealizados =
+      '/reporte/generar-reporte-ultimos-abonos-realizados';
 }
