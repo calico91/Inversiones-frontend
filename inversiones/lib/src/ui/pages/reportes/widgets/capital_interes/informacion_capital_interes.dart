@@ -18,14 +18,14 @@ class InformacionCapitalInteres extends StatelessWidget {
           children: [
             _divider(),
             _mostrarInformacionIngresos('Valor interes',
-                interesMes: info.interesMes ?? 0),
+                interesMes: info.valorInteres ?? 0),
             _divider(),
             _mostrarInformacionIngresos('Valor capital',
-                capitalMes: info.capitalMes ?? 0),
+                capitalMes: info.valorCapital ?? 0),
             _divider(),
             _mostrarInformacionIngresos('Valor total',
-                capitalMes: info.capitalMes ?? 0,
-                interesMes: info.interesMes ?? 0),
+                capitalMes: info.valorCapital ?? 0,
+                interesMes: info.valorInteres ?? 0),
             _divider()
           ],
         ),

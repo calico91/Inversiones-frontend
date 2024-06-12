@@ -16,7 +16,7 @@ class ReportesHttp implements ReportesRepository {
       String fechaInicial, String fechaFinal) async {
     try {
       final http.Response response = await baseHttpClient.get(
-          UrlPaths.infoReporteInteresyCapital,
+          UrlPaths.reporteInteresyCapital,
           {'fechaInicial': fechaInicial, 'fechaFinal': fechaFinal});
       return compute(reporteInteresyCapitalResponseFromJson, response.body);
     } catch (e) {

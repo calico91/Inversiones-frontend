@@ -29,17 +29,17 @@ class ReporteInteresyCapitalResponse {
 }
 
 class ReporteInteresyCapital {
-  final double? interesMes;
-  final double? capitalMes;
+  final double? valorInteres;
+  final double? valorCapital;
 
   ReporteInteresyCapital({
-    this.interesMes,
-    this.capitalMes,
+    this.valorInteres,
+    this.valorCapital,
   });
 
   factory ReporteInteresyCapital.fromJson(Map<String, dynamic> json) =>
       ReporteInteresyCapital(
-        interesMes: json["interesMes"] as double,
-        capitalMes: json["capitalMes"] as double,
+        valorInteres: json["valorInteres"] as double,
+        valorCapital: json["valorCapital"] as double,
       );
 }

@@ -29,8 +29,6 @@ class UrlPaths {
       '/cuotaCredito/consultar-credito-saldo';
   static const String modificarFechaCuota =
       '/cuotaCredito/modificar-fecha-pago';
-  static const String infoReporteInteresyCapital =
-      '/cuotaCredito/generar-reporte-interes-capital';
   static const String consultarAbonosRealizados =
       '/cuotaCredito/consultar-abonos-realizados';
   static const String consultarUltimosAbonos =
@@ -38,4 +36,8 @@ class UrlPaths {
   static const String consultarAbonoPorId =
       '/cuotaCredito/consultar-abono-por-id';
   static const String anularUltimoAbono = '/cuotaCredito/anular-ultimo-abono';
+
+  ///reportes
+    static const String reporteInteresyCapital =
+      '/reporte/generar-reporte-interes-capital';
 }

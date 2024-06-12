@@ -76,7 +76,7 @@ void _obtenerClienteSeleccionado(
   controller.nombreCliente.text =
       '${cliente.nombres.split(' ').first} ${cliente.apellidos}';
 
-  controller.cedulaClienteSeleccionado(cliente.cedula);
+  controller.idClienteSeleccionado = cliente.id;
   Navigator.pop(context);
   controller.campoBuscarCliente.clear();
 }
