@@ -32,6 +32,7 @@ class ModalCambiarContrasena extends StatelessWidget {
                     validateText: ValidateText.username,
                   ),
                 ),
+                SizedBox(height: General.mediaQuery(context).height * 0.02),
                 Obx(
                   () => TextFieldLogin(
                     suffixIcon:
@@ -44,6 +45,7 @@ class ModalCambiarContrasena extends StatelessWidget {
                     validateText: ValidateText.username,
                   ),
                 ),
+                SizedBox(height: General.mediaQuery(context).height * 0.02),
                 Obx(
                   () => TextFieldLogin(
                     suffixIcon: _mostrarContrasena(
@@ -56,6 +58,7 @@ class ModalCambiarContrasena extends StatelessWidget {
                     validateText: ValidateText.username,
                   ),
                 ),
+                SizedBox(height: General.mediaQuery(context).height * 0.03),
                 Container(
                   padding: const EdgeInsets.only(top: 10),
                   width: General.mediaQuery(context).width * 0.38,
