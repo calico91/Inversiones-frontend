@@ -13,7 +13,6 @@ class TextFieldLogin extends StatelessWidget {
     this.suffixIcon,
     this.fillColor,
     this.widthTextField = 0.73,
-    this.heightTextField = 0.09,
     this.title = '',
   });
 
@@ -25,7 +24,6 @@ class TextFieldLogin extends StatelessWidget {
   final bool? obscureText;
   final Color? fillColor;
   final double? widthTextField;
-  final double? heightTextField;
   final String title;
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,6 @@ class TextFieldLogin extends StatelessWidget {
           height: 5,
         ),
         SizedBox(
-          height: General.mediaQuery(context).height * heightTextField!,
           width: General.mediaQuery(context).width * widthTextField!,
           child: TextFormField(
             textDirection: TextDirection.ltr,
