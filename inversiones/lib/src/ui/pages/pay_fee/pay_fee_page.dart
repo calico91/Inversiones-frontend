@@ -58,7 +58,6 @@ class PayFeePage extends StatelessWidget {
             Screenshot(
               controller: screenshotController,
               child: CustomCard(
-                
                 child: Obx(() {
                   if (controller.loading) {
                     return const Loading(
@@ -208,6 +207,8 @@ class PayFeePage extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        scrollable: true,
+        actionsPadding: EdgeInsets.zero,
         content: soloInteres
             ? SizedBox(
                 height: size.height * 0.17,

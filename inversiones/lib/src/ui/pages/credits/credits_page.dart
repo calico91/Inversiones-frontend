@@ -47,60 +47,50 @@ class CreditsPage extends StatelessWidget {
               Row(
                 children: [
                   TextFieldBase(
-                    paddingHorizontal: 20,
-                    title: 'Valor credito',
-                    controller: controller.valorCredito,
-                    textInputType: TextInputType.number,
-                    validateText: ValidateText.creditValue,
-                  ),
+                      paddingHorizontal: 20,
+                      title: 'Valor credito',
+                      controller: controller.valorCredito,
+                      textInputType: TextInputType.number,
+                      validateText: ValidateText.creditValue),
                   TextFieldBase(
-                    title: 'Interes',
-                    controller: controller.porcentajeInteres,
-                    textInputType: TextInputType.number,
-                    validateText: ValidateText.interestPercentage,
-                  ),
+                      title: 'Interes',
+                      controller: controller.porcentajeInteres,
+                      textInputType: TextInputType.number,
+                      validateText: ValidateText.interestPercentage),
                 ],
               ),
               Row(
                 children: [
                   TextFieldBase(
-                    paddingHorizontal: 20,
-                    title: 'Cantidad cuotas',
-                    controller: controller.cantidadCuotas,
-                    textInputType: TextInputType.number,
-                    validateText: ValidateText.installmentAmount,
-                  ),
+                      paddingHorizontal: 20,
+                      title: 'Cantidad cuotas',
+                      controller: controller.cantidadCuotas,
+                      textInputType: TextInputType.number,
+                      validateText: ValidateText.installmentAmount),
                   InkWell(
                     onTap: () => controller.consultarClientes(),
                     child: TextFieldBase(
-                      enabled: false,
-                      title: 'Seleccione cliente',
-                      controller: controller.nombreCliente,
-                      textInputType: TextInputType.number,
-                      validateText: ValidateText.name,
-                    ),
+                        enabled: false,
+                        title: 'Seleccione cliente',
+                        controller: controller.nombreCliente,
+                        textInputType: TextInputType.number,
+                        validateText: ValidateText.name),
                   ),
                 ],
               ),
               Row(
                 children: [
                   TextFieldCalendar(
-                    paddingHorizontal: 20,
-                    controller: controller.fechaCredito,
-                    onTap: () async => controller.showCalendar(
-                      context,
-                      controller.fechaCredito,
-                    ),
-                    title: 'Fecha credito',
-                  ),
+                      paddingHorizontal: 20,
+                      controller: controller.fechaCredito,
+                      onTap: () async => controller.showCalendar(
+                          context, controller.fechaCredito),
+                      title: 'Fecha credito'),
                   TextFieldCalendar(
-                    controller: controller.fechaCuota,
-                    onTap: () async => controller.showCalendar(
-                      context,
-                      controller.fechaCuota,
-                    ),
-                    title: 'Couta credito',
-                  ),
+                      controller: controller.fechaCuota,
+                      onTap: () async => controller.showCalendar(
+                          context, controller.fechaCuota),
+                      title: 'Fecha cuota'),
                 ],
               ),
               Row(
@@ -112,18 +102,15 @@ class CreditsPage extends StatelessWidget {
                       child: Column(
                         children: [
                           Switch(
-                            value: controller.modalidad.value,
-                            activeTrackColor: Colors.blue,
-                            inactiveTrackColor: Colors.blue,
-                            inactiveThumbColor: Colors.blue,
-                            onChanged: (bool value) =>
-                                controller.cambiarModalidad(value),
-                          ),
-                          Text(
-                            controller.modalidad.value
-                                ? Constantes.MODALIDAD_MENSUAL
-                                : Constantes.MODALIDAD_QUINCENAL,
-                          ),
+                              value: controller.modalidad.value,
+                              activeTrackColor: Colors.blue,
+                              inactiveTrackColor: Colors.blue,
+                              inactiveThumbColor: Colors.blue,
+                              onChanged: (bool value) =>
+                                  controller.cambiarModalidad(value)),
+                          Text(controller.modalidad.value
+                              ? Constantes.MODALIDAD_MENSUAL
+                              : Constantes.MODALIDAD_QUINCENAL),
                         ],
                       ),
                     ),

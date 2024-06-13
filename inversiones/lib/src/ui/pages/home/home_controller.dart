@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
-import 'package:inversiones/src/data/http/src/userdetails_http.dart';
+import 'package:inversiones/src/data/http/src/user_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
+import 'package:inversiones/src/domain/request/cambiar_contrasena_request.dart';
 import 'package:inversiones/src/domain/request/vincular_dispositivo_request.dart';
 import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
@@ -25,13 +26,21 @@ class HomeController extends GetxService {
   final Rx<int> idCredito = 0.obs;
   final Rx<String> nombreCliente = ''.obs;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyCambiarContrasena = GlobalKey<FormState>();
   final TextEditingController creditValue = TextEditingController();
   final TextEditingController installmentAmount = TextEditingController();
   final TextEditingController interestPercentage = TextEditingController();
+  final TextEditingController contrasenaActual = TextEditingController();
+  final TextEditingController contrasenaNueva = TextEditingController();
+  final TextEditingController confirmarContrasena = TextEditingController();
   final Rx<UserDetails> userDetails = UserDetails().obs;
   final Rx<int> indexPage = 0.obs;
 
   final TextEditingController fechafiltro = TextEditingController();
+
+  final RxBool ocultarContrasenaActual = true.obs;
+  final RxBool ocultarContrasenaNueva = true.obs;
+  final RxBool ocultarConfirmarContrasena = true.obs;
 
   @override
   Future<void> onInit() async {
@@ -62,18 +71,18 @@ class HomeController extends GetxService {
     }
   }
 
-  Future<void> vincularDispositivo(Size size) async {
+  Future<void> vincularDispositivo() async {
     final String? idmovil = await const SecureStorageLocal().idMovil;
 
     Get.showOverlay(
-      loadingWidget:CargandoAnimacion(),
+      loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
           await const SecureStorageLocal()
               .saveUsuarioBiometria(userDetails.value.username);
 
           final GenericoResponse respuestaHttp =
-              await const UserDetailsHttp().vincularDispositivo(
+              await const UserHttp().vincularDispositivo(
             VincularDispositivoRequest(
                 username: userDetails.value.username!,
                 idDispositivo: idmovil ?? ""),
@@ -85,6 +94,31 @@ class HomeController extends GetxService {
           } else {
             appController.manageError(respuestaHttp.message);
           }
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
+  Future<void> cambiarContrasena() async {
+    final UserDetails? userDetails =
+        await const SecureStorageLocal().userDetails;
+
+    Get.showOverlay(
+      loadingWidget: CargandoAnimacion(),
+      asyncFunction: () async {
+        try {
+          final GenericoResponse respuestaHttp =
+              await const UserHttp().cambiarContrasena(
+            CambiarContrasenaRequest(userDetails!.id!,
+                contrasenaActual.text.trim(), contrasenaNueva.text.trim()),
+          );
+          await const SecureStorageLocal().saveToken(null);
+          Get.offAllNamed(RouteNames.navigationBar);
+          Get.showSnackbar(InfoSnackbar(respuestaHttp.data));
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -116,7 +150,7 @@ class HomeController extends GetxService {
     return General.formatoMoneda(creditFee);
   }
 
-  void limpiarCampos() {
+  void limpiarCamposSimularCredito() {
     interestPercentage.clear();
     installmentAmount.clear();
     creditValue.clear();

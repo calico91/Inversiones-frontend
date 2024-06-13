@@ -29,6 +29,8 @@ class InfoCreditoSaldoModal extends StatelessWidget {
     final CreditsController controllerCredits = Get.find<CreditsController>();
 
     return AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
       title: Row(
         children: [
           Text(Constantes.INFORMACION_CREDITO, textAlign: TextAlign.center),
@@ -145,6 +147,8 @@ Object _abonar(CreditsController controllerCredits, BuildContext context,
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
       title: Text(
         titulo,
         textAlign: TextAlign.center,
@@ -176,6 +180,8 @@ Object _modificarCredito(BuildContext context, CreditsController controller,
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
       title: const Center(child: Text('Editar credito')),
       content: SizedBox(
         height: General.mediaQuery(context).height * 0.2,

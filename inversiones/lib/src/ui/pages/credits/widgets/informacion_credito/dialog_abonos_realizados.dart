@@ -17,6 +17,8 @@ class DialogAbonosRealizados extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
       title: const Text(
         textAlign: TextAlign.center,
         'Abonos realizados',

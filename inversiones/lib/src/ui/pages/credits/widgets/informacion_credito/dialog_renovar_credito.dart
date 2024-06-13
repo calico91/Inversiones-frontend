@@ -13,6 +13,8 @@ class DialogRenovarCredito extends StatelessWidget {
     final CreditsController controller = Get.find<CreditsController>();
 
     return AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
       title: const Text('Renovar credito', textAlign: TextAlign.center),
       content: SizedBox(
         height: General.mediaQuery(context).height * 0.48,
@@ -69,7 +71,7 @@ class DialogRenovarCredito extends StatelessWidget {
                         onTap: () async => controller.showCalendar(
                             context, controller.fechaCredito)),
                     TextFieldCalendar(
-                        title: 'Couta credito',
+                        title: 'fecha cuota ',
                         letterSize: 0.015,
                         widthTextField: 0.32,
                         controller: controller.fechaCuota,

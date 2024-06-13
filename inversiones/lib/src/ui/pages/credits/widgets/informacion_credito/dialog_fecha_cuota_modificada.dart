@@ -17,6 +17,8 @@ class DialogFechaCuotaModificada extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+        scrollable: true,
+        actionsPadding: EdgeInsets.zero,
         title: Text(
           textAlign: TextAlign.center,
           Constantes.INFORMACION_CREDITO,

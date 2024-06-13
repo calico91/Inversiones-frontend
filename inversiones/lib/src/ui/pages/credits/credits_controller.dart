@@ -19,13 +19,13 @@ import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
-import 'package:inversiones/src/ui/pages/credits/text_editing_reactivos.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito_creado.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/dialog_lista_clientes.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_abonos_realizados.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_fecha_cuota_modificada.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/info_credito_saldo.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/text_editing_reactivos.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';

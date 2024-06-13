@@ -11,46 +11,42 @@ class DialogListaClientes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        AlertDialog(
-          title: const Text(
-            textAlign: TextAlign.center,
-            'Seleccione cliente',
-          ),
-          content: Obx(
-            () => Column(
-              children: [
-                TextFieldSearch(
-                  controller: controller.campoBuscarCliente,
-                  labelText: 'Buscar cliente',
-                  onChanged: (value) => _buscarCliente(value, controller),
-                ),
-                SizedBox(
-                  width: General.mediaQuery(context).width * 0.7,
-                  height: General.mediaQuery(context).height * 0.66,
-                  child: controller.listaClientes.value.isEmpty
-                      ? const Center(child: Text('No hay clientes creados '))
-                      : ListView.builder(
-                          itemCount: controller.filtroClientes.value.length,
-                          itemBuilder: (_, index) {
-                            return ListTile(
-                              onTap: () => _obtenerClienteSeleccionado(
-                                  controller,
-                                  controller.filtroClientes.value[index],
-                                  context),
-                              title: Text(
-                                  "${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}"),
-                            );
-                          },
-                        ),
-                ),
-              ],
+    return AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
+      title: const Text(
+        textAlign: TextAlign.center,
+        'Seleccione cliente',
+      ),
+      content: Obx(
+        () => Column(
+          children: [
+            TextFieldSearch(
+              controller: controller.campoBuscarCliente,
+              labelText: 'Buscar cliente',
+              onChanged: (value) => _buscarCliente(value, controller),
             ),
-          ),
-          actions: [CloseButtonCustom()],
-        )
-      ],
+            SizedBox(
+              width: General.mediaQuery(context).width * 0.7,
+              height: General.mediaQuery(context).height * 0.66,
+              child: controller.listaClientes.value.isEmpty
+                  ? const Center(child: Text('No hay clientes creados '))
+                  : ListView.builder(
+                      itemCount: controller.filtroClientes.value.length,
+                      itemBuilder: (_, index) {
+                        return ListTile(
+                          onTap: () => _obtenerClienteSeleccionado(controller,
+                              controller.filtroClientes.value[index], context),
+                          title: Text(
+                              "${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}"),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
+      ),
+      actions: [CloseButtonCustom()],
     );
   }
 }

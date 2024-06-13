@@ -22,7 +22,7 @@ class CardCapitalInteres extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               IconButton(
-                tooltip: 'Consultar informacion',
+                tooltip: 'Consultar',
                 onPressed: () => controller.consultarCapitalInteres(),
                 icon: const Icon(
                   Icons.info,

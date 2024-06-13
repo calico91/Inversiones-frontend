@@ -3,7 +3,7 @@ import 'package:inversiones/src/ui/pages/reportes/reportes_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
-import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_small.dart';
+import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
 class CardUltimosAbonos extends StatelessWidget {
   const CardUltimosAbonos(this.controller);
@@ -21,19 +21,8 @@ class CardUltimosAbonos extends StatelessWidget {
                 'Informacion ultimos abonos',
                 style: TextStyle(fontSize: 20),
               ),
-              SizedBox(
-                height: General.mediaQuery(context).height * 0.09,
-                width: 50,
-                child: Form(
-                  key: controller.formKey,
-                  child: TextFieldSmall(
-                    validateText: ValidateText.installmentAmount,
-                    controller: controller.cantidadAbonosConsultar,
-                  ),
-                ),
-              ),
               IconButton(
-                tooltip: 'Consultar ultimos abonos',
+                tooltip: 'Consultar',
                 onPressed: () {
                   if (General.validateForm(controller.formKey)) {
                     controller.consultarUltimosAbonos();
@@ -46,6 +35,15 @@ class CardUltimosAbonos extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          Form(
+            key: controller.formKey,
+            child: TextFieldBase(
+              title: 'Cantidad de abonos',
+              textInputType: TextInputType.number,
+              validateText: ValidateText.installmentAmount,
+              controller: controller.cantidadAbonosConsultar,
+            ),
           ),
         ],
       ),
