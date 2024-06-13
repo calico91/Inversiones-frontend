@@ -52,6 +52,8 @@ class HomePage extends StatelessWidget {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
+          scrollable: true,
+          actionsPadding: EdgeInsets.zero,
           title: const Center(child: Text('Desea cerrar sesion')),
           actions: [
             TextButton(

@@ -40,4 +40,7 @@ class UrlPaths {
       '/reporte/generar-reporte-interes-capital';
   static const String generarUltimosAbonosRealizados =
       '/reporte/generar-reporte-ultimos-abonos-realizados';
+
+  ///user
+  static const String cambiarContrasena = '/user/cambiar-contrasena';
 }

@@ -10,6 +10,8 @@ class InformacionUltimosAbonos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
       title: const Center(child: Text('Ultimos abonos')),
       content: SizedBox(
         width: General.mediaQuery(context).width * 0.7,

@@ -29,6 +29,8 @@ class DialogCuotaPagada extends StatelessWidget {
     /// si  es un abono normal muestra todos los campos
     final bool mostrarCampo = dataAbono.tipoAbono == Constantes.CUOTA_NORMAL;
     return AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
       title: const Text(
         textAlign: TextAlign.center,
         'Informacion abono',
@@ -138,6 +140,8 @@ class DialogCuotaPagada extends StatelessWidget {
       onPressed: () => showDialog(
             context: context,
             builder: (context) => AlertDialog(
+              scrollable: true,
+              actionsPadding: EdgeInsets.zero,
               title: const Center(child: Text('Desea anular este abono?')),
               actions: [
                 TextButton(

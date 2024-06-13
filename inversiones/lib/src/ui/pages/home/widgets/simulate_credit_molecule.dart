@@ -57,7 +57,8 @@ class SimulateCreditMolecule extends StatelessWidget {
                       child: FilledButton.icon(
                         icon: const Icon(Icons.calculate),
                         label: const Text('Calcular'),
-                        onLongPress: () => controller.limpiarCampos(),
+                        onLongPress: () =>
+                            controller.limpiarCamposSimularCredito(),
                         onPressed: () {
                           if (controller.formKey.currentState!.validate()) {
                             _showCreditInstallments(context);
@@ -80,6 +81,8 @@ class SimulateCreditMolecule extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        scrollable: true,
+        actionsPadding: EdgeInsets.zero,
         title: const Text(
           'Credito simulado',
           textAlign: TextAlign.center,

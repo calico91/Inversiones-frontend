@@ -20,6 +20,8 @@ class DialogInfoCreditoCreado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
       title: Text(
         title,
         textAlign: TextAlign.center,

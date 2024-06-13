@@ -10,6 +10,8 @@ class InformacionCapitalInteres extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
       elevation: 10,
       title: const Text('Información de ingresos'),
       content: SizedBox(
