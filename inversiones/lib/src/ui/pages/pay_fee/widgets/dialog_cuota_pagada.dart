@@ -71,7 +71,8 @@ class DialogCuotaPagada extends StatelessWidget {
                   _mostrarContenido(
                     'Valor abonado:',
                     General.formatoMoneda(
-                      General.stringToDouble(dataAbono.valorAbonado.toString()),
+                      General.stringToDouble(
+                          dataAbono.valorAbonado.toString().split('.').first),
                     ),
                     context,
                     true,
