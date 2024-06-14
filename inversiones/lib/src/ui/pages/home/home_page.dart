@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFieldCalendar(
-                height: General.mediaQuery(context).height * 0.03,
+                height: General.mediaQuery(context).height * 0.065,
                 controller: controller.fechafiltro,
                 onTap: () async => General.showCalendar(
                   context,
