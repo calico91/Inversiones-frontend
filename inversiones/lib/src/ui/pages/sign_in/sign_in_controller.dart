@@ -118,7 +118,8 @@ class SignInController extends GetxController {
         asyncFunction: () async {
           try {
             Navigator.pop(context);
-            await const SecureStorageLocal().saveUrlServidor(urlServidor.text);
+            await const SecureStorageLocal()
+                .saveUrlServidor(urlServidor.text.trim());
             Get.showSnackbar(
                 const InfoSnackbar('Url servidor guardado correctamente'));
           } catch (_) {
