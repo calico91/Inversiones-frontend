@@ -32,7 +32,7 @@ class SignInPage extends StatelessWidget {
                       SizedBox(
                           height: General.mediaQuery(context).height * 0.025),
                       Form(
-                        key: controller.formKey,
+                        key: controller.formKeyAuth,
                         child: Column(
                           children: [
                             TextFieldLogin(
@@ -155,17 +155,26 @@ class SignInPage extends StatelessWidget {
       builder: (context) => AlertDialog(
         scrollable: true,
         actionsPadding: EdgeInsets.zero,
-        content: TextFieldBase(
-            textAlign: TextAlign.left,
-            widthTextField: 0.6,
-            title: 'Servidor',
-            controller: controller.servidor,
-            textInputType: TextInputType.multiline,
-            validateText: ValidateText.observations),
+        content: Form(
+          key: controller.formServidor,
+          child: TextFieldBase(
+              textAlign: TextAlign.left,
+              widthTextField: 0.6,
+              title: 'Url de servidor',
+              controller: controller.urlServidor,
+              textInputType: TextInputType.multiline,
+              validateText: ValidateText.observations),
+        ),
         actions: [
-          TextButton(onPressed: () {}, child: const Text('Si')),
-          TextButton(
-              onPressed: () => Navigator.pop(context), child: const Text('No')),
+          Center(
+              child: SizedBox(
+                  width: General.mediaQuery(context).width * 0.4,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: const StadiumBorder()),
+                      child: const Text('Guardar', textAlign: TextAlign.center),
+                      onPressed: () async => controller.guardarUrlServidor(context)))),
+          const SizedBox(height: 20)
         ],
       ),
     );

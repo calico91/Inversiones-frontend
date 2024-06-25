@@ -76,4 +76,12 @@ class SecureStorageLocal implements SecureStorageRepository {
   @override
   Future<String?> get usuarioBiometria async =>
       await secureStorage.read(key: 'usuarioBiometria');
+
+  @override
+  Future<void> saveUrlServidor(String? urlServidor) =>
+      secureStorage.write(key: 'urlServidor', value: urlServidor);
+
+  @override
+  Future<String?> get urlServidor async =>
+      await secureStorage.read(key: 'urlServidor');
 }

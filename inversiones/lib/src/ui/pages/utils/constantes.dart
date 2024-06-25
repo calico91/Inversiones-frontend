@@ -18,4 +18,6 @@ class Constantes {
   static int CODIGO_CREDITO_PAGADO = 2;
   static String NO_TOKEN = 'Bearer notoken';
   static String CARGANDO = 'assets/cargando-ondas.json';
+  static String ERROR_INTERNET_SERVIDOR =
+      'Verifique la conexion a internet o configuracion de su servidor';
 }
