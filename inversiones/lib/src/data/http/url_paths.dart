@@ -1,6 +1,6 @@
 class UrlPaths {
   const UrlPaths._();
- static const String url = 'inversiones.up.railway.app'; 
+  //static const String url = 'inversiones.up.railway.app';
 
   ///auth
   static const String authBiometrica = '/user/auth-biometrica';

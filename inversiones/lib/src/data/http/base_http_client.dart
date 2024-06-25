@@ -18,9 +18,10 @@ class BaseHttpClient {
 
   Future<http.Response> get(String path,
       [Map<String, String>? parameters]) async {
+    final String url = await secureStorageLocal.urlServidor ?? '';
     final Uri uri = parameters == null
-        ? Uri.https(UrlPaths.url, path)
-        : Uri.https(UrlPaths.url, path, parameters);
+        ? Uri.http(url, path)
+        : Uri.http(url, path, parameters);
 
     try {
       final String? token = await secureStorageLocal.jwtToken;
@@ -38,7 +39,8 @@ class BaseHttpClient {
         message['message'].toString(),
       );
     } on SocketException {
-      throw FetchDataException('No tiene conexión a internet.', uri.toString());
+      throw FetchDataException(
+          Constantes.ERROR_INTERNET_SERVIDOR, uri.toString());
     } on TimeoutException {
       throw ApiNotRespondingException(
           'Error de comunicación, intente nuevamente.', uri.toString());
@@ -47,9 +49,10 @@ class BaseHttpClient {
 
   Future<http.Response> post(String path,
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
+    final String url = await secureStorageLocal.urlServidor ?? '';
     final Uri uri = parameters == null
-        ? Uri.https(UrlPaths.url, path)
-        : Uri.https(UrlPaths.url, path, parameters);
+        ? Uri.http(url, path)
+        : Uri.http(url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
@@ -77,7 +80,8 @@ class BaseHttpClient {
         message['message'].toString(),
       );
     } on SocketException {
-      throw FetchDataException('No tiene conexion a internet', uri.toString());
+      throw FetchDataException(
+          Constantes.ERROR_INTERNET_SERVIDOR, uri.toString());
     } on TimeoutException {
       throw ApiNotRespondingException(
           'Error de comunicacion, intente nuevamente.', uri.toString());
@@ -86,9 +90,10 @@ class BaseHttpClient {
 
   Future<http.Response> put(String path,
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
+    final String url = await secureStorageLocal.urlServidor ?? '';
     final Uri uri = parameters == null
-        ? Uri.https(UrlPaths.url, path)
-        : Uri.https(UrlPaths.url, path, parameters);
+        ? Uri.http(url, path)
+        : Uri.http(url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
@@ -116,7 +121,8 @@ class BaseHttpClient {
           // ignore: avoid_dynamic_calls
           message['message'].toString());
     } on SocketException {
-      throw FetchDataException('No tiene conexión a internet.', uri.toString());
+      throw FetchDataException(
+          Constantes.ERROR_INTERNET_SERVIDOR, uri.toString());
     } on TimeoutException {
       throw ApiNotRespondingException(
           'Error de comunicación, intente nuevamente.', uri.toString());

@@ -7,6 +7,7 @@ class ErrorSnackbar extends GetSnackBar {
   @override
   Widget? get messageText {
     return SelectableText(
+      textAlign: TextAlign.center,
       message!,
       style: const TextStyle(
         color: Colors.white,
@@ -37,5 +38,4 @@ class ErrorSnackbar extends GetSnackBar {
 
   @override
   double get borderRadius => 15;
-
 }

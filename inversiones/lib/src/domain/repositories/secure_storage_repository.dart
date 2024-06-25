@@ -9,9 +9,11 @@ abstract class SecureStorageRepository {
   Future<String?> get idMovil;
   Future<List<Client>?> get listaClientes;
   Future<String?> get usuarioBiometria;
+  Future<String?> get urlServidor;
   Future<void> saveToken(String? token);
   Future<void> saveUserDetails(UserDetails? userDetails);
   Future<void> saveIdMovil(String? password);
   Future<void> saveListaClientes(List<Client>? listaClientes);
   Future<void> saveUsuarioBiometria(String? usuarioBiometria);
+  Future<void> saveUrlServidor(String? urlServidor);
 }

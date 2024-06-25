@@ -9,6 +9,7 @@ import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/sing_in_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
+import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 
@@ -19,9 +20,11 @@ class SignInController extends GetxController {
   static final _auth = LocalAuthentication();
   final deviceInfoPlugin = DeviceInfoPlugin();
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyAuth = GlobalKey<FormState>();
+  final GlobalKey<FormState> formServidor = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController urlServidor = TextEditingController();
   final Rx<UserDetails> userDetails = Rx<UserDetails>(UserDetails());
   String? idMovil;
   final Rx<String?> usuarioBiometria = Rx<String?>(null);
@@ -32,6 +35,7 @@ class SignInController extends GetxController {
 
   @override
   Future<void> onInit() async {
+    urlServidor.text = await const SecureStorageLocal().urlServidor ?? ' ';
     userDetails(await const SecureStorageLocal().userDetails);
     idMovil = await const SecureStorageLocal().idMovil;
     usuarioBiometria(await const SecureStorageLocal().usuarioBiometria);
@@ -39,7 +43,7 @@ class SignInController extends GetxController {
   }
 
   void signIn(String username, String clave) {
-    if (formKey.currentState!.validate()) {
+    if (formKeyAuth.currentState!.validate()) {
       Get.showOverlay(
         asyncFunction: () async {
           try {
@@ -105,6 +109,24 @@ class SignInController extends GetxController {
           ]);
     } catch (e) {
       return false;
+    }
+  }
+
+  void guardarUrlServidor(BuildContext context) {
+    if (formServidor.currentState!.validate()) {
+      Get.showOverlay(
+        asyncFunction: () async {
+          try {
+            Navigator.pop(context);
+            await const SecureStorageLocal().saveUrlServidor(urlServidor.text);
+            Get.showSnackbar(
+                const InfoSnackbar('Url servidor guardado correctamente'));
+          } catch (_) {
+            appController.manageError('Error al guardar Url');
+          }
+        },
+        loadingWidget: CargandoAnimacion(),
+      );
     }
   }
 }
