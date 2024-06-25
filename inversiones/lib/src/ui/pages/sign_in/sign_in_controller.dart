@@ -22,6 +22,7 @@ class SignInController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController servidor = TextEditingController();
   final Rx<UserDetails> userDetails = Rx<UserDetails>(UserDetails());
   String? idMovil;
   final Rx<String?> usuarioBiometria = Rx<String?>(null);

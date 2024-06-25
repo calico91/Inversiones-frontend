@@ -1,6 +1,6 @@
 class UrlPaths {
   const UrlPaths._();
-  static const String url = '10.106.1.51:8091';
+  static const String url = '192.168.1.129:8091';
 
   ///auth
   static const String authBiometrica = '/user/auth-biometrica';
