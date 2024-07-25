@@ -43,16 +43,49 @@ class SignInController extends GetxController {
   }
 
   void signIn(String username, String clave) {
-    if (formKeyAuth.currentState!.validate()) {
+    if (urlServidor.text.isBlank ?? true) {
+      appController.manageError("Configure el servidor de conexion");
+    } else {
+      if (formKeyAuth.currentState!.validate()) {
+        Get.showOverlay(
+          asyncFunction: () async {
+            try {
+              final SignInResponse res = await const SignInHttp()
+                  .signInWithUsernameAndPassword(username, clave);
+              final AndroidDeviceInfo androidInfo =
+                  await deviceInfo.androidInfo;
+
+              if (res.status == 200) {
+                await const SecureStorageLocal().saveIdMovil(androidInfo.id);
+                await const SecureStorageLocal()
+                    .saveToken(res.userDetails!.token);
+                await const SecureStorageLocal()
+                    .saveUserDetails(res.userDetails);
+                Get.offNamed(RouteNames.navigationBar);
+              } else {
+                appController.manageError(res.message);
+              }
+            } on HttpException catch (e) {
+              appController.manageError(e.message);
+            }
+          },
+          loadingWidget: CargandoAnimacion(),
+        );
+      }
+    }
+  }
+
+  void authBiometrica() {
+    if (urlServidor.text.isBlank ?? true) {
+      appController.manageError("Configure el servidor de conexion");
+    } else {
       Get.showOverlay(
         asyncFunction: () async {
           try {
             final SignInResponse res = await const SignInHttp()
-                .signInWithUsernameAndPassword(username, clave);
-            final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+                .authBiometrica(usuarioBiometria.value!, idMovil!);
 
             if (res.status == 200) {
-              await const SecureStorageLocal().saveIdMovil(androidInfo.id);
               await const SecureStorageLocal()
                   .saveToken(res.userDetails!.token);
               await const SecureStorageLocal().saveUserDetails(res.userDetails);
@@ -67,28 +100,6 @@ class SignInController extends GetxController {
         loadingWidget: CargandoAnimacion(),
       );
     }
-  }
-
-  void authBiometrica() {
-    Get.showOverlay(
-      asyncFunction: () async {
-        try {
-          final SignInResponse res = await const SignInHttp()
-              .authBiometrica(usuarioBiometria.value!, idMovil!);
-
-          if (res.status == 200) {
-            await const SecureStorageLocal().saveToken(res.userDetails!.token);
-            await const SecureStorageLocal().saveUserDetails(res.userDetails);
-            Get.offNamed(RouteNames.navigationBar);
-          } else {
-            appController.manageError(res.message);
-          }
-        } on HttpException catch (e) {
-          appController.manageError(e.message);
-        }
-      },
-      loadingWidget: CargandoAnimacion(),
-    );
   }
 
   Future<bool> _canAuth() async =>
