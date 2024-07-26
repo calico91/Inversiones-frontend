@@ -4,7 +4,7 @@ import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
 import 'package:inversiones/src/ui/pages/clients/widgets/lista_clientes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/appbar_style/tittle_appbar.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar_style/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
@@ -14,15 +14,7 @@ class ClientsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ClientsController controller = Get.put(ClientsController());
     return Scaffold(
-      appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          elevation: 0,
-          backgroundColor: Colors.white12,
-          title: Padding(
-            padding:
-                EdgeInsets.only(left: General.mediaQuery(context).width * 0.3),
-            child: const TittleAppbar('Registrar cliente'),
-          )),
+      appBar: const AppBarCustom('Clientes'),
       body: ListView(
         children: [
           _formularioRegistrarCliente(context, controller),

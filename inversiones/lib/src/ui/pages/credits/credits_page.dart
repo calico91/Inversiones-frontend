@@ -5,7 +5,7 @@ import 'package:inversiones/src/ui/pages/credits/widgets/lista_creditos_activos.
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/appbar_style/tittle_appbar.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar_style/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
@@ -18,15 +18,7 @@ class CreditsPage extends StatelessWidget {
     final CreditsController controller = Get.put(CreditsController());
 
     return Scaffold(
-      appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          elevation: 0,
-          backgroundColor: Colors.white12,
-          title: Padding(
-            padding:
-                EdgeInsets.only(left: General.mediaQuery(context).width * 0.3),
-            child: const TittleAppbar('Registrar credito'),
-          )),
+      appBar: const AppBarCustom('Creditos'),
       body: ListView(
         children: [
           formularioRegistrarCredito(controller, context),
