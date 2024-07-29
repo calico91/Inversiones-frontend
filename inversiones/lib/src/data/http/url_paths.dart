@@ -3,9 +3,9 @@ class UrlPaths {
   //static const String url = '192.168.1.129:8091';
 
   ///auth
-  static const String authBiometrica = '/user/auth-biometrica';
-  static const String vincularDispositivo = '/user/vincular-dispositivo';
-  static const String signIn = '/user/login';
+  static const String authBiometrica = '/autenticacion/auth-biometrica';
+  static const String vincularDispositivo = '/autenticacion/vincular-dispositivo';
+  static const String signIn = '/autenticacion/login';
 
   ///cliente
   static const String allClients = '/cliente/consultar-clientes';
