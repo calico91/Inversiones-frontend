@@ -5,7 +5,7 @@ import 'package:inversiones/src/ui/pages/home/widgets/clients_pending_installmen
 import 'package:inversiones/src/ui/pages/home/widgets/drawer_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/appbar_style/tittle_appbar.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar_style/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 
@@ -17,22 +17,11 @@ class HomePage extends StatelessWidget {
     final HomeController controller = Get.put(HomeController());
     return Scaffold(
       drawer: DrawerMolecule(),
-      appBar: AppBar(
-        backgroundColor: Colors.white12,
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
-        title: Obx(
-          () => Center(
-              child: TittleAppbar(
-                  controller.userDetails.value.username?.toUpperCase() ?? '')),
-        ),
-        actions: [
-          IconButton(
+      appBar: AppBarCustom(controller.nombreUsuario, actions: [
+        IconButton(
             onPressed: () => _confirmacionCerrarSesion(controller, context),
-            icon: const Icon(Icons.logout_outlined),
-          ),
-        ],
-      ),
+            icon: const Icon(Icons.logout_outlined))
+      ]),
       body: ListView(
         children: [
           Column(
