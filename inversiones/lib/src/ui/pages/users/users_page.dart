@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 
 class UsersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      appBar: AppBarCustom('Usuarios'),
+    );
   }
 }
