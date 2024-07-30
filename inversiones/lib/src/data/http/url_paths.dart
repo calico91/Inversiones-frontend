@@ -43,4 +43,8 @@ class UrlPaths {
 
   ///user
   static const String cambiarContrasena = '/user/cambiar-contrasena';
+
+  ///roles
+  static const String consultarRoles = '/roles/consultar-roles';
+  
 }

@@ -6,7 +6,7 @@ import 'package:inversiones/src/data/http/src/sing_in_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
-import 'package:inversiones/src/domain/responses/sing_in_response.dart';
+import 'package:inversiones/src/domain/responses/auth/sing_in_response.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
