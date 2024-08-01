@@ -65,29 +65,11 @@ class UsersPage extends StatelessWidget {
                 ),
                 Obx(() {
                   return !controller.rolesController.cargando.value
-                      ? Row(
-                          children: [
-                            _selectRoles(mediaQuery, controller),
-                            Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: mediaQuery.height * 0.08,
-                                    left: mediaQuery.width * 0.04),
-                                child: FilledButton.icon(
-                                    onPressed: () {},
-                                    icon: const FaIcon(
-                                        FontAwesomeIcons.userCheck),
-                                    label: const Text("Registrar")))
-                          ],
-                        )
-                      : Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: mediaQuery.height * 0.05,
-                              horizontal: mediaQuery.width * 0.06),
-                          child: SizedBox(
-                              height: mediaQuery.height * 0.01,
-                              width: mediaQuery.width * 0.9,
-                              child: const LinearProgressIndicator()),
-                        );
+                      ? Row(children: [
+                          _selectRoles(mediaQuery, controller),
+                          _registrarUsuarioBoton(mediaQuery)
+                        ])
+                      : _mostrarLinearCargando(mediaQuery);
                 })
               ]))),
     );
@@ -108,4 +90,25 @@ Widget _selectRoles(Size mediaQuery, UserController controller) => Container(
         buttonText: const Text('Roles', textAlign: TextAlign.center),
         title: const Center(child: Text("Seleccione roles")),
         items: controller.items,
-        onConfirm: (items) {}));
+        onConfirm: (items) {
+          controller.rolesController.roles.value = items;
+        }));
+
+Widget _registrarUsuarioBoton(Size mediaQuery) {
+  return Padding(
+      padding: EdgeInsets.only(
+          bottom: mediaQuery.height * 0.08, left: mediaQuery.width * 0.04),
+      child: FilledButton.icon(
+          onPressed: () {},
+          icon: const FaIcon(FontAwesomeIcons.userCheck),
+          label: const Text("Registrar")));
+}
+
+Widget _mostrarLinearCargando(Size mediaQuery) => Padding(
+    padding: EdgeInsets.symmetric(
+        vertical: mediaQuery.height * 0.05,
+        horizontal: mediaQuery.width * 0.06),
+    child: SizedBox(
+        height: mediaQuery.height * 0.01,
+        width: mediaQuery.width * 0.9,
+        child: const LinearProgressIndicator()));

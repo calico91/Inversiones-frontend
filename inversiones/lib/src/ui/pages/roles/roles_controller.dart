@@ -9,18 +9,20 @@ class RolesController extends GetxController {
   final AppController appController = Get.find<AppController>();
   Rx<List<Roles>> roles = Rx<List<Roles>>([]);
   RxBool cargando = false.obs;
+  int statusHttp = 0;
 
   Future<void> consultarRoles([String? fechaFiltro]) async {
     try {
       cargando(true);
       final RolesResponse resHTTP = await const RolesHttp().consultarRoles();
       roles(resHTTP.roles);
+      statusHttp = resHTTP.status;
     } on HttpException catch (e) {
       appController.manageError(e.message);
     } catch (e) {
       appController.manageError(e.toString());
     } finally {
-      cargando(false);
+      cargando(statusHttp != 200);
     }
   }
 }
