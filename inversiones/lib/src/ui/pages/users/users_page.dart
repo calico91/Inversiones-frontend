@@ -67,7 +67,7 @@ class UsersPage extends StatelessWidget {
                   return !controller.rolesController.cargando.value
                       ? Row(children: [
                           _selectRoles(mediaQuery, controller),
-                          _registrarUsuarioBoton(mediaQuery)
+                          _registrarUsuarioBoton(mediaQuery, controller)
                         ])
                       : _mostrarLinearCargando(mediaQuery);
                 })
@@ -91,15 +91,15 @@ Widget _selectRoles(Size mediaQuery, UserController controller) => Container(
         title: const Center(child: Text("Seleccione roles")),
         items: controller.items,
         onConfirm: (items) {
-          controller.rolesController.roles.value = items;
+          controller.rolesAsignados = items;
         }));
 
-Widget _registrarUsuarioBoton(Size mediaQuery) {
+Widget _registrarUsuarioBoton(Size mediaQuery, UserController controller) {
   return Padding(
       padding: EdgeInsets.only(
           bottom: mediaQuery.height * 0.08, left: mediaQuery.width * 0.04),
       child: FilledButton.icon(
-          onPressed: () {},
+          onPressed: () async => controller.registrarUsuario(),
           icon: const FaIcon(FontAwesomeIcons.userCheck),
           label: const Text("Registrar")));
 }

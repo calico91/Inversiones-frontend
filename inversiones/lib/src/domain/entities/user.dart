@@ -1,4 +1,10 @@
+import 'dart:convert';
+
 import 'package:inversiones/src/domain/entities/roles.dart';
+
+User userFromJson(String str) {
+  return User.fromJson(json.decode(str) as Map<String, dynamic>);
+}
 
 class User {
   const User({
@@ -6,8 +12,8 @@ class User {
     required this.username,
     required this.lastname,
     required this.firstname,
-    required this.country,
-    required this.password,
+    this.country,
+    this.password,
     required this.email,
     required this.roles,
   });
@@ -16,8 +22,8 @@ class User {
   final String username;
   final String lastname;
   final String firstname;
-  final String country;
-  final String password;
+  final String? country;
+  final String? password;
   final String email;
   final List<Roles> roles;
 
