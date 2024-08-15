@@ -6,6 +6,7 @@ import 'package:inversiones/src/domain/entities/user.dart';
 import 'package:inversiones/src/domain/repositories/user_repository.dart';
 import 'package:inversiones/src/domain/request/cambiar_contrasena_request.dart';
 import 'package:inversiones/src/domain/request/vincular_dispositivo_request.dart';
+import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
 
 class UserHttp implements UserRepository {
@@ -40,11 +41,11 @@ class UserHttp implements UserRepository {
   }
 
   @override
-  Future<User> registrarUsuario(User user) async {
+  Future <ApiResponse<User>> registrarUsuario(User user) async {
     try {
       final http.Response response = await baseHttpClient
           .post(UrlPaths.registrarUsuario, request: user.toJson());
-      return compute(userFromJson, response.body);
+      return compute(ApiResponse.parseUserResponse, response.body);
     } catch (e) {
       rethrow;
     }

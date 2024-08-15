@@ -38,22 +38,18 @@ class UserController extends GetxController {
       if (rolesAsignados.isEmpty) {
         appController.manageError('Seleccione los roles que desea asignar');
       } else {
-
-        print(rolesAsignados.toString());
         Get.showOverlay(
             loadingWidget: CargandoAnimacion(),
             asyncFunction: () async {
               try {
-                User user = User(
+                await const UserHttp().registrarUsuario(User(
                     username: nombreUsuario.text.trim(),
                     firstname: nombres.text.trim(),
                     lastname: apellidos.text.trim(),
                     email: correo.text.trim(),
-                    roles: rolesAsignados);
+                    roles: rolesAsignados));
 
-                print(user.toJson());
-                await const UserHttp().registrarUsuario(user);
-
+               _clearForm();
                 Get.showSnackbar(
                     const InfoSnackbar('cliente creado correctamente'));
               } on HttpException catch (e) {
@@ -64,5 +60,14 @@ class UserController extends GetxController {
             });
       }
     }
+  }
+
+  void _clearForm() {
+    nombres.clear();
+    apellidos.clear();
+    nombreUsuario.clear();
+    correo.clear();
+    rol.clear();
+    rolesAsignados = [];
   }
 }

@@ -34,7 +34,7 @@ class User {
       lastname: json['lastname'] as String,
       firstname: json['firstname'] as String,
       country: json['country'] as String,
-      password: json['password'] as String,
+      password: json['password'] == null ? '' : json['password'] as String,
       email: json['email'] as String,
       roles: List<Roles>.from(
         (json['roles'] as List<dynamic>).map((element) {
