@@ -21,13 +21,15 @@ class UserController extends GetxController {
   final TextEditingController nombreUsuario = TextEditingController();
   final TextEditingController correo = TextEditingController();
   final TextEditingController rol = TextEditingController();
-  List<MultiSelectItem<Roles>> items = [];
-  List<Roles> rolesAsignados = [];
+  RxBool clienteGuardado = false.obs;
+
+  Rx<List<MultiSelectItem<Roles>>> items = Rx([]);
+  Rx<List<Roles>> rolesAsignados = Rx([]);
 
   @override
   Future<void> onInit() async {
     await rolesController.consultarRoles();
-    items = rolesController.roles.value
+    items.value = rolesController.roles.value
         .map((roles) => MultiSelectItem<Roles>(roles, roles.name))
         .toList();
     super.onInit();
@@ -35,7 +37,7 @@ class UserController extends GetxController {
 
   void registrarUsuario() {
     if (General.validateForm(formKeyUsuario)) {
-      if (rolesAsignados.isEmpty) {
+      if (rolesAsignados.value.isEmpty) {
         appController.manageError('Seleccione los roles que desea asignar');
       } else {
         Get.showOverlay(
@@ -47,11 +49,12 @@ class UserController extends GetxController {
                     firstname: nombres.text.trim(),
                     lastname: apellidos.text.trim(),
                     email: correo.text.trim(),
-                    roles: rolesAsignados));
+                    roles: rolesAsignados.value));
 
-               _clearForm();
+                _clearForm();
                 Get.showSnackbar(
                     const InfoSnackbar('cliente creado correctamente'));
+                await rolesController.consultarRoles();
               } on HttpException catch (e) {
                 appController.manageError(e.message);
               } catch (e) {
@@ -68,6 +71,6 @@ class UserController extends GetxController {
     nombreUsuario.clear();
     correo.clear();
     rol.clear();
-    rolesAsignados = [];
+    Get.focusScope!.unfocus();
   }
 }

@@ -83,16 +83,14 @@ Widget _selectRoles(Size mediaQuery, UserController controller) => Container(
     height: mediaQuery.height * 0.18,
     width: mediaQuery.width * 0.5,
     child: MultiSelectDialogField(
-        dialogHeight: mediaQuery.height * (controller.items.length / 11),
+        dialogHeight: mediaQuery.height * (controller.items.value.length / 11),
         chipDisplay: MultiSelectChipDisplay<Roles>(scroll: true),
         buttonIcon: const Icon(Icons.arrow_forward_ios_rounded),
         selectedColor: Colors.blue,
         buttonText: const Text('Roles', textAlign: TextAlign.center),
         title: const Center(child: Text("Seleccione roles")),
-        items: controller.items,
-        onConfirm: (items) {
-          controller.rolesAsignados = items;
-        }));
+        items: controller.items.value,
+        onConfirm: (items) => controller.rolesAsignados.value = items));
 
 Widget _registrarUsuarioBoton(Size mediaQuery, UserController controller) {
   return Padding(
