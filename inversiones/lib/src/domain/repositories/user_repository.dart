@@ -13,4 +13,5 @@ abstract class UserRepository {
   Future<GenericoResponse> cambiarContrasena(
       CambiarContrasenaRequest cambiarContrasenaRequest);
   Future<ApiResponse<User>> registrarUsuario(User user);
+  Future<ApiResponse<List<User>>> consultarUsuarios();
 }

@@ -41,11 +41,22 @@ class UserHttp implements UserRepository {
   }
 
   @override
-  Future <ApiResponse<User>> registrarUsuario(User user) async {
+  Future<ApiResponse<User>> registrarUsuario(User user) async {
     try {
       final http.Response response = await baseHttpClient
           .post(UrlPaths.registrarUsuario, request: user.toJson());
       return compute(ApiResponse.parseUserResponse, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<List<User>>> consultarUsuarios() async {
+    try {
+      final http.Response response =
+          await baseHttpClient.get(UrlPaths.consultarUsuarios);
+      return compute(ApiResponse.parseUserListResponse, response.body);
     } catch (e) {
       rethrow;
     }

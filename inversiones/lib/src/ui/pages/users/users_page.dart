@@ -19,59 +19,14 @@ class UsersPage extends StatelessWidget {
 
     return Scaffold(
       appBar: const AppBarCustom('Usuarios'),
-      body: Form(
-          key: controller.formKeyUsuario,
-          child: CustomCard(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                Row(
-                  children: [
-                    TextFieldBase(
-                      textAlign: TextAlign.left,
-                      paddingHorizontal: 20,
-                      title: 'Nombres',
-                      controller: controller.nombres,
-                      textInputType: TextInputType.name,
-                      validateText: ValidateText.name,
-                    ),
-                    TextFieldBase(
-                      textAlign: TextAlign.left,
-                      title: 'Apellidos',
-                      controller: controller.apellidos,
-                      textInputType: TextInputType.name,
-                      validateText: ValidateText.name,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    TextFieldBase(
-                      textAlign: TextAlign.left,
-                      paddingHorizontal: 20,
-                      title: 'Nombre usuario',
-                      controller: controller.nombreUsuario,
-                      textInputType: TextInputType.name,
-                      validateText: ValidateText.name,
-                    ),
-                    TextFieldBase(
-                      textAlign: TextAlign.left,
-                      title: 'Correo',
-                      controller: controller.correo,
-                      textInputType: TextInputType.emailAddress,
-                      validateText: ValidateText.email,
-                    ),
-                  ],
-                ),
-                Obx(() {
-                  return !controller.rolesController.cargando.value
-                      ? Row(children: [
-                          _selectRoles(mediaQuery, controller),
-                          _registrarUsuarioBoton(mediaQuery, controller)
-                        ])
-                      : _mostrarLinearCargando(mediaQuery);
-                })
-              ]))),
+      body: Column(
+        children: [
+          Form(
+              key: controller.formKeyUsuario,
+              child: _formularioUsuario(controller, mediaQuery)),
+          
+        ],
+      ),
     );
   }
 }
@@ -110,3 +65,50 @@ Widget _mostrarLinearCargando(Size mediaQuery) => Padding(
         height: mediaQuery.height * 0.01,
         width: mediaQuery.width * 0.9,
         child: const LinearProgressIndicator()));
+
+Widget _formularioUsuario(UserController controller, Size mediaQuery) =>
+    SizedBox(
+      height: mediaQuery.height * 0.44,
+      child: CustomCard(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(children: [
+          TextFieldBase(
+              textAlign: TextAlign.left,
+              paddingHorizontal: 20,
+              title: 'Nombres',
+              controller: controller.nombres,
+              textInputType: TextInputType.name,
+              validateText: ValidateText.name),
+          TextFieldBase(
+              textAlign: TextAlign.left,
+              title: 'Apellidos',
+              controller: controller.apellidos,
+              textInputType: TextInputType.name,
+              validateText: ValidateText.name)
+        ]),
+        Row(children: [
+          TextFieldBase(
+              textAlign: TextAlign.left,
+              paddingHorizontal: 20,
+              title: 'Nombre usuario',
+              controller: controller.nombreUsuario,
+              textInputType: TextInputType.name,
+              validateText: ValidateText.name),
+          TextFieldBase(
+              textAlign: TextAlign.left,
+              title: 'Correo',
+              controller: controller.correo,
+              textInputType: TextInputType.emailAddress,
+              validateText: ValidateText.email)
+        ]),
+        Obx(() {
+          return !controller.rolesController.cargando.value
+              ? Row(children: [
+                  _selectRoles(mediaQuery, controller),
+                  _registrarUsuarioBoton(mediaQuery, controller)
+                ])
+              : _mostrarLinearCargando(mediaQuery);
+        })
+      ])),
+    );

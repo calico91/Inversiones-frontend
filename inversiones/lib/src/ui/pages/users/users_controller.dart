@@ -5,6 +5,7 @@ import 'package:inversiones/src/data/http/src/user_http.dart';
 import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/domain/entities/user.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
+import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/ui/pages/roles/roles_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
@@ -14,14 +15,13 @@ import 'package:multi_select_flutter/util/multi_select_item.dart';
 class UserController extends GetxController {
   final AppController appController = Get.find<AppController>();
   final RolesController rolesController = Get.put(RolesController());
-  RxBool cargando = false.obs;
+  RxBool cargando = true.obs;
   final GlobalKey<FormState> formKeyUsuario = GlobalKey<FormState>();
   final TextEditingController nombres = TextEditingController();
   final TextEditingController apellidos = TextEditingController();
   final TextEditingController nombreUsuario = TextEditingController();
   final TextEditingController correo = TextEditingController();
   final TextEditingController rol = TextEditingController();
-  RxBool clienteGuardado = false.obs;
 
   Rx<List<MultiSelectItem<Roles>>> items = Rx([]);
   Rx<List<Roles>> rolesAsignados = Rx([]);
@@ -29,6 +29,7 @@ class UserController extends GetxController {
   @override
   Future<void> onInit() async {
     await rolesController.consultarRoles();
+    await consultarUsuarios();
     items.value = rolesController.roles.value
         .map((roles) => MultiSelectItem<Roles>(roles, roles.name))
         .toList();
@@ -62,6 +63,20 @@ class UserController extends GetxController {
               }
             });
       }
+    }
+  }
+
+  Future<void> consultarUsuarios() async {
+    try {
+      cargando(true);
+      final ApiResponse<List<User>> usuarios =
+          await const UserHttp().consultarUsuarios();
+    } on HttpException catch (e) {
+      appController.manageError(e.message);
+    } catch (e) {
+      appController.manageError(e.toString());
+    } finally {
+      cargando(false);
     }
   }
 
