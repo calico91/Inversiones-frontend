@@ -48,16 +48,18 @@ class UserController extends GetxController {
             loadingWidget: CargandoAnimacion(),
             asyncFunction: () async {
               try {
-                await const UserHttp().registrarUsuario(User(
-                    username: nombreUsuario.text.trim(),
-                    firstname: nombres.text.trim(),
-                    lastname: apellidos.text.trim(),
-                    email: correo.text.trim(),
-                    roles: rolesAsignados.value));
+                final ApiResponse<User> respuestaHttp = await const UserHttp()
+                    .registrarUsuario(User(
+                        username: nombreUsuario.text.trim(),
+                        firstname: nombres.text.trim(),
+                        lastname: apellidos.text.trim(),
+                        email: correo.text.trim(),
+                        roles: rolesAsignados.value));
 
                 _clearForm();
                 Get.showSnackbar(
                     const InfoSnackbar('cliente creado correctamente'));
+                filtroUsuarios.value.add(respuestaHttp.data!);
                 await rolesController.consultarRoles();
               } on HttpException catch (e) {
                 appController.manageError(e.message);
@@ -76,6 +78,7 @@ class UserController extends GetxController {
           await const UserHttp().consultarUsuarios();
 
       usuarios(respuestaHttp.data);
+      filtroUsuarios(respuestaHttp.data);
     } on HttpException catch (e) {
       appController.manageError(e.message);
     } catch (e) {
