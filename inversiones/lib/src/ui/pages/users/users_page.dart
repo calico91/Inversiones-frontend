@@ -8,6 +8,8 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
+import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
+import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 
@@ -18,24 +20,42 @@ class UsersPage extends StatelessWidget {
     final UserController controller = Get.put(UserController());
 
     return Scaffold(
-      appBar: const AppBarCustom('Usuarios'),
-      body: Column(
-        children: [
-          Form(
-              key: controller.formKeyUsuario,
-              child: _formularioUsuario(controller, mediaQuery)),
-          
-        ],
-      ),
-    );
+        appBar: const AppBarCustom('Usuarios'),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Form(
+                key: controller.formKeyUsuario,
+                child: _formularioUsuario(controller, mediaQuery)),
+            Obx(() {
+              return controller.cargando.value
+                  ? const Loading()
+                  : CustomCard(
+                      child: SizedBox(
+                          height: mediaQuery.height * 0.47,
+                          child: controller.usuarios.value.isEmpty
+                              ? const Center(
+                                  child: Text('No hay usuarios creados'))
+                              : Column(children: [
+                                  Focus(
+                                      onFocusChange: (value) =>
+                                          controller.buscarUsuario('', value),
+                                      child: TextFieldSearch(
+                                          controller:
+                                              controller.buscarUsuarioCtrl,
+                                          labelText: 'Buscar usuario',
+                                          onChanged: (value) => controller
+                                              .buscarUsuario(value, true))),
+                                  _listaUsuarios(controller, mediaQuery)
+                                ])));
+            })
+          ]),
+        ));
   }
 }
 
 Widget _selectRoles(Size mediaQuery, UserController controller) => Container(
-    padding: EdgeInsets.symmetric(
-        horizontal: mediaQuery.width * 0.05,
-        vertical: mediaQuery.height * 0.02),
-    height: mediaQuery.height * 0.18,
+    padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
+    height: mediaQuery.height * 0.14,
     width: mediaQuery.width * 0.5,
     child: MultiSelectDialogField(
         dialogHeight: mediaQuery.height * (controller.items.value.length / 11),
@@ -47,15 +67,14 @@ Widget _selectRoles(Size mediaQuery, UserController controller) => Container(
         items: controller.items.value,
         onConfirm: (items) => controller.rolesAsignados.value = items));
 
-Widget _registrarUsuarioBoton(Size mediaQuery, UserController controller) {
-  return Padding(
-      padding: EdgeInsets.only(
-          bottom: mediaQuery.height * 0.08, left: mediaQuery.width * 0.04),
-      child: FilledButton.icon(
-          onPressed: () async => controller.registrarUsuario(),
-          icon: const FaIcon(FontAwesomeIcons.userCheck),
-          label: const Text("Registrar")));
-}
+Widget _registrarUsuarioBoton(Size mediaQuery, UserController controller) =>
+    Padding(
+        padding: EdgeInsets.only(
+            bottom: mediaQuery.height * 0.08, left: mediaQuery.width * 0.04),
+        child: FilledButton.icon(
+            onPressed: () async => controller.registrarUsuario(),
+            icon: const FaIcon(FontAwesomeIcons.userCheck),
+            label: const Text("Registrar")));
 
 Widget _mostrarLinearCargando(Size mediaQuery) => Padding(
     padding: EdgeInsets.symmetric(
@@ -68,7 +87,7 @@ Widget _mostrarLinearCargando(Size mediaQuery) => Padding(
 
 Widget _formularioUsuario(UserController controller, Size mediaQuery) =>
     SizedBox(
-      height: mediaQuery.height * 0.44,
+      height: mediaQuery.height * 0.4,
       child: CustomCard(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -112,3 +131,23 @@ Widget _formularioUsuario(UserController controller, Size mediaQuery) =>
         })
       ])),
     );
+
+Widget _listaUsuarios(UserController controller, Size size) => Expanded(
+      child: ListView.builder(
+        itemCount: controller.filtroUsuarios.value.length,
+        itemBuilder: (_, index) {
+          return Card(
+            child: ListTile(
+              title: _showClientTitle(controller, index, size),
+            ),
+          );
+        },
+      ),
+    );
+
+Widget _showClientTitle(UserController controller, int index, Size size) =>
+    SizedBox(
+        width: size.width * 0.51,
+        child: Text(
+            overflow: TextOverflow.ellipsis,
+            "${controller.filtroUsuarios.value[index].firstname} ${controller.filtroUsuarios.value[index].lastname}"));

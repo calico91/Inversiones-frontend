@@ -22,9 +22,12 @@ class UserController extends GetxController {
   final TextEditingController nombreUsuario = TextEditingController();
   final TextEditingController correo = TextEditingController();
   final TextEditingController rol = TextEditingController();
+  final TextEditingController buscarUsuarioCtrl = TextEditingController();
 
   Rx<List<MultiSelectItem<Roles>>> items = Rx([]);
   Rx<List<Roles>> rolesAsignados = Rx([]);
+  Rx<List<User>> usuarios = Rx([]);
+  Rx<List<User>> filtroUsuarios = Rx<List<User>>([]);
 
   @override
   Future<void> onInit() async {
@@ -69,8 +72,10 @@ class UserController extends GetxController {
   Future<void> consultarUsuarios() async {
     try {
       cargando(true);
-      final ApiResponse<List<User>> usuarios =
+      final ApiResponse<List<User>> respuestaHttp =
           await const UserHttp().consultarUsuarios();
+
+      usuarios(respuestaHttp.data);
     } on HttpException catch (e) {
       appController.manageError(e.message);
     } catch (e) {
@@ -87,5 +92,25 @@ class UserController extends GetxController {
     correo.clear();
     rol.clear();
     Get.focusScope!.unfocus();
+  }
+
+  void buscarUsuario(String value, bool focus) {
+    List<User> results = [];
+    if (value.isEmpty || !focus) {
+      results = usuarios.value;
+      buscarUsuarioCtrl.clear();
+    } else {
+      results = usuarios.value
+          .where(
+            (element) =>
+                element.firstname!
+                    .toLowerCase()
+                    .contains(value.toLowerCase()) ||
+                element.lastname!.toLowerCase().contains(value.toLowerCase()) ||
+                element.username!.toLowerCase().contains(value.toLowerCase()),
+          )
+          .toList();
+    }
+    filtroUsuarios.value = results;
   }
 }
