@@ -4,7 +4,8 @@ class UrlPaths {
 
   ///auth
   static const String authBiometrica = '/autenticacion/auth-biometrica';
-  static const String vincularDispositivo = '/autenticacion/vincular-dispositivo';
+  static const String vincularDispositivo =
+      '/autenticacion/vincular-dispositivo';
   static const String signIn = '/autenticacion/login';
 
   ///cliente
@@ -45,8 +46,8 @@ class UrlPaths {
   static const String cambiarContrasena = '/user/cambiar-contrasena';
   static const String registrarUsuario = '/user/registrar';
   static const String consultarUsuarios = '/user/consultar-usuarios';
+  static const String consultarUsuario = '/user/consultar-usuario';
 
   ///roles
   static const String consultarRoles = '/roles/consultar-roles';
-  
 }

@@ -7,16 +7,16 @@ User userFromJson(String str) {
 }
 
 class User {
-  const User({
-    this.id,
-    this.username,
-    this.lastname,
-    this.firstname,
-    this.country,
-    this.password,
-    this.email,
-    this.roles,
-  });
+  const User(
+      {this.id,
+      this.username,
+      this.lastname,
+      this.firstname,
+      this.country,
+      this.password,
+      this.email,
+      this.roles,
+      this.active});
 
   final int? id;
   final String? username;
@@ -26,6 +26,7 @@ class User {
   final String? password;
   final String? email;
   final List<Roles>? roles;
+  final bool? active;
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -43,6 +44,7 @@ class User {
               }),
             )
           : [],
+      active: json['active'] as bool? ?? false,
     );
   }
 
@@ -56,6 +58,7 @@ class User {
       'password': password,
       'email': email,
       'roles': roles,
+      'active': active,
     };
   }
 }

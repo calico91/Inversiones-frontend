@@ -88,6 +88,24 @@ class UserController extends GetxController {
     }
   }
 
+  void consultarUsuario(int id) {
+    Get.showOverlay(
+        loadingWidget: CargandoAnimacion(),
+        asyncFunction: () async {
+          try {
+            final ApiResponse<User> respuestaHttp =
+                await const UserHttp().consultarUsuario(id);
+            print(respuestaHttp.data!.roles?[0].id);
+            print(respuestaHttp.data!.roles?[0].name);
+            _asignarValoresFormulario(respuestaHttp.data!);
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
+  }
+
   void _clearForm() {
     nombres.clear();
     apellidos.clear();
@@ -104,16 +122,22 @@ class UserController extends GetxController {
       buscarUsuarioCtrl.clear();
     } else {
       results = usuarios.value
-          .where(
-            (element) =>
-                element.firstname!
-                    .toLowerCase()
-                    .contains(value.toLowerCase()) ||
-                element.lastname!.toLowerCase().contains(value.toLowerCase()) ||
-                element.username!.toLowerCase().contains(value.toLowerCase()),
-          )
+          .where((element) =>
+              element.firstname!.toLowerCase().contains(value.toLowerCase()) ||
+              element.lastname!.toLowerCase().contains(value.toLowerCase()) ||
+              element.username!.toLowerCase().contains(value.toLowerCase()))
           .toList();
     }
     filtroUsuarios.value = results;
+  }
+
+  void _asignarValoresFormulario(User user) {
+    nombres.text = user.firstname!;
+    apellidos.text = user.lastname!;
+    nombreUsuario.text = user.username!;
+    correo.text = user.email!;
+    rolesAsignados.value = user.roles!;
+    rolesAsignados.refresh();
+    update();
   }
 }

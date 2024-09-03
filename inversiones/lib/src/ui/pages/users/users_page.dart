@@ -55,14 +55,44 @@ Widget _listaUsuarios(UserController controller, Size size) {
           itemCount: controller.filtroUsuarios.value.length,
           itemBuilder: (_, index) {
             return Card(
-                child:
-                    ListTile(title: _showClientTitle(controller, index, size)));
+                child: ListTile(
+                    title: _showClientTitle(controller, index, size),
+                    subtitle: _mostrarSubtitulos(controller, index, size)));
           }));
 }
 
 Widget _showClientTitle(UserController controller, int index, Size size) =>
     SizedBox(
         width: size.width * 0.51,
-        child: Text(
-            overflow: TextOverflow.ellipsis,
-            "${controller.filtroUsuarios.value[index].firstname} ${controller.filtroUsuarios.value[index].lastname}"));
+        child: Column(
+          children: [
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
+                child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    "${controller.filtroUsuarios.value[index].firstname} ${controller.filtroUsuarios.value[index].lastname}")),
+            const Divider()
+          ],
+        ));
+
+Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
+    Container(
+      height: size.height * 0.04,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+              onPressed: () => controller
+                  .consultarUsuario(controller.filtroUsuarios.value[index].id!),
+              icon: Icon(Icons.edit, color: Colors.blue)),
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.edit,
+                color: Colors.blue,
+              )),
+          IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.edit))
+        ],
+      ),
+    );

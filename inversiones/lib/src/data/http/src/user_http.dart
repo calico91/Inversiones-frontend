@@ -61,4 +61,15 @@ class UserHttp implements UserRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<ApiResponse<User>> consultarUsuario(int id) async {
+    try {
+      final http.Response response =
+          await baseHttpClient.get('${UrlPaths.consultarUsuario}/$id');
+      return compute(ApiResponse.parseUserResponse, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

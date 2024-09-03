@@ -64,27 +64,31 @@ class FormularioUsuario extends StatelessWidget {
   }
 
   Widget _selectRoles(Size mediaQuery, UserController controller) => Container(
-    padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
-    height: mediaQuery.height * 0.14,
-    width: mediaQuery.width * 0.5,
-    child: MultiSelectDialogField(
-        dialogHeight: mediaQuery.height * (controller.items.value.length / 11),
-        chipDisplay: MultiSelectChipDisplay<Roles>(scroll: true),
-        buttonIcon: const Icon(Icons.arrow_forward_ios_rounded),
-        selectedColor: Colors.blue,
-        buttonText: const Text('Roles', textAlign: TextAlign.center),
-        title: const Center(child: Text("Seleccione roles")),
-        items: controller.items.value,
-        onConfirm: (items) => controller.rolesAsignados.value = items));
+      padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
+      height: mediaQuery.height * 0.14,
+      width: mediaQuery.width * 0.5,
+      child: Obx(() {
+        return MultiSelectDialogField(
+            initialValue: controller.rolesAsignados.value,
+            dialogHeight:
+                mediaQuery.height * (controller.items.value.length / 11),
+            chipDisplay: MultiSelectChipDisplay<Roles>(scroll: true),
+            buttonIcon: const Icon(Icons.arrow_forward_ios_rounded),
+            selectedColor: Colors.blue,
+            buttonText: const Text('Roles', textAlign: TextAlign.center),
+            title: const Center(child: Text("Seleccione roles")),
+            items: controller.items.value,
+            onConfirm: (items) => controller.rolesAsignados.value = items);
+      }));
 
-Widget _registrarUsuarioBoton(Size mediaQuery, UserController controller) =>
-    Padding(
-        padding: EdgeInsets.only(
-            bottom: mediaQuery.height * 0.08, left: mediaQuery.width * 0.04),
-        child: FilledButton.icon(
-            onPressed: () async => controller.registrarUsuario(),
-            icon: const FaIcon(FontAwesomeIcons.userCheck),
-            label: const Text("Registrar")));
+  Widget _registrarUsuarioBoton(Size mediaQuery, UserController controller) =>
+      Padding(
+          padding: EdgeInsets.only(
+              bottom: mediaQuery.height * 0.08, left: mediaQuery.width * 0.04),
+          child: FilledButton.icon(
+              onPressed: () async => controller.registrarUsuario(),
+              icon: const FaIcon(FontAwesomeIcons.userCheck),
+              label: const Text("Registrar")));
 }
 
 Widget _mostrarLinearCargando(Size mediaQuery) => Padding(
