@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/users/users_controller.dart';
 import 'package:inversiones/src/ui/pages/users/widgets/formulario_usuario.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/button_icon_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
@@ -76,23 +78,28 @@ Widget _showClientTitle(UserController controller, int index, Size size) =>
         ));
 
 Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
-    Container(
+    SizedBox(
       height: size.height * 0.04,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(
-              onPressed: () => controller
+          ButtonIconCustom(
+              () => controller
                   .consultarUsuario(controller.filtroUsuarios.value[index].id!),
-              icon: Icon(Icons.edit, color: Colors.blue)),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.edit,
-                color: Colors.blue,
-              )),
-          IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.edit))
+              const FaIcon(FontAwesomeIcons.userPen, color: Colors.blue),
+              'Editar usuario'),
+          ButtonIconCustom(
+              () {},
+              controller.usuarios.value[index].active!
+                  ? const FaIcon(FontAwesomeIcons.user, color: Colors.blue)
+                  : const FaIcon(FontAwesomeIcons.userSlash, color: Colors.blue),
+              controller.usuarios.value[index].active!
+                  ? 'Inactivar usuario'
+                  : 'Activar usuario'),
+          ButtonIconCustom(
+              () {},
+              const Icon(Icons.password_rounded, color: Colors.blue),
+              'Reiniciar contraseña'),
         ],
       ),
     );

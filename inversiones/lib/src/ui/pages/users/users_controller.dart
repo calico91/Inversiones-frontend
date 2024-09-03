@@ -16,6 +16,7 @@ class UserController extends GetxController {
   final AppController appController = Get.find<AppController>();
   final RolesController rolesController = Get.put(RolesController());
   RxBool cargando = true.obs;
+  RxBool registrar = true.obs;
   final GlobalKey<FormState> formKeyUsuario = GlobalKey<FormState>();
   final TextEditingController nombres = TextEditingController();
   final TextEditingController apellidos = TextEditingController();
@@ -60,7 +61,6 @@ class UserController extends GetxController {
                 Get.showSnackbar(
                     const InfoSnackbar('cliente creado correctamente'));
                 filtroUsuarios.value.add(respuestaHttp.data!);
-                await rolesController.consultarRoles();
               } on HttpException catch (e) {
                 appController.manageError(e.message);
               } catch (e) {
@@ -95,9 +95,8 @@ class UserController extends GetxController {
           try {
             final ApiResponse<User> respuestaHttp =
                 await const UserHttp().consultarUsuario(id);
-            print(respuestaHttp.data!.roles?[0].id);
-            print(respuestaHttp.data!.roles?[0].name);
             _asignarValoresFormulario(respuestaHttp.data!);
+            registrar(false);
           } on HttpException catch (e) {
             appController.manageError(e.message);
           } catch (e) {
@@ -112,6 +111,7 @@ class UserController extends GetxController {
     nombreUsuario.clear();
     correo.clear();
     rol.clear();
+    rolesAsignados.value = [];
     Get.focusScope!.unfocus();
   }
 
@@ -137,7 +137,5 @@ class UserController extends GetxController {
     nombreUsuario.text = user.username!;
     correo.text = user.email!;
     rolesAsignados.value = user.roles!;
-    rolesAsignados.refresh();
-    update();
   }
 }

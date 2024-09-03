@@ -10,4 +10,14 @@ class Roles {
   Map<String, dynamic> toJson() {
     return {if (id != 0) 'id': id, 'name': name};
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Roles && other.id == id && other.name == name;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ name.hashCode;
 }
