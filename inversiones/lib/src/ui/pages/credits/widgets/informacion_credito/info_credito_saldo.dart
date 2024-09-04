@@ -317,3 +317,23 @@ Widget _botonRenovarCredito(BuildContext context) => IconButton(
         context: context,
         builder: (context) => DialogRenovarCredito()),
     icon: const FaIcon(FontAwesomeIcons.moneyBillTransfer, color: Colors.blue));
+
+    Widget _botonSaldarCredito(
+        CreditsController controllerCredits,
+        BuildContext context,
+        bool abonoCapital,
+        int idCuotaCredito,
+        double valorInteres) =>
+    IconButton(
+        tooltip: abonoCapital ? 'Abonar capital' : 'Abonar interes',
+        onPressed: () {
+          if (controllerCredits.validarFormAbonoCapital()) {
+            _abonar(controllerCredits, context, abonoCapital, idCuotaCredito,
+                valorInteres);
+          }
+        },
+        icon: FaIcon(
+            abonoCapital
+                ? FontAwesomeIcons.sackDollar
+                : FontAwesomeIcons.handHoldingDollar,
+            color: Colors.blue));

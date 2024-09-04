@@ -391,6 +391,43 @@ class CreditsController extends GetxController {
     );
   }
 
+  Future<void> saldarCredito(
+    String tipoAbono,
+    String estadoCredito,
+    int idCuota, [
+    double? valorInteres,
+  ]) async {
+    Get.showOverlay(
+      loadingWidget: CargandoAnimacion(),
+      asyncFunction: () async {
+        try {
+          final AbonoResponse respuestaHttp =
+              await const CreditHttp().pagarCuota(
+            PagarCuotaRequest(
+              valorInteres: valorInteres,
+              abonoExtra: true,
+              estadoCredito: estadoCredito,
+              tipoAbono: tipoAbono,
+              fechaAbono: General.formatoFecha(DateTime.now()),
+              valorAbonado: valorAbonar,
+              idCuotaCredito: idCuota,
+            ),
+          );
+          if (respuestaHttp.status == 200) {
+            General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
+                homeController.nombreClienteSeleccionado);
+          } else {
+            appController.manageError(respuestaHttp.message);
+          }
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
   ///Asigna los valores de la consulta HTTP o del cache si esta guardado de la lista de clientes
   Future<void> _asignarListaClientes(List<Client> getLista) async {
     await const SecureStorageLocal().saveListaClientes(getLista);
@@ -478,8 +515,11 @@ class CreditsController extends GetxController {
     valorCreditoRX.value =
         General.stringToDouble(valorCreditoRenovacion.text.value);
 
-    final double result =
-        valorCreditoRX.value - (saldoCreditoSeleccionado ?? 0.0);
+    double result = valorCreditoRX.value - (saldoCreditoSeleccionado ?? 0.0);
+
+    if (result.isNegative) {
+      result = 0.0;
+    }
 
     valorEntregarResultado.value =
         NumberFormat('#,###', 'es_CO').format(result);
