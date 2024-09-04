@@ -15,5 +15,7 @@ abstract class UserRepository {
   Future<ApiResponse<User>> registrarUsuario(User user);
   Future<ApiResponse<List<User>>> consultarUsuarios();
   Future<ApiResponse<User>> consultarUsuario(int id);
-    Future<ApiResponse<User>> actualizarUsuario(User user);
+  Future<ApiResponse<User>> actualizarUsuario(User user);
+  Future<ApiResponse<String>> cambiarEstado(int id);
+  Future<ApiResponse<String>> reinicarContrasena(int id);
 }

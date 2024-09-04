@@ -83,4 +83,26 @@ class UserHttp implements UserRepository {
       rethrow;
     }
   }
+  
+  @override
+  Future<ApiResponse<String>> cambiarEstado(int id) async {
+    try {
+      final http.Response response = await baseHttpClient
+          .put('${UrlPaths.cambiarEstado}/$id');
+      return compute(ApiResponse.parseStringResponse, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+  
+  @override
+  Future<ApiResponse<String>> reinicarContrasena(int id) async {
+    try {
+      final http.Response response = await baseHttpClient
+          .put('${UrlPaths.reiniciarContrasena}/$id');
+      return compute(ApiResponse.parseStringResponse, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

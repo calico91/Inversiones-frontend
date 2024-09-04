@@ -40,4 +40,10 @@ class ApiResponse<T> {
           .toList();
     });
   }
+
+   static ApiResponse<String> parseStringResponse(String responseBody) {
+    return apiResponseFromJson<String>(responseBody, (dataJson) {
+      return dataJson as String; 
+    });
+  }
 }

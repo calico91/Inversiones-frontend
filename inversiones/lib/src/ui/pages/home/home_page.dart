@@ -5,7 +5,6 @@ import 'package:inversiones/src/ui/pages/home/widgets/clients_pending_installmen
 import 'package:inversiones/src/ui/pages/home/widgets/drawer_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 

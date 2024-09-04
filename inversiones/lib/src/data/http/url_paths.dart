@@ -48,6 +48,8 @@ class UrlPaths {
   static const String consultarUsuarios = '/user/consultar-usuarios';
   static const String consultarUsuario = '/user/consultar-usuario';
   static const String actualizarUsuario = '/user/actualizar';
+  static const String cambiarEstado = '/user/cambiar-estado';
+  static const String reiniciarContrasena = '/user/reiniciar-contrasena';
 
 
   ///roles
