@@ -91,7 +91,7 @@ Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
           ButtonIconCustom(
               () {},
               controller.usuarios.value[index].active!
-                  ? const FaIcon(FontAwesomeIcons.user, color: Colors.blue)
+                  ? const FaIcon(FontAwesomeIcons.userCheck, color: Colors.blue)
                   : const FaIcon(FontAwesomeIcons.userSlash, color: Colors.blue),
               controller.usuarios.value[index].active!
                   ? 'Inactivar usuario'
