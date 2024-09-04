@@ -24,6 +24,7 @@ class UserController extends GetxController {
   final TextEditingController correo = TextEditingController();
   final TextEditingController rol = TextEditingController();
   final TextEditingController buscarUsuarioCtrl = TextEditingController();
+  int idUsuarioSeleccionado = 0;
 
   Rx<List<MultiSelectItem<Roles>>> items = Rx([]);
   Rx<List<Roles>> rolesAsignados = Rx([]);
@@ -59,7 +60,7 @@ class UserController extends GetxController {
 
                 _clearForm();
                 Get.showSnackbar(
-                    const InfoSnackbar('cliente creado correctamente'));
+                    const InfoSnackbar('Usuario creado correctamente'));
                 filtroUsuarios.value.add(respuestaHttp.data!);
               } on HttpException catch (e) {
                 appController.manageError(e.message);
@@ -96,7 +97,34 @@ class UserController extends GetxController {
             final ApiResponse<User> respuestaHttp =
                 await const UserHttp().consultarUsuario(id);
             _asignarValoresFormulario(respuestaHttp.data!);
+            idUsuarioSeleccionado = id;
             registrar(false);
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
+  }
+
+  void actualizarUsuario() {
+    Get.showOverlay(
+        loadingWidget: CargandoAnimacion(),
+        asyncFunction: () async {
+          try {
+            await const UserHttp().actualizarUsuario(User(
+                id: idUsuarioSeleccionado,
+                username: nombreUsuario.text.trim(),
+                firstname: nombres.text.trim(),
+                lastname: apellidos.text.trim(),
+                email: correo.text.trim(),
+                roles: rolesAsignados.value));
+
+            _clearForm();
+            Get.showSnackbar(
+                const InfoSnackbar('Usuario actualizado correctamente'));
+            registrar(true);
+            await consultarUsuarios();
           } on HttpException catch (e) {
             appController.manageError(e.message);
           } catch (e) {

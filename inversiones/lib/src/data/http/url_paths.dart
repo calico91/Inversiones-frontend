@@ -47,6 +47,8 @@ class UrlPaths {
   static const String registrarUsuario = '/user/registrar';
   static const String consultarUsuarios = '/user/consultar-usuarios';
   static const String consultarUsuario = '/user/consultar-usuario';
+  static const String actualizarUsuario = '/user/actualizar';
+
 
   ///roles
   static const String consultarRoles = '/roles/consultar-roles';

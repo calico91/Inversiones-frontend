@@ -89,7 +89,7 @@ class FormularioUsuario extends StatelessWidget {
                   icon: const FaIcon(FontAwesomeIcons.userCheck),
                   label: const Text("Registrar"))
               : FilledButton.icon(
-                  onPressed: () async => controller.registrarUsuario(),
+                  onPressed: () async => controller.actualizarUsuario(),
                   icon: const FaIcon(FontAwesomeIcons.userPen),
                   label: const Text("Actualizar")));
 }

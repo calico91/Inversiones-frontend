@@ -72,4 +72,15 @@ class UserHttp implements UserRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<ApiResponse<User>> actualizarUsuario(User user) async {
+    try {
+      final http.Response response = await baseHttpClient
+          .put(UrlPaths.actualizarUsuario, request: user.toJson());
+      return compute(ApiResponse.parseUserResponse, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
