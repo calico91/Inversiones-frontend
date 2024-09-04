@@ -5,7 +5,7 @@ import 'package:inversiones/src/ui/pages/home/widgets/clients_pending_installmen
 import 'package:inversiones/src/ui/pages/home/widgets/drawer_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/appbar_style/app_bar_custom.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 
@@ -17,11 +17,18 @@ class HomePage extends StatelessWidget {
     final HomeController controller = Get.put(HomeController());
     return Scaffold(
       drawer: DrawerMolecule(),
-      appBar: AppBarCustom(controller.nombreUsuario, actions: [
-        IconButton(
-            onPressed: () => _confirmacionCerrarSesion(controller, context),
-            icon: const Icon(Icons.logout_outlined))
-      ]),
+      appBar: AppBar(
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.white),
+          elevation: 0,
+          backgroundColor: Colors.blue,
+          title: Obx(() => Text(controller.nombreUsuario.value,
+              style: const TextStyle(fontSize: 17))),
+          actions: [
+            IconButton(
+                onPressed: () => _confirmacionCerrarSesion(controller, context),
+                icon: const Icon(Icons.logout_outlined))
+          ]),
       body: ListView(
         children: [
           Column(

@@ -1,40 +1,50 @@
+import 'dart:convert';
+
 import 'package:inversiones/src/domain/entities/roles.dart';
 
+User userFromJson(String str) {
+  return User.fromJson(json.decode(str) as Map<String, dynamic>);
+}
+
 class User {
-  const User({
-    this.id,
-    required this.username,
-    required this.lastname,
-    required this.firstname,
-    required this.country,
-    required this.password,
-    required this.email,
-    required this.roles,
-  });
+  const User(
+      {this.id,
+      this.username,
+      this.lastname,
+      this.firstname,
+      this.country,
+      this.password,
+      this.email,
+      this.roles,
+      this.active});
 
   final int? id;
-  final String username;
-  final String lastname;
-  final String firstname;
-  final String country;
-  final String password;
-  final String email;
-  final List<Roles> roles;
+  final String? username;
+  final String? lastname;
+  final String? firstname;
+  final String? country;
+  final String? password;
+  final String? email;
+  final List<Roles>? roles;
+  final bool? active;
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'] as int,
-      username: json['username'] as String,
-      lastname: json['lastname'] as String,
-      firstname: json['firstname'] as String,
-      country: json['country'] as String,
-      password: json['password'] as String,
-      email: json['email'] as String,
-      roles: List<Roles>.from(
-        (json['roles'] as List<dynamic>).map((element) {
-          return Roles.fromJson(element as Map<String, dynamic>);
-        }),
-      ),
+      username: json['username'] == null ? '' : json['username'] as String,
+      lastname: json['lastname'] == null ? '' : json['lastname'] as String,
+      firstname: json['firstname'] == null ? '' : json['firstname'] as String,
+      country: json['country'] == null ? '' : json['country'] as String,
+      password: json['password'] == null ? '' : json['password'] as String,
+      email: json['email'] == null ? '' : json['email'] as String,
+      roles: json['roles'] != null
+          ? List<Roles>.from(
+              (json['roles'] as List<dynamic>).map((element) {
+                return Roles.fromJson(element as Map<String, dynamic>);
+              }),
+            )
+          : [],
+      active: json['active'] as bool? ?? false,
     );
   }
 
@@ -48,6 +58,7 @@ class User {
       'password': password,
       'email': email,
       'roles': roles,
+      'active': active,
     };
   }
 }

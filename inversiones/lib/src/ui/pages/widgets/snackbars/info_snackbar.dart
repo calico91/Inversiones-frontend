@@ -8,6 +8,7 @@ class InfoSnackbar extends GetSnackBar {
   Widget? get messageText {
     return SelectableText(
       message!,
+      textAlign: TextAlign.center,
       style: const TextStyle(color: Colors.white),
     );
   }
@@ -27,12 +28,12 @@ class InfoSnackbar extends GetSnackBar {
   @override
   Widget? get mainButton {
     return IconButton(
-       color: Colors.white,
+      color: Colors.white,
       onPressed: () => Get.back(),
       icon: const Icon(Icons.close),
     );
   }
 
-    @override
+  @override
   double get borderRadius => 15;
 }

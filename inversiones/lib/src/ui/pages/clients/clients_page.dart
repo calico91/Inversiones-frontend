@@ -4,7 +4,7 @@ import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
 import 'package:inversiones/src/ui/pages/clients/widgets/lista_clientes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/appbar_style/app_bar_custom.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 

@@ -5,7 +5,7 @@ import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/appbar_style/app_bar_custom.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
@@ -22,7 +22,7 @@ class PayFeePage extends StatelessWidget {
     final PayFeeController controller = Get.find<PayFeeController>();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const AppBarCustom('Cuota credito',centrarTitulo: 0.22),
+      appBar: const AppBarCustom('Cuota credito'),
       body: Padding(
         padding: EdgeInsets.symmetric(
           vertical: General.mediaQuery(context).height * 0.03,

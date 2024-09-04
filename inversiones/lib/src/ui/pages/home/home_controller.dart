@@ -34,7 +34,7 @@ class HomeController extends GetxService {
   final TextEditingController contrasenaNueva = TextEditingController();
   final TextEditingController confirmarContrasena = TextEditingController();
   final Rx<UserDetails> userDetails = UserDetails().obs;
-  String nombreUsuario = '';
+  RxString nombreUsuario = ''.obs;
   final Rx<int> indexPage = 0.obs;
 
   final TextEditingController fechafiltro = TextEditingController();
@@ -46,7 +46,7 @@ class HomeController extends GetxService {
   @override
   Future<void> onInit() async {
     userDetails(await const SecureStorageLocal().userDetails);
-    nombreUsuario = userDetails.value.username ?? '';
+    nombreUsuario.value = userDetails.value.username ?? '';
     fechafiltro.text = General.formatoFecha(DateTime.now());
     super.onInit();
   }
