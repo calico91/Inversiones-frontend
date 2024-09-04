@@ -17,11 +17,18 @@ class HomePage extends StatelessWidget {
     final HomeController controller = Get.put(HomeController());
     return Scaffold(
       drawer: DrawerMolecule(),
-      appBar: AppBarCustom(controller.nombreUsuario, actions: [
-        IconButton(
-            onPressed: () => _confirmacionCerrarSesion(controller, context),
-            icon: const Icon(Icons.logout_outlined))
-      ]),
+      appBar: AppBar(
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.white),
+          elevation: 0,
+          backgroundColor: Colors.blue,
+          title: Obx(() => Text(controller.nombreUsuario.value,
+              style: const TextStyle(fontSize: 17))),
+          actions: [
+            IconButton(
+                onPressed: () => _confirmacionCerrarSesion(controller, context),
+                icon: const Icon(Icons.logout_outlined))
+          ]),
       body: ListView(
         children: [
           Column(
