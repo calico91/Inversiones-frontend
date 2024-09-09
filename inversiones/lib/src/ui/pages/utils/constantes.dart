@@ -20,4 +20,6 @@ class Constantes {
   static String CARGANDO = 'assets/cargando-ondas.json';
   static String ERROR_INTERNET_SERVIDOR =
       'Verifique la conexion a internet o configuracion de su servidor';
+  static String CREDITO_SALDADO = 'Credito saldado';
+
 }

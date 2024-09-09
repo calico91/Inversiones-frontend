@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:inversiones/src/domain/entities/user.dart';
+import 'package:inversiones/src/domain/responses/creditos/saldar_credito_response.dart';
 
 ApiResponse<T> apiResponseFromJson<T>(
     String str, T Function(dynamic) fromJsonT) {
@@ -41,9 +42,17 @@ class ApiResponse<T> {
     });
   }
 
-   static ApiResponse<String> parseStringResponse(String responseBody) {
+  static ApiResponse<String> parseStringResponse(String responseBody) {
     return apiResponseFromJson<String>(responseBody, (dataJson) {
-      return dataJson as String; 
+      return dataJson as String;
+    });
+  }
+
+  static ApiResponse<SaldarCreditoResponse> parseSaldarCreditoResponse(
+      String responseBody) {
+    return apiResponseFromJson<SaldarCreditoResponse>(responseBody, (dataJson) {
+      dataJson as Map<String, dynamic>;
+      return SaldarCreditoResponse.fromJson(dataJson);
     });
   }
 }

@@ -22,6 +22,8 @@ class UrlPaths {
       '/credito/consultar-creditos-activos';
   static const String modificarEstadoCredito =
       '/credito/modificar-estado-credito';
+  static const String saldarCredito =
+      '/credito/saldar';
 
   ///cuota
   static const String pagarCuota = '/cuotaCredito/pagar-cuota';

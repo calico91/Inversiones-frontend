@@ -10,12 +10,15 @@ import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
+import 'package:inversiones/src/domain/request/saldar_credito_request.dart';
+import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/saldar_credito_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
@@ -24,6 +27,7 @@ import 'package:inversiones/src/ui/pages/credits/widgets/dialog_lista_clientes.d
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_abonos_realizados.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_fecha_cuota_modificada.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_saldar_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/text_editing_reactivos.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
@@ -391,40 +395,36 @@ class CreditsController extends GetxController {
     );
   }
 
-  Future<void> saldarCredito(
-    String tipoAbono,
-    String estadoCredito,
-    int idCuota, [
-    double? valorInteres,
-  ]) async {
+  Future<void> saldarCredito(int idCredito) async {
     Get.showOverlay(
       loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
-          final AbonoResponse respuestaHttp =
-              await const CreditHttp().pagarCuota(
-            PagarCuotaRequest(
-              valorInteres: valorInteres,
-              abonoExtra: true,
-              estadoCredito: estadoCredito,
-              tipoAbono: tipoAbono,
-              fechaAbono: General.formatoFecha(DateTime.now()),
-              valorAbonado: valorAbonar,
-              idCuotaCredito: idCuota,
+          final ApiResponse<SaldarCreditoResponse> respuestaHttp =
+              await const CreditHttp().saldarCredito(
+            SaldarCreditoRequest(
+              idCredito: idCredito,
+              valorPagado: General.stringToDouble(abonar.value.text),
             ),
           );
-          if (respuestaHttp.status == 200) {
-            General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
-                homeController.nombreClienteSeleccionado);
-          } else {
-            appController.manageError(respuestaHttp.message);
-          }
+          abonar.clear();
+          _mostrarModalCreditoSaldado(respuestaHttp.data!);
+        
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
           appController.manageError(e.toString());
         }
       },
+    );
+  }
+
+  void _mostrarModalCreditoSaldado(SaldarCreditoResponse data) {
+    Get.dialog(
+      barrierDismissible: false,
+      DialogSaldarCredito(
+        data: data,
+      ),
     );
   }
 
