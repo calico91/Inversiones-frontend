@@ -98,6 +98,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            _botonSaldarCredito(context, controllerCredits, idCredito),
             _botonRenovarCredito(context),
             _botonAbonarCapitalOInteres(
                 controllerCredits, context, true, info.id!, info.interesHoy!),
@@ -317,3 +318,41 @@ Widget _botonRenovarCredito(BuildContext context) => IconButton(
         context: context,
         builder: (context) => DialogRenovarCredito()),
     icon: const FaIcon(FontAwesomeIcons.moneyBillTransfer, color: Colors.blue));
+
+Widget _botonSaldarCredito(BuildContext context,
+        CreditsController controllerCredits, int idCredito) =>
+    IconButton(
+        tooltip: 'Saldar credito',
+        onPressed: () {
+          if (controllerCredits.validarFormAbonoCapital()) {
+            _mostrarModalConfirmarSaldarCredito(
+                controllerCredits, context, idCredito);
+          }
+        },
+        icon: const FaIcon(FontAwesomeIcons.sackXmark, color: Colors.blue));
+
+Object _mostrarModalConfirmarSaldarCredito(
+    CreditsController controllerCredits, BuildContext context, int idCredito) {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      scrollable: true,
+      actionsPadding: EdgeInsets.zero,
+      title: Text(
+        'Desea saldar el credito?',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: General.mediaQuery(context).height * 0.02),
+      ),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              controllerCredits.saldarCredito(idCredito);
+            },
+            child: const Text('Si')),
+        TextButton(
+            onPressed: () => Navigator.pop(context), child: const Text('No')),
+      ],
+    ),
+  );
+}

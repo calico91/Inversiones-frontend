@@ -5,11 +5,14 @@ import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/domain/repositories/credit_repository.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
+import 'package:inversiones/src/domain/request/saldar_credito_request.dart';
+import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/saldar_credito_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
@@ -129,6 +132,18 @@ class CreditHttp implements CreditRepository {
       final http.Response response = await baseHttpClient
           .put('${UrlPaths.anularUltimoAbono}/$idAbono/$idCredito');
       return compute(genericoResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<SaldarCreditoResponse>> saldarCredito(
+      SaldarCreditoRequest saldarCreditoRequest) async {
+    try {
+      final http.Response response = await baseHttpClient
+          .put(UrlPaths.saldarCredito, request: saldarCreditoRequest.toJson());
+      return compute(ApiResponse.parseSaldarCreditoResponse, response.body);
     } catch (e) {
       rethrow;
     }

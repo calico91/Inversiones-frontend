@@ -22,6 +22,8 @@ class UrlPaths {
       '/credito/consultar-creditos-activos';
   static const String modificarEstadoCredito =
       '/credito/modificar-estado-credito';
+  static const String saldarCredito =
+      '/credito/saldar';
 
   ///cuota
   static const String pagarCuota = '/cuotaCredito/pagar-cuota';
@@ -48,6 +50,8 @@ class UrlPaths {
   static const String consultarUsuarios = '/user/consultar-usuarios';
   static const String consultarUsuario = '/user/consultar-usuario';
   static const String actualizarUsuario = '/user/actualizar';
+  static const String cambiarEstado = '/user/cambiar-estado';
+  static const String reiniciarContrasena = '/user/reiniciar-contrasena';
 
 
   ///roles

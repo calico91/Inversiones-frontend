@@ -10,12 +10,15 @@ import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/request/add_credit_request.dart';
 import 'package:inversiones/src/domain/request/pagar_cuota_request.dart';
+import 'package:inversiones/src/domain/request/saldar_credito_request.dart';
+import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/abonos_realizados_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/add_credit_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/estado_credito_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_creditos_activos_response.dart';
+import 'package:inversiones/src/domain/responses/creditos/saldar_credito_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
@@ -24,6 +27,7 @@ import 'package:inversiones/src/ui/pages/credits/widgets/dialog_lista_clientes.d
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_abonos_realizados.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_fecha_cuota_modificada.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_saldar_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/info_credito_saldo.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/text_editing_reactivos.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
@@ -391,6 +395,39 @@ class CreditsController extends GetxController {
     );
   }
 
+  Future<void> saldarCredito(int idCredito) async {
+    Get.showOverlay(
+      loadingWidget: CargandoAnimacion(),
+      asyncFunction: () async {
+        try {
+          final ApiResponse<SaldarCreditoResponse> respuestaHttp =
+              await const CreditHttp().saldarCredito(
+            SaldarCreditoRequest(
+              idCredito: idCredito,
+              valorPagado: General.stringToDouble(abonar.value.text),
+            ),
+          );
+          abonar.clear();
+          _mostrarModalCreditoSaldado(respuestaHttp.data!);
+        
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
+  void _mostrarModalCreditoSaldado(SaldarCreditoResponse data) {
+    Get.dialog(
+      barrierDismissible: false,
+      DialogSaldarCredito(
+        data: data,
+      ),
+    );
+  }
+
   ///Asigna los valores de la consulta HTTP o del cache si esta guardado de la lista de clientes
   Future<void> _asignarListaClientes(List<Client> getLista) async {
     await const SecureStorageLocal().saveListaClientes(getLista);
@@ -478,8 +515,11 @@ class CreditsController extends GetxController {
     valorCreditoRX.value =
         General.stringToDouble(valorCreditoRenovacion.text.value);
 
-    final double result =
-        valorCreditoRX.value - (saldoCreditoSeleccionado ?? 0.0);
+    double result = valorCreditoRX.value - (saldoCreditoSeleccionado ?? 0.0);
+
+    if (result.isNegative) {
+      result = 0.0;
+    }
 
     valorEntregarResultado.value =
         NumberFormat('#,###', 'es_CO').format(result);

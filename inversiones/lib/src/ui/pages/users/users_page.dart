@@ -89,15 +89,17 @@ Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
               const FaIcon(FontAwesomeIcons.userPen, color: Colors.blue),
               'Editar usuario'),
           ButtonIconCustom(
-              () {},
+              () => controller
+                  .cambiarEstadoUsuario(controller.usuarios.value[index].id!),
               controller.usuarios.value[index].active!
                   ? const FaIcon(FontAwesomeIcons.userCheck, color: Colors.blue)
-                  : const FaIcon(FontAwesomeIcons.userSlash, color: Colors.blue),
+                  : const FaIcon(FontAwesomeIcons.userSlash, color: Colors.red),
               controller.usuarios.value[index].active!
                   ? 'Inactivar usuario'
                   : 'Activar usuario'),
           ButtonIconCustom(
-              () {},
+              () => controller
+                  .reinicarContrasena(controller.usuarios.value[index].id!),
               const Icon(Icons.password_rounded, color: Colors.blue),
               'Reiniciar contraseña'),
         ],

@@ -133,6 +133,46 @@ class UserController extends GetxController {
         });
   }
 
+  void cambiarEstadoUsuario(int id) {
+    Get.showOverlay(
+        loadingWidget: CargandoAnimacion(),
+        asyncFunction: () async {
+          try {
+            final ApiResponse<String> respuestaHttp =
+                await const UserHttp().cambiarEstado(id);
+
+            _clearForm();
+            Get.showSnackbar(InfoSnackbar(respuestaHttp.data!));
+            registrar(true);
+            await consultarUsuarios();
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
+  }
+
+    void reinicarContrasena(int id) {
+    Get.showOverlay(
+        loadingWidget: CargandoAnimacion(),
+        asyncFunction: () async {
+          try {
+            final ApiResponse<String> respuestaHttp =
+                await const UserHttp().reinicarContrasena(id);
+
+            _clearForm();
+            Get.showSnackbar(InfoSnackbar(respuestaHttp.data!));
+            registrar(true);
+            await consultarUsuarios();
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
+  }
+
   void _clearForm() {
     nombres.clear();
     apellidos.clear();
