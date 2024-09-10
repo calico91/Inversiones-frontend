@@ -1,4 +1,5 @@
 import 'package:inversiones/src/domain/entities/client.dart';
+import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 
 abstract class SecureStorageRepository {
@@ -10,10 +11,13 @@ abstract class SecureStorageRepository {
   Future<List<Client>?> get listaClientes;
   Future<String?> get usuarioBiometria;
   Future<String?> get urlServidor;
+  Future<List<Roles>?> get roles;
   Future<void> saveToken(String? token);
   Future<void> saveUserDetails(UserDetails? userDetails);
   Future<void> saveIdMovil(String? password);
   Future<void> saveListaClientes(List<Client>? listaClientes);
   Future<void> saveUsuarioBiometria(String? usuarioBiometria);
   Future<void> saveUrlServidor(String? urlServidor);
+  Future<void> saveRoles(List<Roles>? roles);
+
 }
