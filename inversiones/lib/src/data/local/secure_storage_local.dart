@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
+import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/repositories/secure_storage_repository.dart';
 
@@ -84,4 +85,25 @@ class SecureStorageLocal implements SecureStorageRepository {
   @override
   Future<String?> get urlServidor async =>
       await secureStorage.read(key: 'urlServidor');
+
+  @override
+  Future<void> saveRoles(List<Roles>? roles) async {
+    return secureStorage.write(
+        key: 'roles',
+        value: jsonEncode(roles?.map((roles) => roles.toJson()).toList()));
+  }
+
+  @override
+  Future<List<Roles>?> get roles async {
+    final rolesJson = await secureStorage.read(key: 'roles');
+    if (rolesJson != null || (rolesJson?.isNotEmpty ?? false)) {
+      final List<dynamic>? objetosList =
+          jsonDecode(rolesJson ?? '') as List<dynamic>?;
+      return objetosList
+          ?.map((e) => Roles.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+
+    return [];
+  }
 }

@@ -214,7 +214,7 @@ class CreditsController extends GetxController {
               estadoCredito: estadoCredito,
               tipoAbono: tipoAbono,
               fechaAbono: General.formatoFecha(DateTime.now()),
-              valorAbonado: valorAbonar,
+              valorAbonado: General.stringToDouble(abonar.value.text),
               idCuotaCredito: idCuota,
             ),
           );
@@ -409,7 +409,6 @@ class CreditsController extends GetxController {
           );
           abonar.clear();
           _mostrarModalCreditoSaldado(respuestaHttp.data!);
-        
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -448,7 +447,8 @@ class CreditsController extends GetxController {
       formKeyAbonoCapital.currentState!.validate();
 
   String validarEstadoCredito() {
-    if (infoCreditoSaldo.value.saldoCredito! <= valorAbonar) {
+    if (infoCreditoSaldo.value.saldoCredito! <=
+        General.stringToDouble(abonar.value.text)) {
       return 'C';
     } else {
       return 'A';
@@ -507,9 +507,7 @@ class CreditsController extends GetxController {
   }
 
   /// cambia la modalidad
-  bool? cambiarModalidad(bool value) {
-    return modalidad.value = value;
-  }
+  bool? cambiarModalidad(bool value) => modalidad.value = value;
 
   void _calcularRenovacion() {
     valorCreditoRX.value =
@@ -524,6 +522,4 @@ class CreditsController extends GetxController {
     valorEntregarResultado.value =
         NumberFormat('#,###', 'es_CO').format(result);
   }
-
-  double get valorAbonar => double.parse(abonar.value.text.replaceAll(",", ""));
 }
