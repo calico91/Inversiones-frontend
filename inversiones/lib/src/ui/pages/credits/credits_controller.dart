@@ -152,10 +152,12 @@ class CreditsController extends GetxController {
 
   ///modal que muestra informacion del credito cuando se crea
   void _mostrarInfoCreditoCreado(DataCreditResponse info, bool renovarCredito) {
-    Get.dialog(DialogInfoCreditoCreado(
-        title: Constantes.INFORMACION_CREDITO,
-        info: info,
-        renovarCredito: renovarCredito));
+    Get.dialog(
+        barrierDismissible: false,
+        DialogInfoCreditoCreado(
+            title: Constantes.INFORMACION_CREDITO,
+            info: info,
+            renovarCredito: renovarCredito));
   }
 
   Future<void> infoCreditoySaldo(int idCredito) async {

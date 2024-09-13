@@ -27,7 +27,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.12,
+        height: General.mediaQuery(context).height * 0.16,
         child: Screenshot(
           controller: screenshotController,
           child: ColoredBox(
@@ -35,26 +35,30 @@ class DialogInfoCreditoCreado extends StatelessWidget {
             child: CustomCard(
               child: Column(
                 children: [
-                  _showInfoCredito('Fecha pago', info!.fechaPago!),
+                  _showInfoCredito('Nombre cliente', info!.nombreCliente!,context),
+                  _showInfoCredito('Fecha pago', info!.fechaPago!,context),
                   _showInfoCredito(
                     'Valor credito',
                     General.formatoMoneda(
                       double.parse(info!.valorCredito!),
-                    ),
+                    ),context
                   ),
                   _showInfoCredito(
                     'Valor cuotas',
                     General.formatoMoneda(double.parse(info!.valorCuotas!)),
+                    context
                   ),
                   _showInfoCredito(
                     'Cantidad cuotas',
                     info!.cantidadCuotas!,
+                    context
                   ),
                   _showInfoCredito(
                     'Valor primer cuota',
                     General.formatoMoneda(
                       double.parse(info!.valorPrimerCuota!),
                     ),
+                    context
                   ),
                 ],
               ),
@@ -76,14 +80,19 @@ class DialogInfoCreditoCreado extends StatelessWidget {
   Widget _showInfoCredito(
     String title,
     String info,
+    BuildContext context,
   ) {
     return Row(
       children: [
         Text('$title:', textAlign: TextAlign.left),
         Expanded(child: Container()),
-        Text(
-          info,
-          textAlign: TextAlign.right,
+        SizedBox(
+          width: General.mediaQuery(context).width *0.21,
+          child: Text(
+            maxLines: 2,
+            info,
+            textAlign: TextAlign.right,
+          ),
         ),
       ],
     );
