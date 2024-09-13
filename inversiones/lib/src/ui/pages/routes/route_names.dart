@@ -10,4 +10,5 @@ class RouteNames {
   static const String reportes = '/reportes';
   static const String users = '/users';
   static const String navigationBar = '/navigationBar';
+  static const String roles = '/roles';
 }

@@ -11,6 +11,7 @@ import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_binding.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_page.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_binding.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_page.dart';
+import 'package:inversiones/src/ui/pages/roles/roles_page.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/sign_in/sign_in_binding.dart';
 import 'package:inversiones/src/ui/pages/sign_in/sign_in_page.dart';
@@ -65,6 +66,10 @@ class RoutePages {
         name: RouteNames.navigationBar,
         page: () => NavigatinBarPage(),
         binding: const NavigationBarBinding(),
+      ),
+        GetPage(
+        name: RouteNames.roles,
+        page: () => RolesPage(),
       ),
     ];
   }

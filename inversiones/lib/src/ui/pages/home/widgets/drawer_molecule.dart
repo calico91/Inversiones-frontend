@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/modal_cambiar_contrasena.dart';
@@ -19,8 +20,11 @@ class DrawerMolecule extends StatelessWidget {
                 _opciones(Icons.data_saver_off_sharp, 'Reportes',
                     () => Get.toNamed(RouteNames.reportes)),
               if (controller.mostrarModulo(['SUPER']))
-                _opciones(Icons.admin_panel_settings_outlined, 'Usuarios',
+                _opciones(FontAwesomeIcons.circleUser, 'Usuarios',
                     () => Get.toNamed(RouteNames.users)),
+              if (controller.mostrarModulo(['SUPER']))
+                _opciones(Icons.admin_panel_settings_outlined, 'Roles',
+                    () => Get.toNamed(RouteNames.roles)),
               _opciones(Icons.fingerprint_outlined, 'Asignar biometria',
                   () => controller.vincularDispositivo()),
               _opciones(Icons.password_outlined, 'Cambiar contraseña',
@@ -48,7 +52,7 @@ class DrawerMolecule extends StatelessWidget {
       {Color? color}) {
     return ListTile(
         onTap: accion,
-        leading: Icon(icono, color: color ?? Colors.blue),
+        leading: Icon(icono, color: color ?? Colors.blue,size: 27,),
         title: Row(
           children: [
             Text(titulo),
