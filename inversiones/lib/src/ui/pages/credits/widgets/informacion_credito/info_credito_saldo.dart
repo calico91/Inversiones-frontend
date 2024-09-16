@@ -42,7 +42,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
         ],
       ),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.46,
+        height: General.mediaQuery(context).height * 0.49,
         child: Column(
           children: [
             Screenshot(
@@ -52,7 +52,11 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                 child: CustomCard(
                   child: Column(
                     children: [
-                      _showInfoCredito('Id credito', idCredito.toString()),
+                      Text(
+                          textAlign: TextAlign.center,
+                          controllerCredits.nombreClienteSeleccionado!,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
                       _showInfoCredito('Modalidad', info.modalidad!),
                       _showInfoCredito(
                           'Numero cuotas', info.numeroCuotas!.toString()),
