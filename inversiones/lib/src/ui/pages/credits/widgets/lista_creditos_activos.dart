@@ -137,6 +137,8 @@ class ListaCreditosActivos extends StatelessWidget {
             IconButton(
               tooltip: Constantes.INFORMACION_CREDITO,
               onPressed: () {
+                controller.nombreClienteSeleccionado =
+                    '${controller.filtroCreditos.value[index].nombres} ${controller.filtroCreditos.value[index].apellidos}';
                 _capturarIdYNombresCliente(controller, index);
                 controller.infoCreditoySaldo(
                     controller.filtroCreditos.value[index].idCredito!);
