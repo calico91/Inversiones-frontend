@@ -17,47 +17,14 @@ class RolesPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: const Text('Asignar permisos',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),),
-          ),
+              child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Text('Asignar permisos',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 17)))),
           Obx(
             () => !controller.cargando.value
-                ? SizedBox(
-                    width: double.infinity,
-                    child: CustomCard(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: mediaQuery.width * 0.39,
-                            height: mediaQuery.height * 0.06,
-                            child: DropdownButton<String>(
-                              isExpanded: true,
-                              items: [
-                                const DropdownMenuItem<String>(
-                                  child: Text('Seleccione un rol'),
-                                ),
-                                ...controller.roles.value.map((role) =>
-                                    DropdownMenuItem<String>(
-                                        value: role.id.toString(),
-                                        child: Text(role.name)))
-                              ],
-                              value: controller.rolSeleccionado.value.isEmpty
-                                  ? null
-                                  : controller.rolSeleccionado.value,
-                              onChanged: (String? newValue) {
-                                controller.rolSeleccionado.value =
-                                    newValue ?? '';
-                                if (newValue != null) {
-                                  print('voy hacer la peticion');
-                                }
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                ? _selectRoles(mediaQuery, controller)
                 : const LinearProgressIndicator(),
           )
         ],
@@ -65,3 +32,31 @@ class RolesPage extends StatelessWidget {
     );
   }
 }
+
+Widget _selectRoles(Size mediaQuery, RolesController controller) => SizedBox(
+    width: double.infinity,
+    child: CustomCard(
+        child: Column(children: [
+      SizedBox(
+          width: mediaQuery.width * 0.8,
+          height: mediaQuery.height * 0.06,
+          child: DropdownButton<String>(
+              isExpanded: true,
+              items: [
+                const DropdownMenuItem<String>(
+                  child: Text('Seleccione un rol'),
+                ),
+                ...controller.roles.value.map((role) =>
+                    DropdownMenuItem<String>(
+                        value: role.id.toString(), child: Text(role.name)))
+              ],
+              value: controller.rolSeleccionado.value.isEmpty
+                  ? null
+                  : controller.rolSeleccionado.value,
+              onChanged: (String? newValue) {
+                controller.rolSeleccionado.value = newValue ?? '';
+                if (newValue != null) {
+                  print('voy hacer la peticion');
+                }
+              }))
+    ])));
