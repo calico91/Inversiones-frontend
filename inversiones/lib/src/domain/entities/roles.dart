@@ -18,7 +18,7 @@ class Roles {
             })));
 
   Map<String, dynamic> toJson() {
-    return {if (id != 0) 'id': id, 'name': name};
+    return {if (id != 0) 'id': id, 'name': name, 'permisos': permisos};
   }
 
   @override

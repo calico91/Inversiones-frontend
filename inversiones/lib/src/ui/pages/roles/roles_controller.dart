@@ -3,8 +3,11 @@ import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/roles_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/roles.dart';
+import 'package:inversiones/src/domain/entities/user.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
+import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/roles/consultar_roles_response.dart';
+import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 
 class RolesController extends GetxController {
   final AppController appController = Get.find<AppController>();
@@ -14,7 +17,7 @@ class RolesController extends GetxController {
   SecureStorageLocal secureStorageLocal = const SecureStorageLocal();
   RxString rolSeleccionado = ''.obs;
 
-   @override
+  @override
   Future<void> onInit() async {
     await consultarRoles();
 
@@ -32,7 +35,6 @@ class RolesController extends GetxController {
       }
       statusHttp = 200;
       roles(rolesStorage);
-
     } on HttpException catch (e) {
       appController.manageError(e.message);
     } catch (e) {
@@ -40,5 +42,20 @@ class RolesController extends GetxController {
     } finally {
       cargando(statusHttp != 200);
     }
+  }
+
+  void consultarPermisosRol(int id) {
+    Get.showOverlay(
+        loadingWidget: CargandoAnimacion(),
+        asyncFunction: () async {
+          try {
+            final ApiResponse<Roles> respuestaHttp =
+                await const RolesHttp().consultarPermisosRol(id);
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
   }
 }

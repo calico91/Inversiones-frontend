@@ -56,7 +56,8 @@ Widget _selectRoles(Size mediaQuery, RolesController controller) => SizedBox(
               onChanged: (String? newValue) {
                 controller.rolSeleccionado.value = newValue ?? '';
                 if (newValue != null) {
-                  print('voy hacer la peticion');
+                  controller.consultarPermisosRol(
+                      int.parse(controller.rolSeleccionado.value));
                 }
               }))
     ])));
