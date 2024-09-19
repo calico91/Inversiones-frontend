@@ -12,8 +12,16 @@ class RolesController extends GetxController {
   RxBool cargando = false.obs;
   int statusHttp = 0;
   SecureStorageLocal secureStorageLocal = const SecureStorageLocal();
+  RxString rolSeleccionado = ''.obs;
 
-  Future<void> consultarRoles([String? fechaFiltro]) async {
+   @override
+  Future<void> onInit() async {
+    await consultarRoles();
+
+    super.onInit();
+  }
+
+  Future<void> consultarRoles() async {
     try {
       cargando(true);
       final List<Roles>? rolesStorage = await secureStorageLocal.roles;
@@ -24,6 +32,7 @@ class RolesController extends GetxController {
       }
       statusHttp = 200;
       roles(rolesStorage);
+
     } on HttpException catch (e) {
       appController.manageError(e.message);
     } catch (e) {
