@@ -27,7 +27,7 @@ class Client {
   factory Client.fromJson(Map<String, dynamic> json) {
     final String email = (json['email']) == null ? '' : json['email'] as String;
     final String pais = (json['pais']) == null ? '' : json['pais'] as String;
-    final List<Credit> listaCreditos = (json['listaCreditos']) == null
+    final List<Credit> listaCreditos = json['listaCreditos'] == null
         ? List.empty()
         : List<Credit>.from(
             (json['listaCreditos'] as List<dynamic>).map((element) {
