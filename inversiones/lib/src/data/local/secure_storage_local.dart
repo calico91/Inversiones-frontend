@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
+import 'package:inversiones/src/domain/entities/permiso.dart';
 import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/repositories/secure_storage_repository.dart';
@@ -79,8 +80,8 @@ class SecureStorageLocal implements SecureStorageRepository {
       await secureStorage.read(key: 'usuarioBiometria');
 
   @override
-  Future<void> saveUrlServidor(String? urlServidor) =>
-      secureStorage.write(key: 'urlServidor', value: urlServidor);
+  Future<void> saveUrlServidor(String? urlServidor) => secureStorage.write(
+      key: 'urlServidor', value: urlServidor?.replaceAll(' ', ''));
 
   @override
   Future<String?> get urlServidor async =>
@@ -101,6 +102,28 @@ class SecureStorageLocal implements SecureStorageRepository {
           jsonDecode(rolesJson ?? '') as List<dynamic>?;
       return objetosList
           ?.map((e) => Roles.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+
+    return [];
+  }
+
+  @override
+  Future<void> savePermisos(List<Permiso>? permisos) async {
+    return secureStorage.write(
+        key: 'permisos',
+        value: jsonEncode(
+            permisos?.map((permisos) => permisos.toJson()).toList()));
+  }
+
+  @override
+  Future<List<Permiso>?> get permisos async {
+    final permisosJson = await secureStorage.read(key: 'permisos');
+    if (permisosJson != null || (permisosJson?.isNotEmpty ?? false)) {
+      final List<dynamic>? objetosList =
+          jsonDecode(permisosJson ?? '') as List<dynamic>?;
+      return objetosList
+          ?.map((e) => Permiso.fromJson(e as Map<String, dynamic>))
           .toList();
     }
 
