@@ -70,15 +70,15 @@ Widget _selectPermisos(Size mediaQuery, RolesController controller) =>
     Container(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
         height: mediaQuery.height * 0.14,
-        width: mediaQuery.width * 0.5,
+        width: mediaQuery.width * 0.95,
         child: Obx(() => MultiSelectDialogField(
             initialValue: controller.permisos.value,
             dialogHeight:
                 mediaQuery.height * (controller.items.value.length / 11),
             chipDisplay: MultiSelectChipDisplay<Permiso>(scroll: true),
-            buttonIcon: const Icon(Icons.arrow_forward_ios_rounded),
+            buttonIcon: const Icon(Icons.arrow_drop_down),
             selectedColor: Colors.blue,
-            buttonText: const Text('permisos', textAlign: TextAlign.center),
+            buttonText: const Text('Permisos', textAlign: TextAlign.center),
             title: const Center(child: Text("Seleccione permisos")),
             items: controller.items.value,
             onConfirm: (items) => controller.permisos.value = items)));

@@ -57,4 +57,5 @@ class UrlPaths {
   ///roles
   static const String consultarRoles = '/roles/consultar-roles';
   static const String consultarPermisosRol = '/roles/consultar-permisos-rol';
+  static const String consultarPermisos = '/permisos/consultar-todos';
 }

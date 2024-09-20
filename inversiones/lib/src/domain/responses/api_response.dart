@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:inversiones/src/domain/entities/permiso.dart';
 import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/domain/entities/user.dart';
 import 'package:inversiones/src/domain/responses/creditos/saldar_credito_response.dart';
@@ -61,6 +62,16 @@ class ApiResponse<T> {
     return apiResponseFromJson<Roles>(responseBody, (dataJson) {
       dataJson as Map<String, dynamic>;
       return Roles.fromJson(dataJson);
+    });
+  }
+
+  static ApiResponse<List<Permiso>> parsePermisoListResponse(
+      String responseBody) {
+    return apiResponseFromJson<List<Permiso>>(responseBody, (dataJson) {
+      dataJson as List;
+      return dataJson
+          .map((json) => Permiso.fromJson(json as Map<String, dynamic>))
+          .toList();
     });
   }
 }

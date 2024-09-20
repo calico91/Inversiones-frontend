@@ -24,19 +24,21 @@ class RolesController extends GetxController {
   @override
   Future<void> onInit() async {
     await consultarRoles();
-
+    await consultarPermisos();
     super.onInit();
   }
 
   Future<void> consultarRoles() async {
     try {
       cargando(true);
-      final List<Roles>? rolesStorage = await secureStorageLocal.roles;
+      List<Roles>? rolesStorage = await secureStorageLocal.roles;
 
       if (rolesStorage?.isEmpty ?? true) {
         final RolesResponse resHTTP = await const RolesHttp().consultarRoles();
         await secureStorageLocal.saveRoles(resHTTP.roles);
+        rolesStorage = await secureStorageLocal.roles;
       }
+
       statusHttp = 200;
       roles(rolesStorage);
     } on HttpException catch (e) {
@@ -48,18 +50,33 @@ class RolesController extends GetxController {
     }
   }
 
-  void consultarPermisosRol(int id) {
+  Future<void> consultarPermisosRol(int id) async {
     Get.showOverlay(
         loadingWidget: CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final ApiResponse<Roles> respuestaHttp =
                 await const RolesHttp().consultarPermisosRol(id);
-                
-            items.value = respuestaHttp.data!.permisos!
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
+  }
+
+  Future<void> consultarPermisos() async {
+    Get.showOverlay(
+        loadingWidget: CargandoAnimacion(),
+        asyncFunction: () async {
+          try {
+            final ApiResponse<List<Permiso>> respuestaHttp =
+                await const RolesHttp().consultarPermisos();
+            items.value = respuestaHttp.data!
                 .map((permiso) =>
                     MultiSelectItem<Permiso>(permiso, permiso.descripcion))
                 .toList();
+                
           } on HttpException catch (e) {
             appController.manageError(e.message);
           } catch (e) {
