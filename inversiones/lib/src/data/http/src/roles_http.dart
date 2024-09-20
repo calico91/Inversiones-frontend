@@ -5,6 +5,7 @@ import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/domain/entities/permiso.dart';
 import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/domain/repositories/roles_repository.dart';
+import 'package:inversiones/src/domain/request/asignar_permisos.dart';
 import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/roles/consultar_roles_response.dart';
 
@@ -41,6 +42,18 @@ class RolesHttp implements RolesRepository {
       final http.Response response =
           await baseHttpClient.get(UrlPaths.consultarPermisos);
       return compute(ApiResponse.parsePermisoListResponse, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<String>> asignarPermisos(
+      AsignarPermisos asignarPermisos) async {
+    try {
+      final http.Response response = await baseHttpClient
+          .put(UrlPaths.asignarPermisos, request: asignarPermisos.toJson());
+      return compute(ApiResponse.parseStringResponse, response.body);
     } catch (e) {
       rethrow;
     }

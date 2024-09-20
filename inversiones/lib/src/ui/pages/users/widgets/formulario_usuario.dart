@@ -8,6 +8,7 @@ import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/util/horizontal_scrollbar.dart';
 
 class FormularioUsuario extends StatelessWidget {
   const FormularioUsuario(this.controller, this.mediaQuery);
@@ -71,7 +72,7 @@ class FormularioUsuario extends StatelessWidget {
           initialValue: controller.rolesAsignados.value,
           dialogHeight:
               mediaQuery.height * (controller.items.value.length / 11),
-          chipDisplay: MultiSelectChipDisplay<Roles>(scroll: true),
+          chipDisplay: MultiSelectChipDisplay<Roles>(scroll: true, scrollBar:HorizontalScrollBar(isAlwaysShown: true)),
           buttonIcon: const Icon(Icons.arrow_forward_ios_rounded),
           selectedColor: Colors.blue,
           buttonText: const Text('Roles', textAlign: TextAlign.center),
