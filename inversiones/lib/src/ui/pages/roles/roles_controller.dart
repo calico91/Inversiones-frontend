@@ -75,9 +75,16 @@ class RolesController extends GetxController {
         loadingWidget: CargandoAnimacion(),
         asyncFunction: () async {
           try {
-            final ApiResponse<List<Permiso>> respuestaHttp =
-                await const RolesHttp().consultarPermisos();
-            items.value = respuestaHttp.data!
+            List<Permiso>? permisosStorage = await secureStorageLocal.permisos;
+
+            if (permisosStorage?.isEmpty ?? true) {
+              final ApiResponse<List<Permiso>> respuestaHttp =
+                  await const RolesHttp().consultarPermisos();
+              await secureStorageLocal.savePermisos(respuestaHttp.data);
+              permisosStorage = await secureStorageLocal.permisos;
+            }
+
+            items.value = permisosStorage!
                 .map((permiso) =>
                     MultiSelectItem<Permiso>(permiso, permiso.descripcion))
                 .toList();
