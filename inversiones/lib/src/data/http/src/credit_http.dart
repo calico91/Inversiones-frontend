@@ -57,10 +57,10 @@ class CreditHttp implements CreditRepository {
   }
 
   @override
-  Future<InfoCreditosActivosResponse> infoCreditosActivos() async {
+  Future<InfoCreditosActivosResponse> infoCreditosActivos(int idUsuario) async {
     try {
       final http.Response response =
-          await baseHttpClient.get(UrlPaths.infoCreditosActivos);
+          await baseHttpClient.get('${UrlPaths.infoCreditosActivos}/$idUsuario');
       return compute(infoCreditosActivosResponseFromJson, response.body);
     } catch (e) {
       rethrow;

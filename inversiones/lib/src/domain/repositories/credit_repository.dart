@@ -18,7 +18,7 @@ abstract class CreditRepository {
   Future<AddCreditResponse> addCredit(AddCreditRequest addCreditRequest);
   Future<PayFeeResponse> infoPayFee(int idCliente, int idCredito);
   Future<AbonoResponse> pagarCuota(PagarCuotaRequest pagarCuotaRequest);
-  Future<InfoCreditosActivosResponse> infoCreditosActivos();
+  Future<InfoCreditosActivosResponse> infoCreditosActivos(int idUsuario);
   Future<InfoCreditoySaldoResponse> infoCreditoySaldo(int idCredito);
   Future<PayFeeResponse> modificarFechaCuota(String fechaNueva, int idCredito);
   Future<EstadoCreditoResponse> modificarEstadoCredito(
