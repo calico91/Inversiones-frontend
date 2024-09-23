@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
-import 'package:inversiones/src/ui/pages/routes/route_names.dart';
+import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -15,9 +15,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Obx(
       () {
         if (controller.loading) {
-          return const Loading(
-            horizontal: 0.43,
-            vertical: 0.19);
+          return const Loading(horizontal: 0.43, vertical: 0.19);
         } else if (!controller.loading && controller.clients.isEmpty) {
           return Column(
             children: [
@@ -39,13 +37,14 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
             return Card(
               elevation: 5,
               child: ListTile(
-                onTap: () {
-                  Get.toNamed(RouteNames.payFee);
+                onTap: () async{
+                  
                   controller.idCliente(controller.clients[index].idCliente);
                   controller.idCredito(controller.clients[index].idCredito);
                   controller.nombreCliente(
                     '${controller.clients[index].nombres} ${controller.clients[index].apellidos}',
                   );
+                  await Get.put(PayFeeController()).loadPayFee();
                 },
                 title: _showClientTitle(
                   controller,
