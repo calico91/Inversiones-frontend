@@ -81,6 +81,7 @@ class CreditsController extends GetxController {
   double? saldoCreditoSeleccionado;
 
   int? idCreditoSeleccionado;
+  final SecureStorageLocal secureStorageLocal = const SecureStorageLocal();
   @override
   void onInit() {
     valorCreditoRenovacion.text.listen((_) => _calcularRenovacion());
@@ -93,8 +94,11 @@ class CreditsController extends GetxController {
         loadingWidget: CargandoAnimacion(),
         asyncFunction: () async {
           try {
+            final UserDetails? userDetails =
+                await secureStorageLocal.userDetails;
+
             final InfoCreditosActivosResponse res =
-                await const CreditHttp().infoCreditosActivos();
+                await const CreditHttp().infoCreditosActivos(userDetails!.id!);
             if (res.status == 200) {
               campoBuscarCredito.clear();
               creditosActivos(res.infoCreditosActivos);
@@ -115,8 +119,7 @@ class CreditsController extends GetxController {
       loadingWidget: CargandoAnimacion(),
       asyncFunction: () async {
         try {
-          final UserDetails? userDetails =
-              await const SecureStorageLocal().userDetails;
+          final UserDetails? userDetails = await secureStorageLocal.userDetails;
 
           final AddCreditResponse res = await const CreditHttp().addCredit(
               AddCreditRequest(
@@ -377,7 +380,7 @@ class CreditsController extends GetxController {
       asyncFunction: () async {
         /// si la lista ya se cargo una vez, se guarda en local storage y no se consulta de nuevo
         final List<Client> listaClienteLocal =
-            await const SecureStorageLocal().listaClientes;
+            await secureStorageLocal.listaClientes;
         if (listaClienteLocal.isNotEmpty) {
           _asignarListaClientes(listaClienteLocal);
           return;
@@ -431,7 +434,7 @@ class CreditsController extends GetxController {
 
   ///Asigna los valores de la consulta HTTP o del cache si esta guardado de la lista de clientes
   Future<void> _asignarListaClientes(List<Client> getLista) async {
-    await const SecureStorageLocal().saveListaClientes(getLista);
+    await secureStorageLocal.saveListaClientes(getLista);
     listaClientes(getLista);
     filtroClientes(getLista);
     _mostrarListaClientes(getLista);
