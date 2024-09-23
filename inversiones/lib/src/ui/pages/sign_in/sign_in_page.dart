@@ -27,8 +27,8 @@ class SignInPage extends StatelessWidget {
                     children: [
                       SizedBox(
                           height: General.mediaQuery(context).height * 0.025),
-                      Text('Login',
-                          style: Theme.of(context).textTheme.headlineLarge),
+                      Text('Iniciar sesion',
+                          style: Theme.of(context).textTheme.headlineMedium),
                       SizedBox(
                           height: General.mediaQuery(context).height * 0.025),
                       Form(

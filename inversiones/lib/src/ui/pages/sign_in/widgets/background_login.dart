@@ -22,17 +22,11 @@ class BackgroundLogin extends StatelessWidget {
 
 class _HeaderIcon extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        width: double.infinity,
-        margin: const EdgeInsets.only(top: 30),
-        child: Icon(Icons.person_pin,
-            color: Colors.white,
-            size: General.mediaQuery(context).height * 0.2),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => SafeArea(
+      child: Image.asset('assets/icono_app.png',
+          color: Colors.white,
+          width: double.infinity,
+          height: General.mediaQuery(context).height * 0.3));
 }
 
 class _PurpleBox extends StatelessWidget {
@@ -41,35 +35,30 @@ class _PurpleBox extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      width: double.infinity,
-      height: size.height * 0.4,
-      decoration: azulBackground(),
-      child: Stack(
-        children: [
+        width: double.infinity,
+        height: size.height * 0.4,
+        decoration: azulBackground(),
+        child: Stack(children: [
           Positioned(top: 90, left: 30, child: _Bubble()),
           Positioned(top: -40, left: -30, child: _Bubble()),
           Positioned(top: -50, right: -20, child: _Bubble()),
           Positioned(bottom: -50, left: 10, child: _Bubble()),
           Positioned(bottom: 120, right: 20, child: _Bubble()),
-        ],
-      ),
-    );
+        ]));
   }
 
   BoxDecoration azulBackground() => const BoxDecoration(
-      gradient: LinearGradient(
-          colors: [Colors.blue, Color.fromRGBO(14, 90, 204, 1)]));
+          gradient: LinearGradient(colors: [
+        Colors.blue, Color.fromRGBO(14, 90, 204, 1)
+      ]));
 }
 
 class _Bubble extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       width: General.mediaQuery(context).width * 0.23,
       height: General.mediaQuery(context).height * 0.1,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: const Color.fromRGBO(255, 255, 255, 0.05)),
-    );
-  }
+          color: const Color.fromRGBO(255, 255, 255, 0.05)));
 }
