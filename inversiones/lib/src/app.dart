@@ -9,14 +9,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: ThemeData(
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
+      child: GetMaterialApp(
+        theme: ThemeData(
           useMaterial3: false,
-          visualDensity: VisualDensity.adaptivePlatformDensity),
-      debugShowCheckedModeBanner: false,
-      getPages: RoutePages.all,
-      initialRoute: RouteNames.splash,
-      initialBinding: const AppBinding(),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        debugShowCheckedModeBanner: false,
+        getPages: RoutePages.all,
+        initialRoute: RouteNames.splash,
+        initialBinding: const AppBinding(), // Const aplicado aquí
+      ),
     );
   }
 }
