@@ -23,7 +23,7 @@ class ListaCreditosActivos extends StatelessWidget {
                   style: TextStyle(fontSize: 18),
                 ),
                 SizedBox(
-                  height: General.mediaQuery(context).height * 0.36,
+                  height: General.mediaQuery(context).height * 0.35,
                   width: General.mediaQuery(context).width * 0.45,
                   child: Image.asset(
                     'assets/cargar_credito.png',
@@ -40,7 +40,7 @@ class ListaCreditosActivos extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: General.mediaQuery(context).height * 0.39,
+              height: General.mediaQuery(context).height * 0.38,
               width: double.infinity,
               child: Column(
                 children: [
