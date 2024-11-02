@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class ClientsPendingInstallmentsMolecule extends StatelessWidget {
@@ -31,71 +32,76 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
             ],
           );
         }
-        return ListView.builder(
-          itemCount: controller.clients.length,
-          itemBuilder: (_, index) {
-            return Card(
-              elevation: 5,
-              child: ListTile(
-                onTap: () async{
-                  
-                  controller.idCliente(controller.clients[index].idCliente);
-                  controller.idCredito(controller.clients[index].idCredito);
-                  controller.nombreCliente(
-                    '${controller.clients[index].nombres} ${controller.clients[index].apellidos}',
-                  );
-                  await Get.put(PayFeeController()).loadPayFee();
-                },
-                title: _showClientTitle(
-                  controller,
-                  index,
-                  General.mediaQuery(context),
-                ),
-                subtitle: _showClientSubtitle(
-                  controller,
-                  index,
-                  General.mediaQuery(context),
+        return Obx(
+          () => Column(
+            children: [
+              SizedBox(
+                height: General.mediaQuery(context).height * 0.08,
+                child: TextFieldSearch(
+                  controller: controller.buscarClienteCtrl,
+                  labelText: 'Buscar cliente',
+                  onChanged: (value) => controller.buscarCliente(value, true),
                 ),
               ),
-            );
-          },
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.filtroClientes.value.length,
+                  itemBuilder: (_, index) {
+                    return Card(
+                      elevation: 5,
+                      child: ListTile(
+                        onTap: () async {
+                          controller.idCliente(
+                              controller.filtroClientes.value[index].idCliente);
+                          controller.idCredito(
+                              controller.filtroClientes.value[index].idCredito);
+                          controller.nombreCliente(
+                              '${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}');
+                          await Get.put(PayFeeController()).loadPayFee();
+                        },
+                        title: _showClientTitle(
+                            controller, index, General.mediaQuery(context)),
+                        subtitle: _showClientSubtitle(
+                            controller, index, General.mediaQuery(context)),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
   }
 
   ///titulo que se muestra informacion clientes
-  Widget _showClientTitle(HomeController controller, int index, Size size) {
-    return Row(
-      children: [
+  Widget _showClientTitle(HomeController controller, int index, Size size) =>
+      Row(children: [
         SizedBox(
-          width: size.width * 0.48,
-          child: Text(
-            overflow: TextOverflow.ellipsis,
-            "${controller.clients[index].idCredito}.${controller.clients[index].nombres} ${controller.clients[index].apellidos}",
-          ),
-        ),
+            width: size.width * 0.49,
+            child: Text(
+              overflow: TextOverflow.ellipsis,
+              "${controller.filtroClientes.value[index].idCredito}.${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}",
+            )),
         SizedBox(
-          width: size.width * 0.35,
-          child: Text(
-            textAlign: TextAlign.right,
-            controller.clients[index].cedula!,
-          ),
-        ),
-      ],
-    );
-  }
+            width: size.width * 0.35,
+            child: Text(
+              textAlign: TextAlign.right,
+              controller.filtroClientes.value[index].cedula!,
+            ))
+      ]);
 
   Widget _showClientSubtitle(HomeController controller, int index, Size size) {
-    final String valorCuota =
-        General.formatoMoneda(controller.clients[index].valorCuota);
+    final String valorCuota = General.formatoMoneda(
+        controller.filtroClientes.value[index].valorCuota);
     return Row(
       children: [
         SizedBox(
           width: size.width * 0.40,
           child: Text(
             overflow: TextOverflow.ellipsis,
-            "Fecha cuota:${controller.clients[index].fechaCuota}",
+            "Fecha cuota:${controller.filtroClientes.value[index].fechaCuota}",
           ),
         ),
         Expanded(child: Container()),

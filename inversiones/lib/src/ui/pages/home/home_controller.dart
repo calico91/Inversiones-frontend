@@ -33,6 +33,7 @@ class HomeController extends GetxService {
   final TextEditingController contrasenaActual = TextEditingController();
   final TextEditingController contrasenaNueva = TextEditingController();
   final TextEditingController confirmarContrasena = TextEditingController();
+  final TextEditingController buscarClienteCtrl = TextEditingController();
   final Rx<UserDetails> userDetails = UserDetails().obs;
   RxString nombreUsuario = ''.obs;
   final Rx<int> indexPage = 0.obs;
@@ -42,6 +43,9 @@ class HomeController extends GetxService {
   final RxBool ocultarContrasenaActual = true.obs;
   final RxBool ocultarContrasenaNueva = true.obs;
   final RxBool ocultarConfirmarContrasena = true.obs;
+
+  Rx<List<ClientsPendingInstallment>> filtroClientes =
+      Rx<List<ClientsPendingInstallment>>([]);
 
   @override
   Future<void> onInit() async {
@@ -58,12 +62,9 @@ class HomeController extends GetxService {
           await const ClientHttp().clientsPendingInstallments(
               fechaFiltro ?? General.formatoFecha(DateTime.now()),
               userDetails.value.id!);
-      if (clientsPendingInstallments.status == 200) {
-        _status(clientsPendingInstallments.status);
-        _clients(clientsPendingInstallments.clientsPendingInstallments);
-      } else {
-        appController.manageError(clientsPendingInstallments.message);
-      }
+      _status(clientsPendingInstallments.status);
+      _clients(clientsPendingInstallments.clientsPendingInstallments);
+      filtroClientes(_clients.value);
     } on HttpException catch (e) {
       appController.manageError(e.message);
     } catch (e) {
@@ -156,6 +157,23 @@ class HomeController extends GetxService {
     interestPercentage.clear();
     installmentAmount.clear();
     creditValue.clear();
+  }
+
+  void buscarCliente(String value, bool focus) {
+    List<ClientsPendingInstallment> results = [];
+    if (value.isEmpty || !focus) {
+      results = _clients.value;
+      buscarClienteCtrl.clear();
+    } else {
+      results = _clients.value
+          .where(
+            (element) =>
+                element.nombres!.toLowerCase().contains(value.toLowerCase()) ||
+                element.apellidos!.toLowerCase().contains(value.toLowerCase()),
+          )
+          .toList();
+    }
+    filtroClientes.value = results;
   }
 
   bool get loading => _loading.value;
