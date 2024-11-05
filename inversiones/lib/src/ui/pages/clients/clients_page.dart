@@ -16,6 +16,7 @@ class ClientsPage extends StatelessWidget {
     return Scaffold(
       appBar: const AppBarCustom('Clientes'),
       body: ListView(
+        addRepaintBoundaries:false,
         children: [
           _formularioRegistrarCliente(context, controller),
           const ListaClientes(),
@@ -29,67 +30,73 @@ class ClientsPage extends StatelessWidget {
       Form(
         key: controller.formKey,
         child: CustomCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+          child: SizedBox(
+            height: General.mediaQuery(context).height * 0.4,
+            width: double.infinity,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextFieldBase(
-                    paddingHorizontal: 20,
-                    title: 'Cedula',
-                    controller: controller.document,
-                    textInputType: TextInputType.number,
-                    validateText: ValidateText.onlyNumbers,
+                  Row(
+                    children: [
+                      TextFieldBase(
+                        paddingHorizontal: 20,
+                        title: 'Cedula',
+                        controller: controller.document,
+                        textInputType: TextInputType.number,
+                        validateText: ValidateText.onlyNumbers,
+                      ),
+                      TextFieldBase(
+                        title: 'Celular',
+                        controller: controller.phoneNumber,
+                        textInputType: TextInputType.number,
+                        validateText: ValidateText.phoneNumber,
+                      ),
+                    ],
                   ),
-                  TextFieldBase(
-                    title: 'Celular',
-                    controller: controller.phoneNumber,
-                    textInputType: TextInputType.number,
-                    validateText: ValidateText.phoneNumber,
+                  Row(
+                    children: [
+                      TextFieldBase(
+                        textAlign: TextAlign.left,
+                        paddingHorizontal: 20,
+                        title: 'Nombres',
+                        controller: controller.name,
+                        textInputType: TextInputType.multiline,
+                        validateText: ValidateText.name,
+                      ),
+                      TextFieldBase(
+                        textAlign: TextAlign.left,
+                        title: 'Apellidos',
+                        controller: controller.lastname,
+                        textInputType: TextInputType.multiline,
+                        validateText: ValidateText.name,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: [
                   TextFieldBase(
                     textAlign: TextAlign.left,
                     paddingHorizontal: 20,
-                    title: 'Nombres',
-                    controller: controller.name,
-                    textInputType: TextInputType.multiline,
+                    title: 'Direccion',
+                    controller: controller.address,
+                    textInputType: TextInputType.text,
                     validateText: ValidateText.name,
+                    widthTextField: 0.83,
                   ),
                   TextFieldBase(
                     textAlign: TextAlign.left,
-                    title: 'Apellidos',
-                    controller: controller.lastname,
+                    paddingHorizontal: 20,
+                    required: false,
+                    title: 'Observaciones',
+                    controller: controller.observations,
                     textInputType: TextInputType.multiline,
-                    validateText: ValidateText.name,
+                    validateText: ValidateText.observations,
+                    widthTextField: 0.83,
+                    heightTextField: 0.13,
                   ),
+                  Obx(() => _botonRegistrarCliente(context, controller))
                 ],
               ),
-              TextFieldBase(
-                textAlign: TextAlign.left,
-                paddingHorizontal: 20,
-                title: 'Direccion',
-                controller: controller.address,
-                textInputType: TextInputType.text,
-                validateText: ValidateText.name,
-                widthTextField: 0.83,
-              ),
-              TextFieldBase(
-                textAlign: TextAlign.left,
-                paddingHorizontal: 20,
-                required: false,
-                title: 'Observaciones',
-                controller: controller.observations,
-                textInputType: TextInputType.multiline,
-                validateText: ValidateText.observations,
-                widthTextField: 0.83,
-                heightTextField: 0.13,
-              ),
-              Obx(() => _botonRegistrarCliente(context, controller))
-            ],
+            ),
           ),
         ),
       );
