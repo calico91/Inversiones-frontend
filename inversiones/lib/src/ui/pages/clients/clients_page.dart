@@ -13,10 +13,13 @@ class ClientsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ClientsController controller = Get.put(ClientsController());
+    print("render");
+    controller.asignartituloBotonRegistrarActualizarCliente();
+
     return Scaffold(
       appBar: const AppBarCustom('Clientes'),
       body: ListView(
-        addRepaintBoundaries:false,
+        addRepaintBoundaries: false,
         children: [
           _formularioRegistrarCliente(context, controller),
           const ListaClientes(),
@@ -110,19 +113,21 @@ class ClientsPage extends StatelessWidget {
         child: FilledButton.icon(
           onPressed: () {
             if (General.validateForm(controller.formKey)) {
-              if (controller.idClient.value == 0) {
-                controller.unfocus(context);
+              if (controller.registrarCliente.value) {
+                print("guardar");
                 controller.save();
+                controller.unfocus(context);
               } else {
+                print("actu");
                 controller.unfocus(context);
                 controller.updateClient();
               }
             }
           },
-          icon: controller.idClient.value == 0
+          icon: controller.registrarCliente.value
               ? const Icon(Icons.person_add)
               : const Icon(Icons.mode_edit_outline),
-          label: controller.idClient.value == 0
+          label: controller.registrarCliente.value
               ? const Text("Registrar")
               : const Text("Actualizar"),
         ),

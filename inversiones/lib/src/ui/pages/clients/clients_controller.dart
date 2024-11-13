@@ -7,11 +7,14 @@ import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
+import 'package:inversiones/src/ui/pages/navigation_bar/navigation_bar_controller.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 
 class ClientsController extends GetxController {
   final AppController appController = Get.find<AppController>();
+  final NavigationBarController navigationBarController =
+      Get.put(NavigationBarController());
 
   final TextEditingController name = TextEditingController();
   final TextEditingController lastname = TextEditingController();
@@ -25,7 +28,7 @@ class ClientsController extends GetxController {
   final Rx<List<Client>> clients = Rx<List<Client>>([]);
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
   final Rx<int> status = Rx<int>(0);
-
+  RxBool registrarCliente = true.obs;
 
   Future<void> allClients() async {
     Get.showOverlay(
@@ -57,8 +60,13 @@ class ClientsController extends GetxController {
       asyncFunction: () async {
         final List<Client> listaClienteLocal =
             await const SecureStorageLocal().listaClientes;
-
+print("entre a guardar");
         try {
+          print(address.text.trim());
+          print(name.text.trim());
+          print(lastname.text.trim());
+          print(document.text.trim());
+
           final AddClientResponse respuestaHTTP =
               await const ClientHttp().addClient(
             Client(
@@ -105,6 +113,7 @@ class ClientsController extends GetxController {
           if (res.status == 200) {
             _loadClientForm(res.client!);
             idClient(res.client!.id);
+            registrarCliente(false);
           } else {
             appController.manageError(res.message);
           }
@@ -139,6 +148,7 @@ class ClientsController extends GetxController {
             );
             _cleanForm();
             idClient(0);
+            registrarCliente(true);
           } else {
             appController.manageError(res.message);
           }
@@ -188,5 +198,16 @@ class ClientsController extends GetxController {
 
   void unfocus(BuildContext context) {
     FocusScope.of(context).unfocus();
+  }
+
+  void asignartituloBotonRegistrarActualizarCliente() {
+    if (navigationBarController.indexPage.value == 1) {
+      registrarCliente(true);
+      idClient.value == 0;
+      _cleanForm();
+    } else {
+      registrarCliente(false);
+      _cleanForm();
+    }
   }
 }
