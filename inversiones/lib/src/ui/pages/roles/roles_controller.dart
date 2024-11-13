@@ -88,7 +88,6 @@ class RolesController extends GetxController {
                 .map((permiso) =>
                     MultiSelectItem<Permiso>(permiso, permiso.descripcion))
                 .toList();
-                
           } on HttpException catch (e) {
             appController.manageError(e.message);
           } catch (e) {

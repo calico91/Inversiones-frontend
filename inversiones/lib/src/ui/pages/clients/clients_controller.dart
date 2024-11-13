@@ -82,7 +82,7 @@ class ClientsController extends GetxController {
             Get.showSnackbar(
               const InfoSnackbar('cliente creado correctamente'),
             );
-            _cleanForm();
+            cleanForm();
           } else {
             appController.manageError(respuestaHTTP.message);
           }
@@ -137,8 +137,8 @@ class ClientsController extends GetxController {
             Get.showSnackbar(
               const InfoSnackbar('cliente actualizado correctamente'),
             );
-            _cleanForm();
-            idClient(0);
+            cleanForm();
+            
           } else {
             appController.manageError(res.message);
           }
@@ -151,13 +151,14 @@ class ClientsController extends GetxController {
     );
   }
 
-  void _cleanForm() {
+  void cleanForm() {
     document.clear();
     lastname.clear();
     name.clear();
     phoneNumber.clear();
     observations.clear();
     address.clear();
+    idClient(0);
   }
 
   void _loadClientForm(Client client) {
