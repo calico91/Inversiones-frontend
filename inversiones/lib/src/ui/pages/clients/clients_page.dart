@@ -14,9 +14,10 @@ class ClientsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ClientsController controller = Get.put(ClientsController());
     return Scaffold(
-      appBar: const AppBarCustom('Clientes'),
+      appBar:
+          AppBarCustom('Clientes', actions: [limpiarFormulario(controller)]),
       body: ListView(
-        addRepaintBoundaries:false,
+        addRepaintBoundaries: false,
         children: [
           _formularioRegistrarCliente(context, controller),
           const ListaClientes(),
@@ -126,5 +127,11 @@ class ClientsPage extends StatelessWidget {
               ? const Text("Registrar")
               : const Text("Actualizar"),
         ),
+      );
+
+  Widget limpiarFormulario(ClientsController controller) => IconButton(
+        onPressed: () => controller.cleanForm(),
+        icon: const Icon(Icons.delete_sweep_sharp),
+        tooltip: "Limpiar Formulario",
       );
 }
