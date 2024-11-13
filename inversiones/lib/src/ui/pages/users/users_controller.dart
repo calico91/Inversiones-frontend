@@ -153,7 +153,7 @@ class UserController extends GetxController {
         });
   }
 
-    void reinicarContrasena(int id) {
+  void reinicarContrasena(int id) {
     Get.showOverlay(
         loadingWidget: CargandoAnimacion(),
         asyncFunction: () async {

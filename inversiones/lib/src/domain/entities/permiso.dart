@@ -4,12 +4,13 @@ class Permiso {
 
   final int id;
   final String descripcion;
-  final String endpoint;
+  final String? endpoint;
 
   factory Permiso.fromJson(Map<String, dynamic> json) => Permiso(
-      id: json['id'] as int,
-      descripcion: json['descripcion'] as String,
-      endpoint: json['endpoint'] as String);
+        id: json['id'] as int,
+        descripcion: json['descripcion'] as String,
+        endpoint: json['endpoint'] != null ? json['endpoint'] as String : null,
+      );
 
   Map<String, dynamic> toJson() {
     return {
