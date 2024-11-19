@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
       );
 
   Widget _mostrarCuotasPendientes(BuildContext context) => SizedBox(
-        height: General.mediaQuery(context).height * 0.45,
+        height: General.mediaQuery(context).height * 0.412,
         child: const CustomCard(child: ClientsPendingInstallmentsMolecule()),
       );
 }
