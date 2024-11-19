@@ -85,6 +85,7 @@ class HomePage extends StatelessWidget {
                 height: General.mediaQuery(context).height * 0.05,
                 width: General.mediaQuery(context).width * 0.1,
                 child: IconButton(
+                  tooltip: 'Consultar cuotas pendientes',
                   onPressed: () => controller.loadClientsPendingInstallments(
                     controller.fechafiltro.text,
                   ),
@@ -97,7 +98,7 @@ class HomePage extends StatelessWidget {
       );
 
   Widget _mostrarCuotasPendientes(BuildContext context) => SizedBox(
-        height: General.mediaQuery(context).height * 0.45,
+        height: General.mediaQuery(context).height * 0.412,
         child: const CustomCard(child: ClientsPendingInstallmentsMolecule()),
       );
 }

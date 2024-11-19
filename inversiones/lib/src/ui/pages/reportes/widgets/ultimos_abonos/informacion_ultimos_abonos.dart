@@ -41,7 +41,7 @@ class InformacionUltimosAbonos extends StatelessWidget {
           },
         ),
       ),
-      actions: [CloseButtonCustom()],
+      actions: const [CloseButtonCustom()],
     );
   }
 }

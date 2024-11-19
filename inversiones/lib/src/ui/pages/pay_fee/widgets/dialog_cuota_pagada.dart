@@ -101,7 +101,7 @@ class DialogCuotaPagada extends StatelessWidget {
           descripcion: 'Abono ${nombreCliente ?? ''}',
         ),
         HomeButton(),
-        if (mostrarBotonCerrar ?? true) CloseButtonCustom()
+        if (mostrarBotonCerrar ?? true) const CloseButtonCustom()
       ],
     );
   }

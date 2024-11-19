@@ -49,7 +49,7 @@ class DialogFechaCuotaModificada extends StatelessWidget {
             descripcion: 'Modificacion fecha pago',
           ),
           HomeButton(),
-          CloseButtonCustom()
+          const CloseButtonCustom()
         ]);
   }
 

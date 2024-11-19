@@ -47,6 +47,8 @@ class HomeController extends GetxService {
   Rx<List<ClientsPendingInstallment>> filtroClientes =
       Rx<List<ClientsPendingInstallment>>([]);
 
+  final Rx<bool> esMensual = true.obs;
+
   @override
   Future<void> onInit() async {
     userDetails(await const SecureStorageLocal().userDetails);
@@ -143,8 +145,12 @@ class HomeController extends GetxService {
 
   /// calcula el valor de la cuota a pagar
   String calculateCreditFee() {
-    final double interest = General.stringToDouble(creditValue.text) *
+    double interest = General.stringToDouble(creditValue.text) *
         (double.parse(interestPercentage.text) / 100);
+
+    if (!esMensual.value) {
+      interest = interest / 2;
+    }
 
     final double creditFee = General.stringToDouble(creditValue.text) /
             double.parse(installmentAmount.text) +
@@ -187,4 +193,7 @@ class HomeController extends GetxService {
 
   bool mostrarModulo(List<String> rol) =>
       userDetails.value.authorities!.any((elemento) => rol.contains(elemento));
+
+  /// cambia la modalidad
+  bool? cambiarModalidad(bool value) => esMensual.value = value;
 }
