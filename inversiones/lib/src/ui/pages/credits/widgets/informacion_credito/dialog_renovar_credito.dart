@@ -31,7 +31,7 @@ class DialogRenovarCredito extends StatelessWidget {
                   Row(children: [
                     TextFieldBase(
                         paddingHorizontal: 10,
-                        widthTextField: 0.32,
+                        widthTextField: 0.31,
                         title: 'Valor credito',
                         controller:
                             controller.valorCreditoRenovacion.controller,
@@ -39,7 +39,7 @@ class DialogRenovarCredito extends StatelessWidget {
                         validateText: ValidateText.creditValue),
                     Obx(() => TextFieldBase(
                         readOnly: true,
-                        widthTextField: 0.32,
+                        widthTextField: 0.31,
                         title: 'Valor a entregar',
                         controller: TextEditingController(
                             text: controller.valorEntregarResultado.value),
@@ -49,13 +49,13 @@ class DialogRenovarCredito extends StatelessWidget {
                   Row(children: [
                     TextFieldBase(
                         paddingHorizontal: 10,
-                        widthTextField: 0.32,
+                        widthTextField: 0.31,
                         title: 'Interes',
                         controller: controller.porcentajeInteres,
                         textInputType: TextInputType.number,
                         validateText: ValidateText.interestPercentage),
                     TextFieldBase(
-                        widthTextField: 0.32,
+                        widthTextField: 0.31,
                         title: 'Cantidad cuotas',
                         controller: controller.cantidadCuotas,
                         textInputType: TextInputType.number,
@@ -66,14 +66,14 @@ class DialogRenovarCredito extends StatelessWidget {
                         title: 'Fecha credito',
                         letterSize: 0.015,
                         paddingHorizontal: 10,
-                        widthTextField: 0.32,
+                        widthTextField: 0.31,
                         controller: controller.fechaCredito,
                         onTap: () async => controller.showCalendar(
                             context, controller.fechaCredito)),
                     TextFieldCalendar(
                         title: 'fecha cuota ',
                         letterSize: 0.015,
-                        widthTextField: 0.32,
+                        widthTextField: 0.31,
                         controller: controller.fechaCuota,
                         onTap: () async => controller.showCalendar(
                             context, controller.fechaCuota)),

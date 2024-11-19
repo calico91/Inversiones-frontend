@@ -72,7 +72,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
           descripcion: Constantes.INFORMACION_CREDITO_CREADO,
         ),
         HomeButton(),
-        if (!renovarCredito) CloseButtonCustom()
+        if (!renovarCredito) const CloseButtonCustom()
       ],
     );
   }

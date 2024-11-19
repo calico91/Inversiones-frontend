@@ -108,7 +108,9 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                 controllerCredits, context, true, info.id!, info.interesHoy!),
             _botonAbonarCapitalOInteres(
                 controllerCredits, context, false, info.id!, info.interesHoy!),
-            CloseButtonCustom()
+            CloseButtonCustom(
+              accion: () => _limpiarCampoAbonar(controllerCredits),
+            )
           ],
         ),
       ],
@@ -268,7 +270,7 @@ Object _modificarCredito(BuildContext context, CreditsController controller,
           ],
         ),
       ),
-      actions: [CloseButtonCustom()],
+      actions: const [CloseButtonCustom()],
     ),
   );
 }
@@ -360,3 +362,6 @@ Object _mostrarModalConfirmarSaldarCredito(
     ),
   );
 }
+
+void _limpiarCampoAbonar(CreditsController controller) =>
+    controller.abonar.clear();

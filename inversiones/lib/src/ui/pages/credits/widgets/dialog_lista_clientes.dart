@@ -46,7 +46,7 @@ class DialogListaClientes extends StatelessWidget {
           ],
         ),
       ),
-      actions: [CloseButtonCustom()],
+      actions: const [CloseButtonCustom()],
     );
   }
 }

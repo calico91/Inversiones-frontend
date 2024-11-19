@@ -61,7 +61,7 @@ class DialogAbonosRealizados extends StatelessWidget {
           screenshotController: screenshotController,
           descripcion: 'Abonos realizados',
         ),
-        CloseButtonCustom(),
+        const CloseButtonCustom(),
       ],
     );
   }

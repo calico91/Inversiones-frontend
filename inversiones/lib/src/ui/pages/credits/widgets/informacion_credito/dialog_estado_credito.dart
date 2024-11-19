@@ -16,7 +16,7 @@ class DialogEstadoCredito extends StatelessWidget {
         'Informacion estado credito',
       ),
       content: Text(info),
-      actions: [HomeButton(), CloseButtonCustom()],
+      actions: [HomeButton(), const CloseButtonCustom()],
     );
   }
 }
