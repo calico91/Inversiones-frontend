@@ -126,15 +126,20 @@ class CreditsController extends GetxController {
                   cantidadCuotas: int.parse(cantidadCuotas.text.trim()),
                   valorCredito: !renovarCredito
                       ? General.stringToDouble(valorCredito.text)
-                      : General.stringToDouble(
-                          valorCreditoRenovacion.text.value),
+                      : General
+                          .stringToDouble(valorCreditoRenovacion.text.value),
                   interesPorcentaje:
                       double.parse(porcentajeInteres.text.trim()),
                   fechaCredito: fechaCredito.text.trim(),
                   fechaCuota: fechaCuota.text.trim(),
-                  modalidad: modalidad.value
-                      ? Modalidad(id: Constantes.CODIGO_MODALIDAD_MENSUAL)
-                      : Modalidad(id: Constantes.CODIGO_MODALIDAD_QUINCENAL),
+                  modalidad: modalidad
+                          .value
+                      ? Modalidad(
+                          id: Constantes.CODIGO_MODALIDAD_MENSUAL,
+                          description: Constantes.MODALIDAD_MENSUAL)
+                      : Modalidad(
+                          id: Constantes.CODIGO_MODALIDAD_QUINCENAL,
+                          description: Constantes.MODALIDAD_QUINCENAL),
                   usuario: userDetails?.username ?? "",
                   idCliente: idClienteSeleccionado,
                   idCreditoActual: idCreditoSeleccionado,
