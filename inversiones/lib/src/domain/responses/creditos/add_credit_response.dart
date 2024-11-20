@@ -32,7 +32,7 @@ class DataCreditResponse {
   String? fechaPago;
   String? valorCredito;
   String? nombreCliente;
-
+  String? modalidad;
   DataCreditResponse({
     this.valorPrimerCuota,
     this.cantidadCuotas,
@@ -40,6 +40,7 @@ class DataCreditResponse {
     this.fechaPago,
     this.valorCredito,
     this.nombreCliente,
+    this.modalidad,
   });
 
   factory DataCreditResponse.fromJson(Map<String, dynamic> json) =>
@@ -50,5 +51,6 @@ class DataCreditResponse {
         fechaPago: json["fechaPago"] as String,
         valorCredito: json["valorCredito"] as String,
         nombreCliente: json["nombreCliente"] as String,
+        modalidad: json["modalidad"] as String,
       );
 }

@@ -44,12 +44,15 @@ class AddCreditRequest {
 
 class Modalidad {
   final int id;
+  final String? description;
 
   Modalidad({
     required this.id,
+    this.description,
   });
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "description": description,
       };
 }

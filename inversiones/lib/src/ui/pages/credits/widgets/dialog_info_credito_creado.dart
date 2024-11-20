@@ -35,31 +35,28 @@ class DialogInfoCreditoCreado extends StatelessWidget {
             child: CustomCard(
               child: Column(
                 children: [
-                  _showInfoCredito('Nombre cliente', info!.nombreCliente!,context),
-                  _showInfoCredito('Fecha pago', info!.fechaPago!,context),
                   _showInfoCredito(
-                    'Valor credito',
-                    General.formatoMoneda(
-                      double.parse(info!.valorCredito!),
-                    ),context
-                  ),
+                      'Nombre cliente', info!.nombreCliente!, context),
+                  _showInfoCredito('Modalidad', info!.modalidad!, context),
+                  _showInfoCredito('Fecha pago', info!.fechaPago!, context),
                   _showInfoCredito(
-                    'Valor cuotas',
-                    General.formatoMoneda(double.parse(info!.valorCuotas!)),
-                    context
-                  ),
+                      'Valor credito',
+                      General.formatoMoneda(
+                        double.parse(info!.valorCredito!),
+                      ),
+                      context),
                   _showInfoCredito(
-                    'Cantidad cuotas',
-                    info!.cantidadCuotas!,
-                    context
-                  ),
+                      'Valor cuotas',
+                      General.formatoMoneda(double.parse(info!.valorCuotas!)),
+                      context),
                   _showInfoCredito(
-                    'Valor primer cuota',
-                    General.formatoMoneda(
-                      double.parse(info!.valorPrimerCuota!),
-                    ),
-                    context
-                  ),
+                      'Cantidad cuotas', info!.cantidadCuotas!, context),
+                  _showInfoCredito(
+                      'Valor primer cuota',
+                      General.formatoMoneda(
+                        double.parse(info!.valorPrimerCuota!),
+                      ),
+                      context),
                 ],
               ),
             ),
@@ -87,7 +84,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
         Text('$title:', textAlign: TextAlign.left),
         Expanded(child: Container()),
         SizedBox(
-          width: General.mediaQuery(context).width *0.21,
+          width: General.mediaQuery(context).width * 0.21,
           child: Text(
             maxLines: 2,
             info,
