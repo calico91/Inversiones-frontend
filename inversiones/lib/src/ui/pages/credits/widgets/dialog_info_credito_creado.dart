@@ -27,7 +27,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.16,
+        height: General.mediaQuery(context).height * 0.175,
         child: Screenshot(
           controller: screenshotController,
           child: ColoredBox(
@@ -35,9 +35,10 @@ class DialogInfoCreditoCreado extends StatelessWidget {
             child: CustomCard(
               child: Column(
                 children: [
-                  _showInfoCredito(
-                      'Nombre cliente', info!.nombreCliente!, context),
+                  _mostrarNombreCliente(),
                   _showInfoCredito('Modalidad', info!.modalidad!, context),
+                  _showInfoCredito(
+                      'Cantidad cuotas', info!.cantidadCuotas!, context),
                   _showInfoCredito('Fecha pago', info!.fechaPago!, context),
                   _showInfoCredito(
                       'Valor credito',
@@ -49,8 +50,6 @@ class DialogInfoCreditoCreado extends StatelessWidget {
                       'Valor cuotas',
                       General.formatoMoneda(double.parse(info!.valorCuotas!)),
                       context),
-                  _showInfoCredito(
-                      'Cantidad cuotas', info!.cantidadCuotas!, context),
                   _showInfoCredito(
                       'Valor primer cuota',
                       General.formatoMoneda(
@@ -79,19 +78,31 @@ class DialogInfoCreditoCreado extends StatelessWidget {
     String info,
     BuildContext context,
   ) {
-    return Row(
+    return Column(
       children: [
-        Text('$title:', textAlign: TextAlign.left),
-        Expanded(child: Container()),
         SizedBox(
-          width: General.mediaQuery(context).width * 0.21,
-          child: Text(
-            maxLines: 2,
-            info,
-            textAlign: TextAlign.right,
-          ),
+          height: General.mediaQuery(context).height * 0.003,
+        ),
+        Row(
+          children: [
+            Text('$title:', textAlign: TextAlign.left),
+            Expanded(child: Container()),
+            SizedBox(
+              width: General.mediaQuery(context).width * 0.21,
+              child: Text(
+                maxLines: 2,
+                info,
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ],
         ),
       ],
     );
   }
+
+  Widget _mostrarNombreCliente() => Text(
+      textAlign: TextAlign.center,
+      info!.nombreCliente!,
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16));
 }
