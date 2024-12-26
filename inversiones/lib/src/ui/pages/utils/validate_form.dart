@@ -42,10 +42,10 @@ class ValidateForm {
       case ValidateText.creditValue:
         return [
           FilteringTextInputFormatter.digitsOnly,
-          CurrencyTextInputFormatter(
-            symbol: '',
-            decimalDigits: 0,
-          ),
+          CurrencyTextInputFormatter.currency(
+            symbol:'',
+            decimalDigits: 0, 
+          )
         ];
       case ValidateText.installmentAmount:
         return [FilteringTextInputFormatter.digitsOnly];
