@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:inversiones/src/app_controller.dart';
 import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
@@ -9,6 +10,7 @@ import 'package:inversiones/src/domain/responses/clientes/add_client_response.da
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 class ClientsController extends GetxController {
   final AppController appController = Get.find<AppController>();
@@ -26,6 +28,17 @@ class ClientsController extends GetxController {
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
   final Rx<int> status = Rx<int>(0);
 
+  late MultiImagePickerController multiImagePickerController;
+
+  @override
+  void onInit() {
+    super.onInit();
+    multiImagePickerController =
+        MultiImagePickerController(picker: (bool allowMultiple) async {
+      final pickedImages = await pickImages(allowMultiple);
+      return pickedImages.map((e) => convertToImageFile(e)).toList();
+    });
+  }
 
   Future<void> allClients() async {
     Get.showOverlay(
@@ -138,7 +151,6 @@ class ClientsController extends GetxController {
               const InfoSnackbar('cliente actualizado correctamente'),
             );
             cleanForm();
-            
           } else {
             appController.manageError(res.message);
           }
@@ -189,5 +201,29 @@ class ClientsController extends GetxController {
 
   void unfocus(BuildContext context) {
     FocusScope.of(context).unfocus();
+  }
+
+  Future<List<XFile>> pickImages(bool allowMultiple) async {
+    final ImagePicker picker = ImagePicker();
+    List<XFile>? pickedFiles;
+    if (allowMultiple) {
+      pickedFiles = await picker.pickMultiImage();
+    } else {
+      final XFile? singleFile =
+          await picker.pickImage(source: ImageSource.gallery);
+      if (singleFile != null) {
+        pickedFiles = [singleFile];
+      }
+    }
+    return pickedFiles ?? [];
+  }
+
+  ImageFile convertToImageFile(XFile file) {
+    return ImageFile(
+      file.path, // Argumento posicional requerido
+      path: file.path,
+      name: file.name,
+      extension: file.path.split('.').last, // Extrae la extensión del archivo
+    );
   }
 }
