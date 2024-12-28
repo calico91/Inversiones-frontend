@@ -101,7 +101,7 @@ class ClientsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Obx(() => _botonRegistrarCliente(context, controller)),
-                      _mostrarImagenes(context, controller)
+                      _seleccionarImagenes(context, controller)
                     ],
                   )
                 ],
@@ -139,18 +139,29 @@ class ClientsPage extends StatelessWidget {
         tooltip: "Limpiar Formulario",
       );
 
-  Widget _mostrarImagenes(BuildContext context, ClientsController controller) =>
+  Widget _seleccionarImagenes(
+          BuildContext context, ClientsController controller) =>
       FilledButton.icon(
-          onPressed: () => showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context) {
-                return MultiImagePickerView(
-                    initialWidget: const DefaultInitialWidget(
-                        centerWidget: FaIcon(FontAwesomeIcons.image,
-                            color: Colors.white)),
-                    controller: controller.multiImagePickerController,
-                    padding: const EdgeInsets.all(10));
-              }),
-          label: const Text("Seleccione imagenes"),
-          icon: const FaIcon(FontAwesomeIcons.image, color: Colors.white));
+        label: const Text("Seleccione imágenes"),
+        icon: const FaIcon(FontAwesomeIcons.image, color: Colors.white),
+        onPressed: () => showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: SizedBox(
+                height: General.mediaQuery(context).height * 0.6,
+                child: MultiImagePickerView(
+                  initialWidget: const DefaultInitialWidget(
+                    backgroundColor: Colors.white,
+                    centerWidget:
+                        FaIcon(FontAwesomeIcons.image, color: Colors.blue),
+                  ),
+                  controller: controller.multiImagePickerController.value,
+                  padding: const EdgeInsets.all(10),
+                ),
+              ),
+            );
+          },
+        ),
+      );
 }

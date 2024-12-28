@@ -28,16 +28,18 @@ class ClientsController extends GetxController {
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
   final Rx<int> status = Rx<int>(0);
 
-  late MultiImagePickerController multiImagePickerController;
+  late Rx<MultiImagePickerController> multiImagePickerController;
 
   @override
   void onInit() {
     super.onInit();
     multiImagePickerController =
-        MultiImagePickerController(picker: (bool allowMultiple) async {
+        Rx(MultiImagePickerController(
+          maxImages: 6,
+          picker: (bool allowMultiple) async {
       final pickedImages = await pickImages(allowMultiple);
       return pickedImages.map((e) => convertToImageFile(e)).toList();
-    });
+    }));
   }
 
   Future<void> allClients() async {
@@ -226,4 +228,5 @@ class ClientsController extends GetxController {
       extension: file.path.split('.').last, // Extrae la extensión del archivo
     );
   }
+  
 }
