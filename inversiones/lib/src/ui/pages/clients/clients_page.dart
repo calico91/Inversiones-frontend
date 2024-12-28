@@ -142,26 +142,36 @@ class ClientsPage extends StatelessWidget {
   Widget _seleccionarImagenes(
           BuildContext context, ClientsController controller) =>
       FilledButton.icon(
-        label: const Text("Seleccione imágenes"),
+        label: const Text("Seleccionar imágenes"),
         icon: const FaIcon(FontAwesomeIcons.image, color: Colors.white),
-        onPressed: () => showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return Dialog(
-              child: SizedBox(
-                height: General.mediaQuery(context).height * 0.6,
-                child: MultiImagePickerView(
-                  initialWidget: const DefaultInitialWidget(
-                    backgroundColor: Colors.white,
-                    centerWidget:
-                        FaIcon(FontAwesomeIcons.image, color: Colors.blue),
+        onPressed: () async {
+          // si no ah seleccionado imagenes, se abre para que seleeccione
+          if (controller.multiImagePickerController.value.images.isEmpty) {
+            await controller.multiImagePickerController.value.pickImages();
+          }
+          // si abre el selector de imagenes pero no selecciona ninguna, no muestra este modal
+          if (controller.multiImagePickerController.value.images.isNotEmpty) {
+            // ignore: use_build_context_synchronously
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(
+                  child: SizedBox(
+                    height: General.mediaQuery(context).height * 0.6,
+                    child: MultiImagePickerView(
+                      initialWidget: const DefaultInitialWidget(
+                        backgroundColor: Colors.white,
+                        centerWidget:
+                            FaIcon(FontAwesomeIcons.circlePlus, color: Colors.blue, size: 30,),
+                      ),
+                      controller: controller.multiImagePickerController.value,
+                      padding: const EdgeInsets.all(10),
+                    ),
                   ),
-                  controller: controller.multiImagePickerController.value,
-                  padding: const EdgeInsets.all(10),
-                ),
-              ),
+                );
+              },
             );
-          },
-        ),
+          }
+        },
       );
 }
