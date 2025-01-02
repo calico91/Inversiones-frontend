@@ -71,18 +71,18 @@ class ClientsController extends GetxController {
       asyncFunction: () async {
         final List<Client> listaClienteLocal =
             await const SecureStorageLocal().listaClientes;
-
+      
         try {
           final AddClientResponse respuestaHTTP =
               await const ClientHttp().addClient(
             Client(
-              observaciones: observations.text.trim(),
-              direccion: address.text.trim(),
-              nombres: name.text.trim(),
-              apellidos: lastname.text.trim(),
-              celular: phoneNumber.text.trim(),
-              cedula: document.text.trim(),
-            ),
+                observaciones: observations.text.trim(),
+                direccion: address.text.trim(),
+                nombres: name.text.trim(),
+                apellidos: lastname.text.trim(),
+                celular: phoneNumber.text.trim(),
+                cedula: document.text.trim(),
+                imagenes: multiImagePickerController.value.images),
           );
           if (respuestaHTTP.status == 200) {
             filtroClientes.value.insert(0, respuestaHTTP.client!);
