@@ -33,13 +33,12 @@ class ClientsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    multiImagePickerController =
-        Rx(MultiImagePickerController(
-          maxImages: 6,
-          picker: (bool allowMultiple) async {
-      final pickedImages = await pickImages(allowMultiple);
-      return pickedImages.map((e) => convertToImageFile(e)).toList();
-    }));
+    multiImagePickerController = Rx(MultiImagePickerController(
+        maxImages: 6,
+        picker: (bool allowMultiple) async {
+          final pickedImages = await pickImages(allowMultiple);
+          return pickedImages.map((e) => convertToImageFile(e)).toList();
+        }));
   }
 
   Future<void> allClients() async {
@@ -173,6 +172,7 @@ class ClientsController extends GetxController {
     observations.clear();
     address.clear();
     idClient(0);
+    multiImagePickerController.value.clearImages();
   }
 
   void _loadClientForm(Client client) {
@@ -228,5 +228,4 @@ class ClientsController extends GetxController {
       extension: file.path.split('.').last, // Extrae la extensión del archivo
     );
   }
-  
 }

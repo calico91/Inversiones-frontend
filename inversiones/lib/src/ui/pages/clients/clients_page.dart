@@ -35,7 +35,7 @@ class ClientsPage extends StatelessWidget {
         key: controller.formKey,
         child: CustomCard(
           child: SizedBox(
-            height: General.mediaQuery(context).height * 0.4,
+            height: General.mediaQuery(context).height * 0.55,
             width: double.infinity,
             child: SingleChildScrollView(
               child: Column(
@@ -142,7 +142,7 @@ class ClientsPage extends StatelessWidget {
   Widget _seleccionarImagenes(
           BuildContext context, ClientsController controller) =>
       FilledButton.icon(
-        label: const Text("Seleccionar imágenes"),
+        label: const Text("Cargar imágenes"),
         icon: const FaIcon(FontAwesomeIcons.image, color: Colors.white),
         onPressed: () async {
           // si no ah seleccionado imagenes, se abre para que seleeccione
@@ -159,14 +159,12 @@ class ClientsPage extends StatelessWidget {
                   child: SizedBox(
                     height: General.mediaQuery(context).height * 0.6,
                     child: MultiImagePickerView(
-                      initialWidget: const DefaultInitialWidget(
-                        backgroundColor: Colors.white,
-                        centerWidget:
-                            FaIcon(FontAwesomeIcons.circlePlus, color: Colors.blue, size: 30,),
-                      ),
-                      controller: controller.multiImagePickerController.value,
-                      padding: const EdgeInsets.all(10),
-                    ),
+                        initialWidget: const DefaultInitialWidget(
+                            backgroundColor: Colors.white,
+                            centerWidget: FaIcon(FontAwesomeIcons.circlePlus,
+                                color: Colors.blue, size: 30)),
+                        controller: controller.multiImagePickerController.value,
+                        padding: const EdgeInsets.all(10)),
                   ),
                 );
               },

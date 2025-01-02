@@ -22,7 +22,7 @@ class ListaClientes extends StatelessWidget {
                   style: TextStyle(fontSize: 18),
                 ),
                 SizedBox(
-                  height: General.mediaQuery(context).height * 0.35,
+                  height: General.mediaQuery(context).height * 0.2,
                   width: General.mediaQuery(context).width * 0.6,
                   child: Image.asset(
                     'assets/clientes/cargar_clientes2.png',
