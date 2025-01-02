@@ -10,4 +10,5 @@ enum ValidateText {
   name,
   observations,
   date,
+  document,
 }
