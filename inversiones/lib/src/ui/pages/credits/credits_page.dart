@@ -34,7 +34,6 @@ class CreditsPage extends StatelessWidget {
         child: Form(
           key: controller.formKey,
           child: SizedBox(
-              height: General.mediaQuery(context).height * 0.4,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

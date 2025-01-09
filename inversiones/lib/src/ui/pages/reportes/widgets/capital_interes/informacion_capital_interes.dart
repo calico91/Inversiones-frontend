@@ -15,7 +15,6 @@ class InformacionCapitalInteres extends StatelessWidget {
       elevation: 10,
       title: const Text('Información de ingresos'),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.24,
         child: Column(
           children: [
             _divider(),
