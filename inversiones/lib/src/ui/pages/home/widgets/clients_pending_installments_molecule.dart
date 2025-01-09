@@ -79,15 +79,17 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
   Widget _showClientTitle(HomeController controller, int index, Size size) =>
       Row(children: [
         SizedBox(
-            width: size.width * 0.49,
+            width: size.width * 0.5,
             child: Text(
               overflow: TextOverflow.ellipsis,
               "${controller.filtroClientes.value[index].idCredito}.${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}",
             )),
+        Expanded(child: Container()),
         SizedBox(
-            width: size.width * 0.35,
+            width: size.width * 0.31,
             child: Text(
               textAlign: TextAlign.right,
+              overflow: TextOverflow.ellipsis,
               controller.filtroClientes.value[index].cedula!,
             ))
       ]);

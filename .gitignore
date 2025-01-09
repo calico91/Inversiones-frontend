@@ -6,3 +6,6 @@ inversiones/macos/Flutter/GeneratedPluginRegistrant.swift
 inversiones/windows/flutter/generated_plugin_registrant.cc
 inversiones/windows/flutter/generated_plugin_registrant.h
 inversiones/windows/flutter/generated_plugins.cmake
+*.cc
+*.cmake
+*.swift
