@@ -36,9 +36,6 @@ class DialogCuotaPagada extends StatelessWidget {
         'Informacion abono',
       ),
       content: SizedBox(
-        height: mostrarCampo
-            ? General.mediaQuery(context).height * 0.17
-            : General.mediaQuery(context).height * 0.12,
         child: Screenshot(
           controller: screenshotController,
           child: ColoredBox(

@@ -28,7 +28,7 @@ class ListaCreditosActivos extends StatelessWidget {
                   child: Image.asset(
                     'assets/cargar_credito.png',
                     width: double.infinity,
-                    height: General.mediaQuery(context).height * 0.35,
+                    height: double.infinity,
                   ),
                 ),
               ],

@@ -32,76 +32,78 @@ class InfoCreditoSaldoModal extends StatelessWidget {
       scrollable: true,
       actionsPadding: EdgeInsets.zero,
       title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(Constantes.INFORMACION_CREDITO, textAlign: TextAlign.center),
-          SizedBox(
-            width: General.mediaQuery(context).width * 0.1,
-            child: _editarCreditoBoton(
-                context, controllerCredits, idCredito, info.fechaCuota!),
+          Expanded(
+              child: Text(Constantes.INFORMACION_CREDITO,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis)),
+          _editarCreditoBoton(
+              context, controllerCredits, idCredito, info.fechaCuota!),
+          ShareButton(
+            screenshotController: screenshotController,
+            descripcion: Constantes.INFORMACION_CREDITO,
           ),
-          SizedBox(
-            width: General.mediaQuery(context).width * 0.1,
-            child: ShareButton(
-                screenshotController: screenshotController,
-                descripcion: Constantes.INFORMACION_CREDITO),
-          )
         ],
       ),
       content: SizedBox(
         height: General.mediaQuery(context).height * 0.49,
-        child: Column(
-          children: [
-            Screenshot(
-              controller: screenshotController,
-              child: ColoredBox(
-                color: Colors.white,
-                child: CustomCard(
-                  child: Column(
-                    children: [
-                      Text(
-                          textAlign: TextAlign.center,
-                          controllerCredits.nombreClienteSeleccionado!,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16)),
-                      _showInfoCredito('Modalidad', info.modalidad!),
-                      _showInfoCredito(
-                          'Numero cuotas', info.numeroCuotas!.toString()),
-                      _showInfoCredito(
-                          'Cuotas pagadas', (info.cuotaNumero!).toString()),
-                      _showInfoCredito(
-                          'Interes', '${info.interesPorcentaje!}%'),
-                      _showInfoCredito('Fecha credito', info.fechaCredito!),
-                      _showInfoCredito('Fecha cuota', info.fechaCuota!),
-                      _showInfoCredito(
-                          'Ultima pagada', info.ultimaCuotaPagada!),
-                      _showInfoCredito('Valor credito',
-                          General.formatoMoneda(info.valorCredito)),
-                      _showInfoCredito('Interes mes',
-                          General.formatoMoneda(info.valorInteres)),
-                      _showInfoCredito('Interes a hoy',
-                          General.formatoMoneda(info.interesHoy)),
-                      _showInfoCredito('Valor por Mora',
-                          General.formatoMoneda(info.interesMora)),
-                      _showInfoCredito('Valor cuota',
-                          General.formatoMoneda(info.valorCuota)),
-                      _showInfoCredito('Capital pagado',
-                          General.formatoMoneda(info.capitalPagado)),
-                      _showInfoCredito('Saldo credito',
-                          General.formatoMoneda(info.saldoCredito)),
-                    ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Screenshot(
+                controller: screenshotController,
+                child: ColoredBox(
+                  color: Colors.white,
+                  child: CustomCard(
+                    child: Column(
+                      children: [
+                        Text(
+                            textAlign: TextAlign.center,
+                            controllerCredits.nombreClienteSeleccionado!,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16)),
+                        _showInfoCredito('Modalidad', info.modalidad!),
+                        _showInfoCredito(
+                            'Numero cuotas', info.numeroCuotas!.toString()),
+                        _showInfoCredito(
+                            'Cuotas pagadas', (info.cuotaNumero!).toString()),
+                        _showInfoCredito(
+                            'Interes', '${info.interesPorcentaje!}%'),
+                        _showInfoCredito('Fecha credito', info.fechaCredito!),
+                        _showInfoCredito('Fecha cuota', info.fechaCuota!),
+                        _showInfoCredito(
+                            'Ultima pagada', info.ultimaCuotaPagada!),
+                        _showInfoCredito('Valor credito',
+                            General.formatoMoneda(info.valorCredito)),
+                        _showInfoCredito('Interes mes',
+                            General.formatoMoneda(info.valorInteres)),
+                        _showInfoCredito('Interes a hoy',
+                            General.formatoMoneda(info.interesHoy)),
+                        _showInfoCredito('Valor por Mora',
+                            General.formatoMoneda(info.interesMora)),
+                        _showInfoCredito('Valor cuota',
+                            General.formatoMoneda(info.valorCuota)),
+                        _showInfoCredito('Capital pagado',
+                            General.formatoMoneda(info.capitalPagado)),
+                        _showInfoCredito('Saldo credito',
+                            General.formatoMoneda(info.saldoCredito)),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Form(
-              key: controllerCredits.formKeyAbonoCapital,
-              child: TextFieldBase(
-                  title: 'Abonar',
-                  controller: controllerCredits.abonar,
-                  textInputType: TextInputType.number,
-                  validateText: ValidateText.creditValue),
-            ),
-          ],
+              Form(
+                key: controllerCredits.formKeyAbonoCapital,
+                child: TextFieldBase(
+                    title: 'Abonar',
+                    controller: controllerCredits.abonar,
+                    textInputType: TextInputType.number,
+                    validateText: ValidateText.creditValue),
+              ),
+            ],
+          ),
         ),
       ),
       actions: [
@@ -198,85 +200,98 @@ Object _modificarCredito(BuildContext context, CreditsController controller,
       title: const Center(child: Text('Editar credito')),
       content: SizedBox(
         height: General.mediaQuery(context).height * 0.2,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                TextFieldCalendar(
-                  title: 'Nueva fecha cuota',
-                  paddingHorizontal: 20,
-                  controller: controller.nuevaFechaCuota,
-                  onTap: () async => controller.showCalendar(
-                      context,
-                      controller.nuevaFechaCuota,
-                      DateTime.parse(fechaCuota),
-                      DateTime.parse(fechaCuota)),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: General.mediaQuery(context).height * 0.03),
-                  child: botonAccionEditarCredito(context,
-                      () => controller.modificarFechaCuota(idCredito, context)),
-                ),
-              ],
-            ),
-            SizedBox(height: General.mediaQuery(context).height * 0.02),
-
-            /// estado de credito
-            Column(
-              children: [
-                Row(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
                   children: [
-                    Obx(
-                      () => Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                General.mediaQuery(context).width * 0.05),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Estado credito'),
-                            SizedBox(
-                              width: General.mediaQuery(context).width * 0.39,
-                              height: General.mediaQuery(context).width * 0.1,
-                              child: DropdownButton<String>(
-                                isExpanded: true,
-                                items: estadosCredito
-                                    .map((key, value) {
-                                      return MapEntry(
-                                        key,
-                                        DropdownMenuItem<String>(
-                                          value: key,
-                                          child: Text(value),
-                                        ),
-                                      );
-                                    })
-                                    .values
-                                    .toList(),
-                                value:
-                                    controller.estadoCredito.value.toString(),
-                                onChanged: (String? newValue) {
-                                  if (newValue != null) {
-                                    controller.estadoCredito.value =
-                                        int.parse(newValue);
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    TextFieldCalendar(
+                      title: 'Nueva fecha cuota',
+                      paddingHorizontal: 20,
+                      controller: controller.nuevaFechaCuota,
+                      onTap: () async => controller.showCalendar(
+                          context,
+                          controller.nuevaFechaCuota,
+                          DateTime.parse(fechaCuota),
+                          DateTime.parse(fechaCuota)),
                     ),
-                    botonAccionEditarCredito(
-                      context,
-                      () => controller.modificarEstadoCredito(
-                          idCredito, controller.estadoCredito.value, context),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: General.mediaQuery(context).height * 0.03),
+                      child: botonAccionEditarCredito(
+                          context,
+                          () => controller.modificarFechaCuota(
+                              idCredito, context)),
                     ),
                   ],
                 ),
-              ],
-            ),
-          ],
+              ),
+              SizedBox(height: General.mediaQuery(context).height * 0.02),
+
+              /// estado de credito
+              Column(
+                children: [
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Obx(
+                          () => Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    General.mediaQuery(context).width * 0.05),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('Estado credito'),
+                                SizedBox(
+                                  width:
+                                      General.mediaQuery(context).width * 0.39,
+                                  height:
+                                      General.mediaQuery(context).width * 0.1,
+                                  child: DropdownButton<String>(
+                                    isExpanded: true,
+                                    items: estadosCredito
+                                        .map((key, value) {
+                                          return MapEntry(
+                                            key,
+                                            DropdownMenuItem<String>(
+                                              value: key,
+                                              child: Text(value),
+                                            ),
+                                          );
+                                        })
+                                        .values
+                                        .toList(),
+                                    value: controller.estadoCredito.value
+                                        .toString(),
+                                    onChanged: (String? newValue) {
+                                      if (newValue != null) {
+                                        controller.estadoCredito.value =
+                                            int.parse(newValue);
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        botonAccionEditarCredito(
+                          context,
+                          () => controller.modificarEstadoCredito(idCredito,
+                              controller.estadoCredito.value, context),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       actions: const [CloseButtonCustom()],

@@ -67,65 +67,55 @@ class DialogAbonosRealizados extends StatelessWidget {
 
   ///titulo que se muestra informacion clientes
   Widget _showClientTitle(
-    List<AbonosRealizados> abonosRealizados,
-    int index,
-    Size size,
-  ) {
-    return Row(
-      children: [
-        SizedBox(
-          width: size.width * 0.28,
-          child: Column(
-            children: [
-              const Text(
-                overflow: TextOverflow.ellipsis,
-                'Valor abono',
-              ),
-              Text(
-                overflow: TextOverflow.ellipsis,
-                General.formatoMoneda(abonosRealizados[index].valorAbonado),
-              ),
-            ],
+          List<AbonosRealizados> abonosRealizados, int index, Size size) =>
+      Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Valor abono',
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  General.formatoMoneda(abonosRealizados[index].valorAbonado),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          width: size.width * 0.28,
-          child: Column(
-            children: [
-              const Text(
-                'Fecha abono',
-              ),
-              Text(
-                abonosRealizados[index].fechaAbono!,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Fecha abono'),
+                Text(
+                  abonosRealizados[index].fechaAbono!,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
 
   Widget _showClientSubtitle(
-    List<AbonosRealizados> abonosRealizados,
-    int index,
-    Size size,
-  ) {
+      List<AbonosRealizados> abonosRealizados, int index, Size size) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          width: size.width * 0.28,
+        Expanded(
           child: Text(
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.ellipsis,
             validarTipoAbono(abonosRealizados[index].tipoAbono!.toUpperCase()),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
-        Expanded(child: Container()),
-        SizedBox(
-          width: size.width * 0.28,
+        SizedBox(width: size.width * 0.02),
+        Expanded(
           child: Text(
+            "Cuota número: ${abonosRealizados[index].cuotaNumero}",
             overflow: TextOverflow.ellipsis,
-            "Cuota numero: ${abonosRealizados[index].cuotaNumero}",
           ),
         ),
       ],
