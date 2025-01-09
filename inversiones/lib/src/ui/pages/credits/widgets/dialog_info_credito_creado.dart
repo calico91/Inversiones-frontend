@@ -27,7 +27,6 @@ class DialogInfoCreditoCreado extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.175,
         child: Screenshot(
           controller: screenshotController,
           child: ColoredBox(

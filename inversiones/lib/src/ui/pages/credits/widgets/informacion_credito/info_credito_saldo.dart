@@ -34,11 +34,17 @@ class InfoCreditoSaldoModal extends StatelessWidget {
       title: Row(
         children: [
           Text(Constantes.INFORMACION_CREDITO, textAlign: TextAlign.center),
-          _editarCreditoBoton(
-              context, controllerCredits, idCredito, info.fechaCuota!),
-          ShareButton(
-              screenshotController: screenshotController,
-              descripcion: Constantes.INFORMACION_CREDITO)
+          SizedBox(
+            width: General.mediaQuery(context).width * 0.1,
+            child: _editarCreditoBoton(
+                context, controllerCredits, idCredito, info.fechaCuota!),
+          ),
+          SizedBox(
+            width: General.mediaQuery(context).width * 0.1,
+            child: ShareButton(
+                screenshotController: screenshotController,
+                descripcion: Constantes.INFORMACION_CREDITO),
+          )
         ],
       ),
       content: SizedBox(
@@ -207,8 +213,11 @@ Object _modificarCredito(BuildContext context, CreditsController controller,
                       DateTime.parse(fechaCuota),
                       DateTime.parse(fechaCuota)),
                 ),
-                botonAccionEditarCredito(context,
-                    () => controller.modificarFechaCuota(idCredito, context)),
+                Padding(
+                  padding: EdgeInsets.only(top: General.mediaQuery(context).height * 0.03),
+                  child: botonAccionEditarCredito(context,
+                      () => controller.modificarFechaCuota(idCredito, context)),
+                ),
               ],
             ),
             SizedBox(height: General.mediaQuery(context).height * 0.02),
@@ -276,15 +285,12 @@ Object _modificarCredito(BuildContext context, CreditsController controller,
 }
 
 Widget botonAccionEditarCredito(BuildContext context, VoidCallback accion) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 15, right: 20),
-    child: IconButton(
-      iconSize: 40,
-      onPressed: accion,
-      icon: const Icon(
-        Icons.arrow_circle_right_rounded,
-        color: Colors.blue,
-      ),
+  return IconButton(
+    iconSize: 40,
+    onPressed: accion,
+    icon: const Icon(
+      Icons.arrow_circle_right_rounded,
+      color: Colors.blue,
     ),
   );
 }
