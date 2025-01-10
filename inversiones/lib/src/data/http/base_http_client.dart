@@ -7,6 +7,7 @@ import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 class BaseHttpClient {
   const BaseHttpClient(
@@ -121,6 +122,45 @@ class BaseHttpClient {
           response.request?.url.toString() ?? uri.toString(),
           // ignore: avoid_dynamic_calls
           message['message'].toString());
+    } on SocketException {
+      throw FetchDataException(
+          Constantes.ERROR_INTERNET_SERVIDOR, uri.toString());
+    } on TimeoutException {
+      throw ApiNotRespondingException(
+          'Error de comunicación, intente nuevamente.', uri.toString());
+    }
+  }
+
+  Future<http.Response> postMultipart(String path, Map<String, String> fields,
+      Iterable<ImageFile>? imagenes) async {
+    final String url = await secureStorageLocal.urlServidor ?? '';
+    final Uri uri = Uri.http(url, path);
+    try {
+      final String? token = await secureStorageLocal.jwtToken;
+      final request = http.MultipartRequest('POST', uri);
+      fields.forEach((key, value) {
+        request.fields[key] = value;
+      });
+      if (imagenes != null && imagenes.isNotEmpty) {
+        for (final file in imagenes) {
+          request.files
+              .add(await http.MultipartFile.fromPath('imagenes', file.path!));
+        }
+      }
+      request.headers[HttpHeaders.authorizationHeader] = token ?? '';
+      final streamedResponse = await request.send().timeout(timeout);
+      final response = await http.Response.fromStream(streamedResponse);
+      if (response.statusCode == 200) {
+        return Future.value(response);
+      } else {
+        final message = jsonDecode(response.body);
+        throw _processResponse(
+          response.statusCode,
+          response.request?.url.toString() ?? uri.toString(),
+          // ignore: avoid_dynamic_calls
+          message['message'].toString(),
+        );
+      }
     } on SocketException {
       throw FetchDataException(
           Constantes.ERROR_INTERNET_SERVIDOR, uri.toString());

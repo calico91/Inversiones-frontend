@@ -15,7 +15,6 @@ class ModalCambiarContrasena extends StatelessWidget {
         actionsPadding: EdgeInsets.zero,
         title: const Text('Cambiar contraseña', textAlign: TextAlign.center),
         content: SizedBox(
-          height: General.mediaQuery(context).height * 0.43,
           child: Form(
             key: controller.formKeyCambiarContrasena,
             child: Column(

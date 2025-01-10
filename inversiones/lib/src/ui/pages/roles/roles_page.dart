@@ -89,7 +89,11 @@ Widget _selectPermisos(Size mediaQuery, RolesController controller) =>
             buttonIcon: const Icon(Icons.arrow_drop_down),
             selectedColor: Colors.blue,
             buttonText: const Text('Permisos', textAlign: TextAlign.center),
-            title: const Center(child: Text("Seleccione permisos")),
+            title: Center(
+                child: SizedBox(
+                    width: mediaQuery.width * 0.5,
+                    child: const Text("Seleccione permisos",
+                        maxLines: 2, overflow: TextOverflow.ellipsis))),
             items: controller.items.value,
             searchable: true,
             onConfirm: (items) => controller.permisos.value = items)));

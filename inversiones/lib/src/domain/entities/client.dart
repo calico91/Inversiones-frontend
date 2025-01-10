@@ -1,4 +1,5 @@
 import 'package:inversiones/src/domain/entities/credit.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 class Client {
   const Client(
@@ -11,7 +12,9 @@ class Client {
       required this.cedula,
       required this.direccion,
       required this.observaciones,
-      this.listaCreditos});
+      this.listaCreditos,
+      this.imagenes
+      });
 
   final int? id;
   final String nombres;
@@ -23,6 +26,8 @@ class Client {
   final String? observaciones;
   final String cedula;
   final List<Credit>? listaCreditos;
+  final Iterable<ImageFile>? imagenes;
+
 
   factory Client.fromJson(Map<String, dynamic> json) {
     final String email = (json['email']) == null ? '' : json['email'] as String;
