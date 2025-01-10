@@ -8,5 +8,5 @@ void main() {
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
-  runApp(DevicePreview(enabled: true, builder: (context) => const App()));
+  runApp(DevicePreview(builder: (context) => const App()));
 }

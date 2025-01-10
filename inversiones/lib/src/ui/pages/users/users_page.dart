@@ -65,7 +65,6 @@ Widget _listaUsuarios(UserController controller, Size size) {
 
 Widget _showClientTitle(UserController controller, int index, Size size) =>
     SizedBox(
-        width: size.width * 0.51,
         child: Column(
           children: [
             Padding(
@@ -79,7 +78,6 @@ Widget _showClientTitle(UserController controller, int index, Size size) =>
 
 Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
     SizedBox(
-      height: size.height * 0.04,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

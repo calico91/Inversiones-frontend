@@ -18,7 +18,6 @@ class FormularioUsuario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: mediaQuery.height * 0.4,
       child: CustomCard(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

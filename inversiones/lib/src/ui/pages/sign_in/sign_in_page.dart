@@ -69,12 +69,10 @@ class SignInPage extends StatelessWidget {
           persistentFooterButtons: [
             Row(
               children: [
-                SizedBox(
-                    height: General.mediaQuery(context).height * 0.035,
-                    child: TextButton(
-                        onPressed: () =>
-                            _mostrarCampoTextoServidor(context, controller),
-                        child: const Text('Servidor'))),
+                TextButton(
+                    onPressed: () =>
+                        _mostrarCampoTextoServidor(context, controller),
+                    child: const Text('Servidor')),
                 Expanded(child: Container()),
                 const CircleAvatar(
                     backgroundColor: Colors.white,
@@ -173,7 +171,8 @@ class SignInPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder()),
                       child: const Text('Guardar', textAlign: TextAlign.center),
-                      onPressed: () async => controller.guardarUrlServidor(context)))),
+                      onPressed: () async =>
+                          controller.guardarUrlServidor(context)))),
           const SizedBox(height: 20)
         ],
       ),
