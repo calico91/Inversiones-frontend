@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:inversiones/src/data/http/base_http_client.dart';
@@ -16,8 +18,11 @@ class ClientHttp implements ClientRepository {
   @override
   Future<AddClientResponse> addClient(Client client) async {
     try {
-      final http.Response response = await baseHttpClient
-          .post(UrlPaths.addClient, request: client.toJson());
+      final cliente = {'cliente': jsonEncode(client.toJson())};
+
+      final http.Response response = await baseHttpClient.postMultipart(
+          UrlPaths.addClient, cliente, client.imagenes);
+
       return compute(addClientResponseFromJson, response.body);
     } catch (e) {
       rethrow;

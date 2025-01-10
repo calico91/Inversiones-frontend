@@ -29,6 +29,8 @@ class ValidateForm {
         return null;
       case ValidateText.password:
         return null;
+        case ValidateText.document:
+        return 12;
       default:
         return 64;
     }
