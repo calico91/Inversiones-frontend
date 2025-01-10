@@ -58,9 +58,6 @@ class TextFieldBase extends StatelessWidget {
               readOnly: readOnly!,
               onChanged: (String? value) => onChanged,
               enabled: enabled,
-              textDirection: TextDirection.ltr,
-              expands: true,
-              maxLines: null,
               validator: (String? value) => ValidateForm()
                   .validateStructure(value, required!, validateText!),
               inputFormatters:
