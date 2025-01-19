@@ -7,7 +7,7 @@ class TextFieldSearch extends StatelessWidget {
       required this.onChanged,
       this.controller,
       this.widthTextFieldSearch = 0.91});
-      
+
   final String labelText;
   final Function(String) onChanged;
   final TextEditingController? controller;
@@ -18,7 +18,14 @@ class TextFieldSearch extends StatelessWidget {
         width: General.mediaQuery(context).width * widthTextFieldSearch!,
         child: TextField(
           controller: controller,
-          onChanged: (value) => onChanged(value),
+          onChanged: (String? value) {
+            if (value != null) {
+              final cleanValue = General.removerCaracteresEspeciales(value);
+              controller?.text = cleanValue;
+
+              onChanged.call(cleanValue);
+            }
+          },
           decoration: InputDecoration(
             labelText: labelText,
             suffixIcon: const Icon(Icons.search),

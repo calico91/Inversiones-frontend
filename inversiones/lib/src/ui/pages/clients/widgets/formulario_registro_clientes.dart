@@ -78,10 +78,11 @@ class FormularioRegistrarCliente extends StatelessWidget {
                     paddingHorizontal: 20,
                     required: false,
                     title: 'Observaciones',
+                    expands: true,
                     controller: controller.observations,
                     textInputType: TextInputType.multiline,
                     validateText: ValidateText.observations,
-                    widthTextField: 0.83,
+                    widthTextField: 0.89,
                     heightTextField: 0.13,
                   ),
                   Row(

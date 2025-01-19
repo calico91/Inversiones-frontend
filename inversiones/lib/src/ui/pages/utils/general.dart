@@ -90,4 +90,16 @@ class General {
           idCredito: idCreditoSeleccionado),
     );
   }
+
+  static String removerCaracteresEspeciales(String input) {
+    const withDiacritics = 'áéíóúÁÉÍÓÚñÑ';
+    const withoutDiacritics = 'aeiouAEIOUnN';
+
+    String result = input;
+
+    for (int i = 0; i < withDiacritics.length; i++) {
+      result = result.replaceAll(withDiacritics[i], withoutDiacritics[i]);
+    }
+    return result;
+  }
 }

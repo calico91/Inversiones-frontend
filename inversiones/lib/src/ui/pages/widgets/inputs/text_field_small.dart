@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
+import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/utils/validate_form.dart';
 
 class TextFieldSmall extends StatelessWidget {
@@ -39,6 +40,12 @@ class TextFieldSmall extends StatelessWidget {
       textAlign: textAlign!,
       maxLength: ValidateForm.validateMaxLength(validateText!),
       controller: controller,
+      onChanged: (String? value) {
+        if (value != null) {
+          final cleanValue = General.removerCaracteresEspeciales(value);
+          controller.text = cleanValue;
+        }
+      },
       decoration: InputDecoration(
         hintText: hintText,
         border: OutlineInputBorder(

@@ -4,23 +4,25 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/utils/validate_form.dart';
 
 class TextFieldBase extends StatelessWidget {
-  const TextFieldBase(
-      {super.key,
-      this.hintText = '',
-      required this.title,
-      this.controller,
-      required this.textInputType,
-      this.validateText,
-      this.paddingVertical = 0,
-      this.paddingHorizontal = 0,
-      this.widthTextField = 0.39,
-      this.heightTextField = 0.09,
-      this.required = true,
-      this.textAlign = TextAlign.right,
-      this.moneyCamp = false,
-      this.enabled = true,
-      this.onChanged,
-      this.readOnly = false});
+  const TextFieldBase({
+    super.key,
+    this.hintText = '',
+    required this.title,
+    this.controller,
+    required this.textInputType,
+    this.validateText,
+    this.paddingVertical = 0,
+    this.paddingHorizontal = 0,
+    this.widthTextField = 0.39,
+    this.heightTextField = 0.09,
+    this.required = true,
+    this.textAlign = TextAlign.right,
+    this.moneyCamp = false,
+    this.enabled = true,
+    this.onChanged,
+    this.readOnly = false,
+    this.expands = false,
+  });
 
   final String? hintText;
   final String title;
@@ -35,8 +37,9 @@ class TextFieldBase extends StatelessWidget {
   final bool? required;
   final bool? moneyCamp;
   final bool? enabled;
-  final Function? onChanged;
+  final void Function(String)? onChanged;
   final bool? readOnly;
+  final bool? expands;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -56,8 +59,17 @@ class TextFieldBase extends StatelessWidget {
             width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
               readOnly: readOnly!,
-              onChanged: (String? value) => onChanged,
+              onChanged: (String? value) {
+                if (value != null) {
+                  final cleanValue = General.removerCaracteresEspeciales(value);
+                  controller?.text = cleanValue;
+
+                  onChanged?.call(cleanValue);
+                }
+              },
               enabled: enabled,
+              expands: expands!,
+              maxLines: expands! ? null : 1,
               validator: (String? value) => ValidateForm()
                   .validateStructure(value, required!, validateText!),
               inputFormatters:

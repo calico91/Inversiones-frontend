@@ -49,6 +49,12 @@ class TextFieldLogin extends StatelessWidget {
             textAlign: TextAlign.left,
             maxLength: ValidateForm.validateMaxLength(validateText!),
             controller: controller,
+            onChanged: (String? value) {
+              if (value != null) {
+                final cleanValue = General.removerCaracteresEspeciales(value);
+                controller?.text = cleanValue;
+              }
+            },
             obscureText: obscureText ?? false,
             decoration: InputDecoration(
               prefixIconColor: const Color.fromRGBO(31, 33, 36, 0.8),
