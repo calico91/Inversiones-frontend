@@ -58,28 +58,47 @@ class ListaClientes extends StatelessWidget {
   }
 
   Widget _listaClientes(ClientsController controller, Size size) => Expanded(
-        child: ListView.builder(
+      child: ListView.builder(
           itemCount: controller.filtroClientes.value.length,
           itemBuilder: (_, index) {
-            return InkWell(
-              onTap: () => controller
-                  .loadClient(controller.filtroClientes.value[index].cedula),
-              child: Card(
+            return Card(
+                elevation: 5,
                 child: ListTile(
-                  title: _showClientTitle(controller, index, size),
-                ),
-              ),
-            );
-          },
-        ),
-      );
+                  title: _mostrarTitulo(controller, index, size),
+                  subtitle: _mostrarSubtitulos(controller, index, size),
+                ));
+          }));
 
-  Widget _showClientTitle(ClientsController controller, int index, Size size) =>
+  Widget _mostrarTitulo(ClientsController controller, int index, Size size) =>
       SizedBox(
-        width: size.width * 0.51,
-        child: Text(
-          overflow: TextOverflow.ellipsis,
-          "${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}",
-        ),
-      );
+          width: size.width * 0.51,
+          child: Center(
+              child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  "${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}")));
+
+  Widget _mostrarSubtitulos(
+          ClientsController controller, int index, Size size) =>
+      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+        _mostrarBotonSubtitulos(
+            "Consultar cliente",
+            () => controller.loadClient(
+                controller.filtroClientes.value[index].cedula, false),
+            Icons.person_search),
+        _mostrarBotonSubtitulos(
+            "Editar cliente",
+            () => controller.loadClient(
+                controller.filtroClientes.value[index].cedula, true),
+            Icons.edit),
+        _mostrarBotonSubtitulos("Ver imagenes", () {}, Icons.image_search),
+      ]);
+
+  Widget _mostrarBotonSubtitulos(
+          String tooltip, Function() accion, IconData icono) =>
+      IconButton(
+          color: Colors.blue,
+          onPressed: accion,
+          icon: Icon(icono),
+          tooltip: tooltip,
+          iconSize: 30);
 }

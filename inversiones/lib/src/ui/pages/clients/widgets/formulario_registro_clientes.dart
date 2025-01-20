@@ -104,7 +104,7 @@ class FormularioRegistrarCliente extends StatelessWidget {
       FilledButton.icon(
         onPressed: () {
           if (General.validateForm(controller.formKey)) {
-            if (controller.idClient.value == 0) {
+            if (!controller.estaEditando.value) {
               controller.unfocus(context);
               controller.save();
             } else {
@@ -113,10 +113,10 @@ class FormularioRegistrarCliente extends StatelessWidget {
             }
           }
         },
-        icon: controller.idClient.value == 0
+        icon: !controller.estaEditando.value
             ? const Icon(Icons.person_add)
-            : const Icon(Icons.mode_edit_outline),
-        label: controller.idClient.value == 0
+            : const Icon(Icons.refresh),
+        label: !controller.estaEditando.value
             ? const Text("Registrar")
             : const Text("Actualizar"),
       );
