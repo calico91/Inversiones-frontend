@@ -21,8 +21,8 @@ class BaseHttpClient {
       [Map<String, String>? parameters]) async {
     final String url = await secureStorageLocal.urlServidor ?? '';
     final Uri uri = parameters == null
-        ? Uri.http(url, path)
-        : Uri.http(url, path, parameters);
+        ? Uri.https(url, path)
+        : Uri.https(url, path, parameters);
 
     try {
       final String? token = await secureStorageLocal.jwtToken;
@@ -52,8 +52,8 @@ class BaseHttpClient {
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final String url = await secureStorageLocal.urlServidor ?? '';
     final Uri uri = parameters == null
-        ? Uri.http(url, path)
-        : Uri.http(url, path, parameters);
+        ? Uri.https(url, path)
+        : Uri.https(url, path, parameters);
 
     try {
       final String? token = await secureStorageLocal.jwtToken;
@@ -94,8 +94,8 @@ class BaseHttpClient {
       {Map<String, dynamic>? request, Map<String, String>? parameters}) async {
     final String url = await secureStorageLocal.urlServidor ?? '';
     final Uri uri = parameters == null
-        ? Uri.http(url, path)
-        : Uri.http(url, path, parameters);
+        ? Uri.https(url, path)
+        : Uri.https(url, path, parameters);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final response = await http
@@ -134,7 +134,7 @@ class BaseHttpClient {
   Future<http.Response> postMultipart(String path, Map<String, String> fields,
       Iterable<ImageFile>? imagenes) async {
     final String url = await secureStorageLocal.urlServidor ?? '';
-    final Uri uri = Uri.http(url, path);
+    final Uri uri = Uri.https(url, path);
     try {
       final String? token = await secureStorageLocal.jwtToken;
       final request = http.MultipartRequest('POST', uri);
