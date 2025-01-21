@@ -90,7 +90,8 @@ class ListaClientes extends StatelessWidget {
             () => controller.loadClient(
                 controller.filtroClientes.value[index].cedula, true),
             Icons.edit),
-        _mostrarBotonSubtitulos("Ver imagenes", () {}, Icons.image_search),
+        _mostrarBotonSubtitulos("Ver imagenes",
+            () => controller.consultarImagenes(116), Icons.image_search),
       ]);
 
   Widget _mostrarBotonSubtitulos(

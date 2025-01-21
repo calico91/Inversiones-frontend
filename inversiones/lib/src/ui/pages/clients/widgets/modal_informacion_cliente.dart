@@ -29,8 +29,11 @@ class ModalInformacionCliente extends StatelessWidget {
               _informacionCliente(context, 'Apellidos', data.apellidos,
                   maxLines: 2),
               _informacionCliente(context, 'Celular', data.celular),
-              _informacionCliente(context, 'Direccion', data.direccion,
-                  maxLines: 2),
+              _informacionCliente(context, 'Direccion', data.direccion),
+              if (data.observaciones != null && data.observaciones!.isNotEmpty)
+                _informacionCliente(
+                    context, 'Observaciones', data.observaciones!,
+                    maxLines: 5),
             ]),
           ),
         ),
@@ -57,7 +60,7 @@ class ModalInformacionCliente extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             SizedBox(
-                width: General.mediaQuery(context).width * 0.4,
+                width: General.mediaQuery(context).width * 0.33,
                 child: Text(valor,
                     textAlign: TextAlign.right, maxLines: maxLines)),
           ],

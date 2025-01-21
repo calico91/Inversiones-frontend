@@ -1,7 +1,9 @@
 import 'package:inversiones/src/domain/entities/client.dart';
+import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/imagenes_cliente_response.dart';
 
 abstract class ClientRepository {
   const ClientRepository();
@@ -14,4 +16,6 @@ abstract class ClientRepository {
   /// clientes con cuotas pendientes
   Future<ClientsPendingInstallmentsResponse> clientsPendingInstallments(
       String fechaFiltro, int idUsuario);
+
+  Future<ApiResponse<List<ImagenCliente>>> consultarImagenes(int idCliente);
 }

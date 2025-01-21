@@ -6,8 +6,10 @@ import 'package:inversiones/src/data/http/src/client_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
+import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/imagenes_cliente_response.dart';
 import 'package:inversiones/src/ui/pages/clients/widgets/modal_informacion_cliente.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
@@ -159,6 +161,21 @@ class ClientsController extends GetxController {
         }
       },
     );
+  }
+
+  Future<void> consultarImagenes(int idCliente) async {
+    Get.showOverlay(
+        loadingWidget: const CargandoAnimacion(),
+        asyncFunction: () async {
+          try {
+            final ApiResponse<List<ImagenCliente>> respuestaHttp =
+                await const ClientHttp().consultarImagenes(idCliente);
+          } on HttpException catch (e) {
+            appController.manageError(e.message);
+          } catch (e) {
+            appController.manageError(e.toString());
+          }
+        });
   }
 
   void _mostrarModalInformacionCliente(Client data) {

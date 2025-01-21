@@ -6,9 +6,11 @@ import 'package:inversiones/src/data/http/base_http_client.dart';
 import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/repositories/client_repository.dart';
+import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/imagenes_cliente_response.dart';
 
 class ClientHttp implements ClientRepository {
   const ClientHttp({this.baseHttpClient = const BaseHttpClient()});
@@ -79,6 +81,19 @@ class ClientHttp implements ClientRepository {
       );
 
       return compute(clientsPendingInstallmentsResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<List<ImagenCliente>>> consultarImagenes(
+      int idCliente) async {
+    try {
+      final http.Response response =
+          await baseHttpClient.get('${UrlPaths.consultarImagenes}/$idCliente');
+
+      return compute(ApiResponse.parseimagenesClienteResponse, response.body);
     } catch (e) {
       rethrow;
     }
