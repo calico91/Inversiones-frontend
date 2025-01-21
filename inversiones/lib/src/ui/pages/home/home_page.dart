@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController controller = Get.put(HomeController());
     return Scaffold(
-      drawer: DrawerMolecule(),
+      drawer: const DrawerMolecule(),
       appBar: AppBar(
           centerTitle: true,
           iconTheme: const IconThemeData(color: Colors.white),

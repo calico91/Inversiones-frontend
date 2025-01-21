@@ -11,7 +11,7 @@ import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/horizontal_scrollbar.dart';
 
 class FormularioUsuario extends StatelessWidget {
-  const FormularioUsuario(this.controller, this.mediaQuery);
+  const FormularioUsuario(this.controller, this.mediaQuery, {super.key});
 
   final UserController controller;
   final Size mediaQuery;

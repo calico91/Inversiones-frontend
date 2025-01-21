@@ -8,6 +8,7 @@ import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
+import 'package:inversiones/src/ui/pages/clients/widgets/modal_informacion_cliente.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
@@ -29,6 +30,7 @@ class ClientsController extends GetxController {
   final Rx<int> status = Rx<int>(0);
 
   late Rx<MultiImagePickerController> multiImagePickerController;
+  final RxBool estaEditando = false.obs;
 
   @override
   void onInit() {
@@ -43,20 +45,16 @@ class ClientsController extends GetxController {
 
   Future<void> allClients() async {
     Get.showOverlay(
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final AllClientsResponse res =
                 await const ClientHttp().allClients();
-            if (res.status == 200) {
-              clients(res.clients);
-              status(res.status);
-              filtroClientes(clients.value);
+            clients(res.clients);
+            status(res.status);
+            filtroClientes(clients.value);
 
-              await const SecureStorageLocal().saveListaClientes(clients.value);
-            } else {
-              appController.manageError(res.message);
-            }
+            await const SecureStorageLocal().saveListaClientes(clients.value);
           } on HttpException catch (e) {
             appController.manageError(e.message);
           } catch (e) {
@@ -67,39 +65,35 @@ class ClientsController extends GetxController {
 
   void save() {
     Get.showOverlay(
-      loadingWidget: CargandoAnimacion(),
+      loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         final List<Client> listaClienteLocal =
             await const SecureStorageLocal().listaClientes;
-      
+
         try {
-          final AddClientResponse respuestaHTTP =
-              await const ClientHttp().addClient(
-            Client(
-                observaciones: observations.text.trim(),
-                direccion: address.text.trim(),
-                nombres: name.text.trim(),
-                apellidos: lastname.text.trim(),
-                celular: phoneNumber.text.trim(),
-                cedula: document.text.trim(),
-                imagenes: multiImagePickerController.value.images),
-          );
-          if (respuestaHTTP.status == 200) {
-            filtroClientes.value.insert(0, respuestaHTTP.client!);
+          final AddClientResponse respuestaHTTP = await const ClientHttp()
+              .addClient(Client(
+                  observaciones: observations.text.trim(),
+                  direccion: address.text.trim(),
+                  nombres: name.text.trim(),
+                  apellidos: lastname.text.trim(),
+                  celular: phoneNumber.text.trim(),
+                  cedula: document.text.trim(),
+                  imagenes: multiImagePickerController.value.images));
 
-            ///al crearse un cliente se adiciona a la lista local
-            listaClienteLocal.insert(0, respuestaHTTP.client!);
+          filtroClientes.value.insert(0, respuestaHTTP.client!);
 
-            await const SecureStorageLocal()
-                .saveListaClientes(listaClienteLocal);
+          ///al crearse un cliente se adiciona a la lista local
+          listaClienteLocal.insert(0, respuestaHTTP.client!);
 
-            Get.showSnackbar(
-              const InfoSnackbar('cliente creado correctamente'),
-            );
-            cleanForm();
-          } else {
-            appController.manageError(respuestaHTTP.message);
-          }
+          await const SecureStorageLocal().saveListaClientes(listaClienteLocal);
+
+          Get.showSnackbar(const InfoSnackbar('cliente creado correctamente'));
+          cleanForm();
+
+          // se realiza validacion para que la lista de clientes se cierre
+          //ya que si se crea un cliente no se muestra de inmediato en la lista
+          clients([]);
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -109,19 +103,22 @@ class ClientsController extends GetxController {
     );
   }
 
-  void loadClient(String document) {
+  void loadClient(String document, bool editar) {
     Get.showOverlay(
-      loadingWidget: CargandoAnimacion(),
+      loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AddClientResponse res =
               await const ClientHttp().loadClient(document);
-          if (res.status == 200) {
+
+          if (editar) {
             _loadClientForm(res.client!);
-            idClient(res.client!.id);
+            estaEditando(editar);
           } else {
-            appController.manageError(res.message);
+            _mostrarModalInformacionCliente(res.client!);
           }
+
+          idClient(res.client!.id);
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -133,7 +130,7 @@ class ClientsController extends GetxController {
 
   void updateClient() {
     Get.showOverlay(
-      loadingWidget: CargandoAnimacion(),
+      loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AddClientResponse res = await const ClientHttp().updateClient(
@@ -164,6 +161,13 @@ class ClientsController extends GetxController {
     );
   }
 
+  void _mostrarModalInformacionCliente(Client data) {
+    Get.dialog(
+      barrierDismissible: false,
+      ModalInformacionCliente(data: data),
+    );
+  }
+
   void cleanForm() {
     document.clear();
     lastname.clear();
@@ -171,8 +175,8 @@ class ClientsController extends GetxController {
     phoneNumber.clear();
     observations.clear();
     address.clear();
-    idClient(0);
     multiImagePickerController.value.clearImages();
+    estaEditando(false);
   }
 
   void _loadClientForm(Client client) {

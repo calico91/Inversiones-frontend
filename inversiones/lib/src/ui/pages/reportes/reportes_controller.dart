@@ -37,7 +37,7 @@ class ReportesController extends GetxController {
     _validarFechasCorrectas();
     if (fechasCorrectas.value) {
       Get.showOverlay(
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final ReporteInteresyCapitalResponse resHttp =
@@ -62,7 +62,7 @@ class ReportesController extends GetxController {
 
   Future<void> consultarUltimosAbonos() async {
     Get.showOverlay(
-      loadingWidget: CargandoAnimacion(),
+      loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AbonosRealizadosResponse resHttp =

@@ -3,7 +3,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class TextFieldCalendar extends StatelessWidget {
   const TextFieldCalendar(
-      {required this.controller,
+      {super.key, required this.controller,
       required this.onTap,
       required this.title,
       this.paddingVertical = 0,

@@ -16,7 +16,7 @@ class SplashPage extends StatelessWidget {
           return Scaffold(
             body: AnimatedSplashScreen(
               backgroundColor: Colors.grey,
-              splash: CargandoAnimacion(),
+              splash: const CargandoAnimacion(),
               nextScreen: const SizedBox(),
               splashIconSize: General.mediaQuery(context).height * 0.9,
               animationDuration: const Duration(seconds: 3),

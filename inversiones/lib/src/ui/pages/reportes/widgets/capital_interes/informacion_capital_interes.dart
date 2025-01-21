@@ -4,7 +4,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 
 class InformacionCapitalInteres extends StatelessWidget {
-  const InformacionCapitalInteres(this.info);
+  const InformacionCapitalInteres(this.info, {super.key});
 
   final ReporteInteresyCapital info;
   @override

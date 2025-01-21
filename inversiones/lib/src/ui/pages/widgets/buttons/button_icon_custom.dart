@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ButtonIconCustom extends StatelessWidget {
-  const ButtonIconCustom(this.onPressed, this.icon, this.tooltip);
+  const ButtonIconCustom(this.onPressed, this.icon, this.tooltip, {super.key});
 
   final void Function() onPressed;
   final Widget icon;

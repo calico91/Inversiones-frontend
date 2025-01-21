@@ -80,7 +80,7 @@ class HomeController extends GetxService {
     final String? idmovil = await const SecureStorageLocal().idMovil;
 
     Get.showOverlay(
-      loadingWidget: CargandoAnimacion(),
+      loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
           await const SecureStorageLocal()
@@ -113,7 +113,7 @@ class HomeController extends GetxService {
         await const SecureStorageLocal().userDetails;
 
     Get.showOverlay(
-      loadingWidget: CargandoAnimacion(),
+      loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final GenericoResponse respuestaHttp =

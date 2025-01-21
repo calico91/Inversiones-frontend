@@ -55,21 +55,21 @@ class RoutePages {
       ),
       GetPage(
         name: RouteNames.reportes,
-        page: () => ReportesPage(),
+        page: () => const ReportesPage(),
         binding: const ReportesBinding(),
       ),
       GetPage(
         name: RouteNames.users,
-        page: () => UsersPage(),
+        page: () => const UsersPage(),
       ),
       GetPage(
         name: RouteNames.navigationBar,
-        page: () => NavigatinBarPage(),
+        page: () => const NavigatinBarPage(),
         binding: const NavigationBarBinding(),
       ),
         GetPage(
         name: RouteNames.roles,
-        page: () => RolesPage(),
+        page: () => const RolesPage(),
       ),
     ];
   }

@@ -9,6 +9,8 @@ import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 class DialogListaClientes extends StatelessWidget {
   final CreditsController controller = Get.find<CreditsController>();
 
+  DialogListaClientes({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

@@ -6,7 +6,7 @@ import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
 class CardUltimosAbonos extends StatelessWidget {
-  const CardUltimosAbonos(this.controller);
+  const CardUltimosAbonos(this.controller, {super.key});
 
   final ReportesController controller;
   @override

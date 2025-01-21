@@ -11,6 +11,8 @@ import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/horizontal_scrollbar.dart';
 
 class RolesPage extends StatelessWidget {
+  const RolesPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final Size mediaQuery = General.mediaQuery(context);

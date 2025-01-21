@@ -12,7 +12,7 @@ import 'package:screenshot/screenshot.dart';
 
 class DialogCuotaPagada extends StatelessWidget {
   DialogCuotaPagada(
-      {required this.dataAbono,
+      {super.key, required this.dataAbono,
       this.nombreCliente,
       this.mostrarBotonCerrar,
       this.idCredito});
@@ -97,7 +97,7 @@ class DialogCuotaPagada extends StatelessWidget {
           screenshotController: screenshotController,
           descripcion: 'Abono ${nombreCliente ?? ''}',
         ),
-        HomeButton(),
+        const HomeButton(),
         if (mostrarBotonCerrar ?? true) const CloseButtonCustom()
       ],
     );

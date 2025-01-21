@@ -7,6 +7,7 @@ import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/whatsapp_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:screenshot/screenshot.dart';
@@ -34,6 +35,7 @@ class PayFeePage extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 20, overflow: TextOverflow.ellipsis),
                         maxLines: 2)),
+                WhatsAppButton(celular: controller.payFee.celular!),
                 ShareButton(
                     screenshotController: screenshotController,
                     descripcion:

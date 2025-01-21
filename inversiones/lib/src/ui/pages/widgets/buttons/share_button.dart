@@ -3,7 +3,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:screenshot/screenshot.dart';
 
 class ShareButton extends StatelessWidget {
-  const ShareButton({
+  const ShareButton({super.key, 
     required this.screenshotController,
     required this.descripcion,
   });

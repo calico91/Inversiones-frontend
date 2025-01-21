@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CreditButton extends StatelessWidget {
+  const CreditButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return IconButton(

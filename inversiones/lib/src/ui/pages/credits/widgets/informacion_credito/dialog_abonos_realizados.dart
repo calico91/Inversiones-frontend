@@ -8,7 +8,7 @@ import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogAbonosRealizados extends StatelessWidget {
-  DialogAbonosRealizados({required this.abonosRealizados});
+  DialogAbonosRealizados({super.key, required this.abonosRealizados});
   final List<AbonosRealizados> abonosRealizados;
 
   final ScreenshotController screenshotController = ScreenshotController();

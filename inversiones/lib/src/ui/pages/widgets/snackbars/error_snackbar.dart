@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ErrorSnackbar extends GetSnackBar {
-  const ErrorSnackbar(String message) : super(message: message);
+  const ErrorSnackbar(String message, {super.key}) : super(message: message);
 
   @override
   Widget? get messageText {

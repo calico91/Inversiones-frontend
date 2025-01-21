@@ -69,7 +69,7 @@ class SignInController extends GetxController {
               appController.manageError(e.message);
             }
           },
-          loadingWidget: CargandoAnimacion(),
+          loadingWidget: const CargandoAnimacion(),
         );
       }
     }
@@ -97,7 +97,7 @@ class SignInController extends GetxController {
             appController.manageError(e.message);
           }
         },
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
       );
     }
   }
@@ -137,7 +137,7 @@ class SignInController extends GetxController {
             appController.manageError('Error al guardar Url');
           }
         },
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
       );
     }
   }

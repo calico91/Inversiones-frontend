@@ -4,7 +4,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/utils/validate_form.dart';
 
 class TextFieldLogin extends StatelessWidget {
-  const TextFieldLogin({
+  const TextFieldLogin({super.key, 
     this.hintText,
     this.controller,
     this.validateText,

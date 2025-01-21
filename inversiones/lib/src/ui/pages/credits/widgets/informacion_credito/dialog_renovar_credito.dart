@@ -8,6 +8,8 @@ import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 
 class DialogRenovarCredito extends StatelessWidget {
+  const DialogRenovarCredito({super.key});
+
   @override
   Widget build(BuildContext context) {
     final CreditsController controller = Get.find<CreditsController>();

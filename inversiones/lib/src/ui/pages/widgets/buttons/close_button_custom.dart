@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CloseButtonCustom extends StatelessWidget {
 final VoidCallback? accion;
 
-  const CloseButtonCustom({this.accion});
+  const CloseButtonCustom({super.key, this.accion});
 
   @override
   Widget build(BuildContext context) => IconButton(

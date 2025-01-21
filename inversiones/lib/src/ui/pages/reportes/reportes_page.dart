@@ -6,6 +6,8 @@ import 'package:inversiones/src/ui/pages/reportes/widgets/ultimos_abonos/card_ul
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 
 class ReportesPage extends StatelessWidget {
+  const ReportesPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final ReportesController controller = Get.find<ReportesController>();

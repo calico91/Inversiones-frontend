@@ -11,6 +11,8 @@ import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
 class UsersPage extends StatelessWidget {
+  const UsersPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final Size mediaQuery = General.mediaQuery(context);

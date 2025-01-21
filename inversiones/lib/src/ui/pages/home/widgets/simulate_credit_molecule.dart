@@ -9,6 +9,8 @@ import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
 class SimulateCreditMolecule extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();
+
+   SimulateCreditMolecule({super.key});
   @override
   Widget build(BuildContext context) {
     return CustomCard(
