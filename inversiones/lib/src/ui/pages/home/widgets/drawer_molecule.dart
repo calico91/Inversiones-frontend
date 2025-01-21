@@ -6,6 +6,8 @@ import 'package:inversiones/src/ui/pages/home/widgets/modal_cambiar_contrasena.d
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 
 class DrawerMolecule extends StatelessWidget {
+  const DrawerMolecule({super.key});
+
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.find<HomeController>();

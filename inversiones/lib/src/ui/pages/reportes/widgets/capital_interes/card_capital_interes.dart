@@ -6,7 +6,7 @@ import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 
 class CardCapitalInteres extends StatelessWidget {
-  const CardCapitalInteres(this.controller);
+  const CardCapitalInteres(this.controller, {super.key});
 
   final ReportesController controller;
   @override

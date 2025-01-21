@@ -8,6 +8,7 @@ import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
+import 'package:inversiones/src/ui/pages/clients/widgets/modal_informacion_cliente.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
@@ -44,7 +45,7 @@ class ClientsController extends GetxController {
 
   Future<void> allClients() async {
     Get.showOverlay(
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final AllClientsResponse res =
@@ -64,7 +65,7 @@ class ClientsController extends GetxController {
 
   void save() {
     Get.showOverlay(
-      loadingWidget: CargandoAnimacion(),
+      loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         final List<Client> listaClienteLocal =
             await const SecureStorageLocal().listaClientes;
@@ -104,7 +105,7 @@ class ClientsController extends GetxController {
 
   void loadClient(String document, bool editar) {
     Get.showOverlay(
-      loadingWidget: CargandoAnimacion(),
+      loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AddClientResponse res =
@@ -113,6 +114,8 @@ class ClientsController extends GetxController {
           if (editar) {
             _loadClientForm(res.client!);
             estaEditando(editar);
+          } else {
+            _mostrarModalInformacionCliente(res.client!);
           }
 
           idClient(res.client!.id);
@@ -127,7 +130,7 @@ class ClientsController extends GetxController {
 
   void updateClient() {
     Get.showOverlay(
-      loadingWidget: CargandoAnimacion(),
+      loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final AddClientResponse res = await const ClientHttp().updateClient(
@@ -155,6 +158,13 @@ class ClientsController extends GetxController {
           appController.manageError(e.toString());
         }
       },
+    );
+  }
+
+  void _mostrarModalInformacionCliente(Client data) {
+    Get.dialog(
+      barrierDismissible: false,
+      ModalInformacionCliente(data: data),
     );
   }
 

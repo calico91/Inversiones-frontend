@@ -6,7 +6,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_fiel_login.dart';
 
 class ModalCambiarContrasena extends StatelessWidget {
-  const ModalCambiarContrasena(this.controller);
+  const ModalCambiarContrasena(this.controller, {super.key});
 
   final HomeController controller;
   @override

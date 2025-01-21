@@ -3,7 +3,7 @@ import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dar
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 
 class DialogEstadoCredito extends StatelessWidget {
-  const DialogEstadoCredito({required this.info});
+  const DialogEstadoCredito({super.key, required this.info});
   final String info;
 
   @override
@@ -16,7 +16,7 @@ class DialogEstadoCredito extends StatelessWidget {
         'Informacion estado credito',
       ),
       content: Text(info),
-      actions: [HomeButton(), const CloseButtonCustom()],
+      actions: const [HomeButton(), CloseButtonCustom()],
     );
   }
 }

@@ -47,7 +47,7 @@ class UserController extends GetxController {
         appController.manageError('Seleccione los roles que desea asignar');
       } else {
         Get.showOverlay(
-            loadingWidget: CargandoAnimacion(),
+            loadingWidget: const CargandoAnimacion(),
             asyncFunction: () async {
               try {
                 final ApiResponse<User> respuestaHttp = await const UserHttp()
@@ -91,7 +91,7 @@ class UserController extends GetxController {
 
   void consultarUsuario(int id) {
     Get.showOverlay(
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final ApiResponse<User> respuestaHttp =
@@ -109,7 +109,7 @@ class UserController extends GetxController {
 
   void actualizarUsuario() {
     Get.showOverlay(
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
         asyncFunction: () async {
           try {
             await const UserHttp().actualizarUsuario(User(
@@ -135,7 +135,7 @@ class UserController extends GetxController {
 
   void cambiarEstadoUsuario(int id) {
     Get.showOverlay(
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final ApiResponse<String> respuestaHttp =
@@ -155,7 +155,7 @@ class UserController extends GetxController {
 
   void reinicarContrasena(int id) {
     Get.showOverlay(
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final ApiResponse<String> respuestaHttp =

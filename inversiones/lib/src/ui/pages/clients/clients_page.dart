@@ -13,7 +13,7 @@ class ClientsPage extends StatelessWidget {
         appBar: AppBarCustom('Clientes', actions: [_limpiarFormulario()]),
         body: ListView(
             addRepaintBoundaries: false,
-            children: [FormularioRegistrarCliente(), const ListaClientes()]));
+            children: const [FormularioRegistrarCliente(), ListaClientes()]));
   }
 
   Widget _limpiarFormulario() => IconButton(

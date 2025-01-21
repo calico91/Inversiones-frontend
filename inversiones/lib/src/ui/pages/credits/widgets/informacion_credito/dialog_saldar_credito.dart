@@ -8,7 +8,7 @@ import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogSaldarCredito extends StatelessWidget {
-  DialogSaldarCredito({required this.data});
+  DialogSaldarCredito({super.key, required this.data});
   final SaldarCreditoResponse data;
 
   final ScreenshotController screenshotController = ScreenshotController();
@@ -49,7 +49,7 @@ class DialogSaldarCredito extends StatelessWidget {
             screenshotController: screenshotController,
             descripcion: 'Credito saldado',
           ),
-          HomeButton()
+          const HomeButton()
         ]);
   }
 

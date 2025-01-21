@@ -4,6 +4,8 @@ import 'package:inversiones/src/ui/pages/navigation_bar/navigation_bar_controlle
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class NavigatinBarPage extends StatelessWidget {
+  const NavigatinBarPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final NavigationBarController controller =

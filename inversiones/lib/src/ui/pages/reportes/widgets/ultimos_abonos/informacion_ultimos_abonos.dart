@@ -4,7 +4,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 
 class InformacionUltimosAbonos extends StatelessWidget {
-  const InformacionUltimosAbonos(this.info);
+  const InformacionUltimosAbonos(this.info, {super.key});
 
   final List<AbonosRealizados>? info;
   @override

@@ -3,7 +3,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class TextFieldSearch extends StatelessWidget {
   const TextFieldSearch(
-      {required this.labelText,
+      {super.key, required this.labelText,
       required this.onChanged,
       this.controller,
       this.widthTextFieldSearch = 0.91});

@@ -9,7 +9,7 @@ import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogFechaCuotaModificada extends StatelessWidget {
-  DialogFechaCuotaModificada({required this.data});
+  DialogFechaCuotaModificada({super.key, required this.data});
   final PayFee data;
 
   final ScreenshotController screenshotController = ScreenshotController();
@@ -48,7 +48,7 @@ class DialogFechaCuotaModificada extends StatelessWidget {
             screenshotController: screenshotController,
             descripcion: 'Modificacion fecha pago',
           ),
-          HomeButton(),
+          const HomeButton(),
           const CloseButtonCustom()
         ]);
   }

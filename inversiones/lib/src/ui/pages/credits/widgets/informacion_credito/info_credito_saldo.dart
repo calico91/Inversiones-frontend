@@ -22,7 +22,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
   final ScreenshotController screenshotController = ScreenshotController();
 
   InfoCreditoSaldoModal(
-      {required this.info, this.accion, required this.idCredito});
+      {super.key, required this.info, this.accion, required this.idCredito});
 
   @override
   Widget build(BuildContext context) {
@@ -343,7 +343,7 @@ Widget _botonRenovarCredito(BuildContext context) => IconButton(
     onPressed: () => showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (context) => DialogRenovarCredito()),
+        builder: (context) => const DialogRenovarCredito()),
     icon: const FaIcon(FontAwesomeIcons.moneyBillTransfer, color: Colors.blue));
 
 Widget _botonSaldarCredito(BuildContext context,

@@ -55,7 +55,7 @@ class RolesController extends GetxController {
 
   Future<void> consultarPermisosRol(int id) async {
     Get.showOverlay(
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
         asyncFunction: () async {
           try {
             final ApiResponse<Roles> respuestaHttp =
@@ -72,7 +72,7 @@ class RolesController extends GetxController {
 
   Future<void> consultarPermisos() async {
     Get.showOverlay(
-        loadingWidget: CargandoAnimacion(),
+        loadingWidget: const CargandoAnimacion(),
         asyncFunction: () async {
           try {
             List<Permiso>? permisosStorage = await secureStorageLocal.permisos;
@@ -101,7 +101,7 @@ class RolesController extends GetxController {
       Get.showSnackbar(const ErrorSnackbar('Seleccione un rol'));
     } else {
       Get.showOverlay(
-          loadingWidget: CargandoAnimacion(),
+          loadingWidget: const CargandoAnimacion(),
           asyncFunction: () async {
             try {
               final ApiResponse<String> respuestaHttp = await const RolesHttp()

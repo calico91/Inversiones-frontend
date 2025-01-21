@@ -15,7 +15,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
   final bool renovarCredito;
 
   DialogInfoCreditoCreado(
-      {required this.title, this.info, required this.renovarCredito});
+      {super.key, required this.title, this.info, required this.renovarCredito});
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +41,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
                   _showInfoCredito('Fecha pago', info!.fechaPago!, context),
                   _showInfoCredito(
                       'Valor credito',
-                      General.formatoMoneda(
-                        double.parse(info!.valorCredito!),
-                      ),
+                      General.formatoMoneda(double.parse(info!.valorCredito!)),
                       context),
                   _showInfoCredito(
                       'Valor cuotas',
@@ -52,8 +50,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
                   _showInfoCredito(
                       'Valor primer cuota',
                       General.formatoMoneda(
-                        double.parse(info!.valorPrimerCuota!),
-                      ),
+                          double.parse(info!.valorPrimerCuota!)),
                       context),
                 ],
               ),
@@ -66,7 +63,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
           screenshotController: screenshotController,
           descripcion: Constantes.INFORMACION_CREDITO_CREADO,
         ),
-        HomeButton(),
+        const HomeButton(),
         if (!renovarCredito) const CloseButtonCustom()
       ],
     );

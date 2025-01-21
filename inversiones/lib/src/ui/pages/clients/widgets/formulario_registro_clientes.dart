@@ -9,6 +9,8 @@ import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 class FormularioRegistrarCliente extends StatelessWidget {
+  const FormularioRegistrarCliente({super.key});
+
   @override
   Widget build(BuildContext context) {
     final ClientsController controller = Get.put(ClientsController());
