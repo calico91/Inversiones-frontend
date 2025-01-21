@@ -10,6 +10,7 @@ import 'package:inversiones/src/domain/responses/api_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/imagenes_cliente_response.dart';
+import 'package:inversiones/src/ui/pages/clients/widgets/modal_imagenes_cliente.dart';
 import 'package:inversiones/src/ui/pages/clients/widgets/modal_informacion_cliente.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
@@ -170,12 +171,21 @@ class ClientsController extends GetxController {
           try {
             final ApiResponse<List<ImagenCliente>> respuestaHttp =
                 await const ClientHttp().consultarImagenes(idCliente);
+
+            _mostrarModalImagenesCliente(respuestaHttp.data!);
           } on HttpException catch (e) {
             appController.manageError(e.message);
           } catch (e) {
             appController.manageError(e.toString());
           }
         });
+  }
+
+  void _mostrarModalImagenesCliente(List<ImagenCliente> imagenes) {
+    Get.dialog(
+      barrierDismissible: false,
+      ModalImagenesCliente(imagenes: imagenes),
+    );
   }
 
   void _mostrarModalInformacionCliente(Client data) {
