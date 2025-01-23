@@ -90,8 +90,8 @@ class FormularioRegistrarCliente extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+                      _seleccionarImagenes(context, controller),
                       Obx(() => _botonRegistrarCliente(context, controller)),
-                      _seleccionarImagenes(context, controller)
                     ],
                   )
                 ],

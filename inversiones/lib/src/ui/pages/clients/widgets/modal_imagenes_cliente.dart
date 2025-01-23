@@ -3,16 +3,20 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/domain/responses/clientes/imagenes_cliente_response.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:screenshot/screenshot.dart';
 
 class ModalImagenesCliente extends StatelessWidget {
   final List<ImagenCliente> imagenes;
+  final ScreenshotController screenshotController = ScreenshotController();
 
-  const ModalImagenesCliente({super.key, required this.imagenes});
+  ModalImagenesCliente({super.key, required this.imagenes});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      title: const Center(child: Text('Imagenes cliente')),
       content: SizedBox(
         width: MediaQuery.of(context).size.width * 0.9,
         child: GridView.builder(
@@ -52,19 +56,18 @@ class ModalImagenesCliente extends StatelessWidget {
         content: SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.4,
-          child: PhotoView(
-            backgroundDecoration:
-                const BoxDecoration(color: Colors.transparent),
-            imageProvider: MemoryImage(base64Decode(imagen.base64 ?? '')),
+          child: Screenshot(
+            controller: screenshotController,
+            child: PhotoView(
+              backgroundDecoration:
+                  const BoxDecoration(color: Colors.transparent),
+              imageProvider: MemoryImage(base64Decode(imagen.base64 ?? '')),
+            ),
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.share, color: Colors.white),
-            onPressed: () {
-              // Lógica de compartir
-            },
-          ),
+          ShareButton(
+              screenshotController: screenshotController, descripcion: ''),
           const CloseButtonCustom(),
         ],
       ),
