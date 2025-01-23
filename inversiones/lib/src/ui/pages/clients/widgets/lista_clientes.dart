@@ -83,7 +83,7 @@ class ListaClientes extends StatelessWidget {
         _mostrarBotonSubtitulos(
             "Consultar cliente",
             () => controller
-                .loadClient(controller.filtroClientes.value[index].cedula),
+                .loadClient(controller.filtroClientes.value[index].cedula!),
             Icons.person_search),
         _mostrarBotonSubtitulos(
             "Editar cliente",

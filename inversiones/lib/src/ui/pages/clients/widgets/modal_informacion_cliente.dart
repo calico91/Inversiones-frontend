@@ -23,13 +23,13 @@ class ModalInformacionCliente extends StatelessWidget {
           controller: screenshotController,
           child: CustomCard(
             child: Column(children: [
-              _informacionCliente(context, 'Cedula', data.cedula),
-              _informacionCliente(context, 'Nombres', data.nombres,
+              _informacionCliente(context, 'Cedula', data.cedula!),
+              _informacionCliente(context, 'Nombres', data.nombres!,
                   maxLines: 2),
-              _informacionCliente(context, 'Apellidos', data.apellidos,
+              _informacionCliente(context, 'Apellidos', data.apellidos!,
                   maxLines: 2),
-              _informacionCliente(context, 'Celular', data.celular),
-              _informacionCliente(context, 'Direccion', data.direccion),
+              _informacionCliente(context, 'Celular', data.celular!),
+              _informacionCliente(context, 'Direccion', data.direccion!),
               if (data.observaciones != null && data.observaciones!.isNotEmpty)
                 _informacionCliente(
                     context, 'Observaciones', data.observaciones!,
@@ -39,7 +39,7 @@ class ModalInformacionCliente extends StatelessWidget {
         ),
       ),
       actions: [
-        WhatsAppButton(celular: data.celular),
+        WhatsAppButton(celular: data.celular!),
         ShareButton(
             screenshotController: screenshotController, descripcion: ''),
         const CloseButtonCustom()

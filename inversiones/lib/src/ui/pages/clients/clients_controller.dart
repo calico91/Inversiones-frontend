@@ -222,12 +222,12 @@ class ClientsController extends GetxController {
   }
 
   void _loadClientForm(Client client) {
-    document.text = client.cedula;
-    lastname.text = client.apellidos;
-    name.text = client.nombres;
-    address.text = client.direccion;
+    document.text = client.cedula!;
+    lastname.text = client.apellidos!;
+    name.text = client.nombres!;
+    address.text = client.direccion!;
     observations.text = client.observaciones ?? '';
-    phoneNumber.text = client.celular;
+    phoneNumber.text = client.celular!;
   }
 
   void buscarCliente(String value, bool focus) {
@@ -239,8 +239,8 @@ class ClientsController extends GetxController {
       results = clients.value
           .where(
             (element) =>
-                element.nombres.toLowerCase().contains(value.toLowerCase()) ||
-                element.apellidos.toLowerCase().contains(value.toLowerCase()),
+                element.nombres!.toLowerCase().contains(value.toLowerCase()) ||
+                element.apellidos!.toLowerCase().contains(value.toLowerCase()),
           )
           .toList();
     }
