@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:inversiones/src/data/http/base_http_client.dart';
@@ -18,7 +20,7 @@ class ReportesHttp implements ReportesRepository {
       final http.Response response = await baseHttpClient.get(
           UrlPaths.reporteInteresyCapital,
           {'fechaInicial': fechaInicial, 'fechaFinal': fechaFinal});
-      return compute(reporteInteresyCapitalResponseFromJson, response.body);
+      return compute(reporteInteresyCapitalResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -30,7 +32,7 @@ class ReportesHttp implements ReportesRepository {
     try {
       final http.Response response = await baseHttpClient
           .get('${UrlPaths.generarUltimosAbonosRealizados}/$cantidadAbonos');
-      return compute(abonosRealizadosResponseFromJson, response.body);
+      return compute(abonosRealizadosResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (_) {
       rethrow;
     }

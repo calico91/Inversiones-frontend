@@ -59,14 +59,7 @@ class TextFieldBase extends StatelessWidget {
             width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
               readOnly: readOnly!,
-              onChanged: (String? value) {
-                if (value != null) {
-                  final cleanValue = General.removerCaracteresEspeciales(value);
-                  controller?.text = cleanValue;
-
-                  onChanged?.call(cleanValue);
-                }
-              },
+              onChanged: (String? value) => onChanged,
               enabled: enabled,
               expands: expands!,
               maxLines: expands! ? null : 1,

@@ -25,7 +25,8 @@ class ClientHttp implements ClientRepository {
       final http.Response response = await baseHttpClient.postMultipart(
           UrlPaths.addClient, cliente, client.imagenes);
 
-      return compute(addClientResponseFromJson, response.body);
+      return compute(
+          addClientResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -39,7 +40,8 @@ class ClientHttp implements ClientRepository {
       final http.Response response =
           await baseHttpClient.get(UrlPaths.allClients);
 
-      return compute(allClientsResponseFromJson, response.body);
+      return compute(
+          allClientsResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -52,7 +54,8 @@ class ClientHttp implements ClientRepository {
         "${UrlPaths.loadClient}/$document",
       );
 
-      return compute(addClientResponseFromJson, response.body);
+      return compute(
+          addClientResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -64,7 +67,8 @@ class ClientHttp implements ClientRepository {
       final http.Response response = await baseHttpClient
           .put("${UrlPaths.updateClient}/$id", request: client.toJson());
 
-      return compute(addClientResponseFromJson, response.body);
+      return compute(
+          addClientResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -80,7 +84,8 @@ class ClientHttp implements ClientRepository {
         '${UrlPaths.consultarCuotasPorFecha}/$fechaFiltro/$idUsuario',
       );
 
-      return compute(clientsPendingInstallmentsResponseFromJson, response.body);
+      return compute(clientsPendingInstallmentsResponseFromJson,
+          utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -93,7 +98,8 @@ class ClientHttp implements ClientRepository {
       final http.Response response =
           await baseHttpClient.get('${UrlPaths.consultarImagenes}/$idCliente');
 
-      return compute(ApiResponse.parseimagenesClienteResponse, response.body);
+      return compute(ApiResponse.parseimagenesClienteResponse,
+          utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -106,7 +112,8 @@ class ClientHttp implements ClientRepository {
         "${UrlPaths.consultarClienteImagenes}/$id",
       );
 
-      return compute(addClientResponseFromJson, response.body);
+      return compute(
+          addClientResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }

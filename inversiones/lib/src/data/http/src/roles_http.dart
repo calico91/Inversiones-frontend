@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:inversiones/src/data/http/base_http_client.dart';
@@ -19,7 +21,7 @@ class RolesHttp implements RolesRepository {
     try {
       final http.Response response =
           await baseHttpClient.get(UrlPaths.consultarRoles);
-      return compute(consultarRolesResponseFromJson, response.body);
+      return compute(consultarRolesResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -30,7 +32,7 @@ class RolesHttp implements RolesRepository {
     try {
       final http.Response response =
           await baseHttpClient.get('${UrlPaths.consultarPermisosRol}/$id');
-      return compute(ApiResponse.parseRoles, response.body);
+      return compute(ApiResponse.parseRoles, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -41,7 +43,7 @@ class RolesHttp implements RolesRepository {
     try {
       final http.Response response =
           await baseHttpClient.get(UrlPaths.consultarPermisos);
-      return compute(ApiResponse.parsePermisoListResponse, response.body);
+      return compute(ApiResponse.parsePermisoListResponse, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -53,7 +55,7 @@ class RolesHttp implements RolesRepository {
     try {
       final http.Response response = await baseHttpClient
           .put(UrlPaths.asignarPermisos, request: asignarPermisos.toJson());
-      return compute(ApiResponse.parseStringResponse, response.body);
+      return compute(ApiResponse.parseStringResponse, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }

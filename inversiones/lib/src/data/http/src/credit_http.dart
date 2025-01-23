@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:inversiones/src/data/http/base_http_client.dart';
@@ -27,7 +29,7 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response = await baseHttpClient
           .post(UrlPaths.addCredit, request: addCreditRequest.toJson());
-      return compute(addCreditResponseFromJson, response.body);
+      return compute(addCreditResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -38,7 +40,7 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response = await baseHttpClient
           .get('${UrlPaths.infoPayFee}/$idCliente/$idCredito');
-      return compute(payFeeResponseFromJson, response.body);
+      return compute(payFeeResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -50,7 +52,7 @@ class CreditHttp implements CreditRepository {
       final http.Response response = await baseHttpClient.put(
           '${UrlPaths.pagarCuota}/${pagarCuotaRequest.idCuotaCredito}',
           request: pagarCuotaRequest.toJson());
-      return compute(abonoResponseFromJson, response.body);
+      return compute(abonoResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -61,7 +63,7 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response =
           await baseHttpClient.get('${UrlPaths.infoCreditosActivos}/$idUsuario');
-      return compute(infoCreditosActivosResponseFromJson, response.body);
+      return compute(infoCreditosActivosResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -73,7 +75,7 @@ class CreditHttp implements CreditRepository {
       final http.Response response =
           await baseHttpClient.get('${UrlPaths.infoCreditoySaldo}/$idCredito');
 
-      return compute(infoCreditoySaldoResponseFromJson, response.body);
+      return compute(infoCreditoySaldoResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -85,7 +87,7 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response = await baseHttpClient
           .put('${UrlPaths.modificarFechaCuota}/$fechaNueva/$idCredito');
-      return compute(payFeeResponseFromJson, response.body);
+      return compute(payFeeResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -97,7 +99,7 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response = await baseHttpClient
           .put('${UrlPaths.modificarEstadoCredito}/$idCredito/$estadoCredito');
-      return compute(estadoCreditoResponseFromJson, response.body);
+      return compute(estadoCreditoResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -109,7 +111,7 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response = await baseHttpClient
           .get('${UrlPaths.consultarAbonosRealizados}/$idCredito');
-      return compute(abonosRealizadosResponseFromJson, response.body);
+      return compute(abonosRealizadosResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -120,7 +122,7 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response = await baseHttpClient
           .get('${UrlPaths.consultarAbonoPorId}/$idCuotaCredito');
-      return compute(abonoResponseFromJson, response.body);
+      return compute(abonoResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -131,7 +133,7 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response = await baseHttpClient
           .put('${UrlPaths.anularUltimoAbono}/$idAbono/$idCredito');
-      return compute(genericoResponseFromJson, response.body);
+      return compute(genericoResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -143,7 +145,7 @@ class CreditHttp implements CreditRepository {
     try {
       final http.Response response = await baseHttpClient
           .put(UrlPaths.saldarCredito, request: saldarCreditoRequest.toJson());
-      return compute(ApiResponse.parseSaldarCreditoResponse, response.body);
+      return compute(ApiResponse.parseSaldarCreditoResponse, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
