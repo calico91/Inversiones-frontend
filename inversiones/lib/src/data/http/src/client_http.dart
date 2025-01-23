@@ -98,4 +98,17 @@ class ClientHttp implements ClientRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<AddClientResponse> consultarClienteImagenes(int id) async {
+    try {
+      final http.Response response = await baseHttpClient.get(
+        "${UrlPaths.consultarClienteImagenes}/$id",
+      );
+
+      return compute(addClientResponseFromJson, response.body);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

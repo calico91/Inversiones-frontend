@@ -17,6 +17,8 @@ class UrlPaths {
       '/cliente/consultar-cuotas-por-fecha';
   static const String consultarImagenes =
       '/imagenes-cliente/consultar-imagenes-por-id-cliente';
+  static const String consultarClienteImagenes =
+      '/cliente/consultar-cliente-por-id-imagenes';
 
   /// credito
   static const String addCredit = '/credito/registrar-renovar-credito';

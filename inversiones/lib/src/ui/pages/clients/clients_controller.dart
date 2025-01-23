@@ -106,7 +106,7 @@ class ClientsController extends GetxController {
     );
   }
 
-  void loadClient(String document, bool editar) {
+  void loadClient(String document) {
     Get.showOverlay(
       loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
@@ -114,13 +114,28 @@ class ClientsController extends GetxController {
           final AddClientResponse res =
               await const ClientHttp().loadClient(document);
 
-          if (editar) {
-            _loadClientForm(res.client!);
-            estaEditando(editar);
-          } else {
-            _mostrarModalInformacionCliente(res.client!);
-          }
+          _mostrarModalInformacionCliente(res.client!);
 
+          idClient(res.client!.id);
+        } on HttpException catch (e) {
+          appController.manageError(e.message);
+        } catch (e) {
+          appController.manageError(e.toString());
+        }
+      },
+    );
+  }
+
+  void consultarClienteImagenes(int idCliente) {
+    Get.showOverlay(
+      loadingWidget: const CargandoAnimacion(),
+      asyncFunction: () async {
+        try {
+          final AddClientResponse res =
+              await const ClientHttp().consultarClienteImagenes(idCliente);
+
+          estaEditando(true);
+          _loadClientForm(res.client!);
           idClient(res.client!.id);
         } on HttpException catch (e) {
           appController.manageError(e.message);

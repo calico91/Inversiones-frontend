@@ -18,4 +18,6 @@ abstract class ClientRepository {
       String fechaFiltro, int idUsuario);
 
   Future<ApiResponse<List<ImagenCliente>>> consultarImagenes(int idCliente);
+
+  Future<AddClientResponse> consultarClienteImagenes(int id);
 }
