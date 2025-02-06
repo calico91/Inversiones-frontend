@@ -61,8 +61,8 @@ void _buscarCliente(String value, CreditsController controller) {
     results = controller.listaClientes.value
         .where(
           (element) =>
-              element.nombres.toLowerCase().contains(value.toLowerCase()) ||
-              element.apellidos.toLowerCase().contains(value.toLowerCase()),
+              element.nombres!.toLowerCase().contains(value.toLowerCase()) ||
+              element.apellidos!.toLowerCase().contains(value.toLowerCase()),
         )
         .toList();
   }
@@ -72,7 +72,7 @@ void _buscarCliente(String value, CreditsController controller) {
 void _obtenerClienteSeleccionado(
     CreditsController controller, Client cliente, BuildContext context) {
   controller.nombreCliente.text =
-      '${cliente.nombres.split(' ').first} ${cliente.apellidos}';
+      '${cliente.nombres!.split(' ').first} ${cliente.apellidos}';
 
   controller.idClienteSeleccionado = cliente.id;
   Navigator.pop(context);

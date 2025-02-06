@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:inversiones/src/domain/entities/permiso.dart';
 import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/domain/entities/user.dart';
+import 'package:inversiones/src/domain/responses/clientes/imagenes_cliente_response.dart';
 import 'package:inversiones/src/domain/responses/creditos/saldar_credito_response.dart';
 
 ApiResponse<T> apiResponseFromJson<T>(
@@ -66,12 +67,19 @@ class ApiResponse<T> {
   }
 
   static ApiResponse<List<Permiso>> parsePermisoListResponse(
-      String responseBody) {
-    return apiResponseFromJson<List<Permiso>>(responseBody, (dataJson) {
-      dataJson as List;
-      return dataJson
-          .map((json) => Permiso.fromJson(json as Map<String, dynamic>))
-          .toList();
-    });
-  }
+          String responseBody) =>
+      apiResponseFromJson<List<Permiso>>(responseBody, (dataJson) {
+        dataJson as List;
+        return dataJson
+            .map((json) => Permiso.fromJson(json as Map<String, dynamic>))
+            .toList();
+      });
+  static ApiResponse<List<ImagenCliente>> parseimagenesClienteResponse(
+          String responseBody) =>
+      apiResponseFromJson<List<ImagenCliente>>(responseBody, (dataJson) {
+        dataJson as List;
+        return dataJson
+            .map((json) => ImagenCliente.fromJson(json as Map<String, dynamic>))
+            .toList();
+      });
 }

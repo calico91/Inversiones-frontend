@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:inversiones/src/data/http/base_http_client.dart';
@@ -17,7 +19,7 @@ class SignInHttp implements SignInRepository {
       final http.Response response = await baseHttpClient.post(UrlPaths.signIn,
           request: {'username': username, 'password': password});
 
-      return compute(signInResponseFromJson, response.body);
+      return compute(signInResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -29,7 +31,7 @@ class SignInHttp implements SignInRepository {
       final http.Response response = await baseHttpClient.post(UrlPaths.authBiometrica,
           request: {'username': username, 'idMovil': idMovil});
 
-      return compute(signInResponseFromJson, response.body);
+      return compute(signInResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }

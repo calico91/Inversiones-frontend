@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:inversiones/src/data/http/base_http_client.dart';
@@ -21,7 +23,7 @@ class UserHttp implements UserRepository {
       final http.Response response = await baseHttpClient.post(
           UrlPaths.vincularDispositivo,
           request: vincularDispositivo.toJson());
-      return compute(genericoResponseFromJson, response.body);
+      return compute(genericoResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -34,7 +36,7 @@ class UserHttp implements UserRepository {
       final http.Response response = await baseHttpClient.put(
           UrlPaths.cambiarContrasena,
           request: cambiarContrasenaRequest.toJson());
-      return compute(genericoResponseFromJson, response.body);
+      return compute(genericoResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -45,7 +47,8 @@ class UserHttp implements UserRepository {
     try {
       final http.Response response = await baseHttpClient
           .post(UrlPaths.registrarUsuario, request: user.toJson());
-      return compute(ApiResponse.parseUserResponse, response.body);
+      return compute(
+          ApiResponse.parseUserResponse, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -56,7 +59,8 @@ class UserHttp implements UserRepository {
     try {
       final http.Response response =
           await baseHttpClient.get(UrlPaths.consultarUsuarios);
-      return compute(ApiResponse.parseUserListResponse, response.body);
+      return compute(
+          ApiResponse.parseUserListResponse, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -67,7 +71,8 @@ class UserHttp implements UserRepository {
     try {
       final http.Response response =
           await baseHttpClient.get('${UrlPaths.consultarUsuario}/$id');
-      return compute(ApiResponse.parseUserResponse, response.body);
+      return compute(
+          ApiResponse.parseUserResponse, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
@@ -78,29 +83,32 @@ class UserHttp implements UserRepository {
     try {
       final http.Response response = await baseHttpClient
           .put(UrlPaths.actualizarUsuario, request: user.toJson());
-      return compute(ApiResponse.parseUserResponse, response.body);
+      return compute(
+          ApiResponse.parseUserResponse, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
   }
-  
+
   @override
   Future<ApiResponse<String>> cambiarEstado(int id) async {
     try {
-      final http.Response response = await baseHttpClient
-          .put('${UrlPaths.cambiarEstado}/$id');
-      return compute(ApiResponse.parseStringResponse, response.body);
+      final http.Response response =
+          await baseHttpClient.put('${UrlPaths.cambiarEstado}/$id');
+      return compute(
+          ApiResponse.parseStringResponse, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
   }
-  
+
   @override
   Future<ApiResponse<String>> reinicarContrasena(int id) async {
     try {
-      final http.Response response = await baseHttpClient
-          .put('${UrlPaths.reiniciarContrasena}/$id');
-      return compute(ApiResponse.parseStringResponse, response.body);
+      final http.Response response =
+          await baseHttpClient.put('${UrlPaths.reiniciarContrasena}/$id');
+      return compute(
+          ApiResponse.parseStringResponse, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }

@@ -82,15 +82,19 @@ class ListaClientes extends StatelessWidget {
       Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         _mostrarBotonSubtitulos(
             "Consultar cliente",
-            () => controller.loadClient(
-                controller.filtroClientes.value[index].cedula, false),
+            () => controller
+                .loadClient(controller.filtroClientes.value[index].cedula!),
             Icons.person_search),
         _mostrarBotonSubtitulos(
             "Editar cliente",
-            () => controller.loadClient(
-                controller.filtroClientes.value[index].cedula, true),
+            () => controller.consultarClienteImagenes(
+                controller.filtroClientes.value[index].id!),
             Icons.edit),
-        _mostrarBotonSubtitulos("Ver imagenes", () {}, Icons.image_search),
+        _mostrarBotonSubtitulos(
+            "Ver imagenes",
+            () => controller
+                .consultarImagenes(controller.filtroClientes.value[index].id!),
+            Icons.image_search),
       ]);
 
   Widget _mostrarBotonSubtitulos(

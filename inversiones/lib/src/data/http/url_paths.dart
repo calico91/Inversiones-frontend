@@ -15,6 +15,10 @@ class UrlPaths {
   static const String updateClient = '/cliente/actualizar-cliente';
   static const String consultarCuotasPorFecha =
       '/cliente/consultar-cuotas-por-fecha';
+  static const String consultarImagenes =
+      '/imagenes-cliente/consultar-imagenes-por-id-cliente';
+  static const String consultarClienteImagenes =
+      '/cliente/consultar-cliente-por-id-imagenes';
 
   /// credito
   static const String addCredit = '/credito/registrar-renovar-credito';
@@ -22,8 +26,7 @@ class UrlPaths {
       '/credito/consultar-creditos-activos';
   static const String modificarEstadoCredito =
       '/credito/modificar-estado-credito';
-  static const String saldarCredito =
-      '/credito/saldar';
+  static const String saldarCredito = '/credito/saldar';
 
   ///cuota
   static const String pagarCuota = '/cuotaCredito/pagar-cuota';
@@ -52,7 +55,6 @@ class UrlPaths {
   static const String actualizarUsuario = '/user/actualizar';
   static const String cambiarEstado = '/user/cambiar-estado';
   static const String reiniciarContrasena = '/user/reiniciar-contrasena';
-
 
   ///roles
   static const String consultarRoles = '/roles/consultar-roles';

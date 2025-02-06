@@ -4,52 +4,48 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 class Client {
   const Client(
       {this.id,
-      required this.nombres,
-      required this.apellidos,
+      this.nombres,
+      this.apellidos,
       this.email,
-      required this.celular,
+      this.celular,
       this.pais,
-      required this.cedula,
-      required this.direccion,
-      required this.observaciones,
+      this.cedula,
+      this.direccion,
+      this.observaciones,
       this.listaCreditos,
-      this.imagenes
-      });
+      this.imagenes});
 
   final int? id;
-  final String nombres;
-  final String apellidos;
+  final String? nombres;
+  final String? apellidos;
   final String? email;
-  final String celular;
+  final String? celular;
   final String? pais;
-  final String direccion;
+  final String? direccion;
   final String? observaciones;
-  final String cedula;
+  final String? cedula;
   final List<Credit>? listaCreditos;
   final Iterable<ImageFile>? imagenes;
 
-
   factory Client.fromJson(Map<String, dynamic> json) {
-    final String email = (json['email']) == null ? '' : json['email'] as String;
-    final String pais = (json['pais']) == null ? '' : json['pais'] as String;
-    final List<Credit> listaCreditos = json['listaCreditos'] == null
-        ? List.empty()
-        : List<Credit>.from(
-            (json['listaCreditos'] as List<dynamic>).map((element) {
-            return Credit.fromJson(element as Map<String, dynamic>);
-          }));
-
     return Client(
-        id: json['id'] as int,
-        nombres: json['nombres'] as String,
-        apellidos: json['apellidos'] as String,
-        email: email,
-        celular: json['celular'] as String,
-        pais: pais,
-        cedula: json['cedula'] as String,
-        direccion: json['direccion'] as String,
-        observaciones: json['observaciones'] as String,
-        listaCreditos: listaCreditos);
+        id: json['id'] == null ? 0 : json['id'] as int,
+        nombres: json['nombres'] == null ? '' : json['nombres'] as String,
+        apellidos: json['apellidos'] == null ? '' : json['apellidos'] as String,
+        email: json['email'] == null ? '' : json['email'] as String,
+        celular: json['celular'] == null ? '' : json['celular'] as String,
+        pais: json['pais'] == null ? '' : json['pais'] as String,
+        cedula: json['cedula'] == null ? '' : json['cedula'] as String,
+        direccion: json['direccion'] == null ? '' : json['direccion'] as String,
+        observaciones: json['observaciones'] == null
+            ? ''
+            : json['observaciones'] as String,
+        listaCreditos: json['listaCreditos'] == null
+            ? List.empty()
+            : List<Credit>.from(
+                (json['listaCreditos'] as List<dynamic>).map((element) {
+                return Credit.fromJson(element as Map<String, dynamic>);
+              })));
   }
 
   Map<String, dynamic> toJson() {
