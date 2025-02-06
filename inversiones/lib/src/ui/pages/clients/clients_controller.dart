@@ -169,7 +169,7 @@ class ClientsController extends GetxController {
       loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
-          final ClientResponse res = await const ClientHttp().updateClient(
+          await const ClientHttp().updateClient(
             idClient.value,
             Client(
               nombres: name.text,
@@ -178,16 +178,14 @@ class ClientsController extends GetxController {
               cedula: document.text.trim(),
               direccion: address.text,
               observaciones: observations.text,
+              imagenes: multiImagePickerController.value.images,
             ),
           );
-          if (res.status == 200) {
-            Get.showSnackbar(
-              const InfoSnackbar('cliente actualizado correctamente'),
-            );
-            cleanForm();
-          } else {
-            appController.manageError(res.message);
-          }
+
+          Get.showSnackbar(
+            const InfoSnackbar('cliente actualizado correctamente'),
+          );
+          cleanForm();
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {

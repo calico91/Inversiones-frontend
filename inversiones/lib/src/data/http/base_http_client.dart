@@ -131,13 +131,13 @@ class BaseHttpClient {
     }
   }
 
-  Future<http.Response> postMultipart(String path, Map<String, String> fields,
-      Iterable<ImageFile>? imagenes) async {
+  Future<http.Response> Multipart(String path, Map<String, String> fields,
+      Iterable<ImageFile>? imagenes, String metodoHTTP) async {
     final String url = await secureStorageLocal.urlServidor ?? '';
     final Uri uri = Uri.http(url, path);
     try {
       final String? token = await secureStorageLocal.jwtToken;
-      final request = http.MultipartRequest('POST', uri);
+      final request = http.MultipartRequest(metodoHTTP, uri);
       fields.forEach((key, value) {
         request.fields[key] = value;
       });

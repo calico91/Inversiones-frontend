@@ -23,8 +23,8 @@ class ClientHttp implements ClientRepository {
     try {
       final cliente = {'cliente': jsonEncode(client.toJson())};
 
-      final http.Response response = await baseHttpClient.postMultipart(
-          UrlPaths.addClient, cliente, client.imagenes);
+      final http.Response response = await baseHttpClient.Multipart(
+          UrlPaths.addClient, cliente, client.imagenes, 'POST');
 
       return compute(
           addClientResponseFromJson, utf8.decode(response.bodyBytes));
@@ -65,8 +65,10 @@ class ClientHttp implements ClientRepository {
   @override
   Future<ClientResponse> updateClient(int id, Client client) async {
     try {
-      final http.Response response = await baseHttpClient
-          .put("${UrlPaths.updateClient}/$id", request: client.toJson());
+      final cliente = {'cliente': jsonEncode(client.toJson())};
+
+      final http.Response response = await baseHttpClient.Multipart(
+          "${UrlPaths.updateClient}/$id", cliente, client.imagenes, 'PUT');
 
       return compute(
           addClientResponseFromJson, utf8.decode(response.bodyBytes));
@@ -113,8 +115,8 @@ class ClientHttp implements ClientRepository {
         "${UrlPaths.consultarClienteImagenes}/$id",
       );
 
-      return compute(
-          clientImagesResponseResponseFromJson, utf8.decode(response.bodyBytes));
+      return compute(clientImagesResponseResponseFromJson,
+          utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
