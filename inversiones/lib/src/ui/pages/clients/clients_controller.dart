@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,14 +11,16 @@ import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/api_response.dart';
-import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/client_images_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/imagenes_cliente_response.dart';
 import 'package:inversiones/src/ui/pages/clients/widgets/modal_imagenes_cliente.dart';
 import 'package:inversiones/src/ui/pages/clients/widgets/modal_informacion_cliente.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ClientsController extends GetxController {
   final AppController appController = Get.find<AppController>();
@@ -37,13 +43,14 @@ class ClientsController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     multiImagePickerController = Rx(MultiImagePickerController(
         maxImages: 6,
         picker: (bool allowMultiple) async {
           final pickedImages = await pickImages(allowMultiple);
           return pickedImages.map((e) => convertToImageFile(e)).toList();
         }));
+
+    super.onInit();
   }
 
   Future<void> allClients() async {
@@ -74,7 +81,7 @@ class ClientsController extends GetxController {
             await const SecureStorageLocal().listaClientes;
 
         try {
-          final AddClientResponse respuestaHTTP = await const ClientHttp()
+          final ClientResponse respuestaHTTP = await const ClientHttp()
               .addClient(Client(
                   observaciones: observations.text.trim(),
                   direccion: address.text.trim(),
@@ -111,7 +118,7 @@ class ClientsController extends GetxController {
       loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
-          final AddClientResponse res =
+          final ClientResponse res =
               await const ClientHttp().loadClient(document);
 
           _mostrarModalInformacionCliente(res.client!);
@@ -131,12 +138,23 @@ class ClientsController extends GetxController {
       loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
-          final AddClientResponse res =
+          final ClientImagesResponse res =
               await const ClientHttp().consultarClienteImagenes(idCliente);
 
+          final List<ImageFile> imagenesCargadas =
+              await convertBase64ToImageFiles(res.clientImages?.imagenes ?? []);
+
+          multiImagePickerController = Rx(MultiImagePickerController(
+              maxImages: 6,
+              images: imagenesCargadas,
+              picker: (bool allowMultiple) async {
+                final pickedImages = await pickImages(allowMultiple);
+                return pickedImages.map((e) => convertToImageFile(e)).toList();
+              }));
+
           estaEditando(true);
-          _loadClientForm(res.client!);
-          idClient(res.client!.id);
+          _loadClientForm(res.clientImages!);
+          idClient(res.clientImages!.id);
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -151,7 +169,7 @@ class ClientsController extends GetxController {
       loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
-          final AddClientResponse res = await const ClientHttp().updateClient(
+          final ClientResponse res = await const ClientHttp().updateClient(
             idClient.value,
             Client(
               nombres: name.text,
@@ -221,7 +239,7 @@ class ClientsController extends GetxController {
     estaEditando(false);
   }
 
-  void _loadClientForm(Client client) {
+  void _loadClientForm(ClientImages client) {
     document.text = client.cedula!;
     lastname.text = client.apellidos!;
     name.text = client.nombres!;
@@ -273,5 +291,36 @@ class ClientsController extends GetxController {
       name: file.name,
       extension: file.path.split('.').last, // Extrae la extensión del archivo
     );
+  }
+
+  Future<List<ImageFile>> convertBase64ToImageFiles(
+      List<ImagenCliente> imagenesCliente) async {
+    final List<ImageFile> imageFiles = [];
+
+    for (final ImagenCliente imagen in imagenesCliente) {
+      // Decodificar la cadena base64 en bytes
+      final Uint8List bytes = base64Decode(imagen.base64!);
+
+      // Obtener el directorio temporal
+      final Directory tempDir = await getTemporaryDirectory();
+      final String tempPath =
+          '${tempDir.path}/image_${DateTime.now().millisecondsSinceEpoch}.${imagen.extension}';
+
+      // Crear un archivo temporal y guardar los bytes de la imagen
+      final File imageFile = File(tempPath)..writeAsBytesSync(bytes);
+
+      // Crear un ImageFile para la librería MultiImagePicker
+      final ImageFile imageAsset = ImageFile(
+        imageFile.path, // Path del archivo temporal
+        path: imageFile.path,
+        name:
+            'image_${DateTime.now().millisecondsSinceEpoch}.${imagen.extension}',
+        extension: imagen.extension, // Usar la extensión proporcionada
+      );
+
+      imageFiles.add(imageAsset);
+    }
+
+    return imageFiles;
   }
 }

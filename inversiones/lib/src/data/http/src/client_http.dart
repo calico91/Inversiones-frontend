@@ -7,8 +7,9 @@ import 'package:inversiones/src/data/http/url_paths.dart';
 import 'package:inversiones/src/domain/entities/client.dart';
 import 'package:inversiones/src/domain/repositories/client_repository.dart';
 import 'package:inversiones/src/domain/responses/api_response.dart';
-import 'package:inversiones/src/domain/responses/clientes/add_client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/all_clients_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/client_images_response.dart';
+import 'package:inversiones/src/domain/responses/clientes/client_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
 import 'package:inversiones/src/domain/responses/clientes/imagenes_cliente_response.dart';
 
@@ -18,7 +19,7 @@ class ClientHttp implements ClientRepository {
   final BaseHttpClient baseHttpClient;
 
   @override
-  Future<AddClientResponse> addClient(Client client) async {
+  Future<ClientResponse> addClient(Client client) async {
     try {
       final cliente = {'cliente': jsonEncode(client.toJson())};
 
@@ -48,7 +49,7 @@ class ClientHttp implements ClientRepository {
   }
 
   @override
-  Future<AddClientResponse> loadClient(String document) async {
+  Future<ClientResponse> loadClient(String document) async {
     try {
       final http.Response response = await baseHttpClient.get(
         "${UrlPaths.loadClient}/$document",
@@ -62,7 +63,7 @@ class ClientHttp implements ClientRepository {
   }
 
   @override
-  Future<AddClientResponse> updateClient(int id, Client client) async {
+  Future<ClientResponse> updateClient(int id, Client client) async {
     try {
       final http.Response response = await baseHttpClient
           .put("${UrlPaths.updateClient}/$id", request: client.toJson());
@@ -106,14 +107,14 @@ class ClientHttp implements ClientRepository {
   }
 
   @override
-  Future<AddClientResponse> consultarClienteImagenes(int id) async {
+  Future<ClientImagesResponse> consultarClienteImagenes(int id) async {
     try {
       final http.Response response = await baseHttpClient.get(
         "${UrlPaths.consultarClienteImagenes}/$id",
       );
 
       return compute(
-          addClientResponseFromJson, utf8.decode(response.bodyBytes));
+          clientImagesResponseResponseFromJson, utf8.decode(response.bodyBytes));
     } catch (e) {
       rethrow;
     }
