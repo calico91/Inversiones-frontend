@@ -10,6 +10,7 @@ import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/whatsapp_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
+import 'package:inversiones/src/ui/pages/widgets/labels/titulo_nombre_cliente.dart';
 import 'package:screenshot/screenshot.dart';
 
 class PayFeePage extends StatelessWidget {
@@ -22,25 +23,20 @@ class PayFeePage extends StatelessWidget {
     final PayFeeController controller = Get.find<PayFeeController>();
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: const AppBarCustom('Cuota credito'),
+        appBar: AppBarCustom('Cuota credito', actions: [
+          WhatsAppButton(
+              celular: controller.payFee.celular!, color: Colors.white),
+          ShareButton(
+            screenshotController: screenshotController,
+            descripcion: 'Informacion cuota',
+            color: Colors.white,
+          )
+        ]),
         body: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: General.mediaQuery(context).height * 0.03,
                 horizontal: General.mediaQuery(context).width * 0.1),
             child: Column(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                SizedBox(
-                    width: General.mediaQuery(context).width * 0.5,
-                    child: Text(controller.nombreCliente,
-                        style: const TextStyle(
-                            fontSize: 20, overflow: TextOverflow.ellipsis),
-                        maxLines: 2)),
-                WhatsAppButton(celular: controller.payFee.celular!),
-                ShareButton(
-                    screenshotController: screenshotController,
-                    descripcion:
-                        'Informacion cuota ${controller.nombreCliente}')
-              ]),
               const SizedBox(height: 10),
               Screenshot(
                   controller: screenshotController,
@@ -48,6 +44,8 @@ class PayFeePage extends StatelessWidget {
                       child: Obx(() => ColoredBox(
                           color: Colors.white,
                           child: Column(children: [
+                            TituloNombreCliente(
+                                nombreCliente: controller.nombreCliente),
                             _infoValorCuota(General.mediaQuery(context),
                                 'Fecha cuota', controller.payFee.fechaCuota!),
                             _infoValorCuota(

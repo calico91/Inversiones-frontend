@@ -7,12 +7,14 @@ import 'package:url_launcher/url_launcher.dart';
 class WhatsAppButton extends StatelessWidget {
   final String celular;
   final String? mensaje;
+  final Color? color;
 
-  const WhatsAppButton({super.key, required this.celular, this.mensaje});
+  const WhatsAppButton(
+      {super.key, required this.celular, this.mensaje, this.color});
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      color: Colors.blue,
+      color: color ?? Colors.blue,
       tooltip: 'Enviar WhatsApp',
       onPressed: () =>
           _enviarWhatsApp(numero: '+57$celular', mensaje: mensaje ?? ''),

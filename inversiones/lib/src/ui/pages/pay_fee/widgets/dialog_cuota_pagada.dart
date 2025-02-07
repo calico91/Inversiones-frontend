@@ -8,11 +8,13 @@ import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dar
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/labels/titulo_nombre_cliente.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogCuotaPagada extends StatelessWidget {
   DialogCuotaPagada(
-      {super.key, required this.dataAbono,
+      {super.key,
+      required this.dataAbono,
       this.nombreCliente,
       this.mostrarBotonCerrar,
       this.idCredito});
@@ -24,10 +26,16 @@ class DialogCuotaPagada extends StatelessWidget {
   final ScreenshotController screenshotController = ScreenshotController();
   final CreditsController controller = Get.put(CreditsController());
 
+
   @override
   Widget build(BuildContext context) {
     /// si  es un abono normal muestra todos los campos
     final bool mostrarCampo = dataAbono.tipoAbono == Constantes.CUOTA_NORMAL;
+    final tipoAbono= dataAbono.tipoAbono == Constantes.SOLO_INTERES
+        ? 'Abono interes'
+        : dataAbono.tipoAbono == Constantes.ABONO_CAPITAL
+            ? 'Abono capital'
+            : 'Cuota normal';
     return AlertDialog(
       scrollable: true,
       actionsPadding: EdgeInsets.zero,
@@ -43,6 +51,7 @@ class DialogCuotaPagada extends StatelessWidget {
             child: CustomCard(
               child: Column(
                 children: [
+                  TituloNombreCliente(nombreCliente: nombreCliente!),
                   _mostrarContenido(
                     'Cuotas Pagadas:',
                     dataAbono.cuotasPagadas.toString(),
@@ -60,8 +69,8 @@ class DialogCuotaPagada extends StatelessWidget {
                     dataAbono.tipoAbono == Constantes.SOLO_INTERES
                         ? 'Interes'
                         : dataAbono.tipoAbono == Constantes.ABONO_CAPITAL
-                            ? 'Abono capital'
-                            : 'Abono cuota',
+                            ? 'Capital'
+                            : 'Cuota normal',
                     context,
                     true,
                   ),
@@ -95,7 +104,7 @@ class DialogCuotaPagada extends StatelessWidget {
         if (idCredito != null) _anularAbono(context),
         ShareButton(
           screenshotController: screenshotController,
-          descripcion: 'Abono ${nombreCliente ?? ''}',
+          descripcion: tipoAbono,
         ),
         const HomeButton(),
         if (mostrarBotonCerrar ?? true) const CloseButtonCustom()
