@@ -12,6 +12,7 @@ import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
+import 'package:inversiones/src/ui/pages/widgets/labels/titulo_nombre_cliente.dart';
 import 'package:screenshot/screenshot.dart';
 
 class InfoCreditoSaldoModal extends StatelessWidget {
@@ -59,11 +60,9 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                   child: CustomCard(
                     child: Column(
                       children: [
-                        Text(
-                            textAlign: TextAlign.center,
-                            controllerCredits.nombreClienteSeleccionado!,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
+                        TituloNombreCliente(
+                            nombreCliente:
+                                controllerCredits.nombreClienteSeleccionado!),
                         _showInfoCredito('Modalidad', info.modalidad!),
                         _showInfoCredito(
                             'Numero cuotas', info.numeroCuotas!.toString()),
@@ -85,6 +84,8 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                             General.formatoMoneda(info.interesMora)),
                         _showInfoCredito('Valor cuota',
                             General.formatoMoneda(info.valorCuota)),
+                            _showInfoCredito('Saldo capital',
+                            General.formatoMoneda(info.saldoCapital)),
                         _showInfoCredito('Capital pagado',
                             General.formatoMoneda(info.capitalPagado)),
                         _showInfoCredito('Saldo credito',

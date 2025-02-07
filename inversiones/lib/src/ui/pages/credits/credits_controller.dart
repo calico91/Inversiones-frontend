@@ -228,12 +228,8 @@ class CreditsController extends GetxController {
               idCuotaCredito: idCuota,
             ),
           );
-          if (respuestaHttp.status == 200) {
-            General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
-                homeController.nombreClienteSeleccionado);
-          } else {
-            appController.manageError(respuestaHttp.message);
-          }
+          General.mostrarModalCompartirAbonos(
+              respuestaHttp.dataAbono!, false, nombreClienteSeleccionado);
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {

@@ -68,12 +68,8 @@ class PayFeeController extends GetxController {
               idCuotaCredito: payFee.id!,
             ),
           );
-          if (respuestaHttp.status == 200) {
-            General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
-                homeController.nombreClienteSeleccionado, false);
-          } else {
-            appController.manageError(respuestaHttp.message);
-          }
+          General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
+              homeController.nombreClienteSeleccionado, false);
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
