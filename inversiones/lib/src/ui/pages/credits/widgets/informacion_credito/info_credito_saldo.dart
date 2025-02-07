@@ -84,6 +84,8 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                             General.formatoMoneda(info.interesMora)),
                         _showInfoCredito('Valor cuota',
                             General.formatoMoneda(info.valorCuota)),
+                            _showInfoCredito('Saldo capital',
+                            General.formatoMoneda(info.saldoCapital)),
                         _showInfoCredito('Capital pagado',
                             General.formatoMoneda(info.capitalPagado)),
                         _showInfoCredito('Saldo credito',
