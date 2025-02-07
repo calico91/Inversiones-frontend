@@ -19,7 +19,6 @@ class AbonoResponse {
 class DataAbono {
   int? id;
   int cuotasPagadas;
-  String? estadoCuota;
   int cantidadCuotas;
   double valorAbonado;
   String tipoAbono;
@@ -29,7 +28,6 @@ class DataAbono {
   DataAbono(
       {this.id,
       required this.cuotasPagadas,
-      this.estadoCuota,
       required this.cantidadCuotas,
       required this.valorAbonado,
       required this.tipoAbono,
@@ -39,8 +37,6 @@ class DataAbono {
   factory DataAbono.fromJson(Map<String, dynamic> json) => DataAbono(
         id: json["id"] == null ? null : json["id"] as int,
         cuotasPagadas: json["cuotasPagadas"] as int,
-        estadoCuota:
-            json["estadoCuota"] == null ? null : json["estadoCuota"] as String,
         cantidadCuotas: json["cantidadCuotas"] as int,
         valorAbonado: json["valorAbonado"] as double,
         saldoCapital: json["saldoCapital"] == null

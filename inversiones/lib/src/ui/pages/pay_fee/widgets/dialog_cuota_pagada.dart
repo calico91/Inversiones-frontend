@@ -26,12 +26,16 @@ class DialogCuotaPagada extends StatelessWidget {
   final ScreenshotController screenshotController = ScreenshotController();
   final CreditsController controller = Get.put(CreditsController());
 
-
   @override
   Widget build(BuildContext context) {
     /// si  es un abono normal muestra todos los campos
     final bool mostrarCampo = dataAbono.tipoAbono == Constantes.CUOTA_NORMAL;
-    final tipoAbono= dataAbono.tipoAbono == Constantes.SOLO_INTERES
+
+    final bool mostrarSaldoCapital =
+        dataAbono.tipoAbono == Constantes.ABONO_CAPITAL ||
+            dataAbono.tipoAbono == Constantes.CUOTA_NORMAL;
+
+    final tipoAbono = dataAbono.tipoAbono == Constantes.SOLO_INTERES
         ? 'Abono interes'
         : dataAbono.tipoAbono == Constantes.ABONO_CAPITAL
             ? 'Abono capital'
@@ -53,46 +57,49 @@ class DialogCuotaPagada extends StatelessWidget {
                 children: [
                   TituloNombreCliente(nombreCliente: nombreCliente!),
                   _mostrarContenido(
-                    'Cuotas Pagadas:',
-                    dataAbono.cuotasPagadas.toString(),
-                    context,
-                    mostrarCampo,
-                  ),
+                      'Cuotas Pagadas:',
+                      dataAbono.cuotasPagadas.toString(),
+                      context,
+                      mostrarCampo),
                   _mostrarContenido(
-                    'Cantidad de cuotas:',
-                    dataAbono.cantidadCuotas.toString(),
-                    context,
-                    mostrarCampo,
-                  ),
+                      'Cantidad de cuotas:',
+                      dataAbono.cantidadCuotas.toString(),
+                      context,
+                      mostrarCampo),
                   _mostrarContenido(
-                    'Tipo abono:',
-                    dataAbono.tipoAbono == Constantes.SOLO_INTERES
-                        ? 'Interes'
-                        : dataAbono.tipoAbono == Constantes.ABONO_CAPITAL
-                            ? 'Capital'
-                            : 'Cuota normal',
-                    context,
-                    true,
-                  ),
+                      'Tipo abono:',
+                      dataAbono.tipoAbono == Constantes.SOLO_INTERES
+                          ? 'Interes'
+                          : dataAbono.tipoAbono == Constantes.ABONO_CAPITAL
+                              ? 'Capital'
+                              : 'Cuota normal',
+                      context,
+                      true),
                   _mostrarContenido(
-                    'Valor abonado:',
-                    General.formatoMoneda(
-                      General.stringToDouble(
-                          dataAbono.valorAbonado.toString().split('.').first),
-                    ),
-                    context,
-                    true,
-                  ),
-                  _mostrarContenido(
-                    'Fecha abono:',
-                    General.formatoFecha(
-                      DateTime.parse(
-                        dataAbono.fechaAbono ?? DateTime.now().toString(),
+                      'Valor abonado:',
+                      General.formatoMoneda(
+                        General.stringToDouble(
+                            dataAbono.valorAbonado.toString().split('.').first),
                       ),
-                    ),
-                    context,
-                    true,
-                  ),
+                      context,
+                      true),
+                  _mostrarContenido(
+                      'Saldo capital:',
+                      General.formatoMoneda(
+                        General.stringToDouble(
+                            dataAbono.saldoCapital.toString().split('.').first),
+                      ),
+                      context,
+                      mostrarSaldoCapital),
+                  _mostrarContenido(
+                      'Fecha abono:',
+                      General.formatoFecha(
+                        DateTime.parse(
+                          dataAbono.fechaAbono ?? DateTime.now().toString(),
+                        ),
+                      ),
+                      context,
+                      true),
                 ],
               ),
             ),
