@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:installed_apps/installed_apps.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/error_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,6 +24,8 @@ class WhatsAppButton extends StatelessWidget {
   }
 
   Future<void> _enviarWhatsApp(String numero, String mensaje) async {
+    InstalledApps.getInstalledApps();
+
     final Uri url = Uri.parse(
         'whatsapp://send?phone=$numero&text=${Uri.encodeFull(mensaje)}');
     if (await canLaunchUrl(url)) {
