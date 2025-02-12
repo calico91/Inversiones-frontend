@@ -11,21 +11,20 @@ class WhatsAppButton extends StatelessWidget {
 
   const WhatsAppButton(
       {super.key, required this.celular, this.mensaje, this.color});
+
   @override
   Widget build(BuildContext context) {
     return IconButton(
       color: color ?? Colors.blue,
       tooltip: 'Enviar WhatsApp',
-      onPressed: () =>
-          _enviarWhatsApp(numero: '+57$celular', mensaje: mensaje ?? ''),
+      onPressed: () => _enviarWhatsApp('+57$celular', mensaje ?? ''),
       icon: const FaIcon(FontAwesomeIcons.whatsapp),
     );
   }
 
-  Future<void> _enviarWhatsApp(
-      {required String numero, required String mensaje}) async {
-    final Uri url =
-        Uri.parse('https://wa.me/$numero?text=${Uri.encodeFull(mensaje)}');
+  Future<void> _enviarWhatsApp(String numero, String mensaje) async {
+    final Uri url = Uri.parse(
+        'whatsapp://send?phone=$numero&text=${Uri.encodeFull(mensaje)}');
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     } else {
