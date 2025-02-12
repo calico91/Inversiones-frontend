@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -81,28 +82,28 @@ class ListaClientes extends StatelessWidget {
           ClientsController controller, int index, Size size) =>
       Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         _mostrarBotonSubtitulos(
-            "Consultar cliente",
+            "Informacion cliente",
             () => controller
                 .loadClient(controller.filtroClientes.value[index].cedula!),
-            Icons.person_search),
+            const Icon(Icons.info_outlined)),
         _mostrarBotonSubtitulos(
             "Editar cliente",
             () => controller.consultarClienteImagenes(
                 controller.filtroClientes.value[index].id!),
-            Icons.edit),
+            const FaIcon(FontAwesomeIcons.userPen)),
         _mostrarBotonSubtitulos(
             "Ver imagenes",
             () => controller
                 .consultarImagenes(controller.filtroClientes.value[index].id!),
-            Icons.image_search),
+            const Icon(Icons.image_search_outlined)),
       ]);
 
   Widget _mostrarBotonSubtitulos(
-          String tooltip, Function() accion, IconData icono) =>
+          String tooltip, Function() accion, Widget icono) =>
       IconButton(
           color: Colors.blue,
           onPressed: accion,
-          icon: Icon(icono),
+          icon: icono,
           tooltip: tooltip,
-          iconSize: 30);
+          iconSize: 28);
 }
