@@ -49,7 +49,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
         ],
       ),
       content: SizedBox(
-        height: General.mediaQuery(context).height * 0.49,
+        height: General.mediaQuery(context).height * 0.54,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -74,17 +74,20 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                         _showInfoCredito('Fecha cuota', info.fechaCuota!),
                         _showInfoCredito(
                             'Ultima pagada', info.ultimaCuotaPagada!),
+                        _showInfoCredito('Dias aplica mora', info.diasMora!),
+                        _showInfoCredito('Valor mora',
+                            General.formatoMoneda(info.valorMora)),
                         _showInfoCredito('Valor credito',
                             General.formatoMoneda(info.valorCredito)),
                         _showInfoCredito('Interes mes',
                             General.formatoMoneda(info.valorInteres)),
                         _showInfoCredito('Interes a hoy',
                             General.formatoMoneda(info.interesHoy)),
-                        _showInfoCredito('Valor por Mora',
+                        _showInfoCredito('Interes por mora',
                             General.formatoMoneda(info.interesMora)),
                         _showInfoCredito('Valor cuota',
                             General.formatoMoneda(info.valorCuota)),
-                            _showInfoCredito('Saldo capital',
+                        _showInfoCredito('Saldo capital',
                             General.formatoMoneda(info.saldoCapital)),
                         _showInfoCredito('Capital pagado',
                             General.formatoMoneda(info.capitalPagado)),

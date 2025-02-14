@@ -15,6 +15,8 @@ abstract class SecureStorageRepository {
   Future<List<Roles>?> get roles;
   Future<List<Permiso>?> get permisos;
   Future<String?> get consularApp;
+  Future<String?> get diasMora;
+  Future<String?> get valorMora;
   Future<void> saveToken(String? token);
   Future<void> saveUserDetails(UserDetails? userDetails);
   Future<void> saveIdMovil(String? password);
@@ -24,5 +26,6 @@ abstract class SecureStorageRepository {
   Future<void> saveRoles(List<Roles>? roles);
   Future<void> savePermisos(List<Permiso>? roles);
   Future<void> saveConsultarApp(String? consularApp);
-
+  Future<void> saveDiasMora(String? diasMora);
+  Future<void> saveValorMora(String? valorMora);
 }

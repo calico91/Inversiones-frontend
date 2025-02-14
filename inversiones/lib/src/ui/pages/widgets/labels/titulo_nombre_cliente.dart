@@ -7,9 +7,14 @@ class TituloNombreCliente extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-        textAlign: TextAlign.center,
-        nombreCliente,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16));
+    return Column(
+      children: [
+        Text(
+            textAlign: TextAlign.center,
+            nombreCliente,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        const Divider(color: Colors.black),
+      ],
+    );
   }
 }

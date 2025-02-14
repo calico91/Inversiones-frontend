@@ -44,25 +44,30 @@ class InfoCreditoySaldo {
   double? interesMora;
   String? modalidad;
   double? saldoCapital;
+  double? valorMora;
+  String? diasMora;
 
-  InfoCreditoySaldo(
-      {this.idCredito,
-      this.id,
-      this.valorCuota,
-      this.fechaCuota,
-      this.numeroCuotas,
-      this.cuotaNumero,
-      this.valorInteres,
-      this.valorCredito,
-      this.interesPorcentaje,
-      this.fechaCredito,
-      this.interesHoy,
-      this.saldoCredito,
-      this.capitalPagado,
-      this.ultimaCuotaPagada,
-      this.interesMora,
-      this.modalidad,
-      this.saldoCapital});
+  InfoCreditoySaldo({
+    this.idCredito,
+    this.id,
+    this.valorCuota,
+    this.fechaCuota,
+    this.numeroCuotas,
+    this.cuotaNumero,
+    this.valorInteres,
+    this.valorCredito,
+    this.interesPorcentaje,
+    this.fechaCredito,
+    this.interesHoy,
+    this.saldoCredito,
+    this.capitalPagado,
+    this.ultimaCuotaPagada,
+    this.interesMora,
+    this.modalidad,
+    this.saldoCapital,
+    this.diasMora,
+    this.valorMora,
+  });
 
   factory InfoCreditoySaldo.fromJson(Map<String, dynamic> json) =>
       InfoCreditoySaldo(
@@ -82,5 +87,7 @@ class InfoCreditoySaldo {
         interesMora: json["interesMora"] as double,
         modalidad: json["modalidad"] as String,
         saldoCapital: json["saldoCapital"] as double,
+        valorMora: json["valorMora"] as double,
+        diasMora: json["diasMora"] as String,
       );
 }

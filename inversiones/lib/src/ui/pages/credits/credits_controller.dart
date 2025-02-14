@@ -22,14 +22,14 @@ import 'package:inversiones/src/domain/responses/creditos/saldar_credito_respons
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/pay_fee_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_info_credito_creado.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/dialog_lista_clientes.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/formulario_credito/dialog_info_credito_creado.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/formulario_credito/dialog_lista_clientes.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_abonos_realizados.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_estado_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_fecha_cuota_modificada.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_saldar_credito.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/info_credito_saldo.dart';
-import 'package:inversiones/src/ui/pages/credits/widgets/text_editing_reactivos.dart';
+import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/text_editing_reactivos.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -42,6 +42,7 @@ class CreditsController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formRenovacion = GlobalKey<FormState>();
   final GlobalKey<FormState> formKeyAbonoCapital = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyMora = GlobalKey<FormState>();
   final TextEditingController valorCredito = TextEditingController();
   final TextEditingController cantidadCuotas = TextEditingController();
   final TextEditingController porcentajeInteres = TextEditingController();
@@ -50,9 +51,16 @@ class CreditsController extends GetxController {
   final TextEditingController fechaCuota = TextEditingController();
   final TextEditingController fechaCredito = TextEditingController();
   final TextEditingController nuevaFechaCuota = TextEditingController();
+  final TextEditingController campoBuscarCredito = TextEditingController();
+  final TextEditingController campoBuscarCliente = TextEditingController();
+  final TextEditingController valorMora = TextEditingController();
+  final TextEditingController diasMora = TextEditingController();
+  final ReactiveTextEditingController valorCreditoRenovacion =
+      ReactiveTextEditingController();
+  final ReactiveTextEditingController valorAEntregar =
+      ReactiveTextEditingController();
+
   final Rx<int> estadoCredito = Rx(Constantes.CODIGO_CREDITO_ACTIVO);
-  TextEditingController campoBuscarCredito = TextEditingController();
-  TextEditingController campoBuscarCliente = TextEditingController();
   final Rx<int> status = 0.obs;
   final Rx<List<InfoCreditosActivos>> creditosActivos =
       Rx<List<InfoCreditosActivos>>([]);
@@ -68,10 +76,6 @@ class CreditsController extends GetxController {
 
   final Rx<List<Client>> listaClientes = Rx<List<Client>>([]);
   Rx<List<Client>> filtroClientes = Rx<List<Client>>([]);
-  final ReactiveTextEditingController valorCreditoRenovacion =
-      ReactiveTextEditingController();
-  final ReactiveTextEditingController valorAEntregar =
-      ReactiveTextEditingController();
 
   RxString valorEntregarResultado = '0.0'.obs;
   Rx<double> valorCreditoRX = 0.0.obs;
@@ -114,40 +118,56 @@ class CreditsController extends GetxController {
         });
   }
 
-  void save(bool renovarCredito) {
+  Future<void> save(bool renovarCredito) async {
+    final String diasMora = await secureStorageLocal.diasMora ?? '';
+    final String valorMora = await secureStorageLocal.valorMora ?? '';
+
+    if (diasMora == '' || valorMora == '') {
+      appController.manageError('Debe configurar los valores de la mora');
+      return;
+    }
+
     Get.showOverlay(
       loadingWidget: const CargandoAnimacion(),
       asyncFunction: () async {
         try {
           final UserDetails? userDetails = await secureStorageLocal.userDetails;
 
-          final AddCreditResponse res = await const CreditHttp().addCredit(
-              AddCreditRequest(
-                  cantidadCuotas: int.parse(cantidadCuotas.text.trim()),
-                  valorCredito: !renovarCredito
-                      ? General.stringToDouble(valorCredito.text)
-                      : General
-                          .stringToDouble(valorCreditoRenovacion.text.value),
-                  interesPorcentaje:
-                      double.parse(porcentajeInteres.text.trim()),
-                  fechaCredito: fechaCredito.text.trim(),
-                  fechaCuota: fechaCuota.text.trim(),
-                  modalidad: modalidad
-                          .value
-                      ? Modalidad(
-                          id: Constantes.CODIGO_MODALIDAD_MENSUAL,
-                          description: Constantes.MODALIDAD_MENSUAL)
-                      : Modalidad(
-                          id: Constantes.CODIGO_MODALIDAD_QUINCENAL,
-                          description: Constantes.MODALIDAD_QUINCENAL),
-                  usuario: userDetails?.username ?? "",
-                  idCliente: idClienteSeleccionado,
-                  idCreditoActual: idCreditoSeleccionado,
-                  renovacion: renovarCredito,
-                  valorRenovacion:
-                      General.stringToDouble(valorEntregarResultado.value)));
+          final AddCreditResponse res = await const CreditHttp()
+              .addCredit(
+                  AddCreditRequest(
+                      cantidadCuotas: int.parse(cantidadCuotas.text.trim()),
+                      valorCredito: !renovarCredito
+                          ? General.stringToDouble(valorCredito.text)
+                          : General.stringToDouble(
+                              valorCreditoRenovacion.text.value),
+                      interesPorcentaje:
+                          double.parse(porcentajeInteres.text.trim()),
+                      fechaCredito: fechaCredito.text.trim(),
+                      fechaCuota: fechaCuota.text.trim(),
+                      modalidad:
+                          modalidad.value
+                              ? Modalidad(
+                                  id: Constantes.CODIGO_MODALIDAD_MENSUAL,
+                                  description: Constantes.MODALIDAD_MENSUAL)
+                              : Modalidad(
+                                  id: Constantes.CODIGO_MODALIDAD_QUINCENAL,
+                                  description: Constantes.MODALIDAD_QUINCENAL),
+                      usuario: userDetails?.username ?? "",
+                      idCliente: idClienteSeleccionado,
+                      idCreditoActual: idCreditoSeleccionado,
+                      renovacion: renovarCredito,
+                      valorRenovacion:
+                          General.stringToDouble(valorEntregarResultado.value),
+                      diasMora: int.parse(diasMora),
+                      valorMora: General.stringToDouble(valorMora)));
 
-          _mostrarInfoCreditoCreado(res.data!, renovarCredito);
+          _mostrarInfoCreditoCreado(
+              res.data!,
+              renovarCredito,
+              int.parse(diasMora),
+              General.formatoMoneda(General.stringToDouble(valorMora)));
+
           _limpiarFormularioCredito();
         } on HttpException catch (e) {
           appController.manageError(e.message);
@@ -159,10 +179,13 @@ class CreditsController extends GetxController {
   }
 
   ///modal que muestra informacion del credito cuando se crea
-  void _mostrarInfoCreditoCreado(DataCreditResponse info, bool renovarCredito) {
+  void _mostrarInfoCreditoCreado(DataCreditResponse info, bool renovarCredito,
+      int diasMora, String valorMora) {
     Get.dialog(
         barrierDismissible: false,
         DialogInfoCreditoCreado(
+            diasMora: diasMora,
+            valorMora: valorMora,
             title: Constantes.INFORMACION_CREDITO,
             info: info,
             renovarCredito: renovarCredito));
@@ -176,15 +199,11 @@ class CreditsController extends GetxController {
         try {
           final InfoCreditoySaldoResponse res =
               await const CreditHttp().infoCreditoySaldo(idCredito);
-          if (res.status == 200) {
-            infoCreditoSaldo(res.infoCreditoySaldo);
-            _infoCreditoSaldoModal(res.infoCreditoySaldo!, idCredito);
-            nuevaFechaCuota.text = res.infoCreditoySaldo!.fechaCuota!;
-            saldoCreditoSeleccionado = res.infoCreditoySaldo!.saldoCredito;
-          } else {
-            appController.manageError(res.message!);
-            nuevaFechaCuota.text = res.infoCreditoySaldo!.fechaCuota!;
-          }
+          infoCreditoSaldo(res.infoCreditoySaldo);
+          
+          _infoCreditoSaldoModal(res.infoCreditoySaldo!, idCredito);
+          nuevaFechaCuota.text = res.infoCreditoySaldo!.fechaCuota!;
+          saldoCreditoSeleccionado = res.infoCreditoySaldo!.saldoCredito;
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
@@ -527,5 +546,20 @@ class CreditsController extends GetxController {
 
     valorEntregarResultado.value =
         NumberFormat('#,###', 'es_CO').format(result);
+  }
+
+  Future<void> guardarValoresMora() async {
+    if (General.validateForm(formKeyMora)) {
+      await secureStorageLocal.saveDiasMora(diasMora.text);
+      await secureStorageLocal.saveValorMora(valorMora.text);
+      obtenerMora();
+      Get.back();
+      Get.showSnackbar(const InfoSnackbar('Valores guardados correctamente'));
+    }
+  }
+
+  Future<void> obtenerMora() async {
+    diasMora.text = await secureStorageLocal.diasMora ?? '';
+    valorMora.text = await secureStorageLocal.valorMora ?? '';
   }
 }
