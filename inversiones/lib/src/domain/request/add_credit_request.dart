@@ -3,11 +3,13 @@ class AddCreditRequest {
       {required this.valorCredito,
       required this.interesPorcentaje,
       required this.cantidadCuotas,
-      this.cedulaTitularCredito,
       required this.fechaCuota,
       required this.fechaCredito,
       required this.modalidad,
       required this.usuario,
+      required this.diasMora,
+      required this.valorMora,
+      this.cedulaTitularCredito,
       this.renovacion,
       this.valorRenovacion,
       this.idCreditoActual,
@@ -16,15 +18,17 @@ class AddCreditRequest {
   final double valorCredito;
   final double interesPorcentaje;
   final int cantidadCuotas;
-  final String? cedulaTitularCredito;
   final String fechaCuota;
   final String fechaCredito;
   final Modalidad modalidad;
   final String usuario;
+  final int diasMora;
+  final double valorMora;
   final bool? renovacion;
   final double? valorRenovacion;
   final int? idCreditoActual;
   final int? idCliente;
+  final String? cedulaTitularCredito;
 
   Map<String, dynamic> toJson() => {
         'valorCredito': valorCredito,
@@ -38,7 +42,9 @@ class AddCreditRequest {
         "renovacion": renovacion,
         "valorRenovacion": valorRenovacion,
         "idCreditoActual": idCreditoActual,
-        "idCliente": idCliente
+        "idCliente": idCliente,
+        "valorMora": valorMora,
+        "diasMora": diasMora
       };
 }
 

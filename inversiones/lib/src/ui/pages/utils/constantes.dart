@@ -6,8 +6,8 @@ class Constantes {
   static String CREDITO_ACTIVO = 'A';
   static String CREDITO_ANULADO = 'N';
   static String CREDITO_PAGADO = 'C';
-  static String INFORMACION_CREDITO_CREADO =
-      'Informacion credito \nPor cada  3 días pasados de la fecha de la cuota se cobra \$5.000 adicionales al valor de la cuota.';
+  static String INFORMACION_CREDITO_CREADO(int dias, String valor) =>
+      'Se aplicara mora por cada $dias días pasados de la fecha de la cuota, valor adicional: $valor';
   static String INFORMACION_CREDITO = 'Informacion credito';
   static int CODIGO_MODALIDAD_MENSUAL = 1;
   static int CODIGO_MODALIDAD_QUINCENAL = 2;
@@ -21,5 +21,4 @@ class Constantes {
   static String ERROR_INTERNET_SERVIDOR =
       'Verifique la conexion a internet o configuracion de su servidor';
   static String CREDITO_SALDADO = 'Credito saldado';
-
 }

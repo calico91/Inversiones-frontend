@@ -6,6 +6,7 @@ import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dar
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/labels/titulo_nombre_cliente.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogInfoCreditoCreado extends StatelessWidget {
@@ -13,9 +14,16 @@ class DialogInfoCreditoCreado extends StatelessWidget {
   final DataCreditResponse? info;
   final ScreenshotController screenshotController = ScreenshotController();
   final bool renovarCredito;
+  final int diasMora;
+  final String valorMora;
 
   DialogInfoCreditoCreado(
-      {super.key, required this.title, this.info, required this.renovarCredito});
+      {super.key,
+      required this.title,
+      this.info,
+      required this.diasMora,
+      required this.valorMora,
+      required this.renovarCredito});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +42,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
             child: CustomCard(
               child: Column(
                 children: [
-                  _mostrarNombreCliente(),
+                  TituloNombreCliente(nombreCliente: info!.nombreCliente!),
                   _showInfoCredito('Modalidad', info!.modalidad!, context),
                   _showInfoCredito(
                       'Cantidad cuotas', info!.cantidadCuotas!, context),
@@ -52,6 +60,11 @@ class DialogInfoCreditoCreado extends StatelessWidget {
                       General.formatoMoneda(
                           double.parse(info!.valorPrimerCuota!)),
                       context),
+                  const Divider(color: Colors.black),
+                  Text(
+                      Constantes.INFORMACION_CREDITO_CREADO(
+                          diasMora, valorMora),
+                      textAlign: TextAlign.center),
                 ],
               ),
             ),
@@ -61,7 +74,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
       actions: [
         ShareButton(
           screenshotController: screenshotController,
-          descripcion: Constantes.INFORMACION_CREDITO_CREADO,
+          descripcion: 'Información crédito',
         ),
         const HomeButton(),
         if (!renovarCredito) const CloseButtonCustom()
@@ -96,9 +109,4 @@ class DialogInfoCreditoCreado extends StatelessWidget {
       ],
     );
   }
-
-  Widget _mostrarNombreCliente() => Text(
-      textAlign: TextAlign.center,
-      info!.nombreCliente!,
-      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16));
 }
