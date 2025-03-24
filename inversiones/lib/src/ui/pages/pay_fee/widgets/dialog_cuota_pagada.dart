@@ -57,6 +57,11 @@ class DialogCuotaPagada extends StatelessWidget {
                 children: [
                   TituloNombreCliente(nombreCliente: nombreCliente!),
                   _mostrarContenido(
+                      'Codigo crédito:',
+                      dataAbono.idCredito.toString(),
+                      context,
+                      true),
+                  _mostrarContenido(
                       'Cuotas Pagadas:',
                       dataAbono.cuotasPagadas.toString(),
                       context,

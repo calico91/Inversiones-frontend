@@ -446,8 +446,11 @@ class CreditsController extends GetxController {
   void _mostrarModalCreditoSaldado(SaldarCreditoResponse data) {
     Get.dialog(
       barrierDismissible: false,
-      DialogSaldarCredito(
-        data: data,
+      PopScope(
+        canPop: false,
+        child: DialogSaldarCredito(
+          data: data,
+        ),
       ),
     );
   }

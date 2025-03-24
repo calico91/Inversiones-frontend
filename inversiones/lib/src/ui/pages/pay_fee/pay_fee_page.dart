@@ -23,7 +23,7 @@ class PayFeePage extends StatelessWidget {
     final PayFeeController controller = Get.find<PayFeeController>();
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBarCustom('Cuota credito', actions: [
+        appBar: AppBarCustom('Cuota crédito', actions: [
           WhatsAppButton(
               celular: controller.payFee.celular!, color: Colors.white),
           ShareButton(

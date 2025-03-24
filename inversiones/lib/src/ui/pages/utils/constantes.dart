@@ -8,7 +8,7 @@ class Constantes {
   static String CREDITO_PAGADO = 'C';
   static String INFORMACION_CREDITO_CREADO(int dias, String valor) =>
       'Se aplicara mora por cada $dias días pasados de la fecha de la cuota, valor adicional: $valor';
-  static String INFORMACION_CREDITO = 'Informacion credito';
+  static String INFORMACION_CREDITO = 'Informacion crédito';
   static int CODIGO_MODALIDAD_MENSUAL = 1;
   static int CODIGO_MODALIDAD_QUINCENAL = 2;
   static String MODALIDAD_MENSUAL = 'Mensual';
@@ -20,5 +20,5 @@ class Constantes {
   static String CARGANDO = 'assets/cargando-ondas.json';
   static String ERROR_INTERNET_SERVIDOR =
       'Verifique la conexion a internet o configuracion de su servidor';
-  static String CREDITO_SALDADO = 'Credito saldado';
+  static String CREDITO_SALDADO = 'Crédito saldado';
 }

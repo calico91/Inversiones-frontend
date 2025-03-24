@@ -26,7 +26,7 @@ class FormularioCredito extends StatelessWidget {
                 children: [
                   TextFieldBase(
                       paddingHorizontal: 20,
-                      title: 'Valor credito',
+                      title: 'Valor crédito',
                       controller: controller.valorCredito,
                       textInputType: TextInputType.number,
                       validateText: ValidateText.creditValue),
@@ -63,7 +63,7 @@ class FormularioCredito extends StatelessWidget {
                       controller: controller.fechaCredito,
                       onTap: () async => controller.showCalendar(
                           context, controller.fechaCredito),
-                      title: 'Fecha credito'),
+                      title: 'Fecha crédito'),
                   TextFieldCalendar(
                       controller: controller.fechaCuota,
                       onTap: () async => controller.showCalendar(
