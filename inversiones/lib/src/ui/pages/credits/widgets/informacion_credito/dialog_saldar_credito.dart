@@ -5,6 +5,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/labels/titulo_nombre_cliente.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DialogSaldarCredito extends StatelessWidget {
@@ -31,13 +32,12 @@ class DialogSaldarCredito extends StatelessWidget {
                   height: General.mediaQuery(context).height * 0.14,
                   child: Column(
                     children: [
-                      _mostrarContenido('Codigo credito:',
+                      TituloNombreCliente(nombreCliente: data.nombreCliente),
+                      _mostrarContenido('Codigo crédito:',
                           data.idCredito.toString(), context),
-                      _mostrarContenido(
-                          'Nombre cliente:', data.nombreCliente, context),
                       _mostrarContenido('Valor pagado:',
                           General.formatoMoneda(data.valorPagado), context),
-                      _mostrarContenido('Valor credito:',
+                      _mostrarContenido('Valor crédito:',
                           General.formatoMoneda(data.valorCredito), context),
                     ],
                   ),
@@ -47,7 +47,7 @@ class DialogSaldarCredito extends StatelessWidget {
         actions: [
           ShareButton(
             screenshotController: screenshotController,
-            descripcion: 'Credito saldado',
+            descripcion: 'Crédito saldado',
           ),
           const HomeButton()
         ]);

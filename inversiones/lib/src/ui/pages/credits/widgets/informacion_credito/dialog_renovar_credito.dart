@@ -17,7 +17,7 @@ class DialogRenovarCredito extends StatelessWidget {
     return AlertDialog(
       scrollable: true,
       actionsPadding: EdgeInsets.zero,
-      title: const Text('Renovar credito', textAlign: TextAlign.center),
+      title: const Text('Renovar crédito', textAlign: TextAlign.center),
       content: SizedBox(
         height: General.mediaQuery(context).height * 0.48,
         child: SingleChildScrollView(
@@ -37,7 +37,7 @@ class DialogRenovarCredito extends StatelessWidget {
                         TextFieldBase(
                             paddingHorizontal: 10,
                             widthTextField: 0.31,
-                            title: 'Valor credito',
+                            title: 'Valor crédito',
                             controller:
                                 controller.valorCreditoRenovacion.controller,
                             textInputType: TextInputType.number,
@@ -68,7 +68,7 @@ class DialogRenovarCredito extends StatelessWidget {
                       ]),
                       Row(children: [
                         TextFieldCalendar(
-                            title: 'Fecha credito',
+                            title: 'Fecha crédito',
                             letterSize: 0.015,
                             paddingHorizontal: 10,
                             widthTextField: 0.31,

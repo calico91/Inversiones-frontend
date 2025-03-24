@@ -13,7 +13,7 @@ class DialogEstadoCredito extends StatelessWidget {
       actionsPadding: EdgeInsets.zero,
       title: const Text(
         textAlign: TextAlign.center,
-        'Informacion estado credito',
+        'Informacion estado crédito',
       ),
       content: Text(info),
       actions: const [HomeButton(), CloseButtonCustom()],

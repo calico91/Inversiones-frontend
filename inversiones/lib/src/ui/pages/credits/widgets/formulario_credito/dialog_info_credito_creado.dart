@@ -48,7 +48,7 @@ class DialogInfoCreditoCreado extends StatelessWidget {
                       'Cantidad cuotas', info!.cantidadCuotas!, context),
                   _showInfoCredito('Fecha pago', info!.fechaPago!, context),
                   _showInfoCredito(
-                      'Valor credito',
+                      'Valor crédito',
                       General.formatoMoneda(double.parse(info!.valorCredito!)),
                       context),
                   _showInfoCredito(

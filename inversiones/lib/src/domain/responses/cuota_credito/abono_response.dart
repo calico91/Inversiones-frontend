@@ -24,6 +24,7 @@ class DataAbono {
   String tipoAbono;
   String? fechaAbono;
   double? saldoCapital;
+  int? idCredito;
 
   DataAbono(
       {this.id,
@@ -32,7 +33,8 @@ class DataAbono {
       required this.valorAbonado,
       required this.tipoAbono,
       this.fechaAbono,
-      this.saldoCapital});
+      this.saldoCapital,
+      this.idCredito});
 
   factory DataAbono.fromJson(Map<String, dynamic> json) => DataAbono(
         id: json["id"] == null ? null : json["id"] as int,
@@ -45,5 +47,6 @@ class DataAbono {
         tipoAbono: json["tipoAbono"] as String,
         fechaAbono:
             json["fechaAbono"] == null ? null : json["fechaAbono"] as String,
+        idCredito: json["idCredito"] == null ? null : json["idCredito"] as int,
       );
 }

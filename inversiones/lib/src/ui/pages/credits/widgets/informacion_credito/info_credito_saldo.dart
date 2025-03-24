@@ -70,14 +70,14 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                             'Cuotas pagadas', (info.cuotaNumero!).toString()),
                         _showInfoCredito(
                             'Interes', '${info.interesPorcentaje!}%'),
-                        _showInfoCredito('Fecha credito', info.fechaCredito!),
+                        _showInfoCredito('Fecha crédito', info.fechaCredito!),
                         _showInfoCredito('Fecha cuota', info.fechaCuota!),
                         _showInfoCredito(
                             'Ultima pagada', info.ultimaCuotaPagada!),
                         _showInfoCredito('Dias aplica mora', info.diasMora!),
                         _showInfoCredito('Valor mora',
                             General.formatoMoneda(info.valorMora)),
-                        _showInfoCredito('Valor credito',
+                        _showInfoCredito('Valor crédito',
                             General.formatoMoneda(info.valorCredito)),
                         _showInfoCredito('Interes mes',
                             General.formatoMoneda(info.valorInteres)),
@@ -91,7 +91,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
                             General.formatoMoneda(info.saldoCapital)),
                         _showInfoCredito('Capital pagado',
                             General.formatoMoneda(info.capitalPagado)),
-                        _showInfoCredito('Saldo credito',
+                        _showInfoCredito('Saldo crédito',
                             General.formatoMoneda(info.saldoCredito)),
                       ],
                     ),
@@ -201,7 +201,7 @@ Object _modificarCredito(BuildContext context, CreditsController controller,
     builder: (context) => AlertDialog(
       scrollable: true,
       actionsPadding: EdgeInsets.zero,
-      title: const Center(child: Text('Editar credito')),
+      title: const Center(child: Text('Editar crédito')),
       content: SizedBox(
         height: General.mediaQuery(context).height * 0.2,
         child: SingleChildScrollView(
@@ -250,7 +250,7 @@ Object _modificarCredito(BuildContext context, CreditsController controller,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text('Estado credito'),
+                                const Text('Estado crédito'),
                                 SizedBox(
                                   width:
                                       General.mediaQuery(context).width * 0.39,
@@ -317,7 +317,7 @@ Widget botonAccionEditarCredito(BuildContext context, VoidCallback accion) {
 Widget _editarCreditoBoton(BuildContext context, CreditsController controller,
         int idCredito, String fechaCuota) =>
     IconButton(
-        tooltip: "Editar credito",
+        tooltip: "Editar crédito",
         onPressed: () =>
             _modificarCredito(context, controller, idCredito, fechaCuota),
         icon: const Icon(color: Colors.blue, Icons.edit));
@@ -343,7 +343,7 @@ Widget _botonAbonarCapitalOInteres(
             color: Colors.blue));
 
 Widget _botonRenovarCredito(BuildContext context) => IconButton(
-    tooltip: 'Renovar credito',
+    tooltip: 'Renovar crédito',
     onPressed: () => showDialog(
         barrierDismissible: true,
         context: context,
@@ -353,7 +353,7 @@ Widget _botonRenovarCredito(BuildContext context) => IconButton(
 Widget _botonSaldarCredito(BuildContext context,
         CreditsController controllerCredits, int idCredito) =>
     IconButton(
-        tooltip: 'Saldar credito',
+        tooltip: 'Saldar crédito',
         onPressed: () {
           if (controllerCredits.validarFormAbonoCapital()) {
             _mostrarModalConfirmarSaldarCredito(
@@ -370,7 +370,7 @@ Object _mostrarModalConfirmarSaldarCredito(
       scrollable: true,
       actionsPadding: EdgeInsets.zero,
       title: Text(
-        'Desea saldar el credito?',
+        'Desea saldar el crédito?',
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: General.mediaQuery(context).height * 0.02),
       ),

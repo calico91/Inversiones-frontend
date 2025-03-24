@@ -68,6 +68,7 @@ class PayFeeController extends GetxController {
               idCuotaCredito: payFee.id!,
             ),
           );
+          
           General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
               homeController.nombreClienteSeleccionado, false);
         } on HttpException catch (e) {

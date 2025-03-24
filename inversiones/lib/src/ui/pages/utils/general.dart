@@ -76,20 +76,24 @@ class General {
   static bool validateForm(GlobalKey<FormState> formKey) =>
       formKey.currentState!.validate();
 
-  static void mostrarModalCompartirAbonos(
-      DataAbono dataAbono, bool barrierDismissible,
-      [String? nombreCliente,
-      bool? mostrarBotonCerrar,
-      int? idCreditoSeleccionado]) {
-    Get.dialog(
-      barrierDismissible: barrierDismissible,
-      DialogCuotaPagada(
-          dataAbono: dataAbono,
-          nombreCliente: nombreCliente,
-          mostrarBotonCerrar: mostrarBotonCerrar,
-          idCredito: idCreditoSeleccionado),
-    );
-  }
+ static void mostrarModalCompartirAbonos(
+    DataAbono dataAbono, bool barrierDismissible,
+    [String? nombreCliente,
+    bool? mostrarBotonCerrar,
+    int? idCreditoSeleccionado]) {
+  Get.dialog(
+    barrierDismissible: barrierDismissible, 
+    PopScope(
+      canPop: false, 
+      child: DialogCuotaPagada(
+        dataAbono: dataAbono,
+        nombreCliente: nombreCliente,
+        mostrarBotonCerrar: mostrarBotonCerrar,
+        idCredito: idCreditoSeleccionado,
+      ),
+    ),
+  );
+}
 
   static String removerCaracteresEspeciales(String input) {
     const withDiacritics = 'áéíóúÁÉÍÓÚñÑ';

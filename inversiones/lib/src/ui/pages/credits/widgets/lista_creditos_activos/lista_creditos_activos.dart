@@ -55,7 +55,7 @@ class ListaCreditosActivos extends StatelessWidget {
                           child: TextFieldSearch(
                             controller: controller.campoBuscarCredito,
                             labelText:
-                                'Buscar credito ${controller.creditosActivos.value.length}',
+                                'Buscar crédito ${controller.creditosActivos.value.length}',
                             onChanged: (value) =>
                                 controller.buscarCredito(value),
                           ),
@@ -128,7 +128,7 @@ class ListaCreditosActivos extends StatelessWidget {
     return Row(
       children: [
         Text(
-          'Fecha credito: ${controller.filtroCreditos.value[index].fechaCredito}',
+          'Fecha crédito: ${controller.filtroCreditos.value[index].fechaCredito}',
         ),
         const Expanded(child: SizedBox()),
         Row(
