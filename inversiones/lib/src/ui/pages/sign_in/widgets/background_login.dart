@@ -20,6 +20,7 @@ class _HeaderIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SafeArea(
       child: Image.asset('assets/icono_app.png',
+          scale: 0.7,
           color: Colors.white,
           width: double.infinity,
           height: General.mediaQuery(context).height * 0.3));
@@ -36,8 +37,8 @@ class _FondoAzul extends StatelessWidget {
       decoration: const BoxDecoration(
         color: ColoresApp.azulPrimario,
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20.0),
-          bottomRight: Radius.circular(20.0),
+          bottomLeft: Radius.circular(30.0),
+          bottomRight: Radius.circular(30.0),
         ),
       ),
     );

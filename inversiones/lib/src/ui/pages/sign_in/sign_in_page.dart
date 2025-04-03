@@ -5,6 +5,7 @@ import 'package:inversiones/src/ui/pages/sign_in/widgets/background_login.dart';
 import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/button_actions.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_fiel_login.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 
@@ -47,16 +48,27 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: General.mediaQuery(context).height * 0.02),
-              _botonIngresar(controller, context)
+              ButtonActions(
+                  onPressed: () => controller.signIn(
+                      controller.usernameController.value.text.trim(),
+                      controller.passwordController.value.text.trim()),
+                  height: 0.06,
+                  width: 0.45,
+                  label: 'INGRESAR',
+                  fontSize: 20),
             ],
           ),
           persistentFooterButtons: [
             Row(
               children: [
                 TextButton(
-                    onPressed: () =>
-                        _mostrarCampoTextoServidor(context, controller),
-                    child: const Text('Servidor')),
+                  onPressed: () =>
+                      _mostrarCampoTextoServidor(context, controller),
+                  child: const Text(
+                    'Configuración de servidor',
+                    style: TextStyle(color: ColoresApp.azulPrimario),
+                  ),
+                ),
                 Expanded(child: Container()),
                 const CircleAvatar(
                     backgroundColor: Colors.white,
@@ -64,7 +76,7 @@ class SignInPage extends StatelessWidget {
                     backgroundImage: AssetImage('assets/firma.jpg')),
                 const Text('By cblandon', style: TextStyle(color: Colors.black))
               ],
-            ),
+            )
           ],
           floatingActionButton:
               _mostrarBotonAuthBiometrica(controller, context));
@@ -80,29 +92,6 @@ class SignInPage extends StatelessWidget {
           : const Icon(Icons.visibility_outlined),
     );
   }
-
-  Widget _botonIngresar(SignInController controller, BuildContext context) =>
-      TextButton(
-        style: ButtonStyle(
-            overlayColor:
-                MaterialStateColor.resolveWith((states) => Colors.transparent)),
-        onPressed: () => controller.signIn(
-          controller.usernameController.value.text.trim(),
-          controller.passwordController.value.text.trim(),
-        ),
-        child: Container(
-          height: General.mediaQuery(context).height * 0.06,
-          width: General.mediaQuery(context).width * 0.6,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: ColoresApp.azulPrimario,
-          ),
-          child: const Center(
-            child: Text('Ingresar',
-                style: TextStyle(color: Colors.white, fontSize: 20)),
-          ),
-        ),
-      );
 
   // ignore: body_might_complete_normally_nullable
   Widget? _mostrarBotonAuthBiometrica(
@@ -143,21 +132,19 @@ class SignInPage extends StatelessWidget {
           child: TextFieldBase(
               textAlign: TextAlign.left,
               widthTextField: 0.6,
-              title: 'Url de servidor',
+              title: 'Url servidor',
               controller: controller.urlServidor,
               textInputType: TextInputType.multiline,
               validateText: ValidateText.observations),
         ),
         actions: [
           Center(
-              child: SizedBox(
-                  width: General.mediaQuery(context).width * 0.4,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: const StadiumBorder()),
-                      child: const Text('Guardar', textAlign: TextAlign.center),
-                      onPressed: () async =>
-                          controller.guardarUrlServidor(context)))),
+              child: ButtonActions(
+                  onPressed: () async => controller.guardarUrlServidor(context),
+                  height: 0.05,
+                  width: 0.4,
+                  label: 'GUARDAR',
+                  fontSize: 20)),
           const SizedBox(height: 20)
         ],
       ),
