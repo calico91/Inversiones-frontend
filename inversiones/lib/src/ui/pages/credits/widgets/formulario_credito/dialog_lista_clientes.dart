@@ -24,6 +24,7 @@ class DialogListaClientes extends StatelessWidget {
         () => Column(
           children: [
             TextFieldSearch(
+              
               controller: controller.campoBuscarCliente,
               labelText: 'Buscar cliente',
               onChanged: (value) => _buscarCliente(value, controller),

@@ -7,14 +7,14 @@ class TextFieldBase extends StatelessWidget {
   const TextFieldBase({
     super.key,
     this.hintText = '',
-    required this.title,
+    this.title = '',
     this.controller,
     required this.textInputType,
     this.validateText,
     this.paddingVertical = 0,
     this.paddingHorizontal = 0,
     this.widthTextField = 0.39,
-    this.heightTextField = 0.09,
+    this.heightTextField,
     this.required = true,
     this.textAlign = TextAlign.right,
     this.moneyCamp = false,
@@ -40,6 +40,7 @@ class TextFieldBase extends StatelessWidget {
   final void Function(String)? onChanged;
   final bool? readOnly;
   final bool? expands;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -51,39 +52,57 @@ class TextFieldBase extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, textAlign: TextAlign.right),
-          const SizedBox(
-            height: 5,
-          ),
           SizedBox(
-            height: General.mediaQuery(context).height * heightTextField!,
+            height: heightTextField != null
+                ? General.mediaQuery(context).height * heightTextField!
+                : null,
             width: General.mediaQuery(context).width * widthTextField!,
             child: TextFormField(
               readOnly: readOnly!,
-              onChanged: (String? value) => onChanged,
+              onChanged: (value) {
+                onChanged?.call(value);
+              },
               enabled: enabled,
               expands: expands!,
               maxLines: expands! ? null : 1,
-              validator: (String? value) => ValidateForm()
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) => ValidateForm()
                   .validateStructure(value, required!, validateText!),
               inputFormatters:
                   ValidateForm.validateInputFormatters(validateText!),
               keyboardType: textInputType,
-              textAlign: textAlign!,
+              textAlign: TextAlign.left,
+              textDirection: TextDirection.ltr,
               maxLength: ValidateForm.validateMaxLength(validateText!),
               controller: controller,
               decoration: InputDecoration(
-                fillColor: readOnly! ? Colors.grey.shade300 : Colors.white,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10),
+                fillColor: readOnly!
+                    ? Colors.grey.shade300
+                    : const Color.fromRGBO(165, 165, 165, 0.15),
                 filled: true,
                 hintText: hintText,
+                hintStyle: const TextStyle(
+                  letterSpacing: 0.2,
+                ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide(color: Colors.grey[100]!, width: 0.2),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: const BorderSide(
+                    color: Color(0xFF1B80BF),
+                    width: 1.5,
+                  ),
                 ),
                 errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: Colors.red),
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: const BorderSide(
+                    color: Colors.red,
+                    width: 1.5,
+                  ),
                 ),
               ),
             ),

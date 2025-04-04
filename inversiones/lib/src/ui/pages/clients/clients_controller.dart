@@ -227,6 +227,7 @@ class ClientsController extends GetxController {
   }
 
   void cleanForm() {
+    formKey.currentState?.reset();
     document.clear();
     lastname.clear();
     name.clear();
@@ -235,6 +236,7 @@ class ClientsController extends GetxController {
     address.clear();
     multiImagePickerController.value.clearImages();
     estaEditando(false);
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   void _loadClientForm(ClientImages client) {
@@ -261,10 +263,6 @@ class ClientsController extends GetxController {
           .toList();
     }
     filtroClientes.value = results;
-  }
-
-  void unfocus(BuildContext context) {
-    FocusScope.of(context).unfocus();
   }
 
   Future<List<XFile>> pickImages(bool allowMultiple) async {

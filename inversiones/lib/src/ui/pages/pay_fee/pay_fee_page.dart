@@ -144,7 +144,7 @@ class PayFeePage extends StatelessWidget {
                           Form(
                               key: controller.formKey,
                               child: TextFieldBase(
-                                  title: 'valor Interes',
+                                  hintText: 'valor Interes',
                                   controller: controller.valorAbono,
                                   textInputType: TextInputType.number,
                                   validateText: ValidateText.creditValue))
@@ -168,7 +168,7 @@ class PayFeePage extends StatelessWidget {
                             Form(
                                 key: controller.formKey,
                                 child: TextFieldBase(
-                                    title: 'Valor cuota',
+                                    hintText: 'Valor cuota',
                                     controller: controller.valorAbono,
                                     textInputType: TextInputType.number,
                                     validateText: ValidateText.creditValue))

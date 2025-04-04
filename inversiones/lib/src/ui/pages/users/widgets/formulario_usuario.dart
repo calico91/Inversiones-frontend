@@ -25,13 +25,13 @@ class FormularioUsuario extends StatelessWidget {
           TextFieldBase(
               textAlign: TextAlign.left,
               paddingHorizontal: 20,
-              title: 'Nombres',
+              hintText: 'Nombres',
               controller: controller.nombres,
               textInputType: TextInputType.name,
               validateText: ValidateText.name),
           TextFieldBase(
               textAlign: TextAlign.left,
-              title: 'Apellidos',
+              hintText: 'Apellidos',
               controller: controller.apellidos,
               textInputType: TextInputType.name,
               validateText: ValidateText.name)
@@ -40,13 +40,13 @@ class FormularioUsuario extends StatelessWidget {
           TextFieldBase(
               textAlign: TextAlign.left,
               paddingHorizontal: 20,
-              title: 'Nombre usuario',
+              hintText: 'Nombre usuario',
               controller: controller.nombreUsuario,
               textInputType: TextInputType.name,
               validateText: ValidateText.name),
           TextFieldBase(
               textAlign: TextAlign.left,
-              title: 'Correo',
+              hintText: 'Correo',
               controller: controller.correo,
               textInputType: TextInputType.emailAddress,
               validateText: ValidateText.email)
