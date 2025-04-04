@@ -107,10 +107,8 @@ class FormularioRegistrarCliente extends StatelessWidget {
         onPressed: () {
           if (General.validateForm(controller.formKey)) {
             if (!controller.estaEditando.value) {
-              controller.unfocus(context);
               controller.save();
             } else {
-              controller.unfocus(context);
               controller.updateClient();
             }
           }
