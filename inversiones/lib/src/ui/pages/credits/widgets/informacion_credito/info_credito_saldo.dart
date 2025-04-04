@@ -101,7 +101,7 @@ class InfoCreditoSaldoModal extends StatelessWidget {
               Form(
                 key: controllerCredits.formKeyAbonoCapital,
                 child: TextFieldBase(
-                    title: 'Abonar',
+                    hintText: 'Valor abono',
                     controller: controllerCredits.abonar,
                     textInputType: TextInputType.number,
                     validateText: ValidateText.creditValue),

@@ -36,13 +36,13 @@ class DialogConfigCredito extends StatelessWidget {
                           TextFieldBase(
                               paddingHorizontal: 10,
                               widthTextField: 0.26,
-                              title: 'Dias',
+                              hintText: 'Dias',
                               controller: controller.diasMora,
                               textInputType: TextInputType.number,
                               validateText: ValidateText.interestPercentage),
                           TextFieldBase(
                               widthTextField: 0.26,
-                              title: 'Valor',
+                              hintText: 'Valor',
                               controller: controller.valorMora,
                               textInputType: TextInputType.number,
                               validateText: ValidateText.creditValue),

@@ -49,13 +49,13 @@ class SimulateCreditMolecule extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TextFieldBase(
-                      title: 'Valor crédito',
+                      hintText: 'Valor crédito',
                       textInputType: TextInputType.number,
                       validateText: ValidateText.creditValue,
                       controller: controller.creditValue,
                     ),
                     TextFieldBase(
-                      title: 'Cantidad cuotas',
+                      hintText: 'Cantidad cuotas',
                       textInputType: TextInputType.number,
                       validateText: ValidateText.installmentAmount,
                       controller: controller.installmentAmount,
@@ -66,7 +66,7 @@ class SimulateCreditMolecule extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TextFieldBase(
-                      title: 'Interes',
+                      hintText: 'Interes',
                       textInputType: TextInputType.number,
                       validateText: ValidateText.interestPercentage,
                       controller: controller.interestPercentage,

@@ -123,6 +123,7 @@ class SignInPage extends StatelessWidget {
   Object _mostrarCampoTextoServidor(
       BuildContext context, SignInController controller) {
     return showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) => AlertDialog(
         scrollable: true,
@@ -132,7 +133,7 @@ class SignInPage extends StatelessWidget {
           child: TextFieldBase(
               textAlign: TextAlign.left,
               widthTextField: 0.6,
-              title: 'Url servidor',
+              hintText: 'Url servidor',
               controller: controller.urlServidor,
               textInputType: TextInputType.multiline,
               validateText: ValidateText.observations),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/utils/validate_form.dart';
@@ -53,7 +52,6 @@ class TextFieldBase extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, textAlign: TextAlign.right),
-          const SizedBox(height: 5),
           SizedBox(
             height: heightTextField != null
                 ? General.mediaQuery(context).height * heightTextField!
@@ -62,10 +60,7 @@ class TextFieldBase extends StatelessWidget {
             child: TextFormField(
               readOnly: readOnly!,
               onChanged: (value) {
-                // se llama la función externa si existe
-                if (onChanged != null) {
-                  onChanged!(value);
-                }
+                onChanged?.call(value);
               },
               enabled: enabled,
               expands: expands!,
@@ -82,7 +77,7 @@ class TextFieldBase extends StatelessWidget {
               controller: controller,
               decoration: InputDecoration(
                 contentPadding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                    const EdgeInsets.symmetric(horizontal: 10),
                 fillColor: readOnly!
                     ? Colors.grey.shade300
                     : const Color.fromRGBO(165, 165, 165, 0.15),

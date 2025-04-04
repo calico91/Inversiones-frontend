@@ -39,7 +39,7 @@ class CardUltimosAbonos extends StatelessWidget {
           Form(
             key: controller.formKey,
             child: TextFieldBase(
-              title: 'Cantidad de abonos',
+              hintText: 'Cantidad de abonos',
               textInputType: TextInputType.number,
               validateText: ValidateText.installmentAmount,
               controller: controller.cantidadAbonosConsultar,

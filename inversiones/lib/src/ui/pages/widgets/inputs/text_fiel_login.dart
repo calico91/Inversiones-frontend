@@ -58,9 +58,7 @@ class TextFieldLogin extends StatelessWidget {
               controller?.selection = TextSelection.fromPosition(
                 TextPosition(offset: controller!.text.length),
               );
-              if (onChanged != null) {
-                onChanged!(cleanValue);
-              }
+              onChanged?.call(cleanValue);
             },
             decoration: InputDecoration(
               prefixIconColor: const Color.fromRGBO(31, 33, 36, 0.8),

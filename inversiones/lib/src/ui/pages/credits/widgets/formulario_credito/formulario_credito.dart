@@ -26,12 +26,12 @@ class FormularioCredito extends StatelessWidget {
                 children: [
                   TextFieldBase(
                       paddingHorizontal: 20,
-                      title: 'Valor crédito',
+                      hintText: 'Valor crédito',
                       controller: controller.valorCredito,
                       textInputType: TextInputType.number,
                       validateText: ValidateText.creditValue),
                   TextFieldBase(
-                      title: 'Interes',
+                      hintText: 'Interes',
                       controller: controller.porcentajeInteres,
                       textInputType: TextInputType.number,
                       validateText: ValidateText.interestPercentage),
@@ -41,7 +41,7 @@ class FormularioCredito extends StatelessWidget {
                 children: [
                   TextFieldBase(
                       paddingHorizontal: 20,
-                      title: 'Cantidad cuotas',
+                      hintText: 'Cantidad cuotas',
                       controller: controller.cantidadCuotas,
                       textInputType: TextInputType.number,
                       validateText: ValidateText.installmentAmount),
@@ -49,7 +49,7 @@ class FormularioCredito extends StatelessWidget {
                     onTap: () => controller.consultarClientes(),
                     child: TextFieldBase(
                         enabled: false,
-                        title: 'Seleccione cliente',
+                        hintText: 'Seleccione cliente',
                         controller: controller.nombreCliente,
                         textInputType: TextInputType.number,
                         validateText: ValidateText.name),

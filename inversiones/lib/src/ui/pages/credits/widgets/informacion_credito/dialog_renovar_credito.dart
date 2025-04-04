@@ -37,7 +37,7 @@ class DialogRenovarCredito extends StatelessWidget {
                         TextFieldBase(
                             paddingHorizontal: 10,
                             widthTextField: 0.31,
-                            title: 'Valor crédito',
+                            hintText: 'Valor crédito',
                             controller:
                                 controller.valorCreditoRenovacion.controller,
                             textInputType: TextInputType.number,
@@ -45,7 +45,7 @@ class DialogRenovarCredito extends StatelessWidget {
                         Obx(() => TextFieldBase(
                             readOnly: true,
                             widthTextField: 0.31,
-                            title: 'Valor a entregar',
+                            hintText: 'Valor a entregar',
                             controller: TextEditingController(
                                 text: controller.valorEntregarResultado.value),
                             textInputType: TextInputType.number,
@@ -55,13 +55,13 @@ class DialogRenovarCredito extends StatelessWidget {
                         TextFieldBase(
                             paddingHorizontal: 10,
                             widthTextField: 0.31,
-                            title: 'Interes',
+                            hintText: 'Interes',
                             controller: controller.porcentajeInteres,
                             textInputType: TextInputType.number,
                             validateText: ValidateText.interestPercentage),
                         TextFieldBase(
                             widthTextField: 0.31,
-                            title: 'Cantidad cuotas',
+                            hintText: 'Cantidad cuotas',
                             controller: controller.cantidadCuotas,
                             textInputType: TextInputType.number,
                             validateText: ValidateText.installmentAmount),
