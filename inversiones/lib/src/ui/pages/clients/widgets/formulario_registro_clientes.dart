@@ -34,13 +34,13 @@ class FormularioRegistrarCliente extends StatelessWidget {
                     children: [
                       TextFieldBase(
                         paddingHorizontal: 20,
-                        title: 'Cedula',
+                        hintText: 'Cedula',
                         controller: controller.document,
                         textInputType: TextInputType.number,
                         validateText: ValidateText.document,
                       ),
                       TextFieldBase(
-                        title: 'Celular',
+                        hintText: 'Celular',
                         controller: controller.phoneNumber,
                         textInputType: TextInputType.number,
                         validateText: ValidateText.phoneNumber,
@@ -50,16 +50,16 @@ class FormularioRegistrarCliente extends StatelessWidget {
                   Row(
                     children: [
                       TextFieldBase(
+                        hintText: 'Nombres',
                         textAlign: TextAlign.left,
                         paddingHorizontal: 20,
-                        title: 'Nombres',
                         controller: controller.name,
                         textInputType: TextInputType.multiline,
                         validateText: ValidateText.name,
                       ),
                       TextFieldBase(
                         textAlign: TextAlign.left,
-                        title: 'Apellidos',
+                        hintText: 'Apellidos',
                         controller: controller.lastname,
                         textInputType: TextInputType.multiline,
                         validateText: ValidateText.name,
@@ -69,7 +69,7 @@ class FormularioRegistrarCliente extends StatelessWidget {
                   TextFieldBase(
                     textAlign: TextAlign.left,
                     paddingHorizontal: 20,
-                    title: 'Direccion',
+                    hintText: 'Direccion',
                     controller: controller.address,
                     textInputType: TextInputType.text,
                     validateText: ValidateText.name,
@@ -79,13 +79,13 @@ class FormularioRegistrarCliente extends StatelessWidget {
                     textAlign: TextAlign.left,
                     paddingHorizontal: 20,
                     required: false,
-                    title: 'Observaciones',
+                    hintText: 'Observaciones',
                     expands: true,
                     controller: controller.observations,
                     textInputType: TextInputType.multiline,
                     validateText: ValidateText.observations,
                     widthTextField: 0.89,
-                    heightTextField: 0.13,
+                    heightTextField: 0.15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
