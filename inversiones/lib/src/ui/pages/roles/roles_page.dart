@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/domain/entities/permiso.dart';
 import 'package:inversiones/src/ui/pages/roles/roles_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -89,7 +90,7 @@ Widget _selectPermisos(Size mediaQuery, RolesController controller) =>
                 scroll: true,
                 scrollBar: HorizontalScrollBar(isAlwaysShown: true)),
             buttonIcon: const Icon(Icons.arrow_drop_down),
-            selectedColor: Colors.blue,
+            selectedColor: ColoresApp.azulPrimario,
             buttonText: const Text('Permisos', textAlign: TextAlign.center),
             title: Center(
                 child: SizedBox(

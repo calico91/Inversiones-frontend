@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/users/users_controller.dart';
 import 'package:inversiones/src/ui/pages/users/widgets/formulario_usuario.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/button_icon_custom.dart';
@@ -86,13 +87,13 @@ Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
           ButtonIconCustom(
               () => controller
                   .consultarUsuario(controller.filtroUsuarios.value[index].id!),
-              const FaIcon(FontAwesomeIcons.userPen, color: Colors.blue),
+              const FaIcon(FontAwesomeIcons.userPen, color: ColoresApp.azulPrimario),
               'Editar usuario'),
           ButtonIconCustom(
               () => controller
                   .cambiarEstadoUsuario(controller.usuarios.value[index].id!),
               controller.usuarios.value[index].active!
-                  ? const FaIcon(FontAwesomeIcons.userCheck, color: Colors.blue)
+                  ? const FaIcon(FontAwesomeIcons.userCheck, color: ColoresApp.azulPrimario)
                   : const FaIcon(FontAwesomeIcons.userSlash, color: Colors.red),
               controller.usuarios.value[index].active!
                   ? 'Inactivar usuario'
@@ -100,7 +101,7 @@ Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
           ButtonIconCustom(
               () => controller
                   .reinicarContrasena(controller.usuarios.value[index].id!),
-              const Icon(Icons.password_rounded, color: Colors.blue),
+              const Icon(Icons.password_rounded, color: ColoresApp.azulPrimario),
               'Reiniciar contraseña'),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -31,7 +32,7 @@ class CardUltimosAbonos extends StatelessWidget {
                 icon: const Icon(
                   Icons.info,
                   size: 30,
-                  color: Colors.blue,
+                  color: ColoresApp.azulPrimario,
                 ),
               ),
             ],

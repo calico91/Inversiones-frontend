@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -28,7 +29,7 @@ class SimulateCreditMolecule extends StatelessWidget {
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   tooltip: 'Calcular',
-                  icon: const Icon(size: 25, Icons.info, color: Colors.blue),
+                  icon: const Icon(size: 25, Icons.info, color: ColoresApp.azulPrimario),
                   onPressed: () {
                     if (controller.formKey.currentState!.validate()) {
                       _showCreditInstallments(context, controller);
@@ -78,9 +79,9 @@ class SimulateCreditMolecule extends StatelessWidget {
                           children: [
                             Switch(
                                 value: controller.esMensual.value,
-                                activeTrackColor: Colors.blue,
-                                inactiveTrackColor: Colors.blue,
-                                inactiveThumbColor: Colors.blue,
+                                activeTrackColor: ColoresApp.azulPrimario,
+                                inactiveTrackColor: ColoresApp.azulPrimario,
+                                inactiveThumbColor: ColoresApp.azulPrimario,
                                 onChanged: (bool value) =>
                                     controller.cambiarModalidad(value)),
                             Text(controller.esMensual.value

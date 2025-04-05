@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -160,7 +161,7 @@ class PayFeePage extends StatelessWidget {
                                 textAlign: TextAlign.center, 'Modificar cuota'),
                             Switch(
                                 value: controller.cambiarCuota.value,
-                                activeColor: Colors.blue,
+                                activeColor: ColoresApp.azulPrimario,
                                 onChanged: (bool value) =>
                                     controller.cambiarValorSwitch(value))
                           ]),

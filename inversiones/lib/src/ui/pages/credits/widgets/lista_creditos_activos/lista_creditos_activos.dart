@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -63,7 +64,7 @@ class ListaCreditosActivos extends StatelessWidget {
                         IconButton(
                           onPressed: () => controller.infoCreditosActivos(),
                           icon: const Icon(Icons.refresh),
-                          color: Colors.blue,
+                          color: ColoresApp.azulPrimario,
                         )
                       ],
                     ),
@@ -145,7 +146,7 @@ class ListaCreditosActivos extends StatelessWidget {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               icon: const Icon(Icons.info),
-              color: Colors.blue,
+              color: ColoresApp.azulPrimario,
               iconSize: 32,
             ),
             IconButton(
@@ -157,7 +158,7 @@ class ListaCreditosActivos extends StatelessWidget {
               },
               icon: const Icon(
                 Icons.document_scanner_outlined,
-                color: Colors.blue,
+                color: ColoresApp.azulPrimario,
               ),
               iconSize: 32,
             ),

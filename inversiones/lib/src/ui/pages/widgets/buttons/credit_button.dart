@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 
 class CreditButton extends StatelessWidget {
   const CreditButton({super.key});
@@ -9,7 +10,7 @@ class CreditButton extends StatelessWidget {
       onPressed: () => _irCredito(context),
       icon: const Icon(
         Icons.monetization_on,
-        color: Colors.blue,
+        color: ColoresApp.azulPrimario,
       ),
     );
   }

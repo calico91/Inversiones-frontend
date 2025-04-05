@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/domain/responses/creditos/info_credito_saldo_response.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
 import 'package:inversiones/src/ui/pages/credits/widgets/informacion_credito/dialog_renovar_credito.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -309,7 +310,7 @@ Widget botonAccionEditarCredito(BuildContext context, VoidCallback accion) {
     onPressed: accion,
     icon: const Icon(
       Icons.arrow_circle_right_rounded,
-      color: Colors.blue,
+      color: ColoresApp.azulPrimario,
     ),
   );
 }
@@ -320,7 +321,7 @@ Widget _editarCreditoBoton(BuildContext context, CreditsController controller,
         tooltip: "Editar crédito",
         onPressed: () =>
             _modificarCredito(context, controller, idCredito, fechaCuota),
-        icon: const Icon(color: Colors.blue, Icons.edit));
+        icon: const Icon(color: ColoresApp.azulPrimario, Icons.edit));
 
 Widget _botonAbonarCapitalOInteres(
         CreditsController controllerCredits,
@@ -340,7 +341,7 @@ Widget _botonAbonarCapitalOInteres(
             abonoCapital
                 ? FontAwesomeIcons.sackDollar
                 : FontAwesomeIcons.handHoldingDollar,
-            color: Colors.blue));
+            color: ColoresApp.azulPrimario));
 
 Widget _botonRenovarCredito(BuildContext context) => IconButton(
     tooltip: 'Renovar crédito',
@@ -348,7 +349,7 @@ Widget _botonRenovarCredito(BuildContext context) => IconButton(
         barrierDismissible: true,
         context: context,
         builder: (context) => const DialogRenovarCredito()),
-    icon: const FaIcon(FontAwesomeIcons.moneyBillTransfer, color: Colors.blue));
+    icon: const FaIcon(FontAwesomeIcons.moneyBillTransfer, color: ColoresApp.azulPrimario));
 
 Widget _botonSaldarCredito(BuildContext context,
         CreditsController controllerCredits, int idCredito) =>
@@ -360,7 +361,7 @@ Widget _botonSaldarCredito(BuildContext context,
                 controllerCredits, context, idCredito);
           }
         },
-        icon: const FaIcon(FontAwesomeIcons.sackXmark, color: Colors.blue));
+        icon: const FaIcon(FontAwesomeIcons.sackXmark, color: ColoresApp.azulPrimario));
 
 Object _mostrarModalConfirmarSaldarCredito(
     CreditsController controllerCredits, BuildContext context, int idCredito) {

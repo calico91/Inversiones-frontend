@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
@@ -101,7 +102,7 @@ class ListaClientes extends StatelessWidget {
   Widget _mostrarBotonSubtitulos(
           String tooltip, Function() accion, Widget icono) =>
       IconButton(
-          color: Colors.blue,
+          color: ColoresApp.azulPrimario,
           onPressed: accion,
           icon: icono,
           tooltip: tooltip,

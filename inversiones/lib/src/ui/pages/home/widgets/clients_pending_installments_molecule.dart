@@ -16,59 +16,64 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Obx(
       () {
         if (controller.loading) {
-          return const Loading(horizontal: 0.43, vertical: 0.17);
+          return const Expanded(
+              child: Loading(horizontal: 0.11, vertical: 0.17));
         } else if (!controller.loading && controller.clients.isEmpty) {
-          return Column(
-            children: [
-              Image.asset(
-                'assets/sin_creditos_pendientes.png',
-                width: double.infinity,
-                height: General.mediaQuery(context).height * 0.35,
-              ),
-              const Text(
-                'No hay créditos pendientes.',
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
+          return Expanded(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/sin_creditos_pendientes.png',
+                  width: double.infinity,
+                  height: General.mediaQuery(context).height * 0.35,
+                ),
+                const Text(
+                  'No hay créditos pendientes.',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
           );
         }
         return Obx(
-          () => Column(
-            children: [
-              SizedBox(
-                height: General.mediaQuery(context).height * 0.08,
-                child: TextFieldSearch(
-                  controller: controller.buscarClienteCtrl,
-                  labelText: 'Buscar cliente',
-                  onChanged: (value) => controller.buscarCliente(value, true),
+          () => Expanded(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: General.mediaQuery(context).height * 0.08,
+                  child: TextFieldSearch(
+                    controller: controller.buscarClienteCtrl,
+                    labelText: 'Buscar cliente',
+                    onChanged: (value) => controller.buscarCliente(value, true),
+                  ),
                 ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: controller.filtroClientes.value.length,
-                  itemBuilder: (_, index) {
-                    return Card(
-                      elevation: 5,
-                      child: ListTile(
-                        onTap: () async {
-                          controller.idCliente(
-                              controller.filtroClientes.value[index].idCliente);
-                          controller.idCredito(
-                              controller.filtroClientes.value[index].idCredito);
-                          controller.nombreCliente(
-                              '${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}');
-                          await Get.put(PayFeeController()).loadPayFee();
-                        },
-                        title: _showClientTitle(
-                            controller, index, General.mediaQuery(context)),
-                        subtitle: _showClientSubtitle(
-                            controller, index, General.mediaQuery(context)),
-                      ),
-                    );
-                  },
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.filtroClientes.value.length,
+                    itemBuilder: (_, index) {
+                      return Card(
+                        elevation: 5,
+                        child: ListTile(
+                          onTap: () async {
+                            controller.idCliente(controller
+                                .filtroClientes.value[index].idCliente);
+                            controller.idCredito(controller
+                                .filtroClientes.value[index].idCredito);
+                            controller.nombreCliente(
+                                '${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}');
+                            await Get.put(PayFeeController()).loadPayFee();
+                          },
+                          title: _showClientTitle(
+                              controller, index, General.mediaQuery(context)),
+                          subtitle: _showClientSubtitle(
+                              controller, index, General.mediaQuery(context)),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -79,19 +84,12 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
   Widget _showClientTitle(HomeController controller, int index, Size size) =>
       Row(children: [
         SizedBox(
-            width: size.width * 0.5,
+            width: size.width * 0.7,
             child: Text(
               overflow: TextOverflow.ellipsis,
               "${controller.filtroClientes.value[index].idCredito}.${controller.filtroClientes.value[index].nombres} ${controller.filtroClientes.value[index].apellidos}",
             )),
         Expanded(child: Container()),
-        SizedBox(
-            width: size.width * 0.31,
-            child: Text(
-              textAlign: TextAlign.right,
-              overflow: TextOverflow.ellipsis,
-              controller.filtroClientes.value[index].cedula!,
-            ))
       ]);
 
   Widget _showClientSubtitle(HomeController controller, int index, Size size) {
@@ -100,15 +98,15 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: size.width * 0.40,
+          width: size.width * 0.33,
           child: Text(
             overflow: TextOverflow.ellipsis,
-            "Fecha cuota:${controller.filtroClientes.value[index].fechaCuota}",
+            "Fecha:${controller.filtroClientes.value[index].fechaCuota}",
           ),
         ),
         Expanded(child: Container()),
         SizedBox(
-          width: size.width * 0.43,
+          width: size.width * 0.40,
           child: Text(
             textAlign: TextAlign.right,
             overflow: TextOverflow.ellipsis,

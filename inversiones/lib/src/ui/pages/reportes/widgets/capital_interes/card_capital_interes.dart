@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
@@ -27,7 +28,7 @@ class CardCapitalInteres extends StatelessWidget {
                 icon: const Icon(
                   Icons.info,
                   size: 30,
-                  color: Colors.blue,
+                  color: ColoresApp.azulPrimario,
                 ),
               ),
             ],
