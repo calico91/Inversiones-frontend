@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -81,9 +82,9 @@ class FormularioCredito extends StatelessWidget {
                         children: [
                           Switch(
                               value: controller.modalidad.value,
-                              activeTrackColor: Colors.blue,
-                              inactiveTrackColor: Colors.blue,
-                              inactiveThumbColor: Colors.blue,
+                              activeTrackColor: ColoresApp.azulPrimario,
+                              inactiveTrackColor: ColoresApp.azulPrimario,
+                              inactiveThumbColor: ColoresApp.azulPrimario,
                               onChanged: (bool value) =>
                                   controller.cambiarModalidad(value)),
                           Text(controller.modalidad.value

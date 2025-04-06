@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -18,7 +19,7 @@ class ShareButton extends StatelessWidget {
     return IconButton(
       tooltip: 'Compartir',
       onPressed: () => _compartirImagen(),
-      icon: Icon(Icons.share, color: color ?? Colors.blue),
+      icon: Icon(Icons.share, color: color ?? ColoresApp.azulPrimario),
     );
   }
 

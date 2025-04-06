@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class TextFieldCalendar extends StatelessWidget {
@@ -62,7 +63,7 @@ class TextFieldCalendar extends StatelessWidget {
                       prefixIcon: const Icon(
                         size: 30,
                         Icons.calendar_today,
-                        color: Colors.blue,
+                        color: ColoresApp.azulPrimario,
                       ),
                     )
                   : const InputDecoration(
@@ -73,7 +74,7 @@ class TextFieldCalendar extends StatelessWidget {
                       disabledBorder: InputBorder.none,
                       prefixIcon: Icon(
                         Icons.calendar_today,
-                        color: Colors.blue,
+                        color: ColoresApp.azulPrimario,
                       ),
                     ),
               readOnly: true,

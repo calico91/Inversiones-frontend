@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:installed_apps/installed_apps.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/error_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,7 +18,7 @@ class WhatsAppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      color: color ?? Colors.blue,
+      color: color ?? ColoresApp.azulPrimario,
       tooltip: 'Enviar WhatsApp',
       onPressed: () => _enviarWhatsApp('+57$celular', mensaje ?? ''),
       icon: const FaIcon(FontAwesomeIcons.whatsapp),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 
 class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   const AppBarCustom(this.title, {super.key, this.actions});
@@ -11,7 +12,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
-        backgroundColor: Colors.blue,
+        backgroundColor: ColoresApp.azulPrimario,
         title: Text(title,
             style: const TextStyle( fontSize: 17)),
         actions: actions);

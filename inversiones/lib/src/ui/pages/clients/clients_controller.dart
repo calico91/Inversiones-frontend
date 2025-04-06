@@ -236,6 +236,7 @@ class ClientsController extends GetxController {
     address.clear();
     multiImagePickerController.value.clearImages();
     estaEditando(false);
+    buscarClienteCtrl.clear();
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
@@ -248,20 +249,15 @@ class ClientsController extends GetxController {
     phoneNumber.text = client.celular!;
   }
 
-  void buscarCliente(String value, bool focus) {
+  void buscarCliente(String value) {
     List<Client> results = [];
-    if (value.isEmpty || !focus) {
-      results = clients.value;
-      buscarClienteCtrl.clear();
-    } else {
-      results = clients.value
-          .where(
-            (element) =>
-                element.nombres!.toLowerCase().contains(value.toLowerCase()) ||
-                element.apellidos!.toLowerCase().contains(value.toLowerCase()),
-          )
-          .toList();
-    }
+    results = clients.value
+        .where(
+          (element) =>
+              element.nombres!.toLowerCase().contains(value.toLowerCase()) ||
+              element.apellidos!.toLowerCase().contains(value.toLowerCase()),
+        )
+        .toList();
     filtroClientes.value = results;
   }
 

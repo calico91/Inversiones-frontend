@@ -76,6 +76,7 @@ class TextFieldBase extends StatelessWidget {
               maxLength: ValidateForm.validateMaxLength(validateText!),
               controller: controller,
               decoration: InputDecoration(
+                labelText: hintText,
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 10),
                 fillColor: readOnly!

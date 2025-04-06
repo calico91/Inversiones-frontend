@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/modal_cambiar_contrasena.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 
 class DrawerMolecule extends StatelessWidget {
   const DrawerMolecule({super.key});
@@ -54,7 +55,7 @@ class DrawerMolecule extends StatelessWidget {
       {Color? color}) {
     return ListTile(
         onTap: accion,
-        leading: Icon(icono, color: color ?? Colors.blue,size: 27,),
+        leading: Icon(icono, color: color ?? ColoresApp.azulPrimario,size: 27,),
         title: Row(
           children: [
             Text(titulo),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/domain/responses/cuota_credito/abono_response.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
@@ -175,5 +176,5 @@ class DialogCuotaPagada extends StatelessWidget {
               ],
             ),
           ),
-      icon: const Icon(Icons.money_off_csred_sharp, color: Colors.blue));
+      icon: const Icon(Icons.money_off_csred_sharp, color: ColoresApp.azulPrimario));
 }

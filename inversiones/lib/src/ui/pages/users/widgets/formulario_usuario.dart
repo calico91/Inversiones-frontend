@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/ui/pages/users/users_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
@@ -73,7 +74,7 @@ class FormularioUsuario extends StatelessWidget {
               mediaQuery.height * (controller.items.value.length / 11),
           chipDisplay: MultiSelectChipDisplay<Roles>(scroll: true, scrollBar:HorizontalScrollBar(isAlwaysShown: true)),
           buttonIcon: const Icon(Icons.arrow_forward_ios_rounded),
-          selectedColor: Colors.blue,
+          selectedColor: ColoresApp.azulPrimario,
           buttonText: const Text('Roles', textAlign: TextAlign.center),
           title: const Center(child: Text("Seleccione roles")),
           items: controller.items.value,

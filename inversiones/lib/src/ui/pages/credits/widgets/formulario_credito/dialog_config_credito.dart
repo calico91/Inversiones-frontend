@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -65,7 +66,7 @@ class DialogConfigCredito extends StatelessWidget {
 
   Widget _guardar(CreditsController controller) => IconButton(
       icon: const Icon(Icons.save),
-      color: Colors.blue,
+      color: ColoresApp.azulPrimario,
       tooltip: 'Guardar',
       onPressed: () => controller.guardarValoresMora());
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card_list.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 
 class ListaClientes extends StatelessWidget {
@@ -42,13 +44,10 @@ class ListaClientes extends StatelessWidget {
           width: double.infinity,
           child: Column(
             children: [
-              Focus(
-                onFocusChange: (value) => controller.buscarCliente('', value),
-                child: TextFieldSearch(
-                  controller: controller.buscarClienteCtrl,
-                  labelText: 'Buscar cliente',
-                  onChanged: (value) => controller.buscarCliente(value, true),
-                ),
+              TextFieldSearch(
+                controller: controller.buscarClienteCtrl,
+                labelText: 'Buscar cliente',
+                onChanged: (value) => controller.buscarCliente(value),
               ),
               _listaClientes(controller, General.mediaQuery(context)),
             ],
@@ -62,12 +61,11 @@ class ListaClientes extends StatelessWidget {
       child: ListView.builder(
           itemCount: controller.filtroClientes.value.length,
           itemBuilder: (_, index) {
-            return Card(
-                elevation: 5,
+            return CustomCardList(
                 child: ListTile(
-                  title: _mostrarTitulo(controller, index, size),
-                  subtitle: _mostrarSubtitulos(controller, index, size),
-                ));
+              title: _mostrarTitulo(controller, index, size),
+              subtitle: _mostrarSubtitulos(controller, index, size),
+            ));
           }));
 
   Widget _mostrarTitulo(ClientsController controller, int index, Size size) =>
@@ -101,7 +99,7 @@ class ListaClientes extends StatelessWidget {
   Widget _mostrarBotonSubtitulos(
           String tooltip, Function() accion, Widget icono) =>
       IconButton(
-          color: Colors.blue,
+          color: ColoresApp.azulPrimario,
           onPressed: accion,
           icon: icono,
           tooltip: tooltip,

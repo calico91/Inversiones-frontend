@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
@@ -130,6 +131,7 @@ class FormularioRegistrarCliente extends StatelessWidget {
   Widget _seleccionarImagenes(
           BuildContext context, ClientsController controller) =>
       FilledButton.icon(
+        
         label: const Text("Cargar imágenes"),
         icon: const FaIcon(FontAwesomeIcons.image, color: Colors.white),
         onPressed: () async {
@@ -150,7 +152,7 @@ class FormularioRegistrarCliente extends StatelessWidget {
                         initialWidget: const DefaultInitialWidget(
                             backgroundColor: Colors.white,
                             centerWidget: FaIcon(FontAwesomeIcons.circlePlus,
-                                color: Colors.blue, size: 30)),
+                                color: ColoresApp.azulPrimario, size: 30)),
                         controller: controller.multiImagePickerController.value,
                         padding: const EdgeInsets.all(10)),
                   ),
