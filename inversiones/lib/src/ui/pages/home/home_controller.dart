@@ -60,6 +60,8 @@ class HomeController extends GetxService {
   Future<void> loadClientsPendingInstallments([String? fechaFiltro]) async {
     try {
       _loading(true);
+
+      buscarClienteCtrl.clear();
       final ClientsPendingInstallmentsResponse clientsPendingInstallments =
           await const ClientHttp().clientsPendingInstallments(
               fechaFiltro ?? General.formatoFecha(DateTime.now()),

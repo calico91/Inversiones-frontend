@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card_list.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -39,20 +40,18 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
           () => Expanded(
             child: Column(
               children: [
-                SizedBox(
-                  height: General.mediaQuery(context).height * 0.08,
-                  child: TextFieldSearch(
-                    controller: controller.buscarClienteCtrl,
-                    labelText: 'Buscar cliente',
-                    onChanged: (value) => controller.buscarCliente(value, true),
-                  ),
+                const SizedBox(height: 15),
+                TextFieldSearch(
+                  widthTextFieldSearch: 0.7,
+                  controller: controller.buscarClienteCtrl,
+                  labelText: 'Buscar cliente',
+                  onChanged: (value) => controller.buscarCliente(value, true),
                 ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: controller.filtroClientes.value.length,
                     itemBuilder: (_, index) {
-                      return Card(
-                        elevation: 5,
+                      return CustomCardList(
                         child: ListTile(
                           onTap: () async {
                             controller.idCliente(controller

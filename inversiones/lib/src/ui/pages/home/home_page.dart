@@ -6,8 +6,8 @@ import 'package:inversiones/src/ui/pages/home/widgets/drawer_molecule.dart';
 import 'package:inversiones/src/ui/pages/home/widgets/simulate_credit_molecule.dart';
 import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
-import 'package:inversiones/src/ui/pages/widgets/card/custom_body.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card_body.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_calendar.dart';
 
 class HomePage extends StatelessWidget {
@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-        body: CustomBody(
+        body: CustomCardBody(
           child: Column(children: [
             _mostrarCuotasPendientes(controller, context),
             SimulateCreditMolecule()

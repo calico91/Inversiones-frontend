@@ -5,6 +5,7 @@ import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card_list.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 
 class ListaCreditosActivos extends StatelessWidget {
@@ -92,7 +93,7 @@ class ListaCreditosActivos extends StatelessWidget {
       child: ListView.builder(
         itemCount: controller.filtroCreditos.value.length,
         itemBuilder: (_, index) {
-          return Card(
+          return CustomCardList(
             child: ListTile(
               title: _showClientTitle(controller, index, size),
               subtitle: _informacionSubtitulo(controller, index, context),

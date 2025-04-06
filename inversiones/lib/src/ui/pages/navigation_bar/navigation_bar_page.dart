@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/navigation_bar/navigation_bar_controller.dart';
+import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class NavigatinBarPage extends StatelessWidget {
@@ -14,6 +15,7 @@ class NavigatinBarPage extends StatelessWidget {
       body: Obx(() => controller.screens[controller.indexPage.value]),
       bottomNavigationBar: Obx(
         () => NavigationBar(
+          indicatorColor: ColoresApp.azulNavegador,
           height: General.mediaQuery(context).height * 0.07,
           backgroundColor: Colors.transparent,
           selectedIndex: controller.indexPage.value,

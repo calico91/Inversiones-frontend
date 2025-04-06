@@ -3,11 +3,13 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 
 class CustomCard extends StatelessWidget {
   final Widget child;
+  final Color? color;
 
-  const CustomCard({super.key, required this.child});
+  const CustomCard({super.key, required this.child, this.color});  
   @override
   Widget build(BuildContext context) {
     return Card(
+        color: color ?? Colors.white,
         elevation: 5,
         shape: const RoundedRectangleBorder(
             side: BorderSide(width: 0.2),
