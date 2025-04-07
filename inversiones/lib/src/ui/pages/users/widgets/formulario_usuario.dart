@@ -25,7 +25,7 @@ class FormularioUsuario extends StatelessWidget {
         Row(children: [
           TextFieldBase(
               textAlign: TextAlign.left,
-              paddingHorizontal: 20,
+              paddingHorizontal: 10,
               hintText: 'Nombres',
               controller: controller.nombres,
               textInputType: TextInputType.name,
@@ -40,7 +40,7 @@ class FormularioUsuario extends StatelessWidget {
         Row(children: [
           TextFieldBase(
               textAlign: TextAlign.left,
-              paddingHorizontal: 20,
+              paddingHorizontal: 10,
               hintText: 'Nombre usuario',
               controller: controller.nombreUsuario,
               textInputType: TextInputType.name,
@@ -67,7 +67,7 @@ class FormularioUsuario extends StatelessWidget {
   Widget _selectRoles(Size mediaQuery, UserController controller) => Container(
       padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
       height: mediaQuery.height * 0.14,
-      width: mediaQuery.width * 0.5,
+      width: mediaQuery.width * 0.45,
       child: Obx(() => MultiSelectDialogField(
           initialValue: controller.rolesAsignados.value,
           dialogHeight:

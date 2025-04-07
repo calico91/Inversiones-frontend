@@ -65,6 +65,7 @@ class TextFieldLogin extends StatelessWidget {
               suffixIconColor: const Color.fromRGBO(31, 33, 36, 0.8),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
+              labelText: hintText,
               filled: true,
               fillColor: fillColor ?? const Color.fromRGBO(165, 165, 165, 0.2),
               hintText: hintText ?? '',

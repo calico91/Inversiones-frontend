@@ -7,6 +7,7 @@ import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card_body.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/horizontal_scrollbar.dart';
@@ -21,21 +22,23 @@ class RolesPage extends StatelessWidget {
 
     return Scaffold(
       appBar: const AppBarCustom('Roles'),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-              child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: const Text('Asignar permisos',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 17)))),
-          Obx(
-            () => !controller.cargando.value
-                ? _selectRoles(mediaQuery, controller)
-                : const LinearProgressIndicator(),
-          ),
-        ],
+      body: CustomCardBody(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+                child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: const Text('Asignar permisos',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white)))),
+            Obx(
+              () => !controller.cargando.value
+                  ? _selectRoles(mediaQuery, controller)
+                  : const LinearProgressIndicator(),
+            ),
+          ],
+        ),
       ),
     );
   }

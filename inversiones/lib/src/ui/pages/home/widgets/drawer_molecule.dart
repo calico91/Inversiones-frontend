@@ -28,7 +28,7 @@ class DrawerMolecule extends StatelessWidget {
               if (controller.mostrarModulo(['SUPER']))
                 _opciones(Icons.admin_panel_settings_outlined, 'Roles',
                     () => Get.toNamed(RouteNames.roles)),
-              _opciones(Icons.fingerprint_outlined, 'Asignar biometria',
+              _opciones(Icons.fingerprint_outlined, 'Activar huella',
                   () => controller.vincularDispositivo()),
               _opciones(Icons.password_outlined, 'Cambiar contraseña',
                   () => _mostrarModalCambiarContrasena(context, controller)),

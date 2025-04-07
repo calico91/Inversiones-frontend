@@ -88,7 +88,7 @@ class ListaClientes extends StatelessWidget {
             "Editar cliente",
             () => controller.consultarClienteImagenes(
                 controller.filtroClientes.value[index].id!),
-            const FaIcon(FontAwesomeIcons.userPen)),
+            const Icon(Icons.edit_outlined)),
         _mostrarBotonSubtitulos(
             "Ver imagenes",
             () => controller

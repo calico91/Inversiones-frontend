@@ -8,6 +8,7 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/button_icon_custom.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card_body.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_search.dart';
 import 'package:inversiones/src/ui/pages/widgets/loading/loading.dart';
 
@@ -21,7 +22,7 @@ class UsersPage extends StatelessWidget {
 
     return Scaffold(
         appBar: const AppBarCustom('Usuarios'),
-        body: SingleChildScrollView(
+        body: CustomCardBody(
           child: Column(children: [
             Form(
                 key: controller.formKeyUsuario,
@@ -32,7 +33,7 @@ class UsersPage extends StatelessWidget {
                       height: mediaQuery.height * 0.47,
                       width: double.infinity,
                       child: controller.cargando.value
-                          ? const Loading(horizontal: 0.4, vertical: 0.2)
+                          ? const Loading(horizontal: 0.35, vertical: 0.2)
                           : controller.usuarios.value.isEmpty
                               ? const Center(
                                   child: Text('No hay usuarios creados'))
