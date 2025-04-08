@@ -30,7 +30,7 @@ class UsersPage extends StatelessWidget {
             Obx(() {
               return CustomCard(
                   child: SizedBox(
-                      height: mediaQuery.height * 0.47,
+                      height: mediaQuery.height * 0.45,
                       width: double.infinity,
                       child: controller.cargando.value
                           ? const Loading(horizontal: 0.35, vertical: 0.2)

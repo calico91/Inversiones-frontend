@@ -26,12 +26,6 @@ class RolesPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-                child: Container(
-                    padding: const EdgeInsets.all(10),
-                    child: const Text('Asignar permisos',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white)))),
             Obx(
               () => !controller.cargando.value
                   ? _selectRoles(mediaQuery, controller)
@@ -48,31 +42,65 @@ Widget _selectRoles(Size mediaQuery, RolesController controller) => SizedBox(
     width: double.infinity,
     child: CustomCard(
         child: Column(children: [
+      Container(
+          padding: const EdgeInsets.all(10),
+          child: const Text('Asignar permisos',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                  color: Colors.black))),
       SizedBox(
           width: mediaQuery.width * 0.8,
-          height: mediaQuery.height * 0.06,
-          child: DropdownButton<String>(
-              isExpanded: true,
-              items: [
-                const DropdownMenuItem<String>(
-                  child: Text('Seleccione un rol'),
+          height: mediaQuery.height * 0.08,
+          child: DropdownButtonFormField<String>(
+            isExpanded: true,
+            decoration: InputDecoration(
+              labelText: 'Seleccione un rol',
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+              fillColor: const Color.fromRGBO(165, 165, 165, 0.15),
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: Colors.grey[100]!, width: 0.2),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Color(0xFF1B80BF),
+                  width: 1.5,
                 ),
-                ...controller.roles.value.map((role) =>
-                    DropdownMenuItem<String>(
-                        value: role.id.toString(), child: Text(role.name)))
-              ],
-              value: controller.rolSeleccionado.value.isEmpty
-                  ? null
-                  : controller.rolSeleccionado.value,
-              onChanged: (String? newValue) {
-                controller.rolSeleccionado.value = newValue ?? '';
-                if (newValue != null) {
-                  controller.consultarPermisosRol(
-                      int.parse(controller.rolSeleccionado.value));
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 1.5,
+                ),
+              ),
+            ),
+            items: [
+              const DropdownMenuItem<String>(
+                value: '',
+                child: Text('Seleccione un rol'),
+              ),
+              ...controller.roles.value.map((role) => DropdownMenuItem<String>(
+                  value: role.id.toString(), child: Text(role.name))),
+            ],
+            value: controller.rolSeleccionado.value.isEmpty
+                ? ''
+                : controller.rolSeleccionado.value,
+            onChanged: (String? newValue) {
+              if (newValue != null) {
+                controller.rolSeleccionado.value = newValue;
+                if (newValue.isNotEmpty) {
+                  controller.consultarPermisosRol(int.parse(newValue));
                 } else {
                   controller.permisos.value = [];
+                  controller.rolSeleccionado.value = '';
                 }
-              })),
+              }
+            },
+          )),
       _selectPermisos(mediaQuery, controller),
       FilledButton.icon(
           onPressed: () => controller.asignarPermisos(),

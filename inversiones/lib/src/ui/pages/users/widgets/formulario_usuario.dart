@@ -9,7 +9,6 @@ import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
-import 'package:multi_select_flutter/util/horizontal_scrollbar.dart';
 
 class FormularioUsuario extends StatelessWidget {
   const FormularioUsuario(this.controller, this.mediaQuery, {super.key});
@@ -54,7 +53,7 @@ class FormularioUsuario extends StatelessWidget {
         ]),
         Obx(() {
           return !controller.rolesController.cargando.value
-              ? Row(children: [
+              ? Column(children: [
                   _selectRoles(mediaQuery, controller),
                   _registrarUsuarioBoton(mediaQuery, controller)
                 ])
@@ -64,35 +63,74 @@ class FormularioUsuario extends StatelessWidget {
     );
   }
 
-  Widget _selectRoles(Size mediaQuery, UserController controller) => Container(
-      padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
-      height: mediaQuery.height * 0.14,
-      width: mediaQuery.width * 0.45,
-      child: Obx(() => MultiSelectDialogField(
-          initialValue: controller.rolesAsignados.value,
-          dialogHeight:
-              mediaQuery.height * (controller.items.value.length / 11),
-          chipDisplay: MultiSelectChipDisplay<Roles>(scroll: true, scrollBar:HorizontalScrollBar(isAlwaysShown: true)),
-          buttonIcon: const Icon(Icons.arrow_forward_ios_rounded),
-          selectedColor: ColoresApp.azulPrimario,
-          buttonText: const Text('Roles', textAlign: TextAlign.center),
-          title: const Center(child: Text("Seleccione roles")),
-          items: controller.items.value,
-          onConfirm: (items) => controller.rolesAsignados.value = items)));
+  Widget _selectRoles(Size mediaQuery, UserController controller) => Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: mediaQuery.width * 0.028,
+          vertical: mediaQuery.height * 0.02,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(165, 165, 165, 0.15),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(width: 0.8),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Obx(() => MultiSelectDialogField<Roles>(
+                      initialValue: controller.rolesAsignados.value,
+                      dialogHeight: mediaQuery.height *
+                          (controller.items.value.length / 11),
+                      chipDisplay: MultiSelectChipDisplay.none(),
+                      buttonIcon: const Icon(Icons.arrow_forward_ios_rounded),
+                      selectedColor: ColoresApp.azulPrimario,
+                      buttonText: Text(
+                        _buildSelectedRolesText(
+                            controller.rolesAsignados.value),
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
+                      ),
+                      decoration: const BoxDecoration(border: Border()),
+                      title: const Center(child: Text("Seleccione roles")),
+                      items: controller.items.value,
+                      onConfirm: (items) =>
+                          controller.rolesAsignados.value = items,
+                    )),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  String _buildSelectedRolesText(List<Roles> roles) {
+    if (roles.isEmpty) {
+      return 'Seleccione roles';
+    }
+    const int maxRolesToShow = 3;
+    final displayedRoles =
+        roles.take(maxRolesToShow).map((role) => role.name).join(', ');
+    return roles.length > maxRolesToShow
+        ? '$displayedRoles...'
+        : displayedRoles;
+  }
 
   Widget _registrarUsuarioBoton(Size mediaQuery, UserController controller) =>
-      Padding(
-          padding: EdgeInsets.only(
-              bottom: mediaQuery.height * 0.08, left: mediaQuery.width * 0.04),
-          child: controller.registrar.value
-              ? FilledButton.icon(
-                  onPressed: () async => controller.registrarUsuario(),
-                  icon: const FaIcon(FontAwesomeIcons.userCheck),
-                  label: const Text("Registrar"))
-              : FilledButton.icon(
-                  onPressed: () async => controller.actualizarUsuario(),
-                  icon: const FaIcon(FontAwesomeIcons.userPen),
-                  label: const Text("Actualizar")));
+      controller.registrar.value
+          ? FilledButton.icon(
+              onPressed: () async => controller.registrarUsuario(),
+              icon: const FaIcon(FontAwesomeIcons.userCheck),
+              label: const Text("Registrar"))
+          : FilledButton.icon(
+              onPressed: () async => controller.actualizarUsuario(),
+              icon: const FaIcon(FontAwesomeIcons.userPen),
+              label: const Text("Actualizar"));
 }
 
 Widget _mostrarLinearCargando(Size mediaQuery) => Padding(
