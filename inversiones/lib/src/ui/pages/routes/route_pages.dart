@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:inversiones/src/ui/pages/cambiar_contrasena/cambiar_contrasena_page.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_binding.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_page.dart';
 import 'package:inversiones/src/ui/pages/credits/credits_binding.dart';
@@ -9,9 +10,9 @@ import 'package:inversiones/src/ui/pages/navigation_bar/navigation_bar_binding.d
 import 'package:inversiones/src/ui/pages/navigation_bar/navigation_bar_page.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_binding.dart';
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_page.dart';
+import 'package:inversiones/src/ui/pages/permisos/permisos_page.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_binding.dart';
 import 'package:inversiones/src/ui/pages/reportes/reportes_page.dart';
-import 'package:inversiones/src/ui/pages/roles/roles_page.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/sign_in/sign_in_binding.dart';
 import 'package:inversiones/src/ui/pages/sign_in/sign_in_page.dart';
@@ -67,9 +68,13 @@ class RoutePages {
         page: () => const NavigatinBarPage(),
         binding: const NavigationBarBinding(),
       ),
-        GetPage(
-        name: RouteNames.roles,
-        page: () => const RolesPage(),
+      GetPage(
+        name: RouteNames.permisos,
+        page: () => const PermisosPage(),
+      ),
+      GetPage(
+        name: RouteNames.cambiarContrasena,
+        page: () => const CambiarContrasenaPage(),
       ),
     ];
   }

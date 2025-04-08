@@ -86,7 +86,7 @@ class HomePage extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.only(top: 10),
-                      height: General.mediaQuery(context).height * 0.05,
+                      height: General.mediaQuery(context).height * 0.065,
                       width: General.mediaQuery(context).width * 0.1,
                       child: IconButton(
                         splashColor: Colors.transparent,

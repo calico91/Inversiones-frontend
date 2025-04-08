@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/clients/clients_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
@@ -88,7 +87,7 @@ class ListaClientes extends StatelessWidget {
             "Editar cliente",
             () => controller.consultarClienteImagenes(
                 controller.filtroClientes.value[index].id!),
-            const FaIcon(FontAwesomeIcons.userPen)),
+            const Icon(Icons.edit_outlined)),
         _mostrarBotonSubtitulos(
             "Ver imagenes",
             () => controller

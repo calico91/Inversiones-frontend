@@ -25,7 +25,7 @@ class ListaCreditosActivos extends StatelessWidget {
                   style: TextStyle(fontSize: 18),
                 ),
                 SizedBox(
-                  height: General.mediaQuery(context).height * 0.35,
+                  height: General.mediaQuery(context).height * 0.37,
                   width: General.mediaQuery(context).width * 0.45,
                   child: Image.asset(
                     'assets/cargar_credito.png',
