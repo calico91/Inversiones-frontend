@@ -38,15 +38,12 @@ class UsersPage extends StatelessWidget {
                               ? const Center(
                                   child: Text('No hay usuarios creados'))
                               : Column(children: [
-                                  Focus(
-                                      onFocusChange: (value) =>
-                                          controller.buscarUsuario('', value),
-                                      child: TextFieldSearch(
-                                          controller:
-                                              controller.buscarUsuarioCtrl,
-                                          labelText: 'Buscar usuario',
-                                          onChanged: (value) => controller
-                                              .buscarUsuario(value, true))),
+                                  TextFieldSearch(
+                                      controller:
+                                          controller.buscarUsuarioCtrl,
+                                      labelText: 'Buscar usuario',
+                                      onChanged: (value) => controller
+                                          .buscarUsuario(value, true)),
                                   _listaUsuarios(controller, mediaQuery)
                                 ])));
             })

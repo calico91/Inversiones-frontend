@@ -6,7 +6,7 @@ import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/domain/entities/user.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
 import 'package:inversiones/src/domain/responses/api_response.dart';
-import 'package:inversiones/src/ui/pages/roles/roles_controller.dart';
+import 'package:inversiones/src/ui/pages/permisos/permisos_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/animations/cargando_animacion.dart';
 import 'package:inversiones/src/ui/pages/widgets/snackbars/info_snackbar.dart';
@@ -174,13 +174,14 @@ class UserController extends GetxController {
   }
 
   void _clearForm() {
+    formKeyUsuario.currentState?.reset();
     nombres.clear();
     apellidos.clear();
     nombreUsuario.clear();
     correo.clear();
     rol.clear();
     rolesAsignados.value = [];
-    Get.focusScope!.unfocus();
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   void buscarUsuario(String value, bool focus) {

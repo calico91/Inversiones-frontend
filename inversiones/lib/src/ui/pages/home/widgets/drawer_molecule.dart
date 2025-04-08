@@ -26,8 +26,8 @@ class DrawerMolecule extends StatelessWidget {
                 _opciones(FontAwesomeIcons.circleUser, 'Usuarios',
                     () => Get.toNamed(RouteNames.users)),
               if (controller.mostrarModulo(['SUPER']))
-                _opciones(Icons.admin_panel_settings_outlined, 'Roles',
-                    () => Get.toNamed(RouteNames.roles)),
+                _opciones(Icons.admin_panel_settings_outlined, 'Permisos',
+                    () => Get.toNamed(RouteNames.permisos)),
               _opciones(Icons.fingerprint_outlined, 'Activar huella',
                   () => controller.vincularDispositivo()),
               _opciones(Icons.password_outlined, 'Cambiar contraseña',
