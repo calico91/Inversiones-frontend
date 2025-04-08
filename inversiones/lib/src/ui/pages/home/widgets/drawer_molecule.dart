@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/ui/pages/home/home_controller.dart';
-import 'package:inversiones/src/ui/pages/home/widgets/modal_cambiar_contrasena.dart';
 import 'package:inversiones/src/ui/pages/routes/route_names.dart';
 import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 
@@ -31,7 +30,7 @@ class DrawerMolecule extends StatelessWidget {
               _opciones(Icons.fingerprint_outlined, 'Activar huella',
                   () => controller.vincularDispositivo()),
               _opciones(Icons.password_outlined, 'Cambiar contraseña',
-                  () => _mostrarModalCambiarContrasena(context, controller)),
+                  () => Get.toNamed(RouteNames.cambiarContrasena)),
             ],
           ),
         ),
@@ -55,7 +54,11 @@ class DrawerMolecule extends StatelessWidget {
       {Color? color}) {
     return ListTile(
         onTap: accion,
-        leading: Icon(icono, color: color ?? ColoresApp.azulPrimario,size: 27,),
+        leading: Icon(
+          icono,
+          color: color ?? ColoresApp.azulPrimario,
+          size: 27,
+        ),
         title: Row(
           children: [
             Text(titulo),
@@ -64,11 +67,4 @@ class DrawerMolecule extends StatelessWidget {
           ],
         ));
   }
-
-  Future _mostrarModalCambiarContrasena(
-          BuildContext context, HomeController controller) =>
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) => ModalCambiarContrasena(controller));
 }

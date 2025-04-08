@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:inversiones/src/domain/entities/permiso.dart';
 import 'package:inversiones/src/ui/pages/permisos/permisos_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/button_actions.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card_body.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
@@ -96,10 +96,12 @@ Widget _selectRoles(Size mediaQuery, RolesController controller) => SizedBox(
             },
           )),
       _selectPermisos(mediaQuery, controller),
-      FilledButton.icon(
+      ButtonActions(
           onPressed: () => controller.asignarPermisos(),
-          icon: const FaIcon(FontAwesomeIcons.unlockKeyhole),
-          label: const Text("Asignar"))
+          height: 0.05,
+          width: 0.4,
+          label: 'ASIGNAR',
+          fontSize: 17)
     ])));
 
 Widget _selectPermisos(Size mediaQuery, RolesController controller) => Padding(
@@ -118,7 +120,7 @@ Widget _selectPermisos(Size mediaQuery, RolesController controller) => Padding(
                   border: Border.all(width: 0.8)),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Obx(() => MultiSelectDialogField<Permiso>(
-                decoration: const BoxDecoration(border: Border()),
+                    decoration: const BoxDecoration(border: Border()),
                     initialValue: controller.permisos.value,
                     dialogHeight: mediaQuery.height *
                         (controller.items.value.length / 11),

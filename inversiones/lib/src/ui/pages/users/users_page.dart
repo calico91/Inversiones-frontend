@@ -30,17 +30,16 @@ class UsersPage extends StatelessWidget {
             Obx(() {
               return CustomCard(
                   child: SizedBox(
-                      height: mediaQuery.height * 0.45,
+                      height: mediaQuery.height * 0.43,
                       width: double.infinity,
                       child: controller.cargando.value
-                          ? const Loading(horizontal: 0.35, vertical: 0.2)
+                          ? const Loading(horizontal: 0.35, vertical: 0.18)
                           : controller.usuarios.value.isEmpty
                               ? const Center(
                                   child: Text('No hay usuarios creados'))
                               : Column(children: [
                                   TextFieldSearch(
-                                      controller:
-                                          controller.buscarUsuarioCtrl,
+                                      controller: controller.buscarUsuarioCtrl,
                                       labelText: 'Buscar usuario',
                                       onChanged: (value) => controller
                                           .buscarUsuario(value, true)),
@@ -67,15 +66,15 @@ Widget _listaUsuarios(UserController controller, Size size) {
 Widget _showClientTitle(UserController controller, int index, Size size) =>
     SizedBox(
         child: Column(
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
-                child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    "${controller.filtroUsuarios.value[index].firstname} ${controller.filtroUsuarios.value[index].lastname}")),
-            const Divider()
-          ],
-        ));
+      children: [
+        Padding(
+            padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
+            child: Text(
+                overflow: TextOverflow.ellipsis,
+                "${controller.filtroUsuarios.value[index].firstname} ${controller.filtroUsuarios.value[index].lastname}")),
+        const Divider()
+      ],
+    ));
 
 Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
     SizedBox(
@@ -85,13 +84,15 @@ Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
           ButtonIconCustom(
               () => controller
                   .consultarUsuario(controller.filtroUsuarios.value[index].id!),
-              const FaIcon(FontAwesomeIcons.userPen, color: ColoresApp.azulPrimario),
+              const FaIcon(FontAwesomeIcons.userPen,
+                  color: ColoresApp.azulPrimario),
               'Editar usuario'),
           ButtonIconCustom(
               () => controller
                   .cambiarEstadoUsuario(controller.usuarios.value[index].id!),
               controller.usuarios.value[index].active!
-                  ? const FaIcon(FontAwesomeIcons.userCheck, color: ColoresApp.azulPrimario)
+                  ? const FaIcon(FontAwesomeIcons.userCheck,
+                      color: ColoresApp.azulPrimario)
                   : const FaIcon(FontAwesomeIcons.userSlash, color: Colors.red),
               controller.usuarios.value[index].active!
                   ? 'Inactivar usuario'
@@ -99,7 +100,8 @@ Widget _mostrarSubtitulos(UserController controller, int index, Size size) =>
           ButtonIconCustom(
               () => controller
                   .reinicarContrasena(controller.usuarios.value[index].id!),
-              const Icon(Icons.password_rounded, color: ColoresApp.azulPrimario),
+              const Icon(Icons.password_rounded,
+                  color: ColoresApp.azulPrimario),
               'Reiniciar contraseña'),
         ],
       ),

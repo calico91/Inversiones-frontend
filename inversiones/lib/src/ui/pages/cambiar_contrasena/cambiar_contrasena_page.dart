@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inversiones/src/ui/pages/home/home_controller.dart';
+import 'package:inversiones/src/ui/pages/cambiar_contrasena/cambiar_contrasena_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
+import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/button_actions.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card_body.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_fiel_login.dart';
 
-class ModalCambiarContrasena extends StatelessWidget {
-  const ModalCambiarContrasena(this.controller, {super.key});
+class CambiarContrasenaPage extends StatelessWidget {
+  const CambiarContrasenaPage({super.key});
 
-  final HomeController controller;
   @override
-  Widget build(BuildContext context) => AlertDialog(
-        scrollable: true,
-        actionsPadding: EdgeInsets.zero,
-        title: const Text('Cambiar contraseña', textAlign: TextAlign.center),
-        content: SizedBox(
-          child: Form(
-            key: controller.formKeyCambiarContrasena,
+  Widget build(BuildContext context) {
+    final CambiarContrasenaController controller =
+        Get.put(CambiarContrasenaController());
+
+    return Scaffold(
+      appBar: const AppBarCustom('Cambiar contraseña'),
+      body: CustomCardBody(
+        child: Form(
+          key: controller.formKeyCambiarContrasena,
+          child: CustomCard(
             child: Column(
               children: [
                 Obx(
                   () => TextFieldLogin(
                     suffixIcon:
                         _mostrarContrasena(controller.ocultarContrasenaActual),
-                    title: 'Contraseña actual',
+                    hintText: 'Contraseña actual',
                     widthTextField: 0.5,
-                    fillColor: Colors.white,
                     obscureText: controller.ocultarContrasenaActual.value,
                     controller: controller.contrasenaActual,
                     validateText: ValidateText.username,
@@ -36,9 +41,8 @@ class ModalCambiarContrasena extends StatelessWidget {
                   () => TextFieldLogin(
                     suffixIcon:
                         _mostrarContrasena(controller.ocultarContrasenaNueva),
-                    title: 'Contraseña nueva',
+                    hintText: 'Contraseña nueva',
                     widthTextField: 0.5,
-                    fillColor: Colors.white,
                     obscureText: controller.ocultarContrasenaNueva.value,
                     controller: controller.contrasenaNueva,
                     validateText: ValidateText.username,
@@ -49,9 +53,8 @@ class ModalCambiarContrasena extends StatelessWidget {
                   () => TextFieldLogin(
                     suffixIcon: _mostrarContrasena(
                         controller.ocultarConfirmarContrasena),
-                    title: 'Confirmar contraseña',
+                    hintText: 'Confirmar contraseña',
                     widthTextField: 0.5,
-                    fillColor: Colors.white,
                     obscureText: controller.ocultarConfirmarContrasena.value,
                     controller: controller.confirmarContrasena,
                     validateText: ValidateText.username,
@@ -59,21 +62,21 @@ class ModalCambiarContrasena extends StatelessWidget {
                 ),
                 SizedBox(height: General.mediaQuery(context).height * 0.03),
                 Container(
-                  padding: const EdgeInsets.only(top: 10),
-                  width: General.mediaQuery(context).width * 0.38,
-                  child: ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(shape: const StadiumBorder()),
-                    child: const Text('Enviar', textAlign: TextAlign.center),
-                    onPressed: () => _cambiarContrasena(controller),
-                  ),
-                ),
+                    padding: const EdgeInsets.only(top: 10),
+                    width: General.mediaQuery(context).width * 0.38,
+                    child: ButtonActions(
+                        onPressed: () => _cambiarContrasena(controller),
+                        height: 0.05,
+                        width: 0.44,
+                        label: 'ENVIAR',
+                        fontSize: 17)),
               ],
             ),
           ),
         ),
-        actions: [_cerrar(context, controller)],
-      );
+      ),
+    );
+  }
 }
 
 Widget _mostrarContrasena(RxBool campo) => IconButton(
@@ -83,22 +86,7 @@ Widget _mostrarContrasena(RxBool campo) => IconButton(
           : const Icon(Icons.visibility),
     );
 
-Widget _cerrar(BuildContext context, HomeController controller) => IconButton(
-    iconSize: 32,
-    tooltip: 'Cerrar',
-    onPressed: () {
-      controller.contrasenaActual.clear();
-      controller.contrasenaNueva.clear();
-      controller.confirmarContrasena.clear();
-      controller.ocultarContrasenaActual.value = true;
-      controller.ocultarContrasenaNueva.value = true;
-      controller.ocultarConfirmarContrasena.value = true;
-      Navigator.pop(context);
-    },
-    icon: const Icon(Icons.close_rounded),
-    color: Colors.grey);
-
-void _cambiarContrasena(HomeController controller) {
+void _cambiarContrasena(CambiarContrasenaController controller) {
   if (controller.formKeyCambiarContrasena.currentState!.validate()) {
     if (controller.confirmarContrasena.text.trim() !=
         controller.contrasenaNueva.text.trim()) {

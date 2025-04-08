@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:inversiones/src/domain/entities/roles.dart';
 import 'package:inversiones/src/ui/pages/users/users_controller.dart';
 import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/button_actions.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
@@ -123,14 +123,18 @@ class FormularioUsuario extends StatelessWidget {
 
   Widget _registrarUsuarioBoton(Size mediaQuery, UserController controller) =>
       controller.registrar.value
-          ? FilledButton.icon(
+          ? ButtonActions(
               onPressed: () async => controller.registrarUsuario(),
-              icon: const FaIcon(FontAwesomeIcons.userCheck),
-              label: const Text("Registrar"))
-          : FilledButton.icon(
+              height: 0.05,
+              width: 0.44,
+              label: 'REGISTRAR',
+              fontSize: 18)
+          : ButtonActions(
               onPressed: () async => controller.actualizarUsuario(),
-              icon: const FaIcon(FontAwesomeIcons.userPen),
-              label: const Text("Actualizar"));
+              height: 0.05,
+              width: 0.454,
+              label: 'ACTUALIZAR',
+              fontSize: 18);
 }
 
 Widget _mostrarLinearCargando(Size mediaQuery) => Padding(

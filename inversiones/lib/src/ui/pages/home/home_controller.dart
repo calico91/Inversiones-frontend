@@ -6,7 +6,6 @@ import 'package:inversiones/src/data/http/src/user_http.dart';
 import 'package:inversiones/src/data/local/secure_storage_local.dart';
 import 'package:inversiones/src/domain/entities/user_details.dart';
 import 'package:inversiones/src/domain/exceptions/http_exceptions.dart';
-import 'package:inversiones/src/domain/request/cambiar_contrasena_request.dart';
 import 'package:inversiones/src/domain/request/vincular_dispositivo_request.dart';
 import 'package:inversiones/src/domain/responses/clientes/clients_pending_installments_response.dart';
 import 'package:inversiones/src/domain/responses/generico_response.dart';
@@ -26,23 +25,15 @@ class HomeController extends GetxService {
   final Rx<int> idCredito = 0.obs;
   final Rx<String> nombreCliente = ''.obs;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> formKeyCambiarContrasena = GlobalKey<FormState>();
   final TextEditingController creditValue = TextEditingController();
   final TextEditingController installmentAmount = TextEditingController();
   final TextEditingController interestPercentage = TextEditingController();
-  final TextEditingController contrasenaActual = TextEditingController();
-  final TextEditingController contrasenaNueva = TextEditingController();
-  final TextEditingController confirmarContrasena = TextEditingController();
   final TextEditingController buscarClienteCtrl = TextEditingController();
   final Rx<UserDetails> userDetails = UserDetails().obs;
   RxString nombreUsuario = ''.obs;
   final Rx<int> indexPage = 0.obs;
 
   final TextEditingController fechafiltro = TextEditingController();
-
-  final RxBool ocultarContrasenaActual = true.obs;
-  final RxBool ocultarContrasenaNueva = true.obs;
-  final RxBool ocultarConfirmarContrasena = true.obs;
 
   Rx<List<ClientsPendingInstallment>> filtroClientes =
       Rx<List<ClientsPendingInstallment>>([]);
@@ -101,31 +92,6 @@ class HomeController extends GetxService {
           } else {
             appController.manageError(respuestaHttp.message);
           }
-        } on HttpException catch (e) {
-          appController.manageError(e.message);
-        } catch (e) {
-          appController.manageError(e.toString());
-        }
-      },
-    );
-  }
-
-  Future<void> cambiarContrasena() async {
-    final UserDetails? userDetails =
-        await const SecureStorageLocal().userDetails;
-
-    Get.showOverlay(
-      loadingWidget: const CargandoAnimacion(),
-      asyncFunction: () async {
-        try {
-          final GenericoResponse respuestaHttp =
-              await const UserHttp().cambiarContrasena(
-            CambiarContrasenaRequest(userDetails!.id!,
-                contrasenaActual.text.trim(), contrasenaNueva.text.trim()),
-          );
-          await const SecureStorageLocal().saveToken(null);
-          Get.offAllNamed(RouteNames.navigationBar);
-          Get.showSnackbar(InfoSnackbar(respuestaHttp.data));
         } on HttpException catch (e) {
           appController.manageError(e.message);
         } catch (e) {
