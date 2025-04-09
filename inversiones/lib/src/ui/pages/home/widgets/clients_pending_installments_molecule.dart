@@ -24,7 +24,7 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
-                  'assets/sin_creditos_pendientes.png',
+                  'assets/sin_creditos_pendientes-2.png',
                   width: double.infinity,
                   height: General.mediaQuery(context).height * 0.35,
                 ),
@@ -40,13 +40,13 @@ class ClientsPendingInstallmentsMolecule extends StatelessWidget {
           () => Expanded(
             child: Column(
               children: [
-                const SizedBox(height: 15),
                 TextFieldSearch(
                   widthTextFieldSearch: 0.7,
                   controller: controller.buscarClienteCtrl,
                   labelText: 'Buscar cliente',
                   onChanged: (value) => controller.buscarCliente(value, true),
                 ),
+                const SizedBox(height: 8),
                 Expanded(
                   child: ListView.builder(
                     itemCount: controller.filtroClientes.value.length,
