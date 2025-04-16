@@ -7,10 +7,13 @@ import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:inversiones/src/ui/pages/widgets/appbar/app_bar_custom.dart';
+import 'package:inversiones/src/ui/pages/widgets/buttons/button_actions.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/whatsapp_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/card/custom_card_body.dart';
 import 'package:inversiones/src/ui/pages/widgets/inputs/text_field_base.dart';
+import 'package:inversiones/src/ui/pages/widgets/labels/informacion_fila.dart';
 import 'package:inversiones/src/ui/pages/widgets/labels/titulo_nombre_cliente.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -33,96 +36,83 @@ class PayFeePage extends StatelessWidget {
             color: Colors.white,
           )
         ]),
-        body: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: General.mediaQuery(context).height * 0.03,
-                horizontal: General.mediaQuery(context).width * 0.1),
-            child: Column(children: [
-              const SizedBox(height: 10),
-              Screenshot(
-                  controller: screenshotController,
-                  child: CustomCard(
-                      child: Obx(() => ColoredBox(
-                          color: Colors.white,
-                          child: Column(children: [
-                            TituloNombreCliente(
-                                nombreCliente: controller.nombreCliente),
-                            _infoValorCuota(General.mediaQuery(context),
-                                'Fecha cuota', controller.payFee.fechaCuota!),
-                            _infoValorCuota(
-                                General.mediaQuery(context),
-                                'Proxima Mora',
-                                controller.payFee.fechaProximaMora!),
-                            _infoValorCuota(
-                                General.mediaQuery(context),
-                                'Cantidad cuotas',
-                                controller.payFee.numeroCuotas!.toString()),
-                            _infoValorCuota(
-                                General.mediaQuery(context),
-                                'Cuota numero',
-                                controller.payFee.cuotaNumero!.toString()),
-                            _infoValorCuota(
-                                General.mediaQuery(context),
-                                'Dias mora',
-                                controller.payFee.diasMora.toString()),
-                            _infoValorCuota(
-                                General.mediaQuery(context),
-                                'Interes mora',
-                                General.formatoMoneda(
-                                    controller.payFee.interesMora)),
-                            _infoValorCuota(
-                                General.mediaQuery(context),
-                                'Valor interes',
-                                General.formatoMoneda(
-                                    controller.payFee.valorInteres)),
-                            _infoValorCuota(
-                                General.mediaQuery(context),
-                                'Valor capital',
-                                General.formatoMoneda(
-                                    controller.payFee.valorCapital)),
-                            _infoValorCuota(
-                                General.mediaQuery(context),
-                                'Valor cuota',
-                                General.formatoMoneda(
-                                    controller.payFee.valorCuota))
-                          ]))))),
+        body: CustomCardBody(
+          child: Column(children: [
+            const SizedBox(height: 10),
+            Screenshot(
+                controller: screenshotController,
+                child: CustomCard(
+                    child: Obx(() => ColoredBox(
+                        color: Colors.white,
+                        child: Column(children: [
+                          TituloNombreCliente(
+                              fontSize: 20,
+                              nombreCliente: controller.nombreCliente),
+                          InformacionFila(
+                              titulo: 'Fecha cuota',
+                              informacion: controller.payFee.fechaCuota!),
+                          InformacionFila(
+                              titulo: 'Proxima Mora',
+                              informacion: controller.payFee.fechaProximaMora!),
+                          InformacionFila(
+                              titulo: 'Cantidad cuotas',
+                              informacion:
+                                  controller.payFee.numeroCuotas!.toString()),
+                          InformacionFila(
+                              titulo: 'Cuota numero',
+                              informacion:
+                                  controller.payFee.cuotaNumero!.toString()),
+                          InformacionFila(
+                              titulo: 'Dias mora',
+                              informacion:
+                                  controller.payFee.diasMora.toString()),
+                          InformacionFila(
+                              titulo: 'Interes mora',
+                              informacion: General.formatoMoneda(
+                                  controller.payFee.interesMora)),
+                          InformacionFila(
+                              titulo: 'Valor interes',
+                              informacion: General.formatoMoneda(
+                                  controller.payFee.valorInteres)),
+                          InformacionFila(
+                              titulo: 'Valor capital',
+                              informacion: General.formatoMoneda(
+                                  controller.payFee.valorCapital)),
+                          InformacionFila(
+                              titulo: 'Valor cuota',
+                              informacion: General.formatoMoneda(
+                                  controller.payFee.valorCuota))
+                        ]))))),
 
-              ///botones
-              const SizedBox(
-                height: 20,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                FilledButton.icon(
-                    onPressed: () => _mostrarConfirmacionPagoCuota(
-                        General.mediaQuery(context),
-                        'Desea pagar la cuota?',
-                        context,
-                        controller,
-                        false),
-                    icon: const Icon(Icons.money),
-                    label: const Text("Pagar cuota")),
-                FilledButton.icon(
-                    onPressed: () => _mostrarConfirmacionPagoCuota(
-                        General.mediaQuery(context),
-                        'Desea pagar solo interes?',
-                        context,
-                        controller,
-                        true),
-                    icon: const Icon(Icons.monetization_on_outlined),
-                    label: const Text("Pagar interes"))
-              ])
-            ])));
+            ///botones
+            const SizedBox(height: 20),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              ButtonActions(
+                  onPressed: () => _mostrarConfirmacionPagoCuota(
+                      General.mediaQuery(context),
+                      'Desea pagar la cuota?',
+                      context,
+                      controller,
+                      false),
+                  height: 0.05,
+                  width: 0.35,
+                  label: 'Pagar cuota',
+                  fontSize: 15),
+              ButtonActions(
+                  onPressed: () => _mostrarConfirmacionPagoCuota(
+                      General.mediaQuery(context),
+                      'Desea pagar solo interes?',
+                      context,
+                      controller,
+                      true),
+                  height: 0.05,
+                  width: 0.35,
+                  label: 'Pagar interes',
+                  fontSize: 15),
+            ])
+          ]),
+        ));
   }
-
-  Widget _infoValorCuota(Size size, String titulo, String info) => Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: size.height * 0.01, horizontal: size.width * 0.01),
-      child: Row(children: [
-        Text('$titulo:',
-            style: const TextStyle(fontSize: 20, color: Colors.blueGrey)),
-        Expanded(child: Container()),
-        Text(info, style: const TextStyle(fontSize: 20))
-      ]));
 
   Future _mostrarConfirmacionPagoCuota(Size size, String mensaje,
       BuildContext context, PayFeeController controller, bool soloInteres) {

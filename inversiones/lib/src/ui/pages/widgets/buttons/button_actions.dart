@@ -18,14 +18,16 @@ class ButtonActions extends StatelessWidget {
   final double fontSize;
   @override
   Widget build(BuildContext context) {
+    final Size mediaQuery = General.mediaQuery(context);
+
     return TextButton(
       style: ButtonStyle(
           overlayColor:
               MaterialStateColor.resolveWith((states) => Colors.transparent)),
       onPressed: onPressed,
       child: Container(
-        height: General.mediaQuery(context).height * height,
-        width: General.mediaQuery(context).width * width,
+        height: mediaQuery.height * height,
+        width: mediaQuery.width * width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: ColoresApp.azulPrimario,

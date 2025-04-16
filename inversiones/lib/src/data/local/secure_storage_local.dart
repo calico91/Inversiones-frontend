@@ -131,7 +131,7 @@ class SecureStorageLocal implements SecureStorageRepository {
   }
 
   @override
-  Future<String?> get consularApp async =>
+  Future<String?> get consultarApp async =>
       await secureStorage.read(key: 'consultarApp');
 
   @override

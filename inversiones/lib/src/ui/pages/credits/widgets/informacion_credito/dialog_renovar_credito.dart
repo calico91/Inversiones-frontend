@@ -70,7 +70,7 @@ class DialogRenovarCredito extends StatelessWidget {
                       Row(children: [
                         TextFieldCalendar(
                             title: 'Fecha crédito',
-                            letterSize: 0.015,
+                            letterSize: 0.013,
                             paddingHorizontal: 10,
                             widthTextField: 0.31,
                             controller: controller.fechaCredito,
@@ -78,7 +78,7 @@ class DialogRenovarCredito extends StatelessWidget {
                                 context, controller.fechaCredito)),
                         TextFieldCalendar(
                             title: 'fecha cuota ',
-                            letterSize: 0.015,
+                            letterSize: 0.013,
                             widthTextField: 0.31,
                             controller: controller.fechaCuota,
                             onTap: () async => controller.showCalendar(

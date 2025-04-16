@@ -4,12 +4,11 @@ import 'package:inversiones/src/ui/pages/utils/general.dart';
 import 'package:screenshot/screenshot.dart';
 
 class ShareButton extends StatelessWidget {
-  const ShareButton({
-    super.key,
-    required this.screenshotController,
-    required this.descripcion,
-    this.color,
-  });
+  const ShareButton(
+      {super.key,
+      required this.screenshotController,
+      required this.descripcion,
+      this.color});
 
   final ScreenshotController screenshotController;
   final String descripcion;
@@ -17,6 +16,7 @@ class ShareButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      splashColor: Colors.transparent,
       tooltip: 'Compartir',
       onPressed: () => _compartirImagen(),
       icon: Icon(Icons.share, color: color ?? ColoresApp.azulPrimario),
@@ -25,7 +25,7 @@ class ShareButton extends StatelessWidget {
 
   Future<void> _compartirImagen() async {
     final image = await screenshotController.capture(
-      delay: const Duration(seconds: 2),
+      delay: const Duration(milliseconds: 500),
     );
     if (image == null) return;
     await General.capturarGardarImagen(image);

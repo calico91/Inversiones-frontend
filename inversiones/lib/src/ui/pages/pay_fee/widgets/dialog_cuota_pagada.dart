@@ -9,6 +9,7 @@ import 'package:inversiones/src/ui/pages/widgets/buttons/close_button_custom.dar
 import 'package:inversiones/src/ui/pages/widgets/buttons/home_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/buttons/share_button.dart';
 import 'package:inversiones/src/ui/pages/widgets/card/custom_card.dart';
+import 'package:inversiones/src/ui/pages/widgets/labels/informacion_fila.dart';
 import 'package:inversiones/src/ui/pages/widgets/labels/titulo_nombre_cliente.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -57,23 +58,20 @@ class DialogCuotaPagada extends StatelessWidget {
               child: Column(
                 children: [
                   TituloNombreCliente(nombreCliente: nombreCliente!),
+                  _mostrarContenido('Codigo crédito',
+                      dataAbono.idCredito.toString(), context, true),
                   _mostrarContenido(
-                      'Codigo crédito:',
-                      dataAbono.idCredito.toString(),
-                      context,
-                      true),
-                  _mostrarContenido(
-                      'Cuotas Pagadas:',
+                      'Cuotas Pagadas',
                       dataAbono.cuotasPagadas.toString(),
                       context,
                       mostrarCampo),
                   _mostrarContenido(
-                      'Cantidad de cuotas:',
+                      'Cantidad de cuotas',
                       dataAbono.cantidadCuotas.toString(),
                       context,
                       mostrarCampo),
                   _mostrarContenido(
-                      'Tipo abono:',
+                      'Tipo abono',
                       dataAbono.tipoAbono == Constantes.SOLO_INTERES
                           ? 'Interes'
                           : dataAbono.tipoAbono == Constantes.ABONO_CAPITAL
@@ -82,7 +80,7 @@ class DialogCuotaPagada extends StatelessWidget {
                       context,
                       true),
                   _mostrarContenido(
-                      'Valor abonado:',
+                      'Valor abonado',
                       General.formatoMoneda(
                         General.stringToDouble(
                             dataAbono.valorAbonado.toString().split('.').first),
@@ -90,7 +88,7 @@ class DialogCuotaPagada extends StatelessWidget {
                       context,
                       true),
                   _mostrarContenido(
-                      'Saldo capital:',
+                      'Saldo capital',
                       General.formatoMoneda(
                         General.stringToDouble(
                             dataAbono.saldoCapital.toString().split('.').first),
@@ -98,7 +96,7 @@ class DialogCuotaPagada extends StatelessWidget {
                       context,
                       mostrarSaldoCapital),
                   _mostrarContenido(
-                      'Fecha abono:',
+                      'Fecha abono',
                       General.formatoFecha(
                         DateTime.parse(
                           dataAbono.fechaAbono ?? DateTime.now().toString(),
@@ -125,31 +123,14 @@ class DialogCuotaPagada extends StatelessWidget {
     );
   }
 
-  Widget _mostrarContenido(
-    String label,
-    String informacion,
-    BuildContext context,
-    bool mostrarCampo,
-  ) {
+  Widget _mostrarContenido(String titulo, String informacion,
+      BuildContext context, bool mostrarCampo) {
     if (mostrarCampo) {
-      return Padding(
-        padding: EdgeInsets.only(
-          bottom: General.mediaQuery(context).height * 0.01,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              textAlign: TextAlign.center,
-              label,
-            ),
-            Text(
-              textAlign: TextAlign.center,
-              informacion,
-            ),
-          ],
-        ),
-      );
+      return InformacionFila(
+          verticalPadding: 0.005,
+          titulo: titulo,
+          informacion: informacion,
+          fontSize: 15);
     } else {
       return const SizedBox();
     }
@@ -176,5 +157,6 @@ class DialogCuotaPagada extends StatelessWidget {
               ],
             ),
           ),
-      icon: const Icon(Icons.money_off_csred_sharp, color: ColoresApp.azulPrimario));
+      icon: const Icon(Icons.money_off_csred_sharp,
+          color: ColoresApp.azulPrimario));
 }

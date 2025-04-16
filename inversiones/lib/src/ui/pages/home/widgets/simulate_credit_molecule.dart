@@ -27,6 +27,7 @@ class SimulateCreditMolecule extends StatelessWidget {
               SizedBox(
                 height: General.mediaQuery(context).height * 0.03,
                 child: IconButton(
+                  splashColor: Colors.transparent,
                   padding: EdgeInsets.zero,
                   tooltip: 'Calcular',
                   icon: const Icon(size: 25, Icons.info, color: ColoresApp.azulPrimario),
@@ -120,7 +121,7 @@ class SimulateCreditMolecule extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Aceptar'),
+            child: const Text('Aceptar',style: TextStyle(color: ColoresApp.azulPrimario),),
           ),
         ],
       ),
