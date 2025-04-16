@@ -25,7 +25,7 @@ class ShareButton extends StatelessWidget {
 
   Future<void> _compartirImagen() async {
     final image = await screenshotController.capture(
-      delay: const Duration(seconds: 2),
+      delay: const Duration(seconds: 1),
     );
     if (image == null) return;
     await General.capturarGardarImagen(image);
