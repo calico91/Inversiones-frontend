@@ -14,7 +14,7 @@ abstract class SecureStorageRepository {
   Future<String?> get urlServidor;
   Future<List<Roles>?> get roles;
   Future<List<Permiso>?> get permisos;
-  Future<String?> get consularApp;
+  Future<String?> get consultarApp;
   Future<String?> get diasMora;
   Future<String?> get valorMora;
   Future<void> saveToken(String? token);

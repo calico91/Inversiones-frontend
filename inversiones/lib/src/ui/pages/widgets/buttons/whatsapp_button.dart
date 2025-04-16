@@ -18,6 +18,7 @@ class WhatsAppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      splashColor: Colors.transparent,
       color: color ?? ColoresApp.azulPrimario,
       tooltip: 'Enviar WhatsApp',
       onPressed: () => _enviarWhatsApp('+57$celular', mensaje ?? ''),
@@ -28,7 +29,7 @@ class WhatsAppButton extends StatelessWidget {
   Future<void> _enviarWhatsApp(String numero, String mensaje) async {
     const SecureStorageLocal secureStorageLocal = SecureStorageLocal();
 
-    if (await secureStorageLocal.consularApp != 'S') {
+    if (await secureStorageLocal.consultarApp != 'S') {
       InstalledApps.getInstalledApps();
       await secureStorageLocal.saveConsultarApp('S');
     }
