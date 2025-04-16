@@ -127,6 +127,7 @@ class DialogCuotaPagada extends StatelessWidget {
       BuildContext context, bool mostrarCampo) {
     if (mostrarCampo) {
       return InformacionFila(
+        horizontalPadding: 0.01,
           verticalPadding: 0.005,
           titulo: titulo,
           informacion: informacion,
