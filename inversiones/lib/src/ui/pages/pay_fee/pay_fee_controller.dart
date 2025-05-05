@@ -19,7 +19,6 @@ class PayFeeController extends GetxController {
   final Rx<int> _status = Rx<int>(0);
   final TextEditingController valorAbono = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final Rx<bool> cambiarCuota = Rx<bool>(false);
 
   Future<void> loadPayFee() async {
     Get.showOverlay(
@@ -38,7 +37,6 @@ class PayFeeController extends GetxController {
             appController.manageError(e.message);
           } catch (e) {
             Get.back();
-
             appController.manageError(e.toString());
           }
         });
@@ -56,19 +54,11 @@ class PayFeeController extends GetxController {
               estadoCredito: Constantes.CREDITO_ACTIVO,
               tipoAbono: tipoAbono,
               fechaAbono: General.formatoFecha(DateTime.now()),
-
-              /// si solo abona interes, envia el valor del input
-              /// si al pagar la cuota normal activa el boton de cambiar valor se envia el valor del input
-              /// si no lo cambia envia el valor que viene del back
-              valorAbonado: tipoAbono == Constantes.SOLO_INTERES
-                  ? General.stringToDouble(valorAbono.text)
-                  : cambiarCuota.value
-                      ? General.stringToDouble(valorAbono.text)
-                      : payFee.valorCuota!,
+              valorAbonado: General.stringToDouble(valorAbono.text),
               idCuotaCredito: payFee.id!,
             ),
           );
-          
+
           General.mostrarModalCompartirAbonos(respuestaHttp.dataAbono!, false,
               homeController.nombreClienteSeleccionado, false);
         } on HttpException catch (e) {
@@ -78,11 +68,6 @@ class PayFeeController extends GetxController {
         }
       },
     );
-  }
-
-  /// cambia el valor del switch modificar valor
-  bool? cambiarValorSwitch(bool value) {
-    return cambiarCuota.value = value;
   }
 
   int get status => _status.value;
