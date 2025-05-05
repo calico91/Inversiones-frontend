@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:inversiones/src/ui/pages/pay_fee/pay_fee_controller.dart';
-import 'package:inversiones/src/ui/pages/utils/colores_app.dart';
 import 'package:inversiones/src/ui/pages/utils/constantes.dart';
 import 'package:inversiones/src/ui/pages/utils/enums.dart';
 import 'package:inversiones/src/ui/pages/utils/general.dart';
@@ -49,6 +48,11 @@ class PayFeePage extends StatelessWidget {
                               fontSize: 20,
                               nombreCliente: controller.nombreCliente),
                           InformacionFila(
+                              titulo: 'Id credito',
+                              informacion: controller
+                                  .homeController.idCredito.value
+                                  .toString()),
+                          InformacionFila(
                               titulo: 'Fecha cuota',
                               informacion: controller.payFee.fechaCuota!),
                           InformacionFila(
@@ -88,23 +92,15 @@ class PayFeePage extends StatelessWidget {
             const SizedBox(height: 20),
             Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
               ButtonActions(
-                  onPressed: () => _mostrarConfirmacionPagoCuota(
-                      General.mediaQuery(context),
-                      'Desea pagar la cuota?',
-                      context,
-                      controller,
-                      false),
+                  onPressed: () =>
+                      _mostrarConfirmacionPagoCuota(context, controller, false),
                   height: 0.05,
                   width: 0.35,
                   label: 'Pagar cuota',
                   fontSize: 15),
               ButtonActions(
-                  onPressed: () => _mostrarConfirmacionPagoCuota(
-                      General.mediaQuery(context),
-                      'Desea pagar solo interes?',
-                      context,
-                      controller,
-                      true),
+                  onPressed: () =>
+                      _mostrarConfirmacionPagoCuota(context, controller, true),
                   height: 0.05,
                   width: 0.35,
                   label: 'Pagar interes',
@@ -114,86 +110,53 @@ class PayFeePage extends StatelessWidget {
         ));
   }
 
-  Future _mostrarConfirmacionPagoCuota(Size size, String mensaje,
+  Future _mostrarConfirmacionPagoCuota(
       BuildContext context, PayFeeController controller, bool soloInteres) {
-    soloInteres
-        ? controller.valorAbono.text =
-            controller.payFee.valorInteres.toString().split(".").first
-        : controller.valorAbono.text = '';
+    controller.valorAbono.text = (soloInteres
+            ? controller.payFee.valorInteres
+            : controller.payFee.valorCuota)
+        .toString()
+        .split('.')
+        .first;
+
+    final String mensaje = soloInteres
+        ? '¿Desea pagar solo interes?'
+        : '¿Desea pagar la cuota normal?';
 
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
                 scrollable: true,
                 actionsPadding: EdgeInsets.zero,
-                content: soloInteres
-                    ? SizedBox(
-                        height: size.height * 0.17,
-                        child: Column(children: [
-                          Text(textAlign: TextAlign.center, mensaje),
-                          const SizedBox(height: 20),
-                          Form(
-                              key: controller.formKey,
-                              child: TextFieldBase(
-                                  hintText: 'valor Interes',
-                                  controller: controller.valorAbono,
-                                  textInputType: TextInputType.number,
-                                  validateText: ValidateText.creditValue))
-                        ]))
-                    : Obx(() => SizedBox(
-                        height: controller.cambiarCuota.value
-                            ? size.height * 0.2
-                            : size.height * 0.08,
-                        child: Column(children: [
-                          Text(textAlign: TextAlign.center, mensaje),
-                          Row(children: [
-                            const Text(
-                                textAlign: TextAlign.center, 'Modificar cuota'),
-                            Switch(
-                                value: controller.cambiarCuota.value,
-                                activeColor: ColoresApp.azulPrimario,
-                                onChanged: (bool value) =>
-                                    controller.cambiarValorSwitch(value))
-                          ]),
-                          if (controller.cambiarCuota.value)
-                            Form(
-                                key: controller.formKey,
-                                child: TextFieldBase(
-                                    hintText: 'Valor cuota',
-                                    controller: controller.valorAbono,
-                                    textInputType: TextInputType.number,
-                                    validateText: ValidateText.creditValue))
-                          else
-                            const SizedBox()
-                        ]))),
+                content: SizedBox(
+                    height: General.mediaQuery(context).height * 0.17,
+                    child: Column(children: [
+                      Text(textAlign: TextAlign.center, mensaje),
+                      const SizedBox(height: 20),
+                      Form(
+                          key: controller.formKey,
+                          child: TextFieldBase(
+                              hintText:
+                                  soloInteres ? 'valor Interes' : 'Valor cuota',
+                              controller: controller.valorAbono,
+                              textInputType: TextInputType.number,
+                              validateText: ValidateText.creditValue))
+                    ])),
                 actions: [
                   TextButton(
                       child: const Text('Si'),
                       onPressed: () {
-                        if (!soloInteres) {
-                          if (controller.cambiarCuota.value) {
-                            if (General.validateForm(controller.formKey)) {
-                              controller.pagarCuota(Constantes.CUOTA_NORMAL);
-                              Navigator.pop(context);
-                              return;
-                            }
-                          } else {
-                            controller.pagarCuota(Constantes.CUOTA_NORMAL);
-                            Navigator.pop(context);
-                            return;
-                          }
-                        } else {
-                          if (General.validateForm(controller.formKey)) {
-                            controller.pagarCuota(Constantes.SOLO_INTERES);
-                            Navigator.pop(context);
-                          }
+                        if (General.validateForm(controller.formKey)) {
+                          controller.pagarCuota(soloInteres
+                              ? Constantes.SOLO_INTERES
+                              : Constantes.CUOTA_NORMAL);
+                          Navigator.pop(context);
                         }
                       }),
                   TextButton(
                       child: const Text('No'),
                       onPressed: () {
                         Navigator.pop(context);
-                        controller.cambiarCuota(false);
                       })
                 ]));
   }
